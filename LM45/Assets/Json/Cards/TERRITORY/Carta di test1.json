@@ -1,0 +1,38 @@
+{
+  "minDiceToGather": 2,
+  "name": "Carta di test1",
+  "periodType": "I",
+  "cardType": "TERRITORY",
+  "cost": {
+    "cost": [
+      {
+        "resourceType": "STONE",
+        "amount": 1
+      },
+      {
+        "resourceType": "WOOD",
+        "amount": 2
+      }
+    ]
+  },
+  "immediateEffect": {
+    "effects": [],
+    "effectsAreAlternative": false
+  },
+  "effect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "COINS",
+            "amount": 3
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false
+  },
+  "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Territory"
+}
