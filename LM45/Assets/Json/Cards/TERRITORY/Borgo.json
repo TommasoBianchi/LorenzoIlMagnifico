@@ -1,37 +1,32 @@
 {
-  "minDiceToGather": 4,
-  "name": "Carta di test2",
+  "minDiceToGather": 3,
+  "name": "Borgo",
   "periodType": "I",
   "cardType": "TERRITORY",
   "cost": {
-    "cost": [
-      {
-        "resourceType": "STONE",
-        "amount": 1
-      },
-      {
-        "resourceType": "WOOD",
-        "amount": 2
-      }
-    ]
+    "cost": []
   },
   "immediateEffect": {
+    "effects": [],
+    "effectsAreAlternative": false
+  },
+  "effect": {
     "effects": [
       {
         "resourcesToPay": [],
         "resourcesToGain": [
           {
             "resourceType": "COINS",
-            "amount": 3
+            "amount": 1
+          },
+          {
+            "resourceType": "SERVANTS",
+            "amount": 1
           }
         ],
         "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
       }
     ],
-    "effectsAreAlternative": false
-  },
-  "effect": {
-    "effects": [],
     "effectsAreAlternative": false
   },
   "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Territory"

@@ -1,22 +1,24 @@
 {
-  "minDiceToGather": 2,
-  "name": "Carta di test1",
+  "minDiceToGather": 4,
+  "name": "Cava di Ghiaia",
   "periodType": "I",
   "cardType": "TERRITORY",
   "cost": {
-    "cost": [
-      {
-        "resourceType": "STONE",
-        "amount": 1
-      },
-      {
-        "resourceType": "WOOD",
-        "amount": 2
-      }
-    ]
+    "cost": []
   },
   "immediateEffect": {
-    "effects": [],
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "STONE",
+            "amount": 2
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
     "effectsAreAlternative": false
   },
   "effect": {
@@ -25,8 +27,8 @@
         "resourcesToPay": [],
         "resourcesToGain": [
           {
-            "resourceType": "COINS",
-            "amount": 3
+            "resourceType": "STONE",
+            "amount": 2
           }
         ],
         "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"

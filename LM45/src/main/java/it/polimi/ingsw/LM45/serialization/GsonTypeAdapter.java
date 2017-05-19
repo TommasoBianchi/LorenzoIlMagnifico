@@ -25,7 +25,6 @@ public class GsonTypeAdapter<T> implements JsonSerializer<T>, JsonDeserializer<T
 	}
 
 	public JsonElement serialize(T element, Type type, JsonSerializationContext context) {
-		System.out.println("serializing " + element.getClass());
 		JsonElement jsonElement = context.serialize(element, element.getClass());
         jsonElement.getAsJsonObject().addProperty(TYPE_KEY, element.getClass().getCanonicalName());
         return jsonElement;
