@@ -178,12 +178,23 @@ public class FileManager {
 				 2);
 		
 		try {
-			for(Card card : cards)
-				saveCard(card);
+			//for(Card card : cards)
+				//saveCard(card);
 			
 			Map<CardType, List<Card>> deck = loadCards();
 			for(Card card : deck.get(CardType.TERRITORY))
-				System.out.println(card.getName());
+				System.out.println(card.getName() + " - Period " + card.getPeriodType());
+			
+			System.out.println("------------------");
+			List<Card> shuffledCards = it.polimi.ingsw.LM45.util.ShuffleHelper.shuffle(deck.get(CardType.TERRITORY));
+			for(Card card : shuffledCards)
+				System.out.println(card.getName() + " - Period " + card.getPeriodType());
+			
+			System.out.println("------------------");
+			List<Card> shuffledByPeriodCards = it.polimi.ingsw.LM45.util.ShuffleHelper.shuffleByPeriod(deck.get(CardType.TERRITORY));
+			for(Card card : shuffledByPeriodCards)
+				System.out.println(card.getName() + " - Period " + card.getPeriodType());
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
