@@ -50,4 +50,8 @@ public class Familiar {
 		this.isPlaced = value;
 	}
 	
+	public void setServantBonusCost(int cost){
+		this.servantBonusCost = cost;
+	}
+	
 }

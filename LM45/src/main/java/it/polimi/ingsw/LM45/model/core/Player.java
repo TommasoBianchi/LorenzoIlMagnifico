@@ -61,6 +61,31 @@ public class Player {
 			}
 		}
 		
+		public void setFamiliarValue(FamiliarColor color, int value){
+			for(Familiar familiar:familiars ){
+				if (familiar.getFamiliarColor()==color)
+					familiar.setValue(value);
+			}
+		}
+		
+		public void modifyServantCost(int cost){
+			for(Familiar familiar:familiars ){
+				familiar.setServantBonusCost(cost);
+			}
+		}
+		
+		public void noTerritoryRequisites() {
+			personalBoard.clearTerritoryRequisites();
+		}
+		
+		public void addChurchSupportBonus(Resource resource) {
+			churchSupportBonuses.add(resource);
+		}
+		
+		public void setHasToSkipFirstTurn() {
+			hasToSkipFirstTurn = true;
+		}
+		
 		/*public activateLeaderCard(leaderCard: LeaderCard) : void		
 		public addExcommunication(ex: Excommunication) : void*/
 }
