@@ -9,8 +9,7 @@ public class ChurchSupportBonusEffect extends Effect {
 
 	@Override
 	public void ResolveEffect(Player player) {
-		// TODO Auto-generated method stub
-
+		player.addChurchSupportBonus(resource);
 	}
 
 }

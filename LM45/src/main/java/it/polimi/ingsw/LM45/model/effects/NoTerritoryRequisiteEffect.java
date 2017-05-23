@@ -6,8 +6,7 @@ public class NoTerritoryRequisiteEffect extends Effect {
 
 	@Override
 	public void ResolveEffect(Player player) {
-		// TODO Auto-generated method stub
-
+		player.noTerritoryRequisites();
 	}
 
 }

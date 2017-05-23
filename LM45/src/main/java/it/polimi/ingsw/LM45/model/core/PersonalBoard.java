@@ -51,4 +51,10 @@ public class PersonalBoard {
 		resources.put(card.getCardType().toResourceType(), resources.getOrDefault(card.getCardType().toResourceType(), 0) + 1);
 	}
 	
+	public void clearTerritoryRequisites() {
+		for(Resource resource :territoryRequisites ){
+			resource = new Resource ( ResourceType.MILITARY , 0);
+		}
+	}
+	
 }
