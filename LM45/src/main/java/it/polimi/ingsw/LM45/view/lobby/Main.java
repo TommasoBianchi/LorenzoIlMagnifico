@@ -8,13 +8,13 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class Lobby extends Application {
+public class Main extends Application {
 	
 	private Stage primaryStage;
 	private AnchorPane lobby;
 	
-	public void start(Stage primarystage) {
-		this.primaryStage = primarystage;
+	public void start(Stage stage) {
+		this.primaryStage = stage;
 		this.primaryStage.setTitle("Lorenzo il Magnifico");
 		showLobbyView();
 	}
@@ -22,15 +22,20 @@ public class Lobby extends Application {
 	public void showLobbyView() {
 		try{
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Lobby.class.getResource("LobbyView.fxml"));
+			loader.setLocation(Main.class.getResource("LobbyView.fxml"));
 			lobby = (AnchorPane) loader.load();
 			Scene scene = new Scene(lobby);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			LobbyController controller = loader.getController();
-		} catch (IOException e) {
-			e.printStackTrace();
+			controller.setMain(this);
+			} catch (IOException e) {				// TODO sistemare
+				e.printStackTrace();
 		}
+	}
+	
+	public Stage getPrimaryStage() {
+		return primaryStage;
 	}
 	
 	public static void main(String[] args) {
