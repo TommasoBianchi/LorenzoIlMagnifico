@@ -15,6 +15,10 @@ public class ActionEffect extends Effect {
 		this.diceNumber = diceNumber;
 		this.discount = discount;
 	}
+	
+	public ActionEffect(SlotType slotType, int diceNumber) {
+		this(slotType, diceNumber, new Resource[]{});
+	}
 
 	@Override
 	public void ResolveEffect(Player player) {
