@@ -24,12 +24,14 @@ import it.polimi.ingsw.LM45.model.effects.Effect;
 import it.polimi.ingsw.LM45.model.effects.ResourceEffect;
 import it.polimi.ingsw.LM45.model.effects.SlotModifierEffect;
 import it.polimi.ingsw.LM45.model.cards.Cost;
+import it.polimi.ingsw.LM45.model.cards.CostWithPrerequisites;
 import it.polimi.ingsw.LM45.model.cards.PeriodType;
 import it.polimi.ingsw.LM45.model.effects.ActionEffect;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.ResourceType;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.model.cards.Territory;
+import it.polimi.ingsw.LM45.model.cards.Venture;
 import it.polimi.ingsw.LM45.model.cards.Character;
 
 public class FileManager {
@@ -78,7 +80,7 @@ public class FileManager {
 
 	// Main di test
 	public static void main(String[] args) {
-		Card[] cards = new Card[48];
+		Card[] cards = new Card[72];
 
 		// Territories
 		// I Period
@@ -340,13 +342,162 @@ public class FileManager {
 				new CardEffect(new Effect[] { new ActionEffect(SlotType.PRODUCTION, 4, new Resource[] {}),
 						new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 1) }) }, false),
 				CardEffect.EMPTY);
-
+		
+		// Ventures
+		// I Period
+		cards[48] = new Venture("Campagna Militare", PeriodType.I,
+				new CostWithPrerequisites(new Resource[] { new Resource(ResourceType.MILITARY, 2) },
+						new Resource[] {new Resource(ResourceType.MILITARY, 3)}),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 3) }) }, false),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5) }) }, false),
+				Cost.EMPTY);
+		cards[49] = new Venture("Ingaggiare Reclute", PeriodType.I,
+				new Cost(new Resource[] { new Resource(ResourceType.COINS, 4) }),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.MILITARY, 5) }) }, false),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 4) }) }, false),
+				Cost.EMPTY);
+		cards[50] = new Venture("Innalzare una Statua", PeriodType.I,
+				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 2), new Resource(ResourceType.STONE, 2)}),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.COUNCIL_PRIVILEGES, 2) }) }, false),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 4) }) }, false),
+				Cost.EMPTY);
+		cards[51] = new Venture("Combattere le Eresie", PeriodType.I,
+				new CostWithPrerequisites(new Resource[] { new Resource(ResourceType.MILITARY, 3) },
+						new Resource[] {new Resource(ResourceType.MILITARY, 5)}),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 2) }) }, false),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5) }) }, false),
+				Cost.EMPTY);
+		cards[52] = new Venture("Sostegno al Vescovo", PeriodType.I,
+				new CostWithPrerequisites(new Resource[] { new Resource(ResourceType.MILITARY, 2) },
+						new Resource[] {new Resource(ResourceType.MILITARY, 4)}),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 3) }) }, false),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 1) }) }, false),
+				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 1), new Resource(ResourceType.STONE, 1),
+				new Resource(ResourceType.COINS, 2)}));
+		cards[53] = new Venture("Ospitare i Mendicanti", PeriodType.I,
+				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 3)}),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.SERVANTS, 4) }) }, false),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 4) }) }, false),
+				Cost.EMPTY);
+		cards[54] = new Venture("Riparare la Chiesa", PeriodType.I,
+				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 1), new Resource(ResourceType.STONE, 1),
+						new Resource(ResourceType.COINS, 1)}),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 1) }) }, false),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5) }) }, false),
+				Cost.EMPTY);
+		cards[55] = new Venture("Costruire le Mura", PeriodType.I,
+				new Cost(new Resource[] { new Resource(ResourceType.STONE, 3) }),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.MILITARY, 2),
+						new Resource(ResourceType.COUNCIL_PRIVILEGES, 1)}) }, false),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 3) }) }, false),
+				Cost.EMPTY);
+		
+		// II Period
+		cards[56] = new Venture("Sostegno al Cardinale", PeriodType.II,
+				new CostWithPrerequisites(new Resource[] { new Resource(ResourceType.MILITARY, 4) },
+						new Resource[] {new Resource(ResourceType.MILITARY, 7)}),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 3) }) }, false),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 4) }) }, false),
+				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 2), new Resource(ResourceType.STONE, 2),
+				new Resource(ResourceType.COINS, 3)}));
+		cards[57] = new Venture("Crociata", PeriodType.II,
+				new CostWithPrerequisites(new Resource[] { new Resource(ResourceType.MILITARY, 4) },
+						new Resource[] {new Resource(ResourceType.MILITARY, 8)}),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 1),
+						new Resource(ResourceType.COINS, 5)}) }, false),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5) }) }, false),
+				Cost.EMPTY);
+		cards[58] = new Venture("Supporto al Re", PeriodType.II,
+				new CostWithPrerequisites(new Resource[] { new Resource(ResourceType.MILITARY, 3) },
+						new Resource[] {new Resource(ResourceType.MILITARY, 6)}),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.COUNCIL_PRIVILEGES, 1),
+						new Resource(ResourceType.COINS, 5)}) }, false),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 3) }) }, false),
+				Cost.EMPTY);
+		cards[59] = new Venture("Scavare Canalizzazioni", PeriodType.II,
+				new Cost(new Resource[] { new Resource(ResourceType.SERVANTS, 2), new Resource(ResourceType.COINS, 3)}),
+				new CardEffect(new Effect[] {new ActionEffect(SlotType.HARVEST, 4)}, false),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5) }) }, false),
+				Cost.EMPTY);
+		cards[60] = new Venture("Costruire i Bastioni", PeriodType.II,
+				new Cost(new Resource[] { new Resource(ResourceType.STONE, 4) }),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.MILITARY, 3),
+						new Resource(ResourceType.COUNCIL_PRIVILEGES, 1)}) }, false),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 2) }) }, false),
+				Cost.EMPTY);
+		cards[61] = new Venture("Ingaggiare Soldati", PeriodType.II,
+				new Cost(new Resource[] { new Resource(ResourceType.COINS, 6)}),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.MILITARY, 6) }) }, false),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5) }) }, false),
+				Cost.EMPTY);
+		cards[62] = new Venture("Accogliere gli Stranieri", PeriodType.II,
+				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 4)}),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.SERVANTS, 5) }) }, false),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 4) }) }, false),
+				Cost.EMPTY);
+		cards[63] = new Venture("Riparare l'Abbazia", PeriodType.II,
+				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 2), new Resource(ResourceType.COINS, 2),
+						new Resource(ResourceType.STONE, 2)}),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 2) }) }, false),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 6) }) }, false),
+				Cost.EMPTY);
+		
+		// III Period
+		cards[64] = new Venture("Sostegno al Papa", PeriodType.III,
+				new CostWithPrerequisites(new Resource[] { new Resource(ResourceType.MILITARY, 5) },
+						new Resource[] {new Resource(ResourceType.MILITARY, 10)}),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 2) }) }, false),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 10) }) }, false),
+				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 3), new Resource(ResourceType.STONE, 3),
+				new Resource(ResourceType.COINS, 4)}));
+		cards[65] = new Venture("Migliorare le Strade", PeriodType.III,
+				new Cost(new Resource[] { new Resource(ResourceType.SERVANTS, 3), new Resource(ResourceType.COINS, 4)}),
+				new CardEffect(new Effect[] {new ActionEffect(SlotType.HARVEST, 3)}, false),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5) }) }, false),
+				Cost.EMPTY);
+		cards[66] = new Venture("Riparare la Cattedrale", PeriodType.III,
+				new Cost(new Resource[] { new Resource(ResourceType.COINS, 3), new Resource(ResourceType.WOOD, 3),
+						new Resource(ResourceType.STONE, 3)}),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 1) }),
+						new ActionEffect(SlotType.ANY_CARD, 7)}, false),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5) }) }, false),
+				Cost.EMPTY);
+		cards[67] = new Venture("Conquista Militare", PeriodType.III,
+				new CostWithPrerequisites(new Resource[] { new Resource(ResourceType.MILITARY, 6) },
+						new Resource[] {new Resource(ResourceType.MILITARY, 12)}),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.WOOD, 3),
+						new Resource(ResourceType.STONE, 3), new Resource(ResourceType.COINS, 3)}) }, false),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 7) }) }, false),
+				Cost.EMPTY);
+		cards[68] = new Venture("Guerra Santa", PeriodType.III,
+				new CostWithPrerequisites(new Resource[] { new Resource(ResourceType.MILITARY, 8) },
+						new Resource[] {new Resource(ResourceType.MILITARY, 15)}),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 4)}) }, false),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 8) }) }, false),
+				Cost.EMPTY);
+		cards[69] = new Venture("Ingaggiare Mercenari", PeriodType.III,
+				new Cost(new Resource[] { new Resource(ResourceType.COINS, 8)}),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.MILITARY, 7)}) }, false),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 6) }) }, false),
+				Cost.EMPTY);
+		cards[70] = new Venture("Commissionare Arte Sacra", PeriodType.III,
+				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 6)}),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 3)}) }, false),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 3) }) }, false),
+				Cost.EMPTY);
+		cards[71] = new Venture("Costruire le Torri", PeriodType.III,
+				new Cost(new Resource[] { new Resource(ResourceType.STONE, 6)}),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.MILITARY, 4),
+						new Resource(ResourceType.COUNCIL_PRIVILEGES, 1)}) }, false),
+				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 4) }) }, false),
+				Cost.EMPTY);
+		
 		try {
 			for (Card card : cards)
 				saveCard(card);
 
 			Map<CardType, List<Card>> deck = loadCards();
-			for (CardType cardType : new CardType[] { CardType.TERRITORY, CardType.CHARACTER }) {
+			for (CardType cardType : new CardType[] { CardType.TERRITORY, CardType.CHARACTER, CardType.VENTURE }) {
 				System.out.println("");
 				System.out.println(cardType + ": ");
 				System.out.println("");
