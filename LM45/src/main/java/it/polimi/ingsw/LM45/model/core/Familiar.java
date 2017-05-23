@@ -26,20 +26,20 @@ public class Familiar {
 		}
 	}
 	
+	public void setValue(int value){
+		setValue(value, false);
+	}
+	
 	public void addBonus(int bonus){
 		this.otherBonuses += bonus;
 	}
 	
-	public Player getplayer(){
+	public Player getPlayer(){
 		return this.player;
 	}
 	
 	public FamiliarColor getFamiliarColor(){
 		return this.familiarColor;
-	}
-	
-	public void setValue(int value){
-		setValue(value, false);
 	}
 	
 	public void addServantsBonus(){
