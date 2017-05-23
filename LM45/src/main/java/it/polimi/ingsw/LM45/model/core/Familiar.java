@@ -26,6 +26,18 @@ public class Familiar {
 		}
 	}
 	
+	public void addBonus(int bonus){
+		this.otherBonuses += bonus;
+	}
+	
+	public Player getplayer(){
+		return this.player;
+	}
+	
+	public FamiliarColor getFamiliarColor(){
+		return this.familiarColor;
+	}
+	
 	public void setValue(int value){
 		setValue(value, false);
 	}

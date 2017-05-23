@@ -54,6 +54,13 @@ public class Player {
 			return personalBoard.getResourceAmount(resourceType);
 		}
 		
+		public void addFamiliarBonus(FamiliarColor color, int bonus){
+			for(Familiar familiar:familiars ){
+				if (familiar.getFamiliarColor()==color)
+					familiar.addBonus(bonus);
+			}
+		}
+		
 		/*public activateLeaderCard(leaderCard: LeaderCard) : void		
 		public addExcommunication(ex: Excommunication) : void*/
 }
