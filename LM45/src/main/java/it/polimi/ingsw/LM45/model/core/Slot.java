@@ -12,9 +12,27 @@ public class Slot {
 	protected boolean multipleFamiliars;
 	protected boolean multipleFamiliarsOfSamePlayer;
 	protected SlotType type;
+	protected List<Slot> neighbouringSlots;
 	
-	public void canAddFamiliar (Familiar familiar, ActionModifier actionModifier ){
+	public boolean canAddFamiliar (Familiar familiar, ActionModifier actionModifier){
+		return !isOccupied(familiar) && isFamiliarValueOK(familiar, actionModifier);
+	}
+	
+	private boolean isOccupied(Familiar familiar){
+		boolean hasFamiliarInNeighbouringSlots = false;
+		for(Slot neighbouringSlot : neighbouringSlots){
+			for(Familiar f : neighbouringSlot.familiars)
+				if(f.getFamiliarColor() != FamiliarColor.UNCOLORED && f.getPlayer() == familiar.getPlayer()){
+					hasFamiliarInNeighbouringSlots = true;
+					break;
+				}
+		}
 		
+		return (familiars.size() > 1 || multipleFamiliars) && (!multipleFamiliarsOfSamePlayer || hasFamiliarInNeighbouringSlots);
+	}
+	
+	private boolean isFamiliarValueOK(Familiar familiar, ActionModifier actionModifier){
+		return familiar.getValue() + actionModifier.getDiceBonus() >= minDice;
 	}
 	
 	public void addFamiliar(Familiar familiar, ActionModifier actionModifier){
@@ -25,10 +43,6 @@ public class Slot {
 		for(Familiar familiar : familiars)
 			familiar.setIsPlaced(false);
 		familiars.clear();
-	}
-	
-	public boolean isOccupied(){
-		return familiars.size() > 1 || multipleFamiliars;
 	} 
 	
 }

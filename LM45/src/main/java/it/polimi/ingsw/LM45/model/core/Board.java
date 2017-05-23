@@ -12,7 +12,7 @@ public class Board {
 	private Map<PeriodType, Excommunication> excommunications;
 	
 	public void placeCard(Card card){
-		
+		// TODO: implement
 	}
 	
 	public void placeExcommunication(Excommunication excommunication){
