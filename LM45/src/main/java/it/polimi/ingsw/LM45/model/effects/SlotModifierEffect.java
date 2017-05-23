@@ -9,6 +9,13 @@ public class SlotModifierEffect extends Effect {
 	private boolean canPlaceFamiliars;
 	private boolean canPlaceMultipleFamiliars;
 	private boolean canReceiveResources;
+	
+	public SlotModifierEffect(SlotType slotType, boolean canPlaceFamiliars, boolean canPlaceMultipleFamiliars, boolean canReceiveResources){
+		this.slotType = slotType;
+		this.canPlaceFamiliars = canPlaceFamiliars;
+		this.canPlaceMultipleFamiliars = canPlaceMultipleFamiliars;
+		this.canReceiveResources = canReceiveResources;
+	}
 
 	@Override
 	public void ResolveEffect(Player player) {

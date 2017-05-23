@@ -15,6 +15,18 @@ public class ResourceEffect extends Effect {
 		this.resourceToMultiply = resourceToMultiply;
 		this.resourcesToGain = resourcesToGain;
 	}
+	
+	public ResourceEffect(Resource[] resourcesToGain){
+		this(new Resource[]{}, null, resourcesToGain);
+	}
+	
+	public ResourceEffect(Resource[] resourcesToPay, Resource[] resourcesToGain){
+		this(resourcesToPay, null, resourcesToGain);
+	}	
+	
+	public ResourceEffect(Resource resourcesToMultiply, Resource[] resourcesToGain){
+		this(new Resource[]{}, resourcesToMultiply, resourcesToGain);
+	}	
 
 	@Override
 	public void ResolveEffect(Player player) {		
