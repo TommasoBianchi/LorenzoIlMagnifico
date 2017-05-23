@@ -75,5 +75,5 @@ public class ActionModifier {
 		this.canPlaceMultipleFamiliars = this.canPlaceMultipleFamiliars || other.canPlaceMultipleFamiliars;
 		this.canPlaceFamiliars = this.canPlaceFamiliars && other.canPlaceFamiliars;
 	}
-	
+
 }
