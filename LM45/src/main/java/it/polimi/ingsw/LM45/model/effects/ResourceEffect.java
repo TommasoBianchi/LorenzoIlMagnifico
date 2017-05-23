@@ -17,9 +17,22 @@ public class ResourceEffect extends Effect {
 	}
 
 	@Override
-	public void ResolveEffect(Player player) {
-		// TODO Auto-generated method stub
-
+	public void ResolveEffect(Player player) {		
+		for (Resource resource : resourcesToPay){
+			player.addResources(resource);
+		}
+		if(resourceToMultiply ==null ){
+			for (Resource resource : resourcesToGain){
+				player.addResources(resource);
+			}
+		} else {
+			
+			int multiplier = player.getResourceAmount(resourceToMultiply.getResourceType())/resourceToMultiply.getAmount();
+			for (Resource resource : resourcesToGain){
+				player.addResources(resource.multiply(multiplier));
+			}
+			
+		}
 	}
 
 }
