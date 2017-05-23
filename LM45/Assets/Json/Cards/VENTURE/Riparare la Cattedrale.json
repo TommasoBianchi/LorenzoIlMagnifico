@@ -1,0 +1,61 @@
+{
+  "alternativeCost": {
+    "cost": []
+  },
+  "name": "Riparare la Cattedrale",
+  "periodType": "III",
+  "cardType": "VENTURE",
+  "cost": {
+    "cost": [
+      {
+        "resourceType": "COINS",
+        "amount": 3
+      },
+      {
+        "resourceType": "WOOD",
+        "amount": 3
+      },
+      {
+        "resourceType": "STONE",
+        "amount": 3
+      }
+    ]
+  },
+  "immediateEffect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "FAITH",
+            "amount": 1
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      },
+      {
+        "slotType": "ANY_CARD",
+        "diceNumber": 7,
+        "discount": [],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ActionEffect"
+      }
+    ],
+    "effectsAreAlternative": false
+  },
+  "effect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "VICTORY",
+            "amount": 5
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false
+  },
+  "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Venture"
+}
