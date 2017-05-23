@@ -1,0 +1,34 @@
+{
+  "name": "Mecenate",
+  "periodType": "II",
+  "cardType": "CHARACTER",
+  "cost": {
+    "cost": [
+      {
+        "resourceType": "COINS",
+        "amount": 3
+      }
+    ]
+  },
+  "immediateEffect": {
+    "effects": [
+      {
+        "slotType": "CHARACTER",
+        "diceNumber": 6,
+        "discount": [
+          {
+            "resourceType": "COINS",
+            "amount": 2
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ActionEffect"
+      }
+    ],
+    "effectsAreAlternative": false
+  },
+  "effect": {
+    "effects": [],
+    "effectsAreAlternative": false
+  },
+  "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Character"
+}

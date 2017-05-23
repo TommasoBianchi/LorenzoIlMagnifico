@@ -1,0 +1,34 @@
+{
+  "name": "Dama",
+  "periodType": "I",
+  "cardType": "CHARACTER",
+  "cost": {
+    "cost": [
+      {
+        "resourceType": "COINS",
+        "amount": 4
+      }
+    ]
+  },
+  "immediateEffect": {
+    "effects": [],
+    "effectsAreAlternative": false
+  },
+  "effect": {
+    "effects": [
+      {
+        "slotType": "CHARACTER",
+        "diceNumber": 2,
+        "discount": [
+          {
+            "resourceType": "COINS",
+            "amount": 1
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ActionEffect"
+      }
+    ],
+    "effectsAreAlternative": false
+  },
+  "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Character"
+}
