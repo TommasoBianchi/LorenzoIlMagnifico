@@ -8,7 +8,7 @@ public abstract class Effect {
 	public abstract void ResolveEffect(Player player);
 	
 	public ActionModifier getActionModifier(SlotType slotType){
-		return new ActionModifier();
+		return ActionModifier.EMPTY;
 	}
 
 }

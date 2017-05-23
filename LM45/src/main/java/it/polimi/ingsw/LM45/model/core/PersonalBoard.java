@@ -48,6 +48,7 @@ public class PersonalBoard {
 		if(cards.get(card.getCardType()) == null)
 			cards.put(card.getCardType(), new ArrayList<Card>());
 		cards.get(card.getCardType()).add(card);
+		resources.put(card.getCardType().toResourceType(), resources.getOrDefault(card.getCardType().toResourceType(), 0) + 1);
 	}
 	
 }

@@ -13,7 +13,7 @@ public class Player {
 		private Color color;
 		private List<LeaderCard> leaderCards;
 		private PersonalBoard personalBoard;
-		private List<Familiar> familiars;
+		private Familiar[] familiars;
 		// TODO: excommunicationMaluses ??
 		private PersonalBonusTile personalBonusTile;
 		private boolean payIfTowerIsOccupied;
@@ -52,10 +52,6 @@ public class Player {
 		
 		public int getResourceAmount(ResourceType resourceType){
 			return personalBoard.getResourceAmount(resourceType);
-		}
-		
-		public void addFamiliar(Familiar familiar){
-			familiars.add(familiar);
 		}
 		
 		/*public activateLeaderCard(leaderCard: LeaderCard) : void		

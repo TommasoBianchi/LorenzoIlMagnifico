@@ -7,4 +7,8 @@ public class Excommunication {
 	private PeriodType periodType;
 	private CardEffect effect;
 	
+	public PeriodType getPeriodType(){
+		return this.periodType;
+	}
+	
 }
