@@ -20,7 +20,7 @@ public abstract class Card {
 		this.effect = effect;
 	}
 	
-	public abstract void canPick(Player player);
+	public abstract boolean canPick(Player player);
 	
 	public String getName(){
 		return this.name;

@@ -9,5 +9,13 @@ public class Resource {
 		this.resourceType = resourceType;
 		this.amount = amount;
 	}
+	
+	public ResourceType getResourceType(){
+		return this.resourceType;
+	}
+	
+	public int getAmount(){
+		return this.amount;
+	}
 
 }

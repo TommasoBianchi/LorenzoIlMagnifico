@@ -15,9 +15,9 @@ public class Territory extends Card {
 	}
 
 	@Override
-	public void canPick(Player player) {
+	public boolean canPick(Player player) {
 		// TODO Auto-generated method stub
-
+		return false;
 	}
-
+	
 }
