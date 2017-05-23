@@ -17,5 +17,13 @@ public class Resource {
 	public int getAmount(){
 		return this.amount;
 	}
+	
+	public Resource increment(int value){
+		return new Resource(resourceType, amount + value);
+	}
+	
+	public Resource multiply(int value){
+		return new Resource(resourceType, amount * value);
+	}
 
 }
