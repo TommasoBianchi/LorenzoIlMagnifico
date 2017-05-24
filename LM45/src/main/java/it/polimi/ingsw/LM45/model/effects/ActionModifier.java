@@ -37,6 +37,10 @@ public class ActionModifier {
 	public ActionModifier(int diceBonus){
 		this(new Resource[]{}, new Resource[]{}, diceBonus);
 	}
+	
+	public ActionModifier(boolean blockImmediateResources, boolean canPlaceMultipleFamiliars, boolean canPlaceFamiliars){
+		this(new Resource[]{}, new Resource[]{}, 0, blockImmediateResources, canPlaceMultipleFamiliars, canPlaceFamiliars);
+	}
 		
 	public Map<ResourceType, Integer> getCostModifiers(){
 		return this.costModifiers;

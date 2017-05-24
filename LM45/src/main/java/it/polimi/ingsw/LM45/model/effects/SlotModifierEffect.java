@@ -22,5 +22,13 @@ public class SlotModifierEffect extends Effect {
 		// TODO Auto-generated method stub
 
 	}
+	
+	@Override
+	public ActionModifier getActionModifier(SlotType slotType){
+		if(slotType == this.slotType)
+			return new ActionModifier(!canReceiveResources, canPlaceMultipleFamiliars, canPlaceFamiliars);
+		else
+			return ActionModifier.EMPTY;
+	}
 
 }
