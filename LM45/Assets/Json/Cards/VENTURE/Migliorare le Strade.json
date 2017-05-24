@@ -9,11 +9,11 @@
     "cost": [
       {
         "resourceType": "SERVANTS",
-        "amount": 3
+        "amount": -3
       },
       {
         "resourceType": "COINS",
-        "amount": 4
+        "amount": -4
       }
     ]
   },

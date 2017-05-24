@@ -9,11 +9,11 @@
     "cost": [
       {
         "resourceType": "WOOD",
-        "amount": 2
+        "amount": -2
       },
       {
         "resourceType": "STONE",
-        "amount": 2
+        "amount": -2
       }
     ]
   },

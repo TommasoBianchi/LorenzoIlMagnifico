@@ -9,15 +9,15 @@
     "cost": [
       {
         "resourceType": "COINS",
-        "amount": 3
+        "amount": -3
       },
       {
         "resourceType": "WOOD",
-        "amount": 3
+        "amount": -3
       },
       {
         "resourceType": "STONE",
-        "amount": 3
+        "amount": -3
       }
     ]
   },

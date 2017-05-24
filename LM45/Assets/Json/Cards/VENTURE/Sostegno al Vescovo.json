@@ -3,15 +3,15 @@
     "cost": [
       {
         "resourceType": "WOOD",
-        "amount": 1
+        "amount": -1
       },
       {
         "resourceType": "STONE",
-        "amount": 1
+        "amount": -1
       },
       {
         "resourceType": "COINS",
-        "amount": 2
+        "amount": -2
       }
     ]
   },
@@ -28,7 +28,7 @@
     "cost": [
       {
         "resourceType": "MILITARY",
-        "amount": 2
+        "amount": -2
       }
     ]
   },

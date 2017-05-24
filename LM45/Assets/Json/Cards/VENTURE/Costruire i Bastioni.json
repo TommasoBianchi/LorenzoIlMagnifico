@@ -9,7 +9,7 @@
     "cost": [
       {
         "resourceType": "STONE",
-        "amount": 4
+        "amount": -4
       }
     ]
   },

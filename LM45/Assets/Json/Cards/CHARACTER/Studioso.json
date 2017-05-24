@@ -6,7 +6,7 @@
     "cost": [
       {
         "resourceType": "COINS",
-        "amount": 4
+        "amount": -4
       }
     ]
   },

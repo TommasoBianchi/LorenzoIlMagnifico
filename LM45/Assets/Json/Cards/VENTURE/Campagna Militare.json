@@ -15,7 +15,7 @@
     "cost": [
       {
         "resourceType": "MILITARY",
-        "amount": 2
+        "amount": -2
       }
     ]
   },
