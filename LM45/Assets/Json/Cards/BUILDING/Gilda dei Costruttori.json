@@ -1,0 +1,62 @@
+{
+  "minDiceToProduce": 4,
+  "name": "Gilda dei Costruttori",
+  "periodType": "II",
+  "cardType": "BUILDING",
+  "cost": {
+    "cost": [
+      {
+        "resourceType": "WOOD",
+        "amount": 1
+      },
+      {
+        "resourceType": "STONE",
+        "amount": 2
+      }
+    ]
+  },
+  "immediateEffect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "VICTORY",
+            "amount": 4
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false
+  },
+  "effect": {
+    "effects": [
+      {
+        "resourcesToPay": [
+          {
+            "resourceType": "SERVANTS",
+            "amount": 1
+          },
+          {
+            "resourceType": "WOOD",
+            "amount": 1
+          },
+          {
+            "resourceType": "STONE",
+            "amount": 1
+          }
+        ],
+        "resourcesToGain": [
+          {
+            "resourceType": "VICTORY",
+            "amount": 6
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false
+  },
+  "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Building"
+}

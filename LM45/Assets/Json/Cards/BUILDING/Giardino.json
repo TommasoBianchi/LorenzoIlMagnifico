@@ -1,0 +1,53 @@
+{
+  "minDiceToProduce": 1,
+  "name": "Giardino",
+  "periodType": "III",
+  "cardType": "BUILDING",
+  "cost": {
+    "cost": [
+      {
+        "resourceType": "WOOD",
+        "amount": 4
+      },
+      {
+        "resourceType": "STONE",
+        "amount": 2
+      },
+      {
+        "resourceType": "SERVANTS",
+        "amount": 2
+      }
+    ]
+  },
+  "immediateEffect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "VICTORY",
+            "amount": 10
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false
+  },
+  "effect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "VICTORY",
+            "amount": 3
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false
+  },
+  "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Building"
+}
