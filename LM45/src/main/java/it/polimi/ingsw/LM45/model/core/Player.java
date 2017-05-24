@@ -54,6 +54,10 @@ public class Player {
 			return personalBoard.getResourceAmount(resourceType);
 		}
 		
+		public boolean hasResources(Resource resource){
+			return personalBoard.hasResources(resource);
+		}
+		
 		public void addFamiliarBonus(FamiliarColor color, int bonus){
 			for(Familiar familiar:familiars ){
 				if (familiar.getFamiliarColor()==color)
