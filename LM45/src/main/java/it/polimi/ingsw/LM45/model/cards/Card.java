@@ -11,13 +11,15 @@ public abstract class Card {
 	protected Cost cost;
 	protected CardEffect immediateEffect;
 	protected CardEffect effect;
+	private boolean effectIsPermanent;
 	
-	public Card(String name, PeriodType periodType, Cost cost, CardEffect immediateEffect, CardEffect effect){
+	public Card(String name, PeriodType periodType, Cost cost, CardEffect immediateEffect, CardEffect effect, boolean effectIsPermanent){
 		this.name = name;
 		this.periodType = periodType;
 		this.cost = cost;
 		this.immediateEffect = immediateEffect;
 		this.effect = effect;
+		this.effectIsPermanent = effectIsPermanent;
 	}
 	
 	public abstract boolean canPick(Player player);

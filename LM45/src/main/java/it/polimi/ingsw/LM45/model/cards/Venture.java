@@ -9,7 +9,7 @@ public class Venture extends Card {
 
 	public Venture(String name, PeriodType periodType, Cost cost, CardEffect immediateEffects,
 			CardEffect effects, Cost alternativeCost) {
-		super(name, periodType, cost, immediateEffects, effects);
+		super(name, periodType, cost, immediateEffects, effects, false);
 		this.alternativeCost = alternativeCost;
 		this.cardType = CardType.VENTURE;
 	}

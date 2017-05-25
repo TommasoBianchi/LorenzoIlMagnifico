@@ -1,7 +1,7 @@
 package it.polimi.ingsw.LM45.model.effects;
 
-import it.polimi.ingsw.LM45.model.core.Player;
 import it.polimi.ingsw.LM45.model.core.Resource;
+import it.polimi.ingsw.LM45.model.core.SlotType;
 
 public class CostModifierEffect extends Effect {
 	
@@ -11,9 +11,14 @@ public class CostModifierEffect extends Effect {
 	private boolean isMultiplier;
 
 	@Override
-	public void ResolveEffect(Player player) {
+	public void resolveEffect(EffectResolutor effectResolutor) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	@Override
+	public ActionModifier getActionModifier(SlotType slotType) {
+		
 	}
 
 }

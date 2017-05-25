@@ -36,5 +36,6 @@
     ],
     "effectsAreAlternative": false
   },
+  "effectIsPermanent": true,
   "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Character"
 }

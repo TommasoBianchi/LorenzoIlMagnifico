@@ -49,5 +49,6 @@
     ],
     "effectsAreAlternative": false
   },
+  "effectIsPermanent": false,
   "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Building"
 }
