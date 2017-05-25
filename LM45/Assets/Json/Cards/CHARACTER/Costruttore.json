@@ -19,11 +19,27 @@
       {
         "slotType": "BUILDING",
         "diceNumber": 2,
-        "discount": [],
+        "discount": [
+          {
+            "resourceType": "WOOD",
+            "amount": 1
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ActionEffect"
+      },
+      {
+        "slotType": "BUILDING",
+        "diceNumber": 2,
+        "discount": [
+          {
+            "resourceType": "STONE",
+            "amount": 1
+          }
+        ],
         "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ActionEffect"
       }
     ],
-    "effectsAreAlternative": false
+    "effectsAreAlternative": true
   },
   "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Character"
 }

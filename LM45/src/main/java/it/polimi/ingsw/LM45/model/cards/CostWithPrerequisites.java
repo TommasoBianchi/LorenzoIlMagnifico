@@ -1,5 +1,7 @@
 package it.polimi.ingsw.LM45.model.cards;
 
+import java.util.Arrays;
+
 import it.polimi.ingsw.LM45.model.core.Player;
 import it.polimi.ingsw.LM45.model.core.Resource;
 
@@ -13,7 +15,9 @@ public class CostWithPrerequisites extends Cost {
 	}
 	
 	@Override
-	public boolean canPlay(Player player){
-		
+	public boolean canPay(Player player) {
+		// Make sure to check if player has a positive amount of resources
+		return super.canPay(player) && Arrays.stream(prerequisites).map(resource -> resource.getAmount() > 0 ? resource : resource.multiply(-1))
+				.allMatch(resource -> player.hasResources(resource));
 	}
 }
