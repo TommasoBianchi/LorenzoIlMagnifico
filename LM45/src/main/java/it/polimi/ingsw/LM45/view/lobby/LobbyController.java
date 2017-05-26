@@ -1,9 +1,11 @@
 package it.polimi.ingsw.LM45.view.lobby;
 
+import it.polimi.ingsw.LM45.view.Main;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.control.Alert.AlertType;
 
 public class LobbyController {
