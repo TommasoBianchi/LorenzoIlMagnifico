@@ -55,6 +55,10 @@ public class PersonalBoard {
 		for(Resource resource :territoryRequisites ){
 			resource = new Resource ( ResourceType.MILITARY , 0);
 		}
+	}	
+
+	public void addPermanentEffect(CardEffect permanentEffect){
+		permanentEffects.add(permanentEffect);
 	}
 	
 }

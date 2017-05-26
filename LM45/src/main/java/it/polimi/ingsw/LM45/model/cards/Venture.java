@@ -16,8 +16,7 @@ public class Venture extends Card {
 
 	@Override
 	public boolean canPick(Player player) {
-		// TODO Auto-generated method stub
-		return false;
+		return super.canPick(player) && alternativeCost.canPay(player);
 	}
 
 }

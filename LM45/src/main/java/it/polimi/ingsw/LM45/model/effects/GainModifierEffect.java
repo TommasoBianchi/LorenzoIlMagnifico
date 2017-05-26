@@ -12,7 +12,7 @@ public class GainModifierEffect extends Effect {
 
 	@Override
 	public void resolveEffect(EffectResolutor effectResolutor) {
-		// TODO Auto-generated method stub
+		// TODO this may need to do nothing
 
 	}
 	

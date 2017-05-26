@@ -20,7 +20,9 @@ public abstract class Card {
 		this.effect = effect;
 	}
 	
-	public abstract boolean canPick(Player player);
+	public boolean canPick(Player player){
+		return cost.canPay(player) && player.canAddCard(this);
+	}
 	
 	public String getName(){
 		return this.name;

@@ -13,7 +13,9 @@ public class CoverableSlot extends Slot {
 
 	@Override
 	public void addFamiliar(Familiar familiar, ActionModifier actionModifier) {
-		// TODO: implement
+		if(isActive)
+			super.addFamiliar(familiar, actionModifier);
+		// FIXME: this may need to throw an exception if isActive == false
 	}
 
 }

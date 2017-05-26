@@ -753,7 +753,7 @@ public class FileManager {
 			}
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// TODO Auto-generated catch block (this is testing code, so no problem)
 			e.printStackTrace();
 		}
 	}

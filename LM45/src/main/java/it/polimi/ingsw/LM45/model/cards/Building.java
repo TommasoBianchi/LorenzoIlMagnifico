@@ -1,6 +1,5 @@
 package it.polimi.ingsw.LM45.model.cards;
 
-import it.polimi.ingsw.LM45.model.core.Player;
 import it.polimi.ingsw.LM45.model.effects.CardEffect;
 
 public class Building extends Card {
@@ -12,12 +11,6 @@ public class Building extends Card {
 		super(name, periodType, cost, immediateEffects, effects);
 		this.minDiceToProduce = minDiceToProduce;
 		this.cardType = CardType.BUILDING;
-	}
-
-	@Override
-	public boolean canPick(Player player) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 }
