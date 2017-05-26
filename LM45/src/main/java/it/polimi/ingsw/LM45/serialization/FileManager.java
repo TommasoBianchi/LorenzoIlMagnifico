@@ -235,31 +235,31 @@ public class FileManager {
 		cards[24] = new Character("Predicatore", PeriodType.I,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 2) }),
 				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 4) })),
-				new CardEffect(new SlotModifierEffect(SlotType.ANY_CARD, true, false, false)));
+				new CardEffect(new SlotModifierEffect(SlotType.ANY_CARD, true, false, false), true));
 		cards[25] = new Character("Costruttore", PeriodType.I,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 4) }), CardEffect.EMPTY,
 				new CardEffect(new Effect[] {
 						new ActionEffect(SlotType.BUILDING, 2, new Resource[] { new Resource(ResourceType.WOOD, 1) }),
 						new ActionEffect(SlotType.BUILDING, 2, new Resource[] { new Resource(ResourceType.STONE, 1) }) },
-						true));
+						true, true));
 		cards[26] = new Character("Dama", PeriodType.I,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 4) }), CardEffect.EMPTY,
 				new CardEffect(new ActionEffect(SlotType.CHARACTER, 2,
-						new Resource[] { new Resource(ResourceType.COINS, 1) })));
+						new Resource[] { new Resource(ResourceType.COINS, 1) }), true));
 		cards[27] = new Character("Cavaliere", PeriodType.I,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 2) }),
 				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.COUNCIL_PRIVILEGES, 1) })),
-				new CardEffect(new ActionEffect(SlotType.VENTURE, 2, new Resource[] {})));
+				new CardEffect(new ActionEffect(SlotType.VENTURE, 2, new Resource[] {}), true));
 		cards[28] = new Character("Condottiero", PeriodType.I,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 2) }),
 				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.MILITARY, 3) })),
-				new CardEffect(new ActionEffect(SlotType.TERRITORY, 2, new Resource[] {})));
+				new CardEffect(new ActionEffect(SlotType.TERRITORY, 2, new Resource[] {}), true));
 		cards[29] = new Character("Artigiano", PeriodType.I,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 3) }), CardEffect.EMPTY,
-				new CardEffect(new ActionEffect(SlotType.PRODUCTION, 2, new Resource[] {})));
+				new CardEffect(new ActionEffect(SlotType.PRODUCTION, 2, new Resource[] {}), true));
 		cards[30] = new Character("Contadino", PeriodType.I,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 3) }), CardEffect.EMPTY,
-				new CardEffect(new ActionEffect(SlotType.HARVEST, 2, new Resource[] {})));
+				new CardEffect(new ActionEffect(SlotType.HARVEST, 2, new Resource[] {}), true));
 		cards[31] = new Character("Badessa", PeriodType.I,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 3) }),
 				new CardEffect(new Effect[] { new ActionEffect(SlotType.ANY_CARD, 4, new Resource[] {}),
@@ -290,7 +290,7 @@ public class FileManager {
 				CardEffect.EMPTY);
 		cards[36] = new Character("Studioso", PeriodType.II,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 4) }), CardEffect.EMPTY,
-				new CardEffect(new ActionEffect(SlotType.PRODUCTION, 3, new Resource[] {})));
+				new CardEffect(new ActionEffect(SlotType.PRODUCTION, 3, new Resource[] {}), true));
 		cards[37] = new Character("Messo Reale", PeriodType.II,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 5) }),
 				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.COUNCIL_PRIVILEGES, 3) })),
@@ -301,7 +301,7 @@ public class FileManager {
 				CardEffect.EMPTY);
 		cards[39] = new Character("Fattore", PeriodType.II,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 4) }), CardEffect.EMPTY,
-				new CardEffect(new ActionEffect(SlotType.HARVEST, 3, new Resource[] {})));
+				new CardEffect(new ActionEffect(SlotType.HARVEST, 3, new Resource[] {}), true));
 		// III Period
 		cards[40] = new Character("Ambasciatore", PeriodType.III,
 				new Cost(

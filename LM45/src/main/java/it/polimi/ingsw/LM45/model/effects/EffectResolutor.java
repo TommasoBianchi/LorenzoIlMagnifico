@@ -15,9 +15,10 @@ public interface EffectResolutor {
 	public void modifyServantCost(int servantBonusCostModifier);
 	public void setHasToSkipFirstTurn();
 	public void noTerritoryRequisites();
+	public void addPermanentEffect(CardEffect permanentEffect);
 	 
 	public void doBonusAction(SlotType slotType, int diceNumber, Resource[] discount);
-	public Effect copyEffect();
+	public CardEffect copyEffect();
 	
 	public <T> T chooseFrom(T[] alternatives);
 

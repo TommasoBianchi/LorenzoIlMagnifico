@@ -9,7 +9,7 @@ public class Territory extends Card {
 	
 	public Territory(String name, PeriodType periodType, Cost cost, CardEffect immediateEffects,
 			CardEffect effects, int minDiceToGather) {
-		super(name, periodType, cost, immediateEffects, effects, false);
+		super(name, periodType, cost, immediateEffects, effects);
 		this.minDiceToGather = minDiceToGather;
 		this.cardType = CardType.TERRITORY;
 	}

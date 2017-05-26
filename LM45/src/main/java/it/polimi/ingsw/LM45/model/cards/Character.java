@@ -7,7 +7,7 @@ public class Character extends Card {
 
 	public Character(String name, PeriodType periodType, Cost cost, CardEffect immediateEffects,
 			CardEffect effects) {
-		super(name, periodType, cost, immediateEffects, effects, true);
+		super(name, periodType, cost, immediateEffects, effects);
 		this.cardType = CardType.CHARACTER;
 	}
 

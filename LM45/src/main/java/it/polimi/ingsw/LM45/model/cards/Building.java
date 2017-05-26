@@ -9,7 +9,7 @@ public class Building extends Card {
 
 	public Building(String name, PeriodType periodType, Cost cost, CardEffect immediateEffects,
 			CardEffect effects, int minDiceToProduce) {
-		super(name, periodType, cost, immediateEffects, effects, false);
+		super(name, periodType, cost, immediateEffects, effects);
 		this.minDiceToProduce = minDiceToProduce;
 		this.cardType = CardType.BUILDING;
 	}

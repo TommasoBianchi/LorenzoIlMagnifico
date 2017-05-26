@@ -11,21 +11,34 @@ public class CardEffect {
 	
 	private Effect[] effects;
 	private boolean effectsAreAlternative;
+	private boolean effectsArePermanent;
 
-	public CardEffect(Effect[] effects, boolean effectsAreAlternative){
+	public CardEffect(Effect[] effects, boolean effectsAreAlternative, boolean effectsArePermanent){
 		this.effects = effects;
 		this.effectsAreAlternative = effectsAreAlternative;
+		this.effectsArePermanent = effectsArePermanent;
+	}
+	
+	public CardEffect(Effect[] effects, boolean effectsAreAlternative){
+		this(effects, effectsAreAlternative, false);
+	}
+	
+	public CardEffect(Effect effect, boolean effectsArePermanent){
+		this(new Effect[]{ effect }, false, effectsArePermanent);
 	}
 	
 	public CardEffect(Effect effect){
-		this(new Effect[]{ effect }, false);
+		this(effect, false);
 	}
 	
 	public void resolveEffects(EffectResolutor effectResolutor){
-		if(effectsAreAlternative)
-			effectResolutor.chooseFrom(effects).resolveEffect(effectResolutor);
+		if(effectsArePermanent)
+			effectResolutor.addPermanentEffect(this);
 		else
-			Arrays.stream(effects).forEach(effect -> effect.resolveEffect(effectResolutor));
+			if(effectsAreAlternative)
+				effectResolutor.chooseFrom(effects).resolveEffect(effectResolutor);
+			else
+				Arrays.stream(effects).forEach(effect -> effect.resolveEffect(effectResolutor));
 	}
 	
 	public ActionModifier getActionModifier(SlotType slotType, EffectResolutor effectResolutor){
