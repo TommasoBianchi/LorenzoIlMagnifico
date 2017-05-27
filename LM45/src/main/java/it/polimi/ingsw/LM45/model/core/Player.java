@@ -40,7 +40,7 @@ public class Player {
 		
 		public void discardLeaderCard(LeaderCard leaderCard){
 			leaderCards.remove(leaderCard);
-			// TODO: add a council privilege
+			// TODO: add a council privilege (maybe we can do this in the controller)
 		}
 		
 		public void addResources(Resource resource){

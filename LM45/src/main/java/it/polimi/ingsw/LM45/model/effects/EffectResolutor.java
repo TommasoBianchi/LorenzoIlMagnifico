@@ -1,5 +1,6 @@
 package it.polimi.ingsw.LM45.model.effects;
 
+import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.ResourceType;
@@ -16,6 +17,7 @@ public interface EffectResolutor {
 	public void setHasToSkipFirstTurn();
 	public void noTerritoryRequisites();
 	public void addPermanentEffect(CardEffect permanentEffect);
+	public void addCard(Card card);
 	 
 	public void doBonusAction(SlotType slotType, int diceNumber, Resource[] discount);
 	public CardEffect copyEffect();
