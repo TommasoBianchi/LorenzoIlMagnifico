@@ -12,7 +12,7 @@ public class CostModifierEffect extends Effect {
 
 	@Override
 	public void resolveEffect(EffectResolutor effectResolutor) {
-		// TODO this may need to do nothing
+		// NOTE this may need to do nothing
 
 	}
 	
