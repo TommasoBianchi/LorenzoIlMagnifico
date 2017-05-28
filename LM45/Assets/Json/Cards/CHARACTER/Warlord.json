@@ -1,0 +1,40 @@
+{
+  "name": "Warlord",
+  "periodType": "I",
+  "cardType": "CHARACTER",
+  "cost": {
+    "cost": [
+      {
+        "resourceType": "COINS",
+        "amount": 2
+      }
+    ]
+  },
+  "immediateEffect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "MILITARY",
+            "amount": 3
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false
+  },
+  "effect": {
+    "effects": [
+      {
+        "slotType": "TERRITORY",
+        "diceNumber": 2,
+        "discount": [],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ActionEffect"
+      }
+    ],
+    "effectsAreAlternative": false
+  },
+  "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Character"
+}

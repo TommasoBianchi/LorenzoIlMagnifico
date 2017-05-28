@@ -1,0 +1,61 @@
+{
+  "alternativeCost": {
+    "cost": []
+  },
+  "name": "Military Conquest",
+  "periodType": "III",
+  "cardType": "VENTURE",
+  "cost": {
+    "prerequisites": [
+      {
+        "resourceType": "MILITARY",
+        "amount": 12
+      }
+    ],
+    "cost": [
+      {
+        "resourceType": "MILITARY",
+        "amount": 6
+      }
+    ]
+  },
+  "immediateEffect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "WOOD",
+            "amount": 3
+          },
+          {
+            "resourceType": "STONE",
+            "amount": 3
+          },
+          {
+            "resourceType": "COINS",
+            "amount": 3
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false
+  },
+  "effect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "VICTORY",
+            "amount": 7
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false
+  },
+  "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Venture"
+}

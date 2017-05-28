@@ -1,0 +1,53 @@
+{
+  "alternativeCost": {
+    "cost": []
+  },
+  "name": "Military Campaign",
+  "periodType": "I",
+  "cardType": "VENTURE",
+  "cost": {
+    "prerequisites": [
+      {
+        "resourceType": "MILITARY",
+        "amount": 3
+      }
+    ],
+    "cost": [
+      {
+        "resourceType": "MILITARY",
+        "amount": 2
+      }
+    ]
+  },
+  "immediateEffect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "COINS",
+            "amount": 3
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false
+  },
+  "effect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "VICTORY",
+            "amount": 5
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false
+  },
+  "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Venture"
+}

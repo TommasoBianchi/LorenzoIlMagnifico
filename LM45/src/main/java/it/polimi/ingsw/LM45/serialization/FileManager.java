@@ -85,648 +85,525 @@ public class FileManager {
 
 		// Territories
 		// I Period
-		cards[0] = new Territory("Avamposto Commerciale", PeriodType.I, new Cost(new Resource[] {}), CardEffect.EMPTY,
-				new CardEffect(new ResourceEffect(new Resource[] {}, null,
-						new Resource[] { new Resource(ResourceType.COINS, 1) })),
+		cards[0] = new Territory("Commercial Hub", PeriodType.I,
+				CardEffect.EMPTY,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 1) })),
 				1);
-		cards[1] = new Territory("Bosco", PeriodType.I, new Cost(new Resource[] {}),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null,
-						new Resource[] { new Resource(ResourceType.WOOD, 1) })),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null,
-						new Resource[] { new Resource(ResourceType.WOOD, 1) })),
+		cards[1] = new Territory("Woods", PeriodType.I,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.WOOD, 1) })),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.WOOD, 1) })),
 				2);
-		cards[2] = new Territory("Borgo", PeriodType.I, new Cost(new Resource[] {}), CardEffect.EMPTY,
-				new CardEffect(new ResourceEffect(new Resource[] {}, null, new Resource[] {
+		cards[2] = new Territory("Village", PeriodType.I,
+				CardEffect.EMPTY,
+				new CardEffect(new ResourceEffect(new Resource[] {
 						new Resource(ResourceType.COINS, 1), new Resource(ResourceType.SERVANTS, 1) })),
 				3);
-		cards[3] = new Territory("Cava di Ghiaia", PeriodType.I, new Cost(new Resource[] {}),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null,
-						new Resource[] { new Resource(ResourceType.STONE, 2) })),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null,
-						new Resource[] { new Resource(ResourceType.STONE, 2) })),
+		cards[3] = new Territory("Gravel Pit", PeriodType.I,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.STONE, 2) })),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.STONE, 2) })),
 				4);
-		cards[4] = new Territory("Foresta", PeriodType.I, new Cost(new Resource[] {}),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null,
-						new Resource[] { new Resource(ResourceType.WOOD, 1) })),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null,
-						new Resource[] { new Resource(ResourceType.WOOD, 3) })),
+		cards[4] = new Territory("Forest", PeriodType.I,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.WOOD, 1) })),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.WOOD, 3) })),
 				5);
-		cards[5] = new Territory("Monastero", PeriodType.I, new Cost(new Resource[] {}),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null,
-						new Resource[] { new Resource(ResourceType.MILITARY, 2),
+		cards[5] = new Territory("Monastery", PeriodType.I,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.MILITARY, 2),
 								new Resource(ResourceType.SERVANTS, 1) })),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null,
-						new Resource[] { new Resource(ResourceType.FAITH, 1), new Resource(ResourceType.STONE, 1) })),
-				6);
-		cards[6] = new Territory("Rocca", PeriodType.I, new Cost(new Resource[] {}), CardEffect.EMPTY,
-				new CardEffect(new ResourceEffect(new Resource[] {}, null, new Resource[] {
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 1),
+						new Resource(ResourceType.STONE, 1) })), 6);
+		cards[6] = new Territory("Citadel", PeriodType.I,
+				CardEffect.EMPTY,
+				new CardEffect(new ResourceEffect(new Resource[] {
 						new Resource(ResourceType.MILITARY, 2), new Resource(ResourceType.STONE, 1) })),
 				5);
-		cards[7] = new Territory("Città", PeriodType.I, new Cost(new Resource[] {}),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null,
-						new Resource[] { new Resource(ResourceType.COINS, 3) })),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null,
-						new Resource[] { new Resource(ResourceType.COUNCIL_PRIVILEGES, 1) })),
-				6);
+		cards[7] = new Territory("City", PeriodType.I,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 3) })),
+				new CardEffect(new ResourceEffect(
+						new Resource[] { new Resource(ResourceType.COUNCIL_PRIVILEGES, 1) })), 6);
 		// II Period
-		cards[8] = new Territory("Miniera d'Oro", PeriodType.II, new Cost(new Resource[] {}),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null,
-						new Resource[] { new Resource(ResourceType.COINS, 1) })),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null,
-						new Resource[] { new Resource(ResourceType.COINS, 2) })),
+		cards[8] = new Territory("Gold Mine", PeriodType.II,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 1) })),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 2) })),
 				1);
-		cards[9] = new Territory("Villaggio Montano", PeriodType.II, new Cost(new Resource[] {}),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null,
-						new Resource[] { new Resource(ResourceType.SERVANTS, 1) })),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null,
-						new Resource[] { new Resource(ResourceType.MILITARY, 1), new Resource(ResourceType.WOOD, 2) })),
-				3);
-		cards[10] = new Territory("Villaggio Minerario", PeriodType.II, new Cost(new Resource[] {}),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null,
-						new Resource[] { new Resource(ResourceType.SERVANTS, 2),
+		cards[9] = new Territory("Mountain Town", PeriodType.II,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.SERVANTS, 1) })),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.MILITARY, 1),
+						new Resource(ResourceType.WOOD, 2) })), 3);
+		cards[10] = new Territory("Mining Town", PeriodType.II,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.SERVANTS, 2),
 								new Resource(ResourceType.STONE, 1) })),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null, new Resource[] {
+				new CardEffect(new ResourceEffect(new Resource[] {
 						new Resource(ResourceType.SERVANTS, 1), new Resource(ResourceType.STONE, 2) })),
 				4);
-		cards[11] = new Territory("Cava di Pietra", PeriodType.II, new Cost(new Resource[] {}),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null,
-						new Resource[] { new Resource(ResourceType.WOOD, 1) })),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null,
-						new Resource[] { new Resource(ResourceType.STONE, 3) })),
+		cards[11] = new Territory("Rock Pit", PeriodType.II,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.WOOD, 1) })),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.STONE, 3) })),
 				3);
-		cards[12] = new Territory("Possedimento", PeriodType.II, new Cost(new Resource[] {}),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null,
+		cards[12] = new Territory("Estate", PeriodType.II,
+				new CardEffect(new ResourceEffect(
 						new Resource[] { new Resource(ResourceType.SERVANTS, 2), new Resource(ResourceType.WOOD, 1) })),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null,
+				new CardEffect(new ResourceEffect(
 						new Resource[] { new Resource(ResourceType.COINS, 1), new Resource(ResourceType.WOOD, 2) })),
 				4);
-		cards[13] = new Territory("Eremo", PeriodType.II, new Cost(new Resource[] {}),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null,
-						new Resource[] { new Resource(ResourceType.FAITH, 1) })),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null,
-						new Resource[] { new Resource(ResourceType.FAITH, 1) })),
+		cards[13] = new Territory("Hermitage", PeriodType.II,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 1) })),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 1) })),
 				2);
-		cards[14] = new Territory("Maniero", PeriodType.II, new Cost(new Resource[] {}), CardEffect.EMPTY,
-				new CardEffect(new ResourceEffect(new Resource[] {}, null, new Resource[] {
+		cards[14] = new Territory("Manor House", PeriodType.II,
+				CardEffect.EMPTY,
+				new CardEffect(new ResourceEffect(new Resource[] {
 						new Resource(ResourceType.MILITARY, 2), new Resource(ResourceType.SERVANTS, 2) })),
 				5);
-		cards[15] = new Territory("Ducato", PeriodType.II, new Cost(new Resource[] {}),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null,
-						new Resource[] { new Resource(ResourceType.COINS, 4) })),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null,
+		cards[15] = new Territory("Dukedom", PeriodType.II,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 4) })),
+				new CardEffect(new ResourceEffect(
 						new Resource[] { new Resource(ResourceType.COINS, 1), new Resource(ResourceType.STONE, 1),
 								new Resource(ResourceType.WOOD, 2) })),
 				6);
 		// III Period
-		cards[16] = new Territory("Città Mercantile", PeriodType.III, new Cost(new Resource[] {}),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null,
-						new Resource[] { new Resource(ResourceType.COINS, 1),
+		cards[16] = new Territory("Trading Town", PeriodType.III,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 1),
 								new Resource(ResourceType.SERVANTS, 1) })),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null,
-						new Resource[] { new Resource(ResourceType.COINS, 3) })),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 3) })),
 				1);
-		cards[17] = new Territory("Tenuta", PeriodType.III, new Cost(new Resource[] {}),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null,
+		cards[17] = new Territory("Farm", PeriodType.III,
+				new CardEffect(new ResourceEffect(
 						new Resource[] { new Resource(ResourceType.VICTORY, 1), new Resource(ResourceType.WOOD, 1) })),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null,
+				new CardEffect(new ResourceEffect(
 						new Resource[] { new Resource(ResourceType.VICTORY, 2), new Resource(ResourceType.WOOD, 2) })),
 				3);
-		cards[18] = new Territory("Colonia", PeriodType.III, new Cost(new Resource[] {}),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null,
-						new Resource[] { new Resource(ResourceType.MILITARY, 2) })),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null,
+		cards[18] = new Territory("Colony", PeriodType.III,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.MILITARY, 2) })),
+				new CardEffect(new ResourceEffect(
 						new Resource[] { new Resource(ResourceType.VICTORY, 4), new Resource(ResourceType.WOOD, 1) })),
 				5);
-		cards[19] = new Territory("Cava di Marmo", PeriodType.III, new Cost(new Resource[] {}),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null,
-						new Resource[] { new Resource(ResourceType.VICTORY, 3) })),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null,
+		cards[19] = new Territory("Marble Pit", PeriodType.III,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 3) })),
+				new CardEffect(new ResourceEffect(
 						new Resource[] { new Resource(ResourceType.VICTORY, 1), new Resource(ResourceType.STONE, 2) })),
 				2);
-		cards[20] = new Territory("Provincia", PeriodType.III, new Cost(new Resource[] {}),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null,
-						new Resource[] { new Resource(ResourceType.COUNCIL_PRIVILEGES, 1),
+		cards[20] = new Territory("Province", PeriodType.III,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.COUNCIL_PRIVILEGES, 1),
 								new Resource(ResourceType.STONE, 1) })),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null,
+				new CardEffect(new ResourceEffect(
 						new Resource[] { new Resource(ResourceType.VICTORY, 4), new Resource(ResourceType.STONE, 1) })),
 				6);
-		cards[21] = new Territory("Santuario", PeriodType.III, new Cost(new Resource[] {}),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null,
-						new Resource[] { new Resource(ResourceType.FAITH, 1) })),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null,
+		cards[21] = new Territory("Sanctuary", PeriodType.III,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 1) })),
+				new CardEffect(new ResourceEffect(
 						new Resource[] { new Resource(ResourceType.COINS, 1), new Resource(ResourceType.FAITH, 1) })),
 				1);
-		cards[22] = new Territory("Castello", PeriodType.III, new Cost(new Resource[] {}),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null,
+		cards[22] = new Territory("Castle", PeriodType.III,
+				new CardEffect(new ResourceEffect(
 						new Resource[] { new Resource(ResourceType.VICTORY, 2), new Resource(ResourceType.COINS, 2) })),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null, new Resource[] {
+				new CardEffect(new ResourceEffect(new Resource[] {
 						new Resource(ResourceType.MILITARY, 3), new Resource(ResourceType.SERVANTS, 1) })),
 				4);
-		cards[23] = new Territory("Città Fortificata", PeriodType.III, new Cost(new Resource[] {}),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null,
-						new Resource[] { new Resource(ResourceType.MILITARY, 2),
-								new Resource(ResourceType.SERVANTS, 1) })),
-				new CardEffect(new ResourceEffect(new Resource[] {}, null, new Resource[] {
+		cards[23] = new Territory("Fortified Town", PeriodType.III,
+				new CardEffect(new ResourceEffect(new Resource[] { 
+						new Resource(ResourceType.MILITARY, 2),new Resource(ResourceType.SERVANTS, 1) })),
+				new CardEffect(new ResourceEffect(new Resource[] {
 						new Resource(ResourceType.MILITARY, 1), new Resource(ResourceType.SERVANTS, 2) })),
 				2);
 
 		// Characters
 		// I Period
-		cards[24] = new Character("Predicatore", PeriodType.I,
+		cards[24] = new Character("Preacher", PeriodType.I,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 2) }),
 				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 4) })),
 				new CardEffect(new SlotModifierEffect(SlotType.ANY_CARD, true, false, false)));
-		cards[25] = new Character("Costruttore", PeriodType.I,
-				new Cost(new Resource[] { new Resource(ResourceType.COINS, 4) }), CardEffect.EMPTY,
+		cards[25] = new Character("Stonemason", PeriodType.I,
+				new Cost(new Resource[] { new Resource(ResourceType.COINS, 4) }),
+				CardEffect.EMPTY,
 				new CardEffect(new Effect[] {
 						new ActionEffect(SlotType.BUILDING, 2, new Resource[] { new Resource(ResourceType.WOOD, 1) }),
 						new ActionEffect(SlotType.BUILDING, 2, new Resource[] { new Resource(ResourceType.STONE, 1) }) },
 						true));
-		cards[26] = new Character("Dama", PeriodType.I,
-				new Cost(new Resource[] { new Resource(ResourceType.COINS, 4) }), CardEffect.EMPTY,
+		cards[26] = new Character("Dame", PeriodType.I,
+				new Cost(new Resource[] { new Resource(ResourceType.COINS, 4) }),
+				CardEffect.EMPTY,
 				new CardEffect(new ActionEffect(SlotType.CHARACTER, 2,
 						new Resource[] { new Resource(ResourceType.COINS, 1) })));
-		cards[27] = new Character("Cavaliere", PeriodType.I,
+		cards[27] = new Character("Knight", PeriodType.I,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 2) }),
 				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.COUNCIL_PRIVILEGES, 1) })),
-				new CardEffect(new ActionEffect(SlotType.VENTURE, 2, new Resource[] {})));
-		cards[28] = new Character("Condottiero", PeriodType.I,
+				new CardEffect(new ActionEffect(SlotType.VENTURE, 2)));
+		cards[28] = new Character("Warlord", PeriodType.I,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 2) }),
 				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.MILITARY, 3) })),
-				new CardEffect(new ActionEffect(SlotType.TERRITORY, 2, new Resource[] {})));
-		cards[29] = new Character("Artigiano", PeriodType.I,
-				new Cost(new Resource[] { new Resource(ResourceType.COINS, 3) }), CardEffect.EMPTY,
-				new CardEffect(new ActionEffect(SlotType.PRODUCTION, 2, new Resource[] {})));
-		cards[30] = new Character("Contadino", PeriodType.I,
-				new Cost(new Resource[] { new Resource(ResourceType.COINS, 3) }), CardEffect.EMPTY,
-				new CardEffect(new ActionEffect(SlotType.HARVEST, 2, new Resource[] {})));
-		cards[31] = new Character("Badessa", PeriodType.I,
+				new CardEffect(new ActionEffect(SlotType.TERRITORY, 2)));
+		cards[29] = new Character("Artisan", PeriodType.I,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 3) }),
-				new CardEffect(new Effect[] { new ActionEffect(SlotType.ANY_CARD, 4, new Resource[] {}),
+				CardEffect.EMPTY,
+				new CardEffect(new ActionEffect(SlotType.PRODUCTION, 2)));
+		cards[30] = new Character("Farmer", PeriodType.I,
+				new Cost(new Resource[] { new Resource(ResourceType.COINS, 3) }),
+				CardEffect.EMPTY,
+				new CardEffect(new ActionEffect(SlotType.HARVEST, 2)));
+		cards[31] = new Character("Abbess", PeriodType.I,
+				new Cost(new Resource[] { new Resource(ResourceType.COINS, 3) }),
+				new CardEffect(new Effect[] { new ActionEffect(SlotType.ANY_CARD, 4),
 						new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 1) }) }, false),
 				CardEffect.EMPTY);
+		
 		// II Period
-		cards[32] = new Character("Mecenate", PeriodType.II,
+		cards[32] = new Character("Patron", PeriodType.II,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 3) }),
 				new CardEffect(new ActionEffect(SlotType.CHARACTER, 6,
 						new Resource[] { new Resource(ResourceType.COINS, 2) })),
 				CardEffect.EMPTY);
-		cards[33] = new Character("Architetto", PeriodType.II,
+		cards[33] = new Character("Architect", PeriodType.II,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 4) }),
 				new CardEffect(new ActionEffect(SlotType.BUILDING, 6,
 						new Resource[] { new Resource(ResourceType.WOOD, 1), new Resource(ResourceType.STONE, 1) })),
 				CardEffect.EMPTY);
-		cards[34] = new Character("Eroe", PeriodType.II,
-				new Cost(
-						new Resource[] { new Resource(ResourceType.COINS, 4) }),
-				new CardEffect(new Effect[] { new ActionEffect(SlotType.VENTURE, 6, new Resource[] {}),
+		cards[34] = new Character("Hero", PeriodType.II,
+				new Cost(new Resource[] { new Resource(ResourceType.COINS, 4) }),
+				new CardEffect(new Effect[] { new ActionEffect(SlotType.VENTURE, 6),
 						new ResourceEffect(new Resource[] { new Resource(ResourceType.COUNCIL_PRIVILEGES, 1) }) },
 						false),
 				CardEffect.EMPTY);
-		cards[35] = new Character("Capitano", PeriodType.II,
+		cards[35] = new Character("Captain", PeriodType.II,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 4) }),
-				new CardEffect(new Effect[] { new ActionEffect(SlotType.TERRITORY, 6, new Resource[] {}),
+				new CardEffect(new Effect[] { new ActionEffect(SlotType.TERRITORY, 6),
 						new ResourceEffect(new Resource[] { new Resource(ResourceType.MILITARY, 2) }) }, false),
 				CardEffect.EMPTY);
-		cards[36] = new Character("Studioso", PeriodType.II,
-				new Cost(new Resource[] { new Resource(ResourceType.COINS, 4) }), CardEffect.EMPTY,
-				new CardEffect(new ActionEffect(SlotType.PRODUCTION, 3, new Resource[] {})));
-		cards[37] = new Character("Messo Reale", PeriodType.II,
+		cards[36] = new Character("Scholar", PeriodType.II,
+				new Cost(new Resource[] { new Resource(ResourceType.COINS, 4) }),
+				CardEffect.EMPTY,
+				new CardEffect(new ActionEffect(SlotType.PRODUCTION, 3)));
+		cards[37] = new Character("Royal Messenger", PeriodType.II,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 5) }),
 				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.COUNCIL_PRIVILEGES, 3) })),
 				CardEffect.EMPTY);
-		cards[38] = new Character("Messo Papale", PeriodType.II,
+		cards[38] = new Character("Papal Messenger", PeriodType.II,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 5) }),
 				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 3) })),
 				CardEffect.EMPTY);
-		cards[39] = new Character("Fattore", PeriodType.II,
-				new Cost(new Resource[] { new Resource(ResourceType.COINS, 4) }), CardEffect.EMPTY,
-				new CardEffect(new ActionEffect(SlotType.HARVEST, 3, new Resource[] {})));
+		cards[39] = new Character("Peasant", PeriodType.II,
+				new Cost(new Resource[] { new Resource(ResourceType.COINS, 4) }),
+				CardEffect.EMPTY,
+				new CardEffect(new ActionEffect(SlotType.HARVEST, 3)));
 		// III Period
-		cards[40] = new Character("Ambasciatore", PeriodType.III,
-				new Cost(
-						new Resource[] { new Resource(ResourceType.COINS, 6) }),
-				new CardEffect(new Effect[] { new ActionEffect(SlotType.ANY_CARD, 7, new Resource[] {}),
+		cards[40] = new Character("Ambassador", PeriodType.III,
+				new Cost(new Resource[] { new Resource(ResourceType.COINS, 6) }),
+				new CardEffect(new Effect[] { new ActionEffect(SlotType.ANY_CARD, 7),
 						new ResourceEffect(new Resource[] { new Resource(ResourceType.COUNCIL_PRIVILEGES, 1) }) },
 						false),
 				CardEffect.EMPTY);
-		cards[41] = new Character("Generale", PeriodType.III,
+		cards[41] = new Character("General", PeriodType.III,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 5) }),
 				new CardEffect(new ResourceEffect(new Resource(ResourceType.MILITARY, 2),
 						new Resource[] { new Resource(ResourceType.VICTORY, 1) })),
 				CardEffect.EMPTY);
-		cards[42] = new Character("Cortigiana", PeriodType.III,
+		cards[42] = new Character("Paramour", PeriodType.III,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 7) }),
 				new CardEffect(new ResourceEffect(new Resource(ResourceType.CHARACTER, 1),
 						new Resource[] { new Resource(ResourceType.VICTORY, 2) })),
 				CardEffect.EMPTY);
-		cards[43] = new Character("Araldo", PeriodType.III,
+		cards[43] = new Character("Herald", PeriodType.III,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 6) }),
 				new CardEffect(new ResourceEffect(new Resource(ResourceType.VENTURE, 1),
 						new Resource[] { new Resource(ResourceType.VICTORY, 2) })),
 				CardEffect.EMPTY);
-		cards[44] = new Character("Nobile", PeriodType.III,
+		cards[44] = new Character("Noble", PeriodType.III,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 6) }),
 				new CardEffect(new ResourceEffect(new Resource(ResourceType.TERRITORY, 1),
 						new Resource[] { new Resource(ResourceType.VICTORY, 2) })),
 				CardEffect.EMPTY);
-		cards[45] = new Character("Governatore", PeriodType.III,
+		cards[45] = new Character("Governor", PeriodType.III,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 6) }),
 				new CardEffect(new ResourceEffect(new Resource(ResourceType.BUILDING, 1),
 						new Resource[] { new Resource(ResourceType.VICTORY, 2) })),
 				CardEffect.EMPTY);
-		cards[46] = new Character("Cardinale", PeriodType.III,
+		cards[46] = new Character("Cardinal", PeriodType.III,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 4) }),
-				new CardEffect(new Effect[] { new ActionEffect(SlotType.HARVEST, 4, new Resource[] {}),
+				new CardEffect(new Effect[] { new ActionEffect(SlotType.HARVEST, 4),
 						new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 2) }) }, false),
 				CardEffect.EMPTY);
-		cards[47] = new Character("Vescovo", PeriodType.III,
+		cards[47] = new Character("Bishop", PeriodType.III,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 5) }),
-				new CardEffect(new Effect[] { new ActionEffect(SlotType.PRODUCTION, 4, new Resource[] {}),
+				new CardEffect(new Effect[] { new ActionEffect(SlotType.PRODUCTION, 4),
 						new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 1) }) }, false),
 				CardEffect.EMPTY);
 
 		// Ventures
 		// I Period
-		cards[48] = new Venture("Campagna Militare", PeriodType.I,
+		cards[48] = new Venture("Military Campaign", PeriodType.I,
 				new CostWithPrerequisites(new Resource[] { new Resource(ResourceType.MILITARY, 2) },
 						new Resource[] { new Resource(ResourceType.MILITARY, 3) }),
-				new CardEffect(
-						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 3) }) },
-						false),
-				new CardEffect(
-						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5) }) },
-						false),
-				Cost.EMPTY);
-		cards[49] = new Venture("Ingaggiare Reclute", PeriodType.I,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 3) })),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5) })));
+		cards[49] = new Venture("Hiring Recruits", PeriodType.I,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 4) }),
-				new CardEffect(
-						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.MILITARY, 5) }) },
-						false),
-				new CardEffect(
-						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 4) }) },
-						false),
-				Cost.EMPTY);
-		cards[50] = new Venture("Innalzare una Statua", PeriodType.I,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.MILITARY, 5) })),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 4) })));
+		cards[50] = new Venture("Raising a Statue", PeriodType.I,
 				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 2), new Resource(ResourceType.STONE, 2) }),
-				new CardEffect(new Effect[] {
-						new ResourceEffect(new Resource[] { new Resource(ResourceType.COUNCIL_PRIVILEGES, 2) }) },
-						false),
-				new CardEffect(
-						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 4) }) },
-						false),
-				Cost.EMPTY);
-		cards[51] = new Venture("Combattere le Eresie", PeriodType.I,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.COUNCIL_PRIVILEGES, 2) })),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 4) })));
+		cards[51] = new Venture("Fighting Heresies", PeriodType.I,
 				new CostWithPrerequisites(new Resource[] { new Resource(ResourceType.MILITARY, 3) },
 						new Resource[] { new Resource(ResourceType.MILITARY, 5) }),
-				new CardEffect(
-						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 2) }) },
-						false),
-				new CardEffect(
-						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5) }) },
-						false),
-				Cost.EMPTY);
-		cards[52] = new Venture("Sostegno al Vescovo", PeriodType.I,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 2) })),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5) })));
+		cards[52] = new Venture("Support to the Bishop", PeriodType.I,
 				new CostWithPrerequisites(new Resource[] { new Resource(ResourceType.MILITARY, 2) },
 						new Resource[] { new Resource(ResourceType.MILITARY, 4) }),
-				new CardEffect(
-						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 3) }) },
-						false),
-				new CardEffect(
-						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 1) }) },
-						false),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 3) })),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 1) })),
 				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 1), new Resource(ResourceType.STONE, 1),
 						new Resource(ResourceType.COINS, 2) }));
-		cards[53] = new Venture("Ospitare i Mendicanti", PeriodType.I,
+		cards[53] = new Venture("Hosting Panhandlers", PeriodType.I,
 				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 3) }),
-				new CardEffect(
-						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.SERVANTS, 4) }) },
-						false),
-				new CardEffect(
-						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 4) }) },
-						false),
-				Cost.EMPTY);
-		cards[54] = new Venture("Riparare la Chiesa", PeriodType.I,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.SERVANTS, 4) })),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 4) })));
+		cards[54] = new Venture("Rapairing the Church", PeriodType.I,
 				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 1), new Resource(ResourceType.STONE, 1),
 						new Resource(ResourceType.COINS, 1) }),
-				new CardEffect(
-						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 1) }) },
-						false),
-				new CardEffect(
-						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5) }) },
-						false),
-				Cost.EMPTY);
-		cards[55] = new Venture("Costruire le Mura", PeriodType.I,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 1) })),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5) })));
+		cards[55] = new Venture("Building the Walls", PeriodType.I,
 				new Cost(new Resource[] { new Resource(ResourceType.STONE, 3) }),
-				new CardEffect(new Effect[] { new ResourceEffect(new Resource[] {
-						new Resource(ResourceType.MILITARY, 2), new Resource(ResourceType.COUNCIL_PRIVILEGES, 1) }) },
-						false),
-				new CardEffect(
-						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 3) }) },
-						false),
-				Cost.EMPTY);
+				new CardEffect(new ResourceEffect(new Resource[] {
+						new Resource(ResourceType.MILITARY, 2), new Resource(ResourceType.COUNCIL_PRIVILEGES, 1) })),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 3) })));
 
 		// II Period
-		cards[56] = new Venture("Sostegno al Cardinale", PeriodType.II,
+		cards[56] = new Venture("Support to the Cardinal", PeriodType.II,
 				new CostWithPrerequisites(new Resource[] { new Resource(ResourceType.MILITARY, 4) },
 						new Resource[] { new Resource(ResourceType.MILITARY, 7) }),
-				new CardEffect(
-						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 3) }) },
-						false),
-				new CardEffect(
-						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 4) }) },
-						false),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 3) })),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 4) })),
 				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 2), new Resource(ResourceType.STONE, 2),
 						new Resource(ResourceType.COINS, 3) }));
-		cards[57] = new Venture("Crociata", PeriodType.II,
+		cards[57] = new Venture("Crusade", PeriodType.II,
 				new CostWithPrerequisites(new Resource[] { new Resource(ResourceType.MILITARY, 4) },
 						new Resource[] { new Resource(ResourceType.MILITARY, 8) }),
-				new CardEffect(new Effect[] { new ResourceEffect(
-						new Resource[] { new Resource(ResourceType.FAITH, 1), new Resource(ResourceType.COINS, 5) }) },
-						false),
-				new CardEffect(
-						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5) }) },
-						false),
-				Cost.EMPTY);
-		cards[58] = new Venture("Supporto al Re", PeriodType.II,
+				new CardEffect(new ResourceEffect(
+						new Resource[] { new Resource(ResourceType.FAITH, 1), new Resource(ResourceType.COINS, 5) })),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5) })));
+		cards[58] = new Venture("Support to the King", PeriodType.II,
 				new CostWithPrerequisites(new Resource[] { new Resource(ResourceType.MILITARY, 3) },
 						new Resource[] { new Resource(ResourceType.MILITARY, 6) }),
-				new CardEffect(new Effect[] { new ResourceEffect(new Resource[] {
-						new Resource(ResourceType.COUNCIL_PRIVILEGES, 1), new Resource(ResourceType.COINS, 5) }) },
-						false),
-				new CardEffect(
-						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 3) }) },
-						false),
-				Cost.EMPTY);
-		cards[59] = new Venture("Scavare Canalizzazioni", PeriodType.II,
+				new CardEffect(new ResourceEffect(new Resource[] {
+						new Resource(ResourceType.COUNCIL_PRIVILEGES, 1), new Resource(ResourceType.COINS, 5) })),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 3) })));
+		cards[59] = new Venture("Improving the Canals", PeriodType.II,
 				new Cost(
 						new Resource[] { new Resource(ResourceType.SERVANTS, 2), new Resource(ResourceType.COINS, 3) }),
-				new CardEffect(new Effect[] { new ActionEffect(SlotType.HARVEST, 4) }, false),
-				new CardEffect(
-						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5) }) },
-						false),
-				Cost.EMPTY);
-		cards[60] = new Venture("Costruire i Bastioni", PeriodType.II,
+				new CardEffect(new ActionEffect(SlotType.HARVEST, 4)),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5) })));
+		cards[60] = new Venture("Building the Bastions", PeriodType.II,
 				new Cost(new Resource[] { new Resource(ResourceType.STONE, 4) }),
-				new CardEffect(new Effect[] { new ResourceEffect(new Resource[] {
-						new Resource(ResourceType.MILITARY, 3), new Resource(ResourceType.COUNCIL_PRIVILEGES, 1) }) },
-						false),
-				new CardEffect(
-						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 2) }) },
-						false),
-				Cost.EMPTY);
-		cards[61] = new Venture("Ingaggiare Soldati", PeriodType.II,
+				new CardEffect(new ResourceEffect(new Resource[] {
+						new Resource(ResourceType.MILITARY, 3), new Resource(ResourceType.COUNCIL_PRIVILEGES, 1) })),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 2) })));
+		cards[61] = new Venture("Hiring Soldiers", PeriodType.II,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 6) }),
-				new CardEffect(
-						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.MILITARY, 6) }) },
-						false),
-				new CardEffect(
-						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5) }) },
-						false),
-				Cost.EMPTY);
-		cards[62] = new Venture("Accogliere gli Stranieri", PeriodType.II,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.MILITARY, 6) })),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5) })));
+		cards[62] = new Venture("Hosting Foreigners", PeriodType.II,
 				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 4) }),
-				new CardEffect(
-						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.SERVANTS, 5) }) },
-						false),
-				new CardEffect(
-						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 4) }) },
-						false),
-				Cost.EMPTY);
-		cards[63] = new Venture("Riparare l'Abbazia", PeriodType.II,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.SERVANTS, 5) })),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 4) })));
+		cards[63] = new Venture("Repairing the Abbey", PeriodType.II,
 				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 2), new Resource(ResourceType.COINS, 2),
 						new Resource(ResourceType.STONE, 2) }),
-				new CardEffect(
-						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 2) }) },
-						false),
-				new CardEffect(
-						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 6) }) },
-						false),
-				Cost.EMPTY);
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 2) })),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 6) })));
 
 		// III Period
-		cards[64] = new Venture("Sostegno al Papa", PeriodType.III,
+		cards[64] = new Venture("Support to the Pope", PeriodType.III,
 				new CostWithPrerequisites(new Resource[] { new Resource(ResourceType.MILITARY, 5) },
 						new Resource[] { new Resource(ResourceType.MILITARY, 10) }),
-				new CardEffect(
-						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 2) }) },
-						false),
-				new CardEffect(
-						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 10) }) },
-						false),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 2) })),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 10) })),
 				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 3), new Resource(ResourceType.STONE, 3),
 						new Resource(ResourceType.COINS, 4) }));
-		cards[65] = new Venture("Migliorare le Strade", PeriodType.III,
+		cards[65] = new Venture("Improving the Roads", PeriodType.III,
 				new Cost(
 						new Resource[] { new Resource(ResourceType.SERVANTS, 3), new Resource(ResourceType.COINS, 4) }),
-				new CardEffect(new Effect[] { new ActionEffect(SlotType.HARVEST, 3) }, false),
-				new CardEffect(
-						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5) }) },
-						false),
-				Cost.EMPTY);
-		cards[66] = new Venture("Riparare la Cattedrale", PeriodType.III,
+				new CardEffect(new ActionEffect(SlotType.HARVEST, 3)),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5) })));
+		cards[66] = new Venture("Repairing the Cathedral", PeriodType.III,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 3), new Resource(ResourceType.WOOD, 3),
 						new Resource(ResourceType.STONE, 3) }),
 				new CardEffect(
 						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 1) }),
 								new ActionEffect(SlotType.ANY_CARD, 7) },
 						false),
-				new CardEffect(
-						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5) }) },
-						false),
-				Cost.EMPTY);
-		cards[67] = new Venture("Conquista Militare", PeriodType.III,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5) })));
+		cards[67] = new Venture("Military Conquest", PeriodType.III,
 				new CostWithPrerequisites(new Resource[] { new Resource(ResourceType.MILITARY, 6) },
 						new Resource[] { new Resource(ResourceType.MILITARY, 12) }),
-				new CardEffect(new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.WOOD, 3),
-						new Resource(ResourceType.STONE, 3), new Resource(ResourceType.COINS, 3) }) }, false),
-				new CardEffect(
-						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 7) }) },
-						false),
-				Cost.EMPTY);
-		cards[68] = new Venture("Guerra Santa", PeriodType.III,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.WOOD, 3),
+						new Resource(ResourceType.STONE, 3), new Resource(ResourceType.COINS, 3) })),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 7) })));
+		cards[68] = new Venture("Sacred War", PeriodType.III,
 				new CostWithPrerequisites(new Resource[] { new Resource(ResourceType.MILITARY, 8) },
 						new Resource[] { new Resource(ResourceType.MILITARY, 15) }),
-				new CardEffect(
-						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 4) }) },
-						false),
-				new CardEffect(
-						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 8) }) },
-						false),
-				Cost.EMPTY);
-		cards[69] = new Venture("Ingaggiare Mercenari", PeriodType.III,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 4) })),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 8) })));
+		cards[69] = new Venture("Hiring Mercenaries", PeriodType.III,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 8) }),
-				new CardEffect(
-						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.MILITARY, 7) }) },
-						false),
-				new CardEffect(
-						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 6) }) },
-						false),
-				Cost.EMPTY);
-		cards[70] = new Venture("Commissionare Arte Sacra", PeriodType.III,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.MILITARY, 7) })),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 6) })));
+		cards[70] = new Venture("Promoting Sacred Art", PeriodType.III,
 				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 6) }),
-				new CardEffect(
-						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 3) }) },
-						false),
-				new CardEffect(
-						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 3) }) },
-						false),
-				Cost.EMPTY);
-		cards[71] = new Venture("Costruire le Torri", PeriodType.III,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 3) })),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 3) })));
+		cards[71] = new Venture("Building the Towers", PeriodType.III,
 				new Cost(new Resource[] { new Resource(ResourceType.STONE, 6) }),
-				new CardEffect(new Effect[] { new ResourceEffect(new Resource[] {
-						new Resource(ResourceType.MILITARY, 4), new Resource(ResourceType.COUNCIL_PRIVILEGES, 1) }) },
-						false),
-				new CardEffect(
-						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 4) }) },
-						false),
-				Cost.EMPTY);
+				new CardEffect(new ResourceEffect(new Resource[] {
+						new Resource(ResourceType.MILITARY, 4), new Resource(ResourceType.COUNCIL_PRIVILEGES, 1) })),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 4) })));
 
 		// Buildings
 		// I Period
-		cards[72] = new Building("Arco di Trionfo", PeriodType.I,
+		cards[72] = new Building("Triumphal Arch", PeriodType.I,
 				new Cost(new Resource[] { new Resource(ResourceType.STONE, 6), new Resource(ResourceType.COINS, 6)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 6)}) }, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource(ResourceType.VENTURE, 1),
-						new Resource[] { new Resource(ResourceType.VICTORY, 1) })}, false), 6);
-		cards[73] = new Building("Zecca", PeriodType.I,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 6)})),
+				new CardEffect(new ResourceEffect(new Resource(ResourceType.VENTURE, 1),
+						new Resource[] { new Resource(ResourceType.VICTORY, 1) })), 6);
+		cards[73] = new Building("Mint", PeriodType.I,
 				new Cost(new Resource[] { new Resource(ResourceType.STONE, 3), new Resource(ResourceType.WOOD, 1)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5)}) }, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource(ResourceType.BUILDING, 1),
-						new Resource[] { new Resource(ResourceType.COINS, 1) })}, false), 5);
-		cards[74] = new Building("Esattoria", PeriodType.I,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5)})),
+				new CardEffect(new ResourceEffect(new Resource(ResourceType.BUILDING, 1),
+						new Resource[] { new Resource(ResourceType.COINS, 1) })), 5);
+		cards[74] = new Building("Tax Office", PeriodType.I,
 				new Cost(new Resource[] { new Resource(ResourceType.STONE, 1), new Resource(ResourceType.WOOD, 3)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5)}) }, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource(ResourceType.TERRITORY, 1),
-						new Resource[] { new Resource(ResourceType.COINS, 1) })}, false), 5);
-		cards[75] = new Building("Teatro", PeriodType.I,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5)})),
+				new CardEffect(new ResourceEffect(new Resource(ResourceType.TERRITORY, 1),
+						new Resource[] { new Resource(ResourceType.COINS, 1) })), 5);
+		cards[75] = new Building("Theater", PeriodType.I,
 				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 2), new Resource(ResourceType.COINS, 2)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 6)}) }, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource(ResourceType.CHARACTER, 1),
-						new Resource[] { new Resource(ResourceType.VICTORY, 1) })}, false), 6);
-		cards[76] = new Building("Residenza", PeriodType.I,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 6)})),
+				new CardEffect(new ResourceEffect(new Resource(ResourceType.CHARACTER, 1),
+						new Resource[] { new Resource(ResourceType.VICTORY, 1) })), 6);
+		cards[76] = new Building("Residence", PeriodType.I,
 				new Cost(new Resource[] { new Resource(ResourceType.STONE, 2)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 1)}) }, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 1) },
-						new Resource[] { new Resource(ResourceType.COUNCIL_PRIVILEGES, 1) }) }, false), 1);
-		cards[77] = new Building("Cappella", PeriodType.I,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 1)})),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 1) },
+						new Resource[] { new Resource(ResourceType.COUNCIL_PRIVILEGES, 1) })), 1);
+		cards[77] = new Building("Chapel", PeriodType.I,
 				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 2)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 1)}) }, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 1) },
-						new Resource[] { new Resource(ResourceType.FAITH, 1) }) }, false), 2);
-		cards[78] = new Building("Falegnameria", PeriodType.I,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 1)})),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 1) },
+						new Resource[] { new Resource(ResourceType.FAITH, 1) })), 2);
+		cards[78] = new Building("Carpenter's Shop", PeriodType.I,
 				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 2), new Resource(ResourceType.COINS, 1)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 3)}) }, false),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 3)})),
 				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.WOOD, 1) },
 						new Resource[] { new Resource(ResourceType.COINS, 3) }),
 						new ResourceEffect(new Resource[] { new Resource(ResourceType.WOOD, 2) },
 								new Resource[] { new Resource(ResourceType.COINS, 5)})}, true), 4);
-		cards[79] = new Building("Tagliapietra", PeriodType.I,
+		cards[79] = new Building("Stonemason's Shop", PeriodType.I,
 				new Cost(new Resource[] { new Resource(ResourceType.STONE, 2), new Resource(ResourceType.COINS, 1)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 2)}) }, false),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 2)})),
 				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.STONE, 1) },
 						new Resource[] { new Resource(ResourceType.COINS, 3) }),
 						new ResourceEffect(new Resource[] { new Resource(ResourceType.STONE, 2) },
 								new Resource[] { new Resource(ResourceType.COINS, 5)})}, true), 3);
 		
 		// II Period
-		cards[80] = new Building("Fortezza", PeriodType.II,
+		cards[80] = new Building("Stronghold", PeriodType.II,
 				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 2), new Resource(ResourceType.STONE, 2), 
 						new Resource(ResourceType.COINS, 2)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 8)}) }, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.MILITARY, 2) },
-						new Resource[] { new Resource(ResourceType.VICTORY, 2) }) }, false), 6);
-		cards[81] = new Building("Gilda degli Scultori", PeriodType.II,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 8)})),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.MILITARY, 2),
+						new Resource(ResourceType.VICTORY, 2) })), 6);
+		cards[81] = new Building("Sculptors' Guild", PeriodType.II,
 				new Cost(new Resource[] { new Resource(ResourceType.STONE, 4)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 6)}) }, false),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 6)})),
 				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.STONE, 1) },
 						new Resource[] { new Resource(ResourceType.VICTORY, 3) }),
 						new ResourceEffect(new Resource[] { new Resource(ResourceType.STONE, 3) },
 								new Resource[] { new Resource(ResourceType.VICTORY, 7)})}, true), 5);
-		cards[82] = new Building("Gilda dei Pittori", PeriodType.II,
+		cards[82] = new Building("Painters' Guild", PeriodType.II,
 				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 4)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5)}) }, false),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5)})),
 				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.WOOD, 1) },
 						new Resource[] { new Resource(ResourceType.VICTORY, 3) }),
 						new ResourceEffect(new Resource[] { new Resource(ResourceType.WOOD, 3) },
 								new Resource[] { new Resource(ResourceType.VICTORY, 7)})}, true), 4);
-		cards[83] = new Building("Tesoreria", PeriodType.II,
+		cards[83] = new Building("Treasury", PeriodType.II,
 				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 3)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 4)}) }, false),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 4)})),
 				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 1) },
 						new Resource[] { new Resource(ResourceType.VICTORY, 3) }),
 						new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 2) },
 								new Resource[] { new Resource(ResourceType.VICTORY, 5)})}, true), 3);
-		cards[84] = new Building("Caserma", PeriodType.II,
+		cards[84] = new Building("Barracks", PeriodType.II,
 				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 1), new Resource(ResourceType.STONE, 1)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 3)}) }, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.SERVANTS, 1) },
-						new Resource[] { new Resource(ResourceType.MILITARY, 3) })}, false), 1);
-		cards[85] = new Building("Gilda dei Costruttori", PeriodType.II,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 3)})),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.SERVANTS, 1) },
+						new Resource[] { new Resource(ResourceType.MILITARY, 3) })), 1);
+		cards[85] = new Building("Stonemasons' Guild", PeriodType.II,
 				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 1), new Resource(ResourceType.STONE, 2)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 4)}) }, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.SERVANTS, 1),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 4)})),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.SERVANTS, 1),
 						new Resource(ResourceType.WOOD, 1), new Resource(ResourceType.STONE, 1)},
-						new Resource[] { new Resource(ResourceType.VICTORY, 6) })}, false), 4);
-		cards[86] = new Building("Mercato", PeriodType.II,
+						new Resource[] { new Resource(ResourceType.VICTORY, 6) })), 4);
+		cards[86] = new Building("Marketplace", PeriodType.II,
 				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 2), new Resource(ResourceType.STONE, 1)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 3)}) }, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 3) },
-						new Resource[] { new Resource(ResourceType.WOOD, 2), new Resource(ResourceType.STONE, 2)})}, false), 3);
-		cards[87] = new Building("Battistero", PeriodType.II,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 3)})),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 3) },
+						new Resource[] { new Resource(ResourceType.WOOD, 2), new Resource(ResourceType.STONE, 2)})), 3);
+		cards[87] = new Building("Baptistery", PeriodType.II,
 				new Cost(new Resource[] { new Resource(ResourceType.STONE, 3)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 2),
-						new Resource(ResourceType.FAITH, 1)}) }, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 1) },
-						new Resource[] { new Resource(ResourceType.VICTORY, 2), new Resource(ResourceType.COINS, 2)})}, false), 2);
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 2),
+						new Resource(ResourceType.FAITH, 1)})),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 1) },
+						new Resource[] { new Resource(ResourceType.VICTORY, 2), new Resource(ResourceType.COINS, 2)})), 2);
 		
 		// III Period
-		cards[88] = new Building("Basilica", PeriodType.III,
+		cards[88] = new Building("Church", PeriodType.III,
 				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 1), new Resource(ResourceType.STONE, 4)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5),
-						new Resource(ResourceType.FAITH, 1)}) }, false),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5),
+						new Resource(ResourceType.FAITH, 1)})),
 				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.WOOD, 1) },
 						new Resource[] { new Resource(ResourceType.FAITH, 2) }),
 						new ResourceEffect(new Resource[] { new Resource(ResourceType.STONE, 1) },
 								new Resource[] { new Resource(ResourceType.FAITH, 2)})}, true), 1);
-		cards[89] = new Building("Palazzo", PeriodType.III,
+		cards[89] = new Building("Palace", PeriodType.III,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 3), new Resource(ResourceType.WOOD, 3),
 						new Resource(ResourceType.STONE, 1)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 9)})}, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 1) },
-						new Resource[] { new Resource(ResourceType.SERVANTS, 2), new Resource(ResourceType.VICTORY, 4)})}, false), 6);
-		cards[90] = new Building("Accademia Militare", PeriodType.III,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 9)})),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 1) },
+						new Resource[] { new Resource(ResourceType.SERVANTS, 2), new Resource(ResourceType.VICTORY, 4)})), 6);
+		cards[90] = new Building("Military Academy", PeriodType.III,
 				new Cost(new Resource[] { new Resource(ResourceType.SERVANTS, 1), new Resource(ResourceType.WOOD, 2),
 						new Resource(ResourceType.STONE, 2)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 7)})}, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.SERVANTS, 1) },
-						new Resource[] { new Resource(ResourceType.MILITARY, 3), new Resource(ResourceType.VICTORY, 1)})}, false), 3);
-		cards[91] = new Building("Fiera", PeriodType.III,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 7)})),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.SERVANTS, 1) },
+						new Resource[] { new Resource(ResourceType.MILITARY, 3), new Resource(ResourceType.VICTORY, 1)})), 3);
+		cards[91] = new Building("Fair", PeriodType.III,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 4), new Resource(ResourceType.WOOD, 3)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 8)})}, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 4) },
-						new Resource[] { new Resource(ResourceType.WOOD, 3), new Resource(ResourceType.STONE, 3)})}, false), 4);
-		cards[92] = new Building("Castelletto", PeriodType.III,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 8)})),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 4) },
+						new Resource[] { new Resource(ResourceType.WOOD, 3), new Resource(ResourceType.STONE, 3)})), 4);
+		cards[92] = new Building("Fortress", PeriodType.III,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 2), new Resource(ResourceType.WOOD, 2),
 						new Resource(ResourceType.STONE, 4)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 9)})}, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 2), 
-						new Resource(ResourceType.COUNCIL_PRIVILEGES, 1)})}, false), 5);
-		cards[93] = new Building("Cattedrale", PeriodType.III,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 9)})),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 2), 
+						new Resource(ResourceType.COUNCIL_PRIVILEGES, 1)})), 5);
+		cards[93] = new Building("Cathedral", PeriodType.III,
 				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 4), new Resource(ResourceType.STONE, 4)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 7),
-						new Resource(ResourceType.FAITH, 3)})}, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 1)})}, false), 2);
-		cards[94] = new Building("Banca", PeriodType.III,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 7),
+						new Resource(ResourceType.FAITH, 3)})),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 1)})), 2);
+		cards[94] = new Building("Bank", PeriodType.III,
 				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 1), new Resource(ResourceType.STONE, 3),
 						new Resource(ResourceType.COINS, 3)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 7)})}, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 5)})}, false), 2);
-		cards[95] = new Building("Giardino", PeriodType.III,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 7)})),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 5)})), 2);
+		cards[95] = new Building("Garden", PeriodType.III,
 				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 4), new Resource(ResourceType.STONE, 2),
 						new Resource(ResourceType.SERVANTS, 2)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 10)})}, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 3)})}, false), 1);
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 10)})),
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 3)})), 1);
 		
 		try {
 			for (Card card : cards)

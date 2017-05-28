@@ -1,0 +1,58 @@
+{
+  "minDiceToProduce": 3,
+  "name": "Marketplace",
+  "periodType": "II",
+  "cardType": "BUILDING",
+  "cost": {
+    "cost": [
+      {
+        "resourceType": "WOOD",
+        "amount": 2
+      },
+      {
+        "resourceType": "STONE",
+        "amount": 1
+      }
+    ]
+  },
+  "immediateEffect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "VICTORY",
+            "amount": 3
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false
+  },
+  "effect": {
+    "effects": [
+      {
+        "resourcesToPay": [
+          {
+            "resourceType": "COINS",
+            "amount": 3
+          }
+        ],
+        "resourcesToGain": [
+          {
+            "resourceType": "WOOD",
+            "amount": 2
+          },
+          {
+            "resourceType": "STONE",
+            "amount": 2
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false
+  },
+  "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Building"
+}

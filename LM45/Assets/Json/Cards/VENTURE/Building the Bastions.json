@@ -1,0 +1,51 @@
+{
+  "alternativeCost": {
+    "cost": []
+  },
+  "name": "Building the Bastions",
+  "periodType": "II",
+  "cardType": "VENTURE",
+  "cost": {
+    "cost": [
+      {
+        "resourceType": "STONE",
+        "amount": 4
+      }
+    ]
+  },
+  "immediateEffect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "MILITARY",
+            "amount": 3
+          },
+          {
+            "resourceType": "COUNCIL_PRIVILEGES",
+            "amount": 1
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false
+  },
+  "effect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "VICTORY",
+            "amount": 2
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false
+  },
+  "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Venture"
+}

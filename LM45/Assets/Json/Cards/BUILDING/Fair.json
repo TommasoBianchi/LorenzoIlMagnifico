@@ -1,0 +1,58 @@
+{
+  "minDiceToProduce": 4,
+  "name": "Fair",
+  "periodType": "III",
+  "cardType": "BUILDING",
+  "cost": {
+    "cost": [
+      {
+        "resourceType": "COINS",
+        "amount": 4
+      },
+      {
+        "resourceType": "WOOD",
+        "amount": 3
+      }
+    ]
+  },
+  "immediateEffect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "VICTORY",
+            "amount": 8
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false
+  },
+  "effect": {
+    "effects": [
+      {
+        "resourcesToPay": [
+          {
+            "resourceType": "COINS",
+            "amount": 4
+          }
+        ],
+        "resourcesToGain": [
+          {
+            "resourceType": "WOOD",
+            "amount": 3
+          },
+          {
+            "resourceType": "STONE",
+            "amount": 3
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false
+  },
+  "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Building"
+}

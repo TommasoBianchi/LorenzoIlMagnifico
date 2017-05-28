@@ -13,6 +13,11 @@ public class Venture extends Card {
 		this.alternativeCost = alternativeCost;
 		this.cardType = CardType.VENTURE;
 	}
+	
+	public Venture(String name, PeriodType periodType, Cost cost, CardEffect immediateEffects,
+			CardEffect effects) {
+		this(name, periodType, cost, immediateEffects, effects, Cost.EMPTY);
+	}
 
 	@Override
 	public boolean canPick(Player player) {

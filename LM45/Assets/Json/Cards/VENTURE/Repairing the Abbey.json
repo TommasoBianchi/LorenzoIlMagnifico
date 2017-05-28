@@ -1,0 +1,55 @@
+{
+  "alternativeCost": {
+    "cost": []
+  },
+  "name": "Repairing the Abbey",
+  "periodType": "II",
+  "cardType": "VENTURE",
+  "cost": {
+    "cost": [
+      {
+        "resourceType": "WOOD",
+        "amount": 2
+      },
+      {
+        "resourceType": "COINS",
+        "amount": 2
+      },
+      {
+        "resourceType": "STONE",
+        "amount": 2
+      }
+    ]
+  },
+  "immediateEffect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "FAITH",
+            "amount": 2
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false
+  },
+  "effect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "VICTORY",
+            "amount": 6
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false
+  },
+  "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Venture"
+}

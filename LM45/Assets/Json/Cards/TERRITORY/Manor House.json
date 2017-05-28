@@ -1,0 +1,33 @@
+{
+  "minDiceToGather": 5,
+  "name": "Manor House",
+  "periodType": "II",
+  "cardType": "TERRITORY",
+  "cost": {
+    "cost": []
+  },
+  "immediateEffect": {
+    "effects": [],
+    "effectsAreAlternative": false
+  },
+  "effect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "MILITARY",
+            "amount": 2
+          },
+          {
+            "resourceType": "SERVANTS",
+            "amount": 2
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false
+  },
+  "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Territory"
+}
