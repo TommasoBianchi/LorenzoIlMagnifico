@@ -1,0 +1,29 @@
+{
+  "name": "Bartolomeo Colleoni",
+  "effect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "VICTORY",
+            "amount": 4
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "requisites": [
+    {
+      "resourceType": "TERRITORY",
+      "amount": 4
+    },
+    {
+      "resourceType": "VENTURE",
+      "amount": 2
+    }
+  ]
+}

@@ -15,19 +15,27 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 
-import it.polimi.ingsw.LM45.model.cards.Building;
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.CardType;
-import it.polimi.ingsw.LM45.model.effects.CardEffect;
 import it.polimi.ingsw.LM45.model.effects.Effect;
+import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 
 // Necessari per il main di test
 import it.polimi.ingsw.LM45.model.effects.ResourceEffect;
+import it.polimi.ingsw.LM45.model.effects.CopyEffect;
+import it.polimi.ingsw.LM45.model.cards.Building;
+import it.polimi.ingsw.LM45.model.effects.FamiliarEffect;
+import it.polimi.ingsw.LM45.model.effects.GainModifierEffect;
+import it.polimi.ingsw.LM45.model.effects.NoTerritoryRequisiteEffect;
+import it.polimi.ingsw.LM45.model.effects.CardEffect;
+import it.polimi.ingsw.LM45.model.effects.ChurchSupportBonusEffect;
+import it.polimi.ingsw.LM45.model.effects.CostModifierEffect;
 import it.polimi.ingsw.LM45.model.effects.SlotModifierEffect;
 import it.polimi.ingsw.LM45.model.cards.Cost;
 import it.polimi.ingsw.LM45.model.cards.CostWithPrerequisites;
 import it.polimi.ingsw.LM45.model.cards.PeriodType;
 import it.polimi.ingsw.LM45.model.effects.ActionEffect;
+import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.ResourceType;
 import it.polimi.ingsw.LM45.model.core.SlotType;
@@ -55,6 +63,19 @@ public class FileManager {
 		writer.close();
 	}
 
+	public static void saveLeaderCard(LeaderCard leaderCard) throws IOException {
+		String path = BASE_PATH + "/LeaderCards";
+		File directory = new File(path);
+
+		if (!directory.exists()) {
+			directory.mkdirs();
+		}
+
+		FileWriter writer = new FileWriter(path + "/" + leaderCard.getName() + ".json");
+		GSON.toJson(leaderCard, LeaderCard.class, writer);
+		writer.close();
+	}
+
 	public static Map<CardType, List<Card>> loadCards()
 			throws JsonSyntaxException, JsonIOException, FileNotFoundException {
 		Map<CardType, List<Card>> deck = new HashMap<CardType, List<Card>>();
@@ -77,6 +98,21 @@ public class FileManager {
 		}
 
 		return deck;
+	}
+	
+	public static List<LeaderCard> loadLeaderCards()
+			throws JsonSyntaxException, JsonIOException, FileNotFoundException{
+		List<LeaderCard> leaderCards = new ArrayList();
+		File folder = new File(BASE_PATH + "/LeaderCards/");
+		
+		for (File file : folder.listFiles()) {
+			if (file.isFile()) {
+				LeaderCard leaderCard = GSON.fromJson(new FileReader(file), LeaderCard.class);
+				leaderCards.add(leaderCard);
+			}
+		}
+		
+		return leaderCards;
 	}
 
 	// Main di test
@@ -240,12 +276,14 @@ public class FileManager {
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 4) }), CardEffect.EMPTY,
 				new CardEffect(new Effect[] {
 						new ActionEffect(SlotType.BUILDING, 2, new Resource[] { new Resource(ResourceType.WOOD, 1) }),
-						new ActionEffect(SlotType.BUILDING, 2, new Resource[] { new Resource(ResourceType.STONE, 1) }) },
+						new ActionEffect(SlotType.BUILDING, 2,
+								new Resource[] { new Resource(ResourceType.STONE, 1) }) },
 						true, true));
 		cards[26] = new Character("Dama", PeriodType.I,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 4) }), CardEffect.EMPTY,
-				new CardEffect(new ActionEffect(SlotType.CHARACTER, 2,
-						new Resource[] { new Resource(ResourceType.COINS, 1) }), true));
+				new CardEffect(
+						new ActionEffect(SlotType.CHARACTER, 2, new Resource[] { new Resource(ResourceType.COINS, 1) }),
+						true));
 		cards[27] = new Character("Cavaliere", PeriodType.I,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 2) }),
 				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.COUNCIL_PRIVILEGES, 1) })),
@@ -585,175 +623,363 @@ public class FileManager {
 		// Buildings
 		// I Period
 		cards[72] = new Building("Arco di Trionfo", PeriodType.I,
-				new Cost(new Resource[] { new Resource(ResourceType.STONE, 6), new Resource(ResourceType.COINS, 6)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 6)}) }, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource(ResourceType.VENTURE, 1),
-						new Resource[] { new Resource(ResourceType.VICTORY, 1) })}, false), 6);
+				new Cost(new Resource[] { new Resource(ResourceType.STONE, 6), new Resource(ResourceType.COINS, 6) }),
+				new CardEffect(
+						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 6) }) },
+						false),
+				new CardEffect(new Effect[] { new ResourceEffect(new Resource(ResourceType.VENTURE, 1),
+						new Resource[] { new Resource(ResourceType.VICTORY, 1) }) }, false),
+				6);
 		cards[73] = new Building("Zecca", PeriodType.I,
-				new Cost(new Resource[] { new Resource(ResourceType.STONE, 3), new Resource(ResourceType.WOOD, 1)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5)}) }, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource(ResourceType.BUILDING, 1),
-						new Resource[] { new Resource(ResourceType.COINS, 1) })}, false), 5);
+				new Cost(new Resource[] { new Resource(ResourceType.STONE, 3), new Resource(ResourceType.WOOD, 1) }),
+				new CardEffect(
+						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5) }) },
+						false),
+				new CardEffect(new Effect[] { new ResourceEffect(new Resource(ResourceType.BUILDING, 1),
+						new Resource[] { new Resource(ResourceType.COINS, 1) }) }, false),
+				5);
 		cards[74] = new Building("Esattoria", PeriodType.I,
-				new Cost(new Resource[] { new Resource(ResourceType.STONE, 1), new Resource(ResourceType.WOOD, 3)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5)}) }, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource(ResourceType.TERRITORY, 1),
-						new Resource[] { new Resource(ResourceType.COINS, 1) })}, false), 5);
+				new Cost(new Resource[] { new Resource(ResourceType.STONE, 1), new Resource(ResourceType.WOOD, 3) }),
+				new CardEffect(
+						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5) }) },
+						false),
+				new CardEffect(new Effect[] { new ResourceEffect(new Resource(ResourceType.TERRITORY, 1),
+						new Resource[] { new Resource(ResourceType.COINS, 1) }) }, false),
+				5);
 		cards[75] = new Building("Teatro", PeriodType.I,
-				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 2), new Resource(ResourceType.COINS, 2)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 6)}) }, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource(ResourceType.CHARACTER, 1),
-						new Resource[] { new Resource(ResourceType.VICTORY, 1) })}, false), 6);
+				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 2), new Resource(ResourceType.COINS, 2) }),
+				new CardEffect(
+						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 6) }) },
+						false),
+				new CardEffect(new Effect[] { new ResourceEffect(new Resource(ResourceType.CHARACTER, 1),
+						new Resource[] { new Resource(ResourceType.VICTORY, 1) }) }, false),
+				6);
 		cards[76] = new Building("Residenza", PeriodType.I,
-				new Cost(new Resource[] { new Resource(ResourceType.STONE, 2)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 1)}) }, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 1) },
-						new Resource[] { new Resource(ResourceType.COUNCIL_PRIVILEGES, 1) }) }, false), 1);
+				new Cost(new Resource[] { new Resource(ResourceType.STONE, 2) }),
+				new CardEffect(
+						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 1) }) },
+						false),
+				new CardEffect(new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 1) },
+						new Resource[] { new Resource(ResourceType.COUNCIL_PRIVILEGES, 1) }) }, false),
+				1);
 		cards[77] = new Building("Cappella", PeriodType.I,
-				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 2)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 1)}) }, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 1) },
-						new Resource[] { new Resource(ResourceType.FAITH, 1) }) }, false), 2);
+				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 2) }),
+				new CardEffect(
+						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 1) }) },
+						false),
+				new CardEffect(new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 1) },
+						new Resource[] { new Resource(ResourceType.FAITH, 1) }) }, false),
+				2);
 		cards[78] = new Building("Falegnameria", PeriodType.I,
-				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 2), new Resource(ResourceType.COINS, 1)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 3)}) }, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.WOOD, 1) },
-						new Resource[] { new Resource(ResourceType.COINS, 3) }),
+				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 2), new Resource(ResourceType.COINS, 1) }),
+				new CardEffect(
+						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 3) }) },
+						false),
+				new CardEffect(new Effect[] {
+						new ResourceEffect(new Resource[] { new Resource(ResourceType.WOOD, 1) },
+								new Resource[] { new Resource(ResourceType.COINS, 3) }),
 						new ResourceEffect(new Resource[] { new Resource(ResourceType.WOOD, 2) },
-								new Resource[] { new Resource(ResourceType.COINS, 5)})}, true), 4);
+								new Resource[] { new Resource(ResourceType.COINS, 5) }) },
+						true),
+				4);
 		cards[79] = new Building("Tagliapietra", PeriodType.I,
-				new Cost(new Resource[] { new Resource(ResourceType.STONE, 2), new Resource(ResourceType.COINS, 1)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 2)}) }, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.STONE, 1) },
-						new Resource[] { new Resource(ResourceType.COINS, 3) }),
+				new Cost(new Resource[] { new Resource(ResourceType.STONE, 2), new Resource(ResourceType.COINS, 1) }),
+				new CardEffect(
+						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 2) }) },
+						false),
+				new CardEffect(new Effect[] {
+						new ResourceEffect(new Resource[] { new Resource(ResourceType.STONE, 1) },
+								new Resource[] { new Resource(ResourceType.COINS, 3) }),
 						new ResourceEffect(new Resource[] { new Resource(ResourceType.STONE, 2) },
-								new Resource[] { new Resource(ResourceType.COINS, 5)})}, true), 3);
-		
+								new Resource[] { new Resource(ResourceType.COINS, 5) }) },
+						true),
+				3);
+
 		// II Period
 		cards[80] = new Building("Fortezza", PeriodType.II,
-				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 2), new Resource(ResourceType.STONE, 2), 
-						new Resource(ResourceType.COINS, 2)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 8)}) }, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.MILITARY, 2) },
-						new Resource[] { new Resource(ResourceType.VICTORY, 2) }) }, false), 6);
+				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 2), new Resource(ResourceType.STONE, 2),
+						new Resource(ResourceType.COINS, 2) }),
+				new CardEffect(
+						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 8) }) },
+						false),
+				new CardEffect(
+						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.MILITARY, 2) },
+								new Resource[] { new Resource(ResourceType.VICTORY, 2) }) },
+						false),
+				6);
 		cards[81] = new Building("Gilda degli Scultori", PeriodType.II,
-				new Cost(new Resource[] { new Resource(ResourceType.STONE, 4)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 6)}) }, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.STONE, 1) },
-						new Resource[] { new Resource(ResourceType.VICTORY, 3) }),
+				new Cost(
+						new Resource[] {
+								new Resource(ResourceType.STONE, 4) }),
+				new CardEffect(
+						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 6) }) },
+						false),
+				new CardEffect(new Effect[] {
+						new ResourceEffect(new Resource[] { new Resource(ResourceType.STONE, 1) },
+								new Resource[] { new Resource(ResourceType.VICTORY, 3) }),
 						new ResourceEffect(new Resource[] { new Resource(ResourceType.STONE, 3) },
-								new Resource[] { new Resource(ResourceType.VICTORY, 7)})}, true), 5);
+								new Resource[] { new Resource(ResourceType.VICTORY, 7) }) },
+						true),
+				5);
 		cards[82] = new Building("Gilda dei Pittori", PeriodType.II,
-				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 4)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5)}) }, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.WOOD, 1) },
-						new Resource[] { new Resource(ResourceType.VICTORY, 3) }),
+				new Cost(
+						new Resource[] {
+								new Resource(ResourceType.WOOD, 4) }),
+				new CardEffect(
+						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5) }) },
+						false),
+				new CardEffect(new Effect[] {
+						new ResourceEffect(new Resource[] { new Resource(ResourceType.WOOD, 1) },
+								new Resource[] { new Resource(ResourceType.VICTORY, 3) }),
 						new ResourceEffect(new Resource[] { new Resource(ResourceType.WOOD, 3) },
-								new Resource[] { new Resource(ResourceType.VICTORY, 7)})}, true), 4);
+								new Resource[] { new Resource(ResourceType.VICTORY, 7) }) },
+						true),
+				4);
 		cards[83] = new Building("Tesoreria", PeriodType.II,
-				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 3)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 4)}) }, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 1) },
-						new Resource[] { new Resource(ResourceType.VICTORY, 3) }),
+				new Cost(
+						new Resource[] {
+								new Resource(ResourceType.WOOD, 3) }),
+				new CardEffect(
+						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 4) }) },
+						false),
+				new CardEffect(new Effect[] {
+						new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 1) },
+								new Resource[] { new Resource(ResourceType.VICTORY, 3) }),
 						new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 2) },
-								new Resource[] { new Resource(ResourceType.VICTORY, 5)})}, true), 3);
+								new Resource[] { new Resource(ResourceType.VICTORY, 5) }) },
+						true),
+				3);
 		cards[84] = new Building("Caserma", PeriodType.II,
-				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 1), new Resource(ResourceType.STONE, 1)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 3)}) }, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.SERVANTS, 1) },
-						new Resource[] { new Resource(ResourceType.MILITARY, 3) })}, false), 1);
+				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 1), new Resource(ResourceType.STONE, 1) }),
+				new CardEffect(
+						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 3) }) },
+						false),
+				new CardEffect(
+						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.SERVANTS, 1) },
+								new Resource[] { new Resource(ResourceType.MILITARY, 3) }) },
+						false),
+				1);
 		cards[85] = new Building("Gilda dei Costruttori", PeriodType.II,
-				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 1), new Resource(ResourceType.STONE, 2)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 4)}) }, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.SERVANTS, 1),
-						new Resource(ResourceType.WOOD, 1), new Resource(ResourceType.STONE, 1)},
-						new Resource[] { new Resource(ResourceType.VICTORY, 6) })}, false), 4);
+				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 1), new Resource(ResourceType.STONE, 2) }),
+				new CardEffect(
+						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 4) }) },
+						false),
+				new CardEffect(new Effect[] { new ResourceEffect(
+						new Resource[] { new Resource(ResourceType.SERVANTS, 1), new Resource(ResourceType.WOOD, 1),
+								new Resource(ResourceType.STONE, 1) },
+						new Resource[] { new Resource(ResourceType.VICTORY, 6) }) }, false),
+				4);
 		cards[86] = new Building("Mercato", PeriodType.II,
-				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 2), new Resource(ResourceType.STONE, 1)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 3)}) }, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 3) },
-						new Resource[] { new Resource(ResourceType.WOOD, 2), new Resource(ResourceType.STONE, 2)})}, false), 3);
+				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 2), new Resource(ResourceType.STONE, 1) }),
+				new CardEffect(
+						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 3) }) },
+						false),
+				new CardEffect(new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 3) },
+						new Resource[] { new Resource(ResourceType.WOOD, 2), new Resource(ResourceType.STONE, 2) }) },
+						false),
+				3);
 		cards[87] = new Building("Battistero", PeriodType.II,
-				new Cost(new Resource[] { new Resource(ResourceType.STONE, 3)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 2),
-						new Resource(ResourceType.FAITH, 1)}) }, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 1) },
-						new Resource[] { new Resource(ResourceType.VICTORY, 2), new Resource(ResourceType.COINS, 2)})}, false), 2);
-		
+				new Cost(
+						new Resource[] { new Resource(ResourceType.STONE, 3) }),
+				new CardEffect(
+						new Effect[] {
+								new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 2),
+										new Resource(ResourceType.FAITH, 1) }) },
+						false),
+				new CardEffect(new Effect[] {
+						new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 1) }, new Resource[] {
+								new Resource(ResourceType.VICTORY, 2), new Resource(ResourceType.COINS, 2) }) },
+						false),
+				2);
+
 		// III Period
 		cards[88] = new Building("Basilica", PeriodType.III,
-				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 1), new Resource(ResourceType.STONE, 4)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5),
-						new Resource(ResourceType.FAITH, 1)}) }, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.WOOD, 1) },
-						new Resource[] { new Resource(ResourceType.FAITH, 2) }),
+				new Cost(
+						new Resource[] { new Resource(ResourceType.WOOD, 1),
+								new Resource(ResourceType.STONE,
+										4) }),
+				new CardEffect(new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5),
+						new Resource(ResourceType.FAITH, 1) }) }, false),
+				new CardEffect(new Effect[] {
+						new ResourceEffect(new Resource[] { new Resource(ResourceType.WOOD, 1) },
+								new Resource[] { new Resource(ResourceType.FAITH, 2) }),
 						new ResourceEffect(new Resource[] { new Resource(ResourceType.STONE, 1) },
-								new Resource[] { new Resource(ResourceType.FAITH, 2)})}, true), 1);
+								new Resource[] { new Resource(ResourceType.FAITH, 2) }) },
+						true),
+				1);
 		cards[89] = new Building("Palazzo", PeriodType.III,
-				new Cost(new Resource[] { new Resource(ResourceType.COINS, 3), new Resource(ResourceType.WOOD, 3),
-						new Resource(ResourceType.STONE, 1)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 9)})}, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 1) },
-						new Resource[] { new Resource(ResourceType.SERVANTS, 2), new Resource(ResourceType.VICTORY, 4)})}, false), 6);
+				new Cost(
+						new Resource[] { new Resource(ResourceType.COINS, 3), new Resource(ResourceType.WOOD, 3),
+								new Resource(ResourceType.STONE, 1) }),
+				new CardEffect(
+						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 9) }) },
+						false),
+				new CardEffect(new Effect[] {
+						new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 1) }, new Resource[] {
+								new Resource(ResourceType.SERVANTS, 2), new Resource(ResourceType.VICTORY, 4) }) },
+						false),
+				6);
 		cards[90] = new Building("Accademia Militare", PeriodType.III,
 				new Cost(new Resource[] { new Resource(ResourceType.SERVANTS, 1), new Resource(ResourceType.WOOD, 2),
-						new Resource(ResourceType.STONE, 2)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 7)})}, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.SERVANTS, 1) },
-						new Resource[] { new Resource(ResourceType.MILITARY, 3), new Resource(ResourceType.VICTORY, 1)})}, false), 3);
+						new Resource(ResourceType.STONE, 2) }),
+				new CardEffect(
+						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 7) }) },
+						false),
+				new CardEffect(new Effect[] {
+						new ResourceEffect(new Resource[] { new Resource(ResourceType.SERVANTS, 1) }, new Resource[] {
+								new Resource(ResourceType.MILITARY, 3), new Resource(ResourceType.VICTORY, 1) }) },
+						false),
+				3);
 		cards[91] = new Building("Fiera", PeriodType.III,
-				new Cost(new Resource[] { new Resource(ResourceType.COINS, 4), new Resource(ResourceType.WOOD, 3)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 8)})}, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 4) },
-						new Resource[] { new Resource(ResourceType.WOOD, 3), new Resource(ResourceType.STONE, 3)})}, false), 4);
+				new Cost(new Resource[] { new Resource(ResourceType.COINS, 4), new Resource(ResourceType.WOOD, 3) }),
+				new CardEffect(
+						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 8) }) },
+						false),
+				new CardEffect(new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 4) },
+						new Resource[] { new Resource(ResourceType.WOOD, 3), new Resource(ResourceType.STONE, 3) }) },
+						false),
+				4);
 		cards[92] = new Building("Castelletto", PeriodType.III,
-				new Cost(new Resource[] { new Resource(ResourceType.COINS, 2), new Resource(ResourceType.WOOD, 2),
-						new Resource(ResourceType.STONE, 4)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 9)})}, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 2), 
-						new Resource(ResourceType.COUNCIL_PRIVILEGES, 1)})}, false), 5);
+				new Cost(
+						new Resource[] { new Resource(ResourceType.COINS, 2), new Resource(ResourceType.WOOD, 2),
+								new Resource(ResourceType.STONE, 4) }),
+				new CardEffect(
+						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 9) }) },
+						false),
+				new CardEffect(new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 2),
+						new Resource(ResourceType.COUNCIL_PRIVILEGES, 1) }) }, false),
+				5);
 		cards[93] = new Building("Cattedrale", PeriodType.III,
-				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 4), new Resource(ResourceType.STONE, 4)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 7),
-						new Resource(ResourceType.FAITH, 3)})}, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 1)})}, false), 2);
+				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 4), new Resource(ResourceType.STONE, 4) }),
+				new CardEffect(new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 7),
+						new Resource(ResourceType.FAITH, 3) }) }, false),
+				new CardEffect(
+						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 1) }) },
+						false),
+				2);
 		cards[94] = new Building("Banca", PeriodType.III,
 				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 1), new Resource(ResourceType.STONE, 3),
-						new Resource(ResourceType.COINS, 3)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 7)})}, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 5)})}, false), 2);
+						new Resource(ResourceType.COINS, 3) }),
+				new CardEffect(
+						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 7) }) },
+						false),
+				new CardEffect(
+						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 5) }) },
+						false),
+				2);
 		cards[95] = new Building("Giardino", PeriodType.III,
 				new Cost(new Resource[] { new Resource(ResourceType.WOOD, 4), new Resource(ResourceType.STONE, 2),
-						new Resource(ResourceType.SERVANTS, 2)}),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 10)})}, false),
-				new CardEffect(new Effect[] {new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 3)})}, false), 1);
-		
+						new Resource(ResourceType.SERVANTS, 2) }),
+				new CardEffect(
+						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 10) }) },
+						false),
+				new CardEffect(
+						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 3) }) },
+						false),
+				1);
+
+		LeaderCard[] leaderCards = new LeaderCard[20];
+
+		leaderCards[0] = new LeaderCard("Francesco Sforza", new CardEffect(new ActionEffect(SlotType.HARVEST, 1)),
+				new Resource[] { new Resource(ResourceType.VENTURE, 5) });
+		leaderCards[1] = new LeaderCard("Ludovico Ariosto",
+				new CardEffect(new SlotModifierEffect(SlotType.ANY, true, true, true)),
+				new Resource[] { new Resource(ResourceType.CHARACTER, 5) });
+		leaderCards[2] = new LeaderCard("Filippo Brunelleschi",
+				new CardEffect(new CostModifierEffect(new Resource(ResourceType.COINS, -3), false, true, false), true),
+				new Resource[] { new Resource(ResourceType.BUILDING, 5) });
+		leaderCards[3] = new LeaderCard("Sigismondo Malatesta",
+				new CardEffect(new FamiliarEffect(3, true, new FamiliarColor[] { FamiliarColor.UNCOLORED }, 1)),
+				new Resource[] { new Resource(ResourceType.MILITARY, 7), new Resource(ResourceType.FAITH, 3) });
+		leaderCards[4] = new LeaderCard("Girolamo Savonarola",
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 1) })),
+				new Resource[] { new Resource(ResourceType.COINS, 18) });
+		leaderCards[5] = new LeaderCard("Michelangelo Buonarroti",
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 3) })),
+				new Resource[] { new Resource(ResourceType.STONE, 10) });
+		leaderCards[6] = new LeaderCard("Giovanni dalle Bande Nere",
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 1),
+						new Resource(ResourceType.WOOD, 1), new Resource(ResourceType.STONE, 1) })),
+				new Resource[] { new Resource(ResourceType.MILITARY, 12) });
+		leaderCards[7] = new LeaderCard("Leonardo da Vincia", new CardEffect(new ActionEffect(SlotType.PRODUCTION, 0)),
+				new Resource[] { new Resource(ResourceType.CHARACTER, 4), new Resource(ResourceType.TERRITORY, 2) });
+		leaderCards[8] = new LeaderCard("Sandro Botticelli", new CardEffect(new ResourceEffect(
+				new Resource[] { new Resource(ResourceType.MILITARY, 2), new Resource(ResourceType.VICTORY, 1) })),
+				new Resource[] { new Resource(ResourceType.WOOD, 10) });
+		leaderCards[9] = new LeaderCard("Ludovico il Moro",
+				new CardEffect(new FamiliarEffect(5, false,
+						new FamiliarColor[] { FamiliarColor.BLACK, FamiliarColor.ORANGE, FamiliarColor.WHITE }, 1)),
+				new Resource[] { new Resource(ResourceType.CHARACTER, 2), new Resource(ResourceType.BUILDING, 2),
+						new Resource(ResourceType.TERRITORY, 2), new Resource(ResourceType.VENTURE, 2) });
+		leaderCards[10] = new LeaderCard("Lucrezia Borgia",
+				new CardEffect(new FamiliarEffect(2, true,
+						new FamiliarColor[] { FamiliarColor.BLACK, FamiliarColor.ORANGE, FamiliarColor.WHITE }, 1)),
+				new Resource[] { new Resource(ResourceType.ANY_CARD, 6) });
+		leaderCards[11] = new LeaderCard("Federico da Montefeltro",
+				new CardEffect(
+						new Effect[] { new FamiliarEffect(6, false, new FamiliarColor[] { FamiliarColor.BLACK }, 1),
+								new FamiliarEffect(6, false, new FamiliarColor[] { FamiliarColor.WHITE }, 1),
+								new FamiliarEffect(6, false, new FamiliarColor[] { FamiliarColor.ORANGE }, 1) },
+						true),
+				new Resource[] { new Resource(ResourceType.TERRITORY, 5) });
+		leaderCards[12] = new LeaderCard("Lorenzo de' Medici", new CardEffect(new CopyEffect()),
+				new Resource[] { new Resource(ResourceType.VICTORY, 35) });
+		leaderCards[13] = new LeaderCard("Sisto IV",
+				new CardEffect(new ChurchSupportBonusEffect(new Resource(ResourceType.VICTORY, 5))),
+				new Resource[] { new Resource(ResourceType.STONE, 6), new Resource(ResourceType.WOOD, 6),
+						new Resource(ResourceType.COINS, 6), new Resource(ResourceType.SERVANTS, 6), });
+		leaderCards[14] = new LeaderCard("Cesare Borgia", new CardEffect(new NoTerritoryRequisiteEffect()),
+				new Resource[] { new Resource(ResourceType.BUILDING, 3), new Resource(ResourceType.COINS, 12),
+						new Resource(ResourceType.FAITH, 2) });
+		leaderCards[15] = new LeaderCard("Santa Rita",
+				new CardEffect(
+						new Effect[] { new GainModifierEffect(new Resource(ResourceType.COINS, 2), true, false, true),
+								new GainModifierEffect(new Resource(ResourceType.STONE, 2), true, false, true),
+								new GainModifierEffect(new Resource(ResourceType.WOOD, 2), true, false, true),
+								new GainModifierEffect(new Resource(ResourceType.SERVANTS, 2), true, false, true) },
+						false),
+				new Resource[] { new Resource(ResourceType.FAITH, 8) });
+		leaderCards[16] = new LeaderCard("Cosimo de' Medici", new CardEffect(new ResourceEffect(
+				new Resource[] { new Resource(ResourceType.VICTORY, 1), new Resource(ResourceType.SERVANTS, 3) })),
+				new Resource[] { new Resource(ResourceType.BUILDING, 4), new Resource(ResourceType.CHARACTER, 2) });
+		leaderCards[17] = new LeaderCard("Bartolomeo Colleoni",
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 4) })),
+				new Resource[] { new Resource(ResourceType.TERRITORY, 4), new Resource(ResourceType.VENTURE, 2) });
+		leaderCards[18] = new LeaderCard("Ludovico III Gonzaga",
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.COUNCIL_PRIVILEGES, 1) })),
+				new Resource[] { new Resource(ResourceType.SERVANTS, 15) });
+		leaderCards[19] = new LeaderCard("Pico della Mirandola",
+				new CardEffect(new CostModifierEffect(new Resource(ResourceType.COINS, -3), true, false, false)),
+				new Resource[] { new Resource(ResourceType.VENTURE, 4), new Resource(ResourceType.BUILDING, 2) });
+
 		try {
 			for (Card card : cards)
 				saveCard(card);
+			for(LeaderCard leaderCard : leaderCards)
+				saveLeaderCard(leaderCard);
 
 			Map<CardType, List<Card>> deck = loadCards();
-			for (CardType cardType : new CardType[] { CardType.TERRITORY, CardType.CHARACTER, CardType.VENTURE, CardType.BUILDING}) {
+			for (CardType cardType : new CardType[] { CardType.TERRITORY, CardType.CHARACTER, CardType.VENTURE,
+					CardType.BUILDING }) {
+				System.out.println(cardType);
 				System.out.println("");
-				System.out.println(cardType + ": ");
-				System.out.println("");
-				for (Card card : deck.get(cardType))
-					System.out.println(card.getName() + " - Period " + card.getPeriodType());
-
-				System.out.println("------------------");
-				List<Card> shuffledCards = it.polimi.ingsw.LM45.util.ShuffleHelper.shuffle(deck.get(cardType));
-				for (Card card : shuffledCards)
-					System.out.println(card.getName() + " - Period " + card.getPeriodType());
-
-				System.out.println("------------------");
 				List<Card> shuffledByPeriodCards = it.polimi.ingsw.LM45.util.ShuffleHelper
 						.shuffleByPeriod(deck.get(cardType));
 				for (Card card : shuffledByPeriodCards)
 					System.out.println(card.getName() + " - Period " + card.getPeriodType());
+				System.out.println("------------------");
+				System.out.println("");
+			}
+
+			System.out.println("Leader Cards:");
+			System.out.println("");
+			for(LeaderCard leaderCard : loadLeaderCards()){
+				System.out.println(leaderCard.getName());
 			}
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block (this is testing code, so no problem)
+			// TODO Auto-generated catch block (this is testing code, so no
+			// problem)
 			e.printStackTrace();
 		}
 	}

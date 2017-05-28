@@ -9,6 +9,13 @@ public class CostModifierEffect extends Effect {
 	private boolean canModifyCardCost;
 	private boolean canModifyTowerCost;
 	private boolean isMultiplier;
+	
+	public CostModifierEffect(Resource resource, boolean canModifyCardCost, boolean canModifyTowerCost, boolean isMultiplier){
+		this.resource = resource;
+		this.canModifyCardCost = canModifyCardCost;
+		this.canModifyTowerCost = canModifyTowerCost;
+		this.isMultiplier = isMultiplier;
+	}
 
 	@Override
 	public void resolveEffect(EffectResolutor effectResolutor) {
@@ -18,7 +25,7 @@ public class CostModifierEffect extends Effect {
 	
 	@Override
 	public ActionModifier getActionModifier(SlotType slotType) {
-		
+		// FIXME: need a smart way to implement this!
 	}
 
 }

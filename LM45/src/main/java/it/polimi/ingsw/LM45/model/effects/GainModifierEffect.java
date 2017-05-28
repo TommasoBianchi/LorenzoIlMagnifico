@@ -9,6 +9,13 @@ public class GainModifierEffect extends Effect {
 	private boolean canModifyCardGain;
 	private boolean canModifyTowerGain;
 	private boolean isMultiplier;
+	
+	public GainModifierEffect(Resource resource, boolean canModifyCardGain, boolean canModifyTowerGain, boolean isMultiplier){
+		this.resource = resource;
+		this.canModifyCardGain = canModifyCardGain;
+		this.canModifyTowerGain = canModifyTowerGain;
+		this.isMultiplier = isMultiplier;
+	}
 
 	@Override
 	public void resolveEffect(EffectResolutor effectResolutor) {
@@ -18,7 +25,7 @@ public class GainModifierEffect extends Effect {
 	
 	@Override
 	public ActionModifier getActionModifier(SlotType slotType) {
-		
+		// FIXME: need a smart way to implement this!
 	}
 
 }

@@ -8,7 +8,7 @@ public enum CardType {
 	BUILDING(SlotType.BUILDING, ResourceType.BUILDING),
 	CHARACTER(SlotType.CHARACTER, ResourceType.CHARACTER),
 	VENTURE(SlotType.VENTURE, ResourceType.VENTURE),
-	ANY(SlotType.ANY_CARD, null);
+	ANY(SlotType.ANY_CARD, ResourceType.ANY_CARD);
 	
 	private SlotType slotType;
 	private ResourceType resourceType;

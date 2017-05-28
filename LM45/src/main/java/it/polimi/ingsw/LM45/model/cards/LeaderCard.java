@@ -9,4 +9,14 @@ public class LeaderCard {
 	private CardEffect effect;
 	private Resource[] requisites;
 	
+	public LeaderCard(String name, CardEffect effect, Resource[] requisites){
+		this.name = name;
+		this.effect = effect;
+		this.requisites = requisites;
+	}
+	
+	public String getName(){
+		return this.name;
+	}
+	
 }

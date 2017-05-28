@@ -12,5 +12,6 @@ public enum ResourceType {
 	TERRITORY,
 	BUILDING,
 	CHARACTER,
-	VENTURE;
+	VENTURE,
+	ANY_CARD;
 }

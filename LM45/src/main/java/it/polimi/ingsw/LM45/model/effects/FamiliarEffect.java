@@ -9,6 +9,13 @@ public class FamiliarEffect extends Effect {
 	private FamiliarColor[] colors;
 	private int servantBonusCostModifier;
 	
+	public FamiliarEffect(int bonus, boolean bonusIsToAdd, FamiliarColor[] colors, int servantBonusCostModifier){
+		this.bonus = bonus;
+		this.bonusIsToAdd = bonusIsToAdd;
+		this.colors = colors;
+		this.servantBonusCostModifier = servantBonusCostModifier;
+	}
+	
 
 	@Override
 	public void resolveEffect(EffectResolutor effectResolutor) {

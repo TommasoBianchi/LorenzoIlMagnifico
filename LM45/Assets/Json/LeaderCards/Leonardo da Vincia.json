@@ -1,0 +1,25 @@
+{
+  "name": "Leonardo da Vincia",
+  "effect": {
+    "effects": [
+      {
+        "slotType": "PRODUCTION",
+        "diceNumber": 0,
+        "discount": [],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ActionEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "requisites": [
+    {
+      "resourceType": "CHARACTER",
+      "amount": 4
+    },
+    {
+      "resourceType": "TERRITORY",
+      "amount": 2
+    }
+  ]
+}
