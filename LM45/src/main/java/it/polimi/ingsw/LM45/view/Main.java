@@ -35,6 +35,7 @@ public class Main extends Application {
 		this.primaryStage.setTitle("Lorenzo il Magnifico");
 		//showLobbyView();
 		showPersonalBoard();
+		showPersonalBoard();
 	}
 	
 	public void showLobbyView() {
@@ -66,9 +67,10 @@ public class Main extends Application {
 			loader.setController(controller);
 			Scene scene = new Scene(loader.load());
 			
-			primaryStage.setResizable(false);
-			primaryStage.setScene(scene);
-			primaryStage.show();
+			Stage stage = new Stage();
+			stage.setResizable(false);
+			stage.setScene(scene);
+			stage.show();
 
 			Map<CardType, List<Card>> deck = null;
 			try {
