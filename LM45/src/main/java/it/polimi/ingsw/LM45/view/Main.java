@@ -7,8 +7,13 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -28,9 +33,12 @@ public class Main extends Application {
 			loader.setLocation(Main.class.getResource("lobby/LobbyView.fxml"));
 			lobby = (AnchorPane) loader.load();
 			Scene scene = new Scene(lobby);
-			ImageView imageView = new ImageView();
-			Image cover = new Image("Assets/Image/Cover.jpg",true);
+			/*BackgroundImage cover = new BackgroundImage(new Image("file:Assets/Image/Lobby/Cover.jpg"), BackgroundRepeat.NO_REPEAT,
+					BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(100, 100, false, false, true, false));
+			lobby.setBackground(new Background(cover));*/
 			primaryStage.setScene(scene);
+			/*primaryStage.minWidthProperty().bind(scene.heightProperty());
+		    primaryStage.minHeightProperty().bind(scene.widthProperty());*/
 			primaryStage.show();
 			LobbyController controller = loader.getController();
 			controller.setMain(this);

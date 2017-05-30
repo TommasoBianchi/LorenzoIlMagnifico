@@ -35,13 +35,13 @@ public class LobbyController {
 		
 		String playerNickname = nickname.getText();
 		
-		if(!(( playerNickname.equals( "Insert Nickname")) || (playerNickname.equals("")))){
+		if(!playerNickname.equals("")){
 	    	System.out.println(playerNickname);
 	    } else {
 	    		Alert alert = new Alert(AlertType.WARNING);
 	    		alert.initOwner(main.getPrimaryStage());
-	    		alert.setTitle("No Selection");
-	    		alert.setHeaderText("No Ninkname Inserted");
+	    		alert.setTitle("Attention !");
+	    		alert.setHeaderText("No Nickname Inserted");
 	    		alert.setContentText("Please Please Insert a Nickname");
 	    		
 	    		alert.showAndWait();
