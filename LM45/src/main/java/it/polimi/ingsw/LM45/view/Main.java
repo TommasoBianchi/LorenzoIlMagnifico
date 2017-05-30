@@ -28,9 +28,6 @@ public class Main extends Application {
 			loader.setLocation(Main.class.getResource("lobby/LobbyView.fxml"));
 			lobby = (AnchorPane) loader.load();
 			Scene scene = new Scene(lobby);
-			/*BackgroundImage cover = new BackgroundImage(new Image("file:Assets/Image/Lobby/Cover.jpg"), BackgroundRepeat.NO_REPEAT,
-					BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(100, 100, false, false, true, false));
-			lobby.setBackground(new Background(cover));*/
 			primaryStage.setScene(scene);
 			primaryStage.setHeight(Screen.getMainScreen().getHeight());
 			double ratio = lobby.getPrefWidth()/lobby.getPrefHeight();
@@ -38,7 +35,6 @@ public class Main extends Application {
 			lobby.lookup("#grid").prefWidth(ratio*primaryStage.getHeight());
 			lobby.lookup("#grid").maxWidth(ratio*primaryStage.getHeight());
 			primaryStage.setResizable(false);
-		    /*color background 301205*/
 			primaryStage.show();
 			LobbyController controller = loader.getController();
 			controller.setMain(this);
