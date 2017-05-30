@@ -6,12 +6,16 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.control.Alert.AlertType;
 
 public class LobbyController {
 	
 	@FXML
 	private RadioButton rmi;
+	
+	@FXML
+	private GridPane grid;
 	
 	@FXML
 	private RadioButton socket;
