@@ -2,18 +2,13 @@ package it.polimi.ingsw.LM45.view;
 
 import java.io.IOException;
 
+import com.sun.glass.ui.Screen;
+
 import it.polimi.ingsw.LM45.view.lobby.LobbyController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -37,8 +32,13 @@ public class Main extends Application {
 					BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(100, 100, false, false, true, false));
 			lobby.setBackground(new Background(cover));*/
 			primaryStage.setScene(scene);
-			/*primaryStage.minWidthProperty().bind(scene.heightProperty());
-		    primaryStage.minHeightProperty().bind(scene.widthProperty());*/
+			primaryStage.setHeight(Screen.getMainScreen().getHeight());
+			double ratio = lobby.getPrefWidth()/lobby.getPrefHeight();
+			primaryStage.setWidth(ratio*Screen.getMainScreen().getHeight());
+			lobby.lookup("#grid").prefWidth(ratio*primaryStage.getHeight());
+			lobby.lookup("#grid").maxWidth(ratio*primaryStage.getHeight());
+			primaryStage.setResizable(false);
+		    /*color background 301205*/
 			primaryStage.show();
 			LobbyController controller = loader.getController();
 			controller.setMain(this);
