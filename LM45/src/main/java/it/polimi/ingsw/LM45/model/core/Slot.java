@@ -18,7 +18,8 @@ public class Slot {
 	protected List<Slot> neighbouringSlots;
 
 	public boolean canAddFamiliar(Familiar familiar, ActionModifier actionModifier) {
-		return !isOccupied(familiar) && isFamiliarValueOK(familiar, actionModifier);
+		return !isOccupied(familiar) || actionModifier.getCanPlaceMultipleFamiliars()
+				&& isFamiliarValueOK(familiar, actionModifier);
 	}
 
 	private boolean isOccupied(Familiar familiar) {
