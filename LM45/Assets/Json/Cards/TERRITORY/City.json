@@ -19,7 +19,8 @@
         "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
       }
     ],
-    "effectsAreAlternative": false
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
   },
   "effect": {
     "effects": [
@@ -34,7 +35,8 @@
         "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
       }
     ],
-    "effectsAreAlternative": false
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
   },
   "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Territory"
 }

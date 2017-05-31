@@ -1,6 +1,5 @@
 package it.polimi.ingsw.LM45.model.cards;
 
-import it.polimi.ingsw.LM45.model.core.Player;
 import it.polimi.ingsw.LM45.model.effects.CardEffect;
 
 public class Territory extends Card {
@@ -12,12 +11,6 @@ public class Territory extends Card {
 		super(name, periodType, Cost.EMPTY, immediateEffects, effects);
 		this.minDiceToGather = minDiceToGather;
 		this.cardType = CardType.TERRITORY;
-	}
-
-	@Override
-	public boolean canPick(Player player) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 	
 }

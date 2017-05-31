@@ -12,7 +12,8 @@
   },
   "immediateEffect": {
     "effects": [],
-    "effectsAreAlternative": false
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
   },
   "effect": {
     "effects": [
@@ -39,7 +40,8 @@
         "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ActionEffect"
       }
     ],
-    "effectsAreAlternative": true
+    "effectsAreAlternative": true,
+    "effectsArePermanent": true
   },
   "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Character"
 }

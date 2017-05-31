@@ -1,0 +1,42 @@
+{
+  "name": "Federico da Montefeltro",
+  "effect": {
+    "effects": [
+      {
+        "bonus": 6,
+        "bonusIsToAdd": false,
+        "colors": [
+          "BLACK"
+        ],
+        "servantBonusCostModifier": 1,
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.FamiliarEffect"
+      },
+      {
+        "bonus": 6,
+        "bonusIsToAdd": false,
+        "colors": [
+          "WHITE"
+        ],
+        "servantBonusCostModifier": 1,
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.FamiliarEffect"
+      },
+      {
+        "bonus": 6,
+        "bonusIsToAdd": false,
+        "colors": [
+          "ORANGE"
+        ],
+        "servantBonusCostModifier": 1,
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.FamiliarEffect"
+      }
+    ],
+    "effectsAreAlternative": true,
+    "effectsArePermanent": false
+  },
+  "requisites": [
+    {
+      "resourceType": "TERRITORY",
+      "amount": 5
+    }
+  ]
+}

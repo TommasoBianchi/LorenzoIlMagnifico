@@ -1,6 +1,7 @@
 package it.polimi.ingsw.LM45.model.core;
 
 import it.polimi.ingsw.LM45.model.effects.ActionModifier;
+import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
 
 public class CoverableSlot extends Slot {
 
@@ -12,8 +13,10 @@ public class CoverableSlot extends Slot {
 	}
 
 	@Override
-	public void addFamiliar(Familiar familiar, ActionModifier actionModifier) {
-		// TODO: implement
+	public void addFamiliar(Familiar familiar, ActionModifier actionModifier, EffectResolutor effectResolutor) {
+		if(isActive)
+			super.addFamiliar(familiar, actionModifier, effectResolutor);
+		// FIXME: this may need to throw an exception if isActive == false
 	}
 
 }

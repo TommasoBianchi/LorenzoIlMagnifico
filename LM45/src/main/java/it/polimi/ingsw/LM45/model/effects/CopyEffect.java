@@ -1,14 +1,14 @@
 package it.polimi.ingsw.LM45.model.effects;
 
-import it.polimi.ingsw.LM45.model.core.Player;
-import it.polimi.ingsw.LM45.model.core.SlotType;
-
 public class CopyEffect extends Effect {
 
+	private CardEffect copiedEffect;
+	
 	@Override
-	public void ResolveEffect(Player player) {
-		// TODO Auto-generated method stub
-
+	public void resolveEffect(EffectResolutor effectResolutor) {
+		if(copiedEffect != null)
+			copiedEffect = effectResolutor.copyEffect();
+		copiedEffect.resolveEffects(effectResolutor);
 	}
 
 }

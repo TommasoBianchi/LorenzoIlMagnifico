@@ -9,5 +9,6 @@ public enum SlotType {
 	PRODUCTION,
 	HARVEST,
 	COUNCIL,
-	MARKET;
+	MARKET,
+	ANY;
 }

@@ -1,7 +1,7 @@
 package it.polimi.ingsw.LM45.model.effects;
 
-import it.polimi.ingsw.LM45.model.core.Player;
 import it.polimi.ingsw.LM45.model.core.Resource;
+import it.polimi.ingsw.LM45.model.core.SlotType;
 
 public class CostModifierEffect extends Effect {
 	
@@ -9,11 +9,23 @@ public class CostModifierEffect extends Effect {
 	private boolean canModifyCardCost;
 	private boolean canModifyTowerCost;
 	private boolean isMultiplier;
+	
+	public CostModifierEffect(Resource resource, boolean canModifyCardCost, boolean canModifyTowerCost, boolean isMultiplier){
+		this.resource = resource;
+		this.canModifyCardCost = canModifyCardCost;
+		this.canModifyTowerCost = canModifyTowerCost;
+		this.isMultiplier = isMultiplier;
+	}
 
 	@Override
-	public void ResolveEffect(Player player) {
-		// TODO Auto-generated method stub
+	public void resolveEffect(EffectResolutor effectResolutor) {
+		// NOTE this may need to do nothing
 
+	}
+	
+	@Override
+	public ActionModifier getActionModifier(SlotType slotType) {
+		// FIXME: need a smart way to implement this!
 	}
 
 }

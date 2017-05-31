@@ -1,6 +1,5 @@
 package it.polimi.ingsw.LM45.model.cards;
 
-import it.polimi.ingsw.LM45.model.core.Player;
 import it.polimi.ingsw.LM45.model.effects.CardEffect;
 
 public class Character extends Card {
@@ -9,12 +8,6 @@ public class Character extends Card {
 			CardEffect effects) {
 		super(name, periodType, cost, immediateEffects, effects);
 		this.cardType = CardType.CHARACTER;
-	}
-
-	@Override
-	public boolean canPick(Player player) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 	
 }

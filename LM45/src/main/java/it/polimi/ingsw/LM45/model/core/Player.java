@@ -6,6 +6,7 @@ import java.util.List;
 import javafx.scene.paint.Color;
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
+import it.polimi.ingsw.LM45.model.effects.CardEffect;
 
 public class Player {
 
@@ -14,7 +15,6 @@ public class Player {
 		private List<LeaderCard> leaderCards;
 		private PersonalBoard personalBoard;
 		private Familiar[] familiars;
-		// TODO: excommunicationMaluses ??
 		private PersonalBonusTile personalBonusTile;
 		private boolean payIfTowerIsOccupied;
 		private List<Resource> churchSupportBonuses;
@@ -40,7 +40,7 @@ public class Player {
 		
 		public void discardLeaderCard(LeaderCard leaderCard){
 			leaderCards.remove(leaderCard);
-			// TODO: add a council privilege
+			// TODO: add a council privilege (maybe we can do this in the controller)
 		}
 		
 		public void addResources(Resource resource){
@@ -90,6 +90,10 @@ public class Player {
 			hasToSkipFirstTurn = true;
 		}
 		
-		/*public activateLeaderCard(leaderCard: LeaderCard) : void		
-		public addExcommunication(ex: Excommunication) : void*/
+		// Use this also to add excommunications
+		public void addPermanentEffect(CardEffect permanentEffect){
+			personalBoard.addPermanentEffect(permanentEffect);
+		}
+		
+		/*public activateLeaderCard(leaderCard: LeaderCard) : void	*/
 }

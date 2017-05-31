@@ -1,28 +1,34 @@
 package it.polimi.ingsw.LM45.model.effects;
 
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
-import it.polimi.ingsw.LM45.model.core.Player;
-import it.polimi.ingsw.LM45.model.core.SlotType;
 
 public class FamiliarEffect extends Effect {
 	
 	private int bonus;
 	private boolean bonusIsToAdd;
-	private FamiliarColor[] colors ;
+	private FamiliarColor[] colors;
 	private int servantBonusCostModifier;
+	
+	public FamiliarEffect(int bonus, boolean bonusIsToAdd, FamiliarColor[] colors, int servantBonusCostModifier){
+		this.bonus = bonus;
+		this.bonusIsToAdd = bonusIsToAdd;
+		this.colors = colors;
+		this.servantBonusCostModifier = servantBonusCostModifier;
+	}
 	
 
 	@Override
-	public void ResolveEffect(Player player) {
+	public void resolveEffect(EffectResolutor effectResolutor) {
 		if( bonusIsToAdd ){
 			for ( FamiliarColor color:colors)
-				player.addFamiliarBonus(color, bonus);
+				effectResolutor.addFamiliarBonus(color, bonus);
 		} else {
 			for ( FamiliarColor color : colors)
-				player.setFamiliarValue(color, bonus);
+				effectResolutor.setFamiliarValue(color, bonus);
 		}
 		
 		if (servantBonusCostModifier != 1)
-			player.modifyServantCost(servantBonusCostModifier);
+			effectResolutor.modifyServantCost(servantBonusCostModifier);
 	}
+	
 }
