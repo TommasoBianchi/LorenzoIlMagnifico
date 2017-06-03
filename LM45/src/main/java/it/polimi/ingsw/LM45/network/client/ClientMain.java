@@ -40,6 +40,7 @@ public class ClientMain {
 		} catch (NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return;
 		}
 
 		System.out.println("Insert your username");
@@ -47,9 +48,10 @@ public class ClientMain {
 		
 		try {
 			serverInterface.login(username);
-			serverInterface.playLeaderCard("pino");
-			serverInterface.activateLeaderCard("pino");
-			serverInterface.discardLeaderCard("andrea");
+			serverInterface.playLeaderCard("Sisto IV");
+			serverInterface.activateLeaderCard("Sisto IV");
+			serverInterface.discardLeaderCard("Sisto IV");
+			serverInterface.discardLeaderCard("Carta inesistente");
 			serverInterface.increaseFamiliarValue(FamiliarColor.UNCOLORED);
 			serverInterface.placeFamiliar(FamiliarColor.UNCOLORED, 5);
 			serverInterface.endTurn();
