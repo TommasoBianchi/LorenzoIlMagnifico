@@ -100,7 +100,7 @@ public class PersonalBoardController {
 	}
 	
 	public void addLeaderCard(LeaderCard leaderCard){
-		String coverImageFileName = "leaders_b_c_00";
+		String coverImageFileName = "LeaderCard Cover";
 		String path = "file:Assets/Image/Cards/LEADER/" + (isLocalPlayer ? "leader.getName()" : coverImageFileName) + ".jpg";
 		ImageView imageView = new ImageView(new Image(path));
 		imageView.setPreserveRatio(true);
