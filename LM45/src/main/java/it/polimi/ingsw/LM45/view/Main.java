@@ -17,6 +17,7 @@ import it.polimi.ingsw.LM45.serialization.FileManager;
 
 import com.sun.glass.ui.Screen;
 
+import it.polimi.ingsw.LM45.view.gameboard.GameBoardController;
 import it.polimi.ingsw.LM45.view.lobby.LobbyController;
 import it.polimi.ingsw.LM45.view.personalBoard.PersonalBoardController;
 import javafx.application.Application;
@@ -28,20 +29,21 @@ import javafx.stage.Stage;
 public class Main extends Application {
 	
 	private Stage primaryStage;
-	private AnchorPane lobby;
 	
 	public void start(Stage stage) {
 		this.primaryStage = stage;
 		this.primaryStage.setTitle("Lorenzo il Magnifico");
 		//showLobbyView();
-		showPersonalBoard();
-		showPersonalBoard();
+		//showPersonalBoard();
+		//showPersonalBoard();
+		showGameBoard();
 	}
 	
 	public void showLobbyView() {
 		try{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("lobby/LobbyView.fxml"));
+			AnchorPane lobby = new AnchorPane();
 			lobby = (AnchorPane) loader.load();
 			Scene scene = new Scene(lobby);
 			primaryStage.setScene(scene);
@@ -93,6 +95,23 @@ public class Main extends Application {
 				controller.addLeaderCard(null);
 			}
 			
+			} catch (IOException e) {				// TODO sistemare
+				e.printStackTrace();
+		}
+	}
+	
+	public void showGameBoard() {
+		try{
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("gameboard/GameBoardView.fxml"));
+			AnchorPane gameBoard = new AnchorPane();
+			gameBoard = (AnchorPane) loader.load();
+			Scene scene = new Scene(gameBoard);
+			primaryStage.setScene(scene);
+			primaryStage.setResizable(false);
+			primaryStage.show();
+			GameBoardController controllerGameBoard = loader.getController();
+			controllerGameBoard.setMain(this);
 			} catch (IOException e) {				// TODO sistemare
 				e.printStackTrace();
 		}
