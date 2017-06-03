@@ -1,6 +1,7 @@
 package it.polimi.ingsw.LM45.model.core;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javafx.scene.paint.Color;
@@ -10,7 +11,7 @@ import it.polimi.ingsw.LM45.model.effects.CardEffect;
 
 public class Player {
 
-		private String nickname;
+		private String username;
 		private Color color;
 		private List<LeaderCard> leaderCards;
 		private PersonalBoard personalBoard;
@@ -19,6 +20,18 @@ public class Player {
 		private boolean payIfTowerIsOccupied;
 		private List<Resource> churchSupportBonuses;
 		private boolean hasToSkipFirstTurn;
+		
+		public Player(String username, Color color){
+			this.username = username;
+			this.color = color;
+			this.leaderCards = new ArrayList<LeaderCard>();
+			this.personalBoard = new PersonalBoard();
+			this.familiars = Arrays.stream(FamiliarColor.values()).map(familiarColor -> new Familiar(this, familiarColor)).toArray(Familiar[]::new);
+			this.personalBonusTile = null; // This needs to be chosen later on by the player
+			this.payIfTowerIsOccupied = true;
+			this.churchSupportBonuses = new ArrayList<Resource>();
+			this.hasToSkipFirstTurn = false;
+		}
 		
 		public boolean canAddCard(Card card) {
 			return card.canPick(this) && personalBoard.canAddCard(card);
@@ -69,6 +82,13 @@ public class Player {
 			for(Familiar familiar:familiars ){
 				if (familiar.getFamiliarColor()==color)
 					familiar.setValue(value);
+			}
+		}
+		
+		public void increaseFamiliarValue(FamiliarColor color){
+			for(Familiar familiar:familiars ){
+				if (familiar.getFamiliarColor()==color)
+					familiar.addServantsBonus();
 			}
 		}
 		
