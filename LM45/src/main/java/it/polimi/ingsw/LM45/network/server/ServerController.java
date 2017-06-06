@@ -49,6 +49,7 @@ public class ServerController {
 		users.put(username, clientInterface);
 		Color randomColor = availableColors.remove(new Random().nextInt(availableColors.size()));
 		players.put(username, new Player(username, randomColor));
+		System.out.println("Currently in the game: " + players.keySet().stream().reduce("", (a, b) -> a + b + " "));
 	}
 
 	public void removeUser(String username) {

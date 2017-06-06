@@ -7,18 +7,18 @@ import java.net.Socket;
 public class SocketFactory implements Runnable {
 	
 	private ServerSocket serverSocket;
-	private ServerController serverController;
+	private ServerControllerFactory serverControllerFactory;
 	private boolean isRunning;
 
-	public SocketFactory(ServerController serverController, int port) throws IOException{
-		this.serverController = serverController;
+	public SocketFactory(ServerControllerFactory serverControllerFactory, int port) throws IOException{
+		this.serverControllerFactory = serverControllerFactory;
 		this.serverSocket = new ServerSocket(port);
 		new Thread(this).start();
 		isRunning = true;
 	}
 	
-	public SocketFactory(ServerController serverController) throws IOException{
-		this(serverController, 0);
+	public SocketFactory(ServerControllerFactory serverControllerFactory) throws IOException{
+		this(serverControllerFactory, 0);
 	}
 	
 	public int getPort(){
@@ -30,7 +30,7 @@ public class SocketFactory implements Runnable {
 		while(isRunning){
 			try {
 				Socket socket = serverSocket.accept();
-				new SocketServer(socket, serverController);
+				new SocketServer(socket, serverControllerFactory.getServerControllerInstance());
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
