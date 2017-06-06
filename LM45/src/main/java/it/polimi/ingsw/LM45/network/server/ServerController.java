@@ -13,8 +13,11 @@ import java.util.stream.Collectors;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 
+import it.polimi.ingsw.LM45.model.cards.Card;
+import it.polimi.ingsw.LM45.model.cards.CardType;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
+import it.polimi.ingsw.LM45.model.core.Game;
 import it.polimi.ingsw.LM45.model.core.Player;
 import it.polimi.ingsw.LM45.network.client.ClientInterface;
 import it.polimi.ingsw.LM45.serialization.FileManager;
@@ -27,9 +30,11 @@ public class ServerController {
 	private Map<String, Player> players;
 	private List<Color> availableColors;
 	private Map<String, LeaderCard> leaderCards;
+	private Map<CardType, List<Card>> deck;
 	private int maxNumberOfPlayers;
 	private long gameStartTimerDelay;
 	private Timer gameStartTimer;
+	private Game game;
 
 	public ServerController(int maxNumberOfPlayers, long gameStartTimerDelay)
 			throws JsonSyntaxException, JsonIOException, FileNotFoundException {
@@ -42,6 +47,7 @@ public class ServerController {
 		this.availableColors.add(Color.YELLOW);
 		this.leaderCards = FileManager.loadLeaderCards().stream()
 				.collect(Collectors.toMap(leaderCard -> leaderCard.getName(), leaderCard -> leaderCard));
+		this.deck = FileManager.loadCards();
 		this.maxNumberOfPlayers = maxNumberOfPlayers;
 		this.gameStartTimerDelay = gameStartTimerDelay;
 		this.gameStartTimer = new Timer();
@@ -111,6 +117,10 @@ public class ServerController {
 	public void startGame(){
 		gameStartTimer.cancel();
 		System.out.println("Game is starting!");
+		game = new Game(new ArrayList<Player>(players.values()), deck, new ArrayList<LeaderCard>(leaderCards.values()), null/*load the excommunication deck*/);
+		game.start();
+		// TODO: notify players
+		// TODO: make first player start his turn
 	}
 	
 	private void setGameStartTimer() {
