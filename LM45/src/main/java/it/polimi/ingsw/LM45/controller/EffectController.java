@@ -57,6 +57,14 @@ public class EffectController implements EffectResolutor {
 		
 	}
 	
+	public void harvest(int value){
+		player.harvest(this, value);
+	}
+	
+	public void produce(int value){
+		player.produce(this, value);
+	}
+	
 	public CardEffect copyEffect(){
 		
 	}

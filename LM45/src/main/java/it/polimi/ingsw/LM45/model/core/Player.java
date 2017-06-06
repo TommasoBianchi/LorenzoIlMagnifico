@@ -7,6 +7,7 @@ import javafx.scene.paint.Color;
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.effects.CardEffect;
+import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
 
 public class Player {
 
@@ -96,4 +97,12 @@ public class Player {
 		}
 		
 		/*public activateLeaderCard(leaderCard: LeaderCard) : void	*/
+		
+		public void harvest(EffectResolutor effectResolutor, int value){
+			personalBoard.harvest(effectResolutor, value);
+		}
+		
+		public void produce(EffectResolutor effectResolutor, int value){
+			personalBoard.produce(effectResolutor, value);
+		}
 }

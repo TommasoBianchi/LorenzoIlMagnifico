@@ -7,6 +7,7 @@ import java.util.Map;
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.CardType;
 import it.polimi.ingsw.LM45.model.effects.CardEffect;
+import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
 
 public class PersonalBoard {
 	
@@ -59,6 +60,18 @@ public class PersonalBoard {
 
 	public void addPermanentEffect(CardEffect permanentEffect){
 		permanentEffects.add(permanentEffect);
+	}
+	
+	public void harvest(EffectResolutor effectResolutor, int value){
+		for(Card card : cards.get(CardType.TERRITORY)){
+			card.resolveEffect(effectResolutor, value);
+		}
+	}
+	
+	public void produce(EffectResolutor effectResolutor, int value){
+		for(Card card : cards.get(CardType.BUILDING)){
+			card.resolveEffect(effectResolutor, value);
+		}
 	}
 	
 }

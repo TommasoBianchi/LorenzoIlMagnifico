@@ -2,6 +2,7 @@ package it.polimi.ingsw.LM45.model.cards;
 
 import it.polimi.ingsw.LM45.model.core.Player;
 import it.polimi.ingsw.LM45.model.effects.CardEffect;
+import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
 
 public abstract class Card {
 
@@ -36,4 +37,17 @@ public abstract class Card {
 		return this.cardType;
 	}
 	
+	public void resolveImmediateEffect(EffectResolutor effectResolutor){
+		immediateEffect.resolveEffects(effectResolutor);
+		if(effect.getEffectsArePermanent())
+			effectResolutor.addPermanentEffect(effect);
+	}
+	
+	public void resolveEffect(EffectResolutor effectResolutor, int diceValue){
+		effect.resolveEffects(effectResolutor);
+	}
+	
+	public void resolveEffect(EffectResolutor effectResolutor){
+		resolveEffect(effectResolutor, 0);
+	}
 }

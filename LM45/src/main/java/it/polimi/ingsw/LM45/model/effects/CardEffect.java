@@ -32,13 +32,10 @@ public class CardEffect {
 	}
 	
 	public void resolveEffects(EffectResolutor effectResolutor){
-		if(effectsArePermanent)
-			effectResolutor.addPermanentEffect(this);
+		if(effectsAreAlternative)
+			effectResolutor.chooseFrom(effects).resolveEffect(effectResolutor);
 		else
-			if(effectsAreAlternative)
-				effectResolutor.chooseFrom(effects).resolveEffect(effectResolutor);
-			else
-				Arrays.stream(effects).forEach(effect -> effect.resolveEffect(effectResolutor));
+			Arrays.stream(effects).forEach(effect -> effect.resolveEffect(effectResolutor));
 	}
 	
 	public ActionModifier getActionModifier(SlotType slotType, EffectResolutor effectResolutor){
@@ -56,4 +53,7 @@ public class CardEffect {
 			return actionModifiers.reduce(ActionModifier.EMPTY, (accumulator, actionModifier) -> accumulator.merge(actionModifier));
 	}
 	
+	public boolean getEffectsArePermanent(){
+		return effectsArePermanent;
+	}
 }
