@@ -1,15 +1,11 @@
 package it.polimi.ingsw.LM45.network.server;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-
-import com.google.gson.JsonIOException;
-import com.google.gson.JsonSyntaxException;
 
 public class ServerMain {
 	
 	public static void main(String[] args){
-		ServerControllerFactory serverControllerFactory = new ServerControllerFactory(4);
+		ServerControllerFactory serverControllerFactory = new ServerControllerFactory(4, 5000);
 		
 		try {
 			SocketFactory socketFactory = new SocketFactory(serverControllerFactory, 7000);

@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.stream.Collectors;
 
 import com.google.gson.JsonIOException;
@@ -23,21 +25,26 @@ import javafx.scene.paint.Color;
 // between SocketFactory and RMIFactory
 public class ServerController {
 
-	Map<String, ClientInterface> users;
-	Map<String, Player> players;
-	List<Color> availableColors;
-	Map<String, LeaderCard> leaderCards;
+	private Map<String, ClientInterface> users;
+	private Map<String, Player> players;
+	private List<Color> availableColors;
+	private Map<String, LeaderCard> leaderCards;
+	private long gameStartTimerDelay;
+	private Timer gameStartTimer;
 
-	public ServerController() throws JsonSyntaxException, JsonIOException, FileNotFoundException {
-		users = new HashMap<String, ClientInterface>();
-		players = new HashMap<String, Player>();
-		availableColors = new ArrayList<Color>();
-		availableColors.add(Color.BLUE);
-		availableColors.add(Color.RED);
-		availableColors.add(Color.GREEN);
-		availableColors.add(Color.YELLOW);
-		leaderCards = FileManager.loadLeaderCards().stream()
+	public ServerController(long gameStartTimerDelay)
+			throws JsonSyntaxException, JsonIOException, FileNotFoundException {
+		this.users = new HashMap<String, ClientInterface>();
+		this.players = new HashMap<String, Player>();
+		this.availableColors = new ArrayList<Color>();
+		this.availableColors.add(Color.BLUE);
+		this.availableColors.add(Color.RED);
+		this.availableColors.add(Color.GREEN);
+		this.availableColors.add(Color.YELLOW);
+		this.leaderCards = FileManager.loadLeaderCards().stream()
 				.collect(Collectors.toMap(leaderCard -> leaderCard.getName(), leaderCard -> leaderCard));
+		this.gameStartTimerDelay = gameStartTimerDelay;
+		this.gameStartTimer = new Timer();
 	}
 
 	public void login(String username, ClientInterface clientInterface) {
@@ -50,6 +57,10 @@ public class ServerController {
 		Color randomColor = availableColors.remove(new Random().nextInt(availableColors.size()));
 		players.put(username, new Player(username, randomColor));
 		System.out.println("Currently in the game: " + players.keySet().stream().reduce("", (a, b) -> a + b + " "));
+		
+		if(players.size() > 1){
+			setGameStartTimer();
+		}
 	}
 
 	public void removeUser(String username) {
@@ -92,6 +103,16 @@ public class ServerController {
 	public void endTurn(String player) {
 		// TODO: implement
 		System.out.println(player + " ended his turn");
+	}
+	
+	private void setGameStartTimer() {
+		gameStartTimer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				// TODO start the game
+				System.out.println("Timer ended! Game is about to start!");
+			}
+		}, gameStartTimerDelay);
 	}
 
 }

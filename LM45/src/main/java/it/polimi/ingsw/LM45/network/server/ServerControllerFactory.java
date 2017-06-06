@@ -10,13 +10,15 @@ public class ServerControllerFactory {
 	private ServerController currentServerController;
 	private int instanceCount;
 	private int maxInstanceCount;
-	
-	public ServerControllerFactory(int maxInstanceCount){
-		this.currentServerController = createServerControllerInstance();
+	private long gameStartTimerDelay;
+
+	public ServerControllerFactory(int maxInstanceCount, long gameStartTimerDelay) {
 		this.instanceCount = 0;
 		this.maxInstanceCount = maxInstanceCount;
+		this.gameStartTimerDelay = gameStartTimerDelay;
+		this.currentServerController = createServerControllerInstance();
 	}
-	
+
 	public ServerController getServerControllerInstance(){
 		if(instanceCount >= maxInstanceCount){
 			instanceCount = 0;
@@ -26,15 +28,15 @@ public class ServerControllerFactory {
 		instanceCount++;
 		return currentServerController;
 	}
-	
-	private ServerController createServerControllerInstance(){
+
+	private ServerController createServerControllerInstance() {
 		try {
-			return new ServerController();
+			return new ServerController(gameStartTimerDelay);
 		} catch (JsonSyntaxException | JsonIOException | FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
 	}
-	
+
 }
