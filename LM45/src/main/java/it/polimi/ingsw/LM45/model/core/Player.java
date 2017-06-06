@@ -106,6 +106,14 @@ public class Player {
 			churchSupportBonuses.add(resource);
 		}
 		
+		public String getUsername(){
+			return username;
+		}
+		
+		public boolean getHasToSkipFirstTurn() {
+			return hasToSkipFirstTurn;
+		}
+		
 		public void setHasToSkipFirstTurn() {
 			hasToSkipFirstTurn = true;
 		}

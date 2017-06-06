@@ -18,6 +18,9 @@ public class Game {
 	private Map<CardType, List<Card>> deck;
 	private List<LeaderCard> leaderCards;
 	private Map<PeriodType, List<Excommunication>> excommunicationDeck;
+	private int currentPlayerIndex;
+	private int currentRound; // A game is made of 3 periods, 6 turns, 24 rounds
+	private int currentTurn;
 	
 	public Game(List<Player> players, Map<CardType, List<Card>> deck, List<LeaderCard> leaderCards, Map<PeriodType, List<Excommunication>> excommunicationDeck){
 		this.players = players;
@@ -25,6 +28,9 @@ public class Game {
 		this.deck = deck;
 		this.leaderCards = leaderCards;
 		this.excommunicationDeck = excommunicationDeck;
+		this.currentPlayerIndex = 0;
+		this.currentRound = 0;
+		this.currentTurn = 0;
 	}
 	
 	public void start(){
@@ -40,6 +46,34 @@ public class Game {
 			for(int i = 0; i < 4; i++)
 				board.placeCard(deck.get(cardType).remove(0));
 		});
+		players = ShuffleHelper.shuffle(players); // Randomize first turn order
+	}
+	
+	public boolean hasNextPlayer(){
+		// Return true if we are in one of the 4 rounds or we are in the 5th (used by the player that have skipped the first) and there are still
+		// players that have skipped the 1st
+		return currentRound < 4 || (currentRound == 4 && players.stream().skip(currentPlayerIndex).anyMatch(player -> player.getHasToSkipFirstTurn()));
+	}
+	
+	public Player getNextPlayer(){
+		if(currentRound == 0){
+			while(currentPlayerIndex < players.size() && players.get(currentPlayerIndex).getHasToSkipFirstTurn() == true)
+				currentPlayerIndex++;
+		}
+		else if (currentRound == 4){
+			while(currentPlayerIndex < players.size() && players.get(currentPlayerIndex).getHasToSkipFirstTurn() == false)
+				currentPlayerIndex++;
+		}
+		
+		Player currentPlayer = players.get(currentPlayerIndex);
+		
+		currentPlayerIndex++;		
+		if(currentPlayerIndex >= players.size()){
+			currentPlayerIndex = 0;
+			currentRound++;
+		}
+		
+		return currentPlayer;
 	}
 	
 	private void shuffleDecks(){

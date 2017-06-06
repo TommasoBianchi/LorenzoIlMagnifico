@@ -117,10 +117,18 @@ public class ServerController {
 	public void startGame(){
 		gameStartTimer.cancel();
 		System.out.println("Game is starting!");
-		game = new Game(new ArrayList<Player>(players.values()), deck, new ArrayList<LeaderCard>(leaderCards.values()), null/*load the excommunication deck*/);
+		game = new Game(new ArrayList<Player>(players.values()), deck, new ArrayList<LeaderCard>(leaderCards.values()), new HashMap<>()/*load the excommunication deck*/);
 		game.start();
 		// TODO: notify players
 		// TODO: make first player start his turn
+		
+		// TEST!!
+		players.get("A").setHasToSkipFirstTurn();
+		players.get("C").setHasToSkipFirstTurn();
+		while(game.hasNextPlayer()){
+			System.out.println(game.getNextPlayer().getUsername());
+		}
+		// TEST!!
 	}
 	
 	private void setGameStartTimer() {

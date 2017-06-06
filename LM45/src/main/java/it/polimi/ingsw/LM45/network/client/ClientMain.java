@@ -48,13 +48,13 @@ public class ClientMain {
 		
 		try {
 			serverInterface.login(username);
-			serverInterface.playLeaderCard("Sisto IV");
+			/*serverInterface.playLeaderCard("Sisto IV");
 			serverInterface.activateLeaderCard("Sisto IV");
 			serverInterface.discardLeaderCard("Sisto IV");
 			serverInterface.discardLeaderCard("Carta inesistente");
 			serverInterface.increaseFamiliarValue(FamiliarColor.UNCOLORED);
 			serverInterface.placeFamiliar(FamiliarColor.UNCOLORED, 5);
-			serverInterface.endTurn();
+			serverInterface.endTurn();*/
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
