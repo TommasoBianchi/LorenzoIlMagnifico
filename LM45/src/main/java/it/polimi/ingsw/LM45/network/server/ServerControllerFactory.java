@@ -31,7 +31,7 @@ public class ServerControllerFactory {
 
 	private ServerController createServerControllerInstance() {
 		try {
-			return new ServerController(gameStartTimerDelay);
+			return new ServerController(maxInstanceCount, gameStartTimerDelay);
 		} catch (JsonSyntaxException | JsonIOException | FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

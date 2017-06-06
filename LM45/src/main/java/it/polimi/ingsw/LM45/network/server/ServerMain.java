@@ -5,7 +5,7 @@ import java.io.IOException;
 public class ServerMain {
 	
 	public static void main(String[] args){
-		ServerControllerFactory serverControllerFactory = new ServerControllerFactory(4, 5000);
+		ServerControllerFactory serverControllerFactory = new ServerControllerFactory(4, 25000);
 		
 		try {
 			SocketFactory socketFactory = new SocketFactory(serverControllerFactory, 7000);

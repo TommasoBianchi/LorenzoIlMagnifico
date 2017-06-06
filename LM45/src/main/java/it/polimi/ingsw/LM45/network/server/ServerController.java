@@ -20,19 +20,18 @@ import it.polimi.ingsw.LM45.network.client.ClientInterface;
 import it.polimi.ingsw.LM45.serialization.FileManager;
 import javafx.scene.paint.Color;
 
-// This is designed to manage only one game
-// Consider creating a Factory to manage ServerController instances to have more than one but maintain them synchronized
-// between SocketFactory and RMIFactory
+// This is designed to manage only one game (consider renaming it to GameController)
 public class ServerController {
 
 	private Map<String, ClientInterface> users;
 	private Map<String, Player> players;
 	private List<Color> availableColors;
 	private Map<String, LeaderCard> leaderCards;
+	private int maxNumberOfPlayers;
 	private long gameStartTimerDelay;
 	private Timer gameStartTimer;
 
-	public ServerController(long gameStartTimerDelay)
+	public ServerController(int maxNumberOfPlayers, long gameStartTimerDelay)
 			throws JsonSyntaxException, JsonIOException, FileNotFoundException {
 		this.users = new HashMap<String, ClientInterface>();
 		this.players = new HashMap<String, Player>();
@@ -43,6 +42,7 @@ public class ServerController {
 		this.availableColors.add(Color.YELLOW);
 		this.leaderCards = FileManager.loadLeaderCards().stream()
 				.collect(Collectors.toMap(leaderCard -> leaderCard.getName(), leaderCard -> leaderCard));
+		this.maxNumberOfPlayers = maxNumberOfPlayers;
 		this.gameStartTimerDelay = gameStartTimerDelay;
 		this.gameStartTimer = new Timer();
 	}
@@ -58,7 +58,10 @@ public class ServerController {
 		players.put(username, new Player(username, randomColor));
 		System.out.println("Currently in the game: " + players.keySet().stream().reduce("", (a, b) -> a + b + " "));
 		
-		if(players.size() > 1){
+		if(players.size() == maxNumberOfPlayers){
+			startGame();
+		}
+		else if(players.size() > 1){
 			setGameStartTimer();
 		}
 	}
@@ -105,12 +108,17 @@ public class ServerController {
 		System.out.println(player + " ended his turn");
 	}
 	
+	public void startGame(){
+		gameStartTimer.cancel();
+		System.out.println("Game is starting!");
+	}
+	
 	private void setGameStartTimer() {
 		gameStartTimer.schedule(new TimerTask() {
 			@Override
 			public void run() {
-				// TODO start the game
 				System.out.println("Timer ended! Game is about to start!");
+				startGame();
 			}
 		}, gameStartTimerDelay);
 	}
