@@ -7,6 +7,11 @@ public class PersonalBonusTile {
 	private Resource[] productionBonuses;
 	private Resource[] harvestBonuses;
 	
+	public PersonalBonusTile(Resource[] productionBonuses, Resource[] harvestBonuses){
+		this.productionBonuses = productionBonuses;
+		this.harvestBonuses = harvestBonuses;
+	}
+	
 	public Resource[] produce (int diceAmount){
 		if(diceAmount >= MIN_DICE)
 			return productionBonuses;
