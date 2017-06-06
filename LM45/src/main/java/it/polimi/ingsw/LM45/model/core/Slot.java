@@ -49,9 +49,6 @@ public class Slot {
 			Arrays.stream(immediateBonus)
 					.map(resource -> resource.increment(gainModifiers.getOrDefault(resource.getResourceType(), 0)))
 					.forEach(resource -> effectResolutor.addResources(resource));
-		else
-			/*Arrays.stream(actionModifier.getGainModifiers())
-					.forEach(resource -> effectResolutor.addResource(resource));*/
 		familiars.add(familiar);
 		familiar.setIsPlaced(true);
 	}
