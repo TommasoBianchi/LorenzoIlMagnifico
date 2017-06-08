@@ -8,7 +8,6 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
-import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.network.server.RMIRemoteFactory;
 import it.polimi.ingsw.LM45.network.server.RemoteServerInterface;
 import it.polimi.ingsw.LM45.network.server.ServerInterface;
@@ -27,37 +26,37 @@ public class RMIClient implements RemoteClientInterface, ServerInterface {
 	}
 
 	@Override
-	public void login(String username) throws RemoteException {
+	public void login(String username) throws IOException {
 		remoteServer.login(username);
 	}
 
 	@Override
-	public void placeFamiliar(FamiliarColor familiarColor, Integer slotID) throws RemoteException {
+	public void placeFamiliar(FamiliarColor familiarColor, Integer slotID) throws IOException {
 		remoteServer.placeFamiliar(familiarColor, slotID);
 	}
 
 	@Override
-	public void increaseFamiliarValue(FamiliarColor familiarColor) throws RemoteException {
+	public void increaseFamiliarValue(FamiliarColor familiarColor) throws IOException {
 		remoteServer.increaseFamiliarValue(familiarColor);
 	}
 
 	@Override
-	public void playLeaderCard(String leaderCardName) throws RemoteException {
+	public void playLeaderCard(String leaderCardName) throws IOException {
 		remoteServer.playLeaderCard(leaderCardName);
 	}
 
 	@Override
-	public void activateLeaderCard(String leaderCardName) throws RemoteException {
+	public void activateLeaderCard(String leaderCardName) throws IOException {
 		remoteServer.activateLeaderCard(leaderCardName);
 	}
 
 	@Override
-	public void discardLeaderCard(String leaderCardName) throws RemoteException {
+	public void discardLeaderCard(String leaderCardName) throws IOException {
 		remoteServer.discardLeaderCard(leaderCardName);
 	}
 
 	@Override
-	public void endTurn() throws RemoteException {
+	public void endTurn() throws IOException {
 		remoteServer.endTurn();
 	}
 

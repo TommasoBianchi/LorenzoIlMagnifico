@@ -7,7 +7,6 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
-import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.network.server.ServerInterface;
 import it.polimi.ingsw.LM45.network.server.ServerMessages;
 

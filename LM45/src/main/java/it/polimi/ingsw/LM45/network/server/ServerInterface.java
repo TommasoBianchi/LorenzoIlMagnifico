@@ -3,7 +3,6 @@ package it.polimi.ingsw.LM45.network.server;
 import java.io.IOException;
 
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
-import it.polimi.ingsw.LM45.model.core.SlotType;
 
 public interface ServerInterface {
 
