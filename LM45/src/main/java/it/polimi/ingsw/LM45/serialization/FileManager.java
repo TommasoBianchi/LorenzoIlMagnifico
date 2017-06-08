@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
@@ -78,7 +78,7 @@ public class FileManager {
 
 	public static Map<CardType, List<Card>> loadCards()
 			throws JsonSyntaxException, JsonIOException, FileNotFoundException {
-		Map<CardType, List<Card>> deck = new HashMap<CardType, List<Card>>();
+		Map<CardType, List<Card>> deck = new EnumMap<CardType, List<Card>>(CardType.class);
 		File folder = new File(BASE_PATH + "/Cards/");
 
 		for (File dir : folder.listFiles()) {

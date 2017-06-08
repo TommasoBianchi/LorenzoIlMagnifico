@@ -3,7 +3,7 @@ package it.polimi.ingsw.LM45.model.core;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
 import it.polimi.ingsw.LM45.exceptions.IllegalActionException;
@@ -18,9 +18,9 @@ public class Board {
 	private Map<PeriodType, Excommunication> excommunications;
 	
 	public Board(){
-		this.slots = new HashMap<SlotType, Slot[]>(); // FIXME: maybe this is now not necessary?
-		this.towerSlots = new HashMap<SlotType, TowerSlot[]>();
-		this.excommunications = new HashMap<PeriodType, Excommunication>();
+		this.slots = new EnumMap<SlotType, Slot[]>(SlotType.class); // FIXME: maybe this is now not necessary?
+		this.towerSlots = new EnumMap<SlotType, TowerSlot[]>(SlotType.class);
+		this.excommunications = new EnumMap<PeriodType, Excommunication>(PeriodType.class);
 	}
 	
 	public Slot getSlot(SlotType slotType, int slotID) throws IllegalActionException {

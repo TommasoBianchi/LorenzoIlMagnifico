@@ -1,7 +1,7 @@
 package it.polimi.ingsw.LM45.model.effects;
 
 import java.util.Map;
-import java.util.HashMap;
+import java.util.EnumMap;
 
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.ResourceType;
@@ -10,8 +10,8 @@ public class ActionModifier {
 
 	public static final ActionModifier EMPTY = new ActionModifier(0);
 
-	private Map<ResourceType, Integer> costModifiers = new HashMap<ResourceType, Integer>();
-	private Map<ResourceType, Integer> gainModifiers = new HashMap<ResourceType, Integer>();
+	private Map<ResourceType, Integer> costModifiers = new EnumMap<ResourceType, Integer>(ResourceType.class);
+	private Map<ResourceType, Integer> gainModifiers = new EnumMap<ResourceType, Integer>(ResourceType.class);
 	private int diceBonus;
 	private boolean blockImmediateResources;
 	private boolean canPlaceMultipleFamiliars;

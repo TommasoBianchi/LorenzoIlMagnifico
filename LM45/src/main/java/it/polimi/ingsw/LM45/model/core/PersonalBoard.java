@@ -2,7 +2,7 @@ package it.polimi.ingsw.LM45.model.core;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
 import it.polimi.ingsw.LM45.model.cards.Card;
@@ -21,8 +21,8 @@ public class PersonalBoard {
 	private List<Familiar> familiars; // Why?
 
 	public PersonalBoard() {
-		this.cards = new HashMap<CardType, List<Card>>();
-		this.resources = new HashMap<ResourceType, Integer>();
+		this.cards = new EnumMap<CardType, List<Card>>(CardType.class);
+		this.resources = new EnumMap<ResourceType, Integer>(ResourceType.class);
 		this.permanentEffects = new ArrayList<CardEffect>();
 		this.territoryRequisites = new Resource[] { new Resource(ResourceType.MILITARY, 0),
 				new Resource(ResourceType.MILITARY, 0), new Resource(ResourceType.MILITARY, 3),

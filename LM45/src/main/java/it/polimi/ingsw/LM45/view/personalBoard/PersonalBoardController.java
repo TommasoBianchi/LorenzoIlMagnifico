@@ -1,6 +1,6 @@
 package it.polimi.ingsw.LM45.view.personalBoard;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
 import it.polimi.ingsw.LM45.model.cards.Card;
@@ -55,8 +55,8 @@ public class PersonalBoardController {
 	@FXML
 	private FlowPane activeLeaderCards;
 
-	private Map<CardType, FlowPane> cardFlowPanes = new HashMap<CardType, FlowPane>();
-	private Map<ResourceType, Text> resourceTexts = new HashMap<ResourceType, Text>();
+	private Map<CardType, FlowPane> cardFlowPanes = new EnumMap<CardType, FlowPane>(CardType.class);
+	private Map<ResourceType, Text> resourceTexts = new EnumMap<ResourceType, Text>(ResourceType.class);
 	private boolean isLocalPlayer;
 	
 	public PersonalBoardController(boolean isLocalPlayer){
