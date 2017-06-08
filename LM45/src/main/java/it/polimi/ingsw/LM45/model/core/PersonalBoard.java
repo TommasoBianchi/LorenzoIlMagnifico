@@ -2,6 +2,7 @@ package it.polimi.ingsw.LM45.model.core;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -66,9 +67,7 @@ public class PersonalBoard {
 	}
 
 	public void clearTerritoryRequisites() {
-		for (Resource resource : territoryRequisites) {
-			resource = new Resource(ResourceType.MILITARY, 0);
-		}
+		territoryRequisites = Arrays.stream(territoryRequisites).map(resources -> new Resource(ResourceType.MILITARY, 0)).toArray(Resource[]::new);
 	}
 
 	public void addPermanentEffect(CardEffect permanentEffect) {
