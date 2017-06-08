@@ -66,11 +66,13 @@ public class EffectController implements EffectResolutor {
 	}
 	
 	public CardEffect copyEffect(){
-		
+		// TODO: implement and remove exception
+		throw new UnsupportedOperationException();
 	}
 	
 	public <T> T chooseFrom(T[] alternatives){
-		
+		// TODO: implement and remove exception
+		throw new UnsupportedOperationException();		
 	}
 
 }
