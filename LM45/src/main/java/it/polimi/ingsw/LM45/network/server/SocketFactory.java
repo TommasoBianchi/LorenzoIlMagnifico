@@ -30,7 +30,7 @@ public class SocketFactory implements Runnable {
 		while(isRunning){
 			try {
 				Socket socket = serverSocket.accept();
-				new SocketServer(socket, serverControllerFactory.getServerControllerInstance());
+				SocketServer socketServer = new SocketServer(socket, serverControllerFactory.getServerControllerInstance());
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

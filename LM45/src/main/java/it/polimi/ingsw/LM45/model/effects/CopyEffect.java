@@ -6,7 +6,7 @@ public class CopyEffect extends Effect {
 	
 	@Override
 	public void resolveEffect(EffectResolutor effectResolutor) {
-		if(copiedEffect != null)
+		if(copiedEffect == null)
 			copiedEffect = effectResolutor.copyEffect();
 		copiedEffect.resolveEffects(effectResolutor);
 	}

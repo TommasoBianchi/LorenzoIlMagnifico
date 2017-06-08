@@ -67,7 +67,7 @@ public class PersonalBoard {
 	}
 
 	public void clearTerritoryRequisites() {
-		territoryRequisites = Arrays.stream(territoryRequisites).map(resources -> new Resource(ResourceType.MILITARY, 0)).toArray(Resource[]::new);
+		territoryRequisites = Arrays.stream(territoryRequisites).map(resource -> new Resource(ResourceType.MILITARY, 0)).toArray(Resource[]::new);
 	}
 
 	public void addPermanentEffect(CardEffect permanentEffect) {
