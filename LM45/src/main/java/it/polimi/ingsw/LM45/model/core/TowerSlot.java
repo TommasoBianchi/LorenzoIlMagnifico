@@ -1,10 +1,19 @@
 package it.polimi.ingsw.LM45.model.core;
 
+import java.util.List;
+
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.effects.ActionModifier;
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
 
 public class TowerSlot extends Slot {
+
+	public TowerSlot(Resource[] immediateBonus, int minDice, SlotType type, boolean multipleFamiliars,
+			boolean multipleFamiliarsOfSamePlayer, List<Slot> neighbouringSlots) {
+		super(immediateBonus, minDice, type, multipleFamiliars, multipleFamiliarsOfSamePlayer, neighbouringSlots);
+		this.card = null;
+		this.hasCard = false;
+	}
 
 	private Card card;
 	private boolean hasCard;

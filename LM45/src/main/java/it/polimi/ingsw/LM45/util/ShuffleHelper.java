@@ -14,6 +14,7 @@ public class ShuffleHelper {
 	// Durstenfeld algorithm
 	public static <T> List<T> shuffle(List<T> list){
 		Random random = new Random();
+		@SuppressWarnings("unchecked") // Because of Java's dumb implementation of generics with type erasure
 		T[] result = (T[])list.toArray();
 		for(int i = list.size() - 1; i >= 1; i--){
 			int j = random.nextInt(i + 1);

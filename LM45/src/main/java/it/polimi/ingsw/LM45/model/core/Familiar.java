@@ -11,6 +11,17 @@ public class Familiar {
 	private int servantBonusCost;
 	private boolean isPlaced;
 	
+	public Familiar(Player player, FamiliarColor familiarColor){
+		this.player = player;
+		this.familiarColor = familiarColor;
+		this.value = 0;
+		this.servantBonus = 0;
+		this.otherBonuses = 0;
+		this.valueIsStatic = false;
+		this.servantBonusCost = 1;
+		this.isPlaced = false;
+	}
+	
 	public void clearServantsBonus(){
 		servantBonus = 0;
 	}
@@ -44,6 +55,11 @@ public class Familiar {
 	
 	public void addServantsBonus(){
 		servantBonus++;
+		this.player.addResources(new Resource(ResourceType.SERVANTS, -servantBonusCost));
+	}
+	
+	public boolean getIsPlaced(){
+		return this.isPlaced;
 	}
 	
 	public void setIsPlaced(boolean value){
