@@ -1,5 +1,7 @@
 package it.polimi.ingsw.LM45.network.client;
 
+import it.polimi.ingsw.LM45.exceptions.GameException;
+
 public class ClientController {
 	
 	private String username;
@@ -14,8 +16,13 @@ public class ClientController {
 			System.out.println("It's my turn");
 		}
 		else {
-			System.out.println("It's" + player + " turn");
+			System.out.println("It's " + player + " turn");
 		}
+	}
+	
+	public void throwGameException(GameException gameException){
+		System.err.println("-- Server sent an exception --");
+		System.err.println(gameException.getMessage());
 	}
 	
 }

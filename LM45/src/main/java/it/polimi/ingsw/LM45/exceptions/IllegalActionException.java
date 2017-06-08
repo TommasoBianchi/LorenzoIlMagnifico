@@ -1,6 +1,6 @@
 package it.polimi.ingsw.LM45.exceptions;
 
-public class IllegalActionException extends Exception {
+public class IllegalActionException extends GameException {
 	
 	private static final long serialVersionUID = 1L;
 

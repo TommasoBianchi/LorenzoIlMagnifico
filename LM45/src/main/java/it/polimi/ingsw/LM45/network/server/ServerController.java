@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 
+import it.polimi.ingsw.LM45.exceptions.GameException;
 import it.polimi.ingsw.LM45.exceptions.IllegalActionException;
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.CardType;
@@ -41,6 +42,7 @@ public class ServerController {
 	private long gameStartTimerDelay;
 	private Timer gameStartTimer;
 	private Game game;
+	private Player currentPlayer;
 
 	public ServerController(int maxNumberOfPlayers, long gameStartTimerDelay)
 			throws JsonSyntaxException, JsonIOException, FileNotFoundException {
@@ -67,8 +69,7 @@ public class ServerController {
 		try {
 			clientInterface.setUsername(username);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			manageIOException(e);
 		}
 
 		System.out.println(username + " logged in");
@@ -89,49 +90,54 @@ public class ServerController {
 	}
 
 	public void placeFamiliar(String player, FamiliarColor familiarColor, SlotType slotType, Integer slotID) {
-		if (players.containsKey(player)) {
-			System.out.println(player + " tried to place familiar " + familiarColor + " in slot " + slotID + " of type " + slotType);
+		if (playerCanDoActions(player)) {
+			System.out.println(player + " tried to place familiar " + familiarColor + " in slot " + slotID + " of type "
+					+ slotType);
 			try {
 				Slot slot = game.getSlot(slotType, slotID);
 				Familiar familiar = players.get(player).getFamiliarByColor(familiarColor);
 				ActionModifier actionModifier = ActionModifier.EMPTY; // FIXME: grab the right ActionModifier
-				if(slot.canAddFamiliar(familiar, actionModifier)){
+				if (slot.canAddFamiliar(familiar, actionModifier)) {
 					// TODO: somewhere extends effectResolutor
-					//slot.addFamiliar(familiar, actionModifier, effectResolutor);
+					// slot.addFamiliar(familiar, actionModifier, effectResolutor);
 					System.out.println(player + " successfully placed the familiar");
-				}
-				else 
-					throw new IllegalActionException("Cannot add a familiar of color " + familiarColor + " in slot " + slotID + " of type " + slotType);
+				} else
+					throw new IllegalActionException("Cannot add a familiar of color " + familiarColor + " in slot "
+							+ slotID + " of type " + slotType);
 			} catch (IllegalActionException e) {
-				// TODO: send exception back to the client
+				try {
+					users.get(player).throwGameException(e);
+				} catch (IOException e1) {
+					manageIOException(e1);
+				}
 				System.err.println(e.getMessage());
 			}
 		}
 	}
 
 	public void increaseFamiliarValue(String player, FamiliarColor familiarColor) {
-		if (players.containsKey(player)) {
+		if (playerCanDoActions(player)) {
 			System.out.println(player + " increased value of familiar " + familiarColor);
 			players.get(player).increaseFamiliarValue(familiarColor);
 		}
 	}
 
 	public void playLeaderCard(String player, String leaderCardName) {
-		if (players.containsKey(player) && leaderCards.containsKey(leaderCardName)) {
+		if (playerCanDoActions(player) && leaderCards.containsKey(leaderCardName)) {
 			System.out.println(player + " played leader card " + leaderCardName);
 			players.get(player).playLeaderCard(leaderCards.get(leaderCardName));
 		}
 	}
 
 	public void activateLeaderCard(String player, String leaderCardName) {
-		if (players.containsKey(player) && leaderCards.containsKey(leaderCardName)) {
+		if (playerCanDoActions(player) && leaderCards.containsKey(leaderCardName)) {
 			System.out.println(player + " activated leader card " + leaderCardName);
 			// TODO: implement
 		}
 	}
 
 	public void discardLeaderCard(String player, String leaderCardName) {
-		if (players.containsKey(player) && leaderCards.containsKey(leaderCardName)) {
+		if (playerCanDoActions(player) && leaderCards.containsKey(leaderCardName)) {
 			System.out.println(player + " discarded leader card " + leaderCardName);
 			players.get(player).discardLeaderCard(leaderCards.get(leaderCardName));
 		}
@@ -149,21 +155,25 @@ public class ServerController {
 				new HashMap<>()/* load the excommunication deck */);
 		game.start();
 		// TODO: notify players
-		// TODO: make first player start his turn
+
+		// Make first player start his turn
+		currentPlayer = game.getNextPlayer();
+		users.values().stream().forEach(clientInterface -> {
+			try {
+				clientInterface.notifyPlayerTurn(currentPlayer.getUsername());
+			} catch (IOException e) {
+				manageIOException(e);
+			}
+		});
 
 		// TEST!!
-		while (game.hasNextPlayer()) {
-			Player nextPlayer = game.getNextPlayer();
-			System.out.println(nextPlayer.getUsername());
-			users.values().stream().forEach(clientInterface -> {
-				try {
-					clientInterface.notifyPlayerTurn(nextPlayer.getUsername());
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			});
-		}
+		/*
+		 * while (game.hasNextPlayer()) { Player nextPlayer =
+		 * game.getNextPlayer(); System.out.println(nextPlayer.getUsername());
+		 * users.values().stream().forEach(clientInterface -> { try {
+		 * clientInterface.notifyPlayerTurn(nextPlayer.getUsername()); } catch
+		 * (IOException e) { manageIOException(e); } }); }
+		 */
 		// TEST!!
 	}
 
@@ -175,6 +185,33 @@ public class ServerController {
 				startGame();
 			}
 		}, gameStartTimerDelay);
+	}
+
+	private void manageIOException(IOException e) {
+		// TODO: implement (maybe just disconnect the user)
+		e.printStackTrace();
+	}
+
+	private boolean playerCanDoActions(String player) {
+		boolean canDo = players.containsKey(player) && users.containsKey(player) && game != null
+				&& currentPlayer != null && currentPlayer.getUsername() == player;
+
+		if (!canDo && users.containsKey(player)) {
+			GameException gameException = new GameException();
+
+			if (game == null || currentPlayer == null)
+				gameException = new IllegalActionException("Game is not started yet");
+			else if (currentPlayer.getUsername() != player)
+				gameException = new IllegalActionException("It is not your turn");
+
+			try {
+				users.get(player).throwGameException(gameException);
+			} catch (IOException e) {
+				manageIOException(e);
+			}
+		}
+
+		return canDo;
 	}
 
 }

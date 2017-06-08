@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import it.polimi.ingsw.LM45.exceptions.GameException;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.network.server.ServerInterface;
@@ -66,6 +67,10 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 				String player = (String)inStream.readObject();
 				notifyPlayerTurn(player);
 				break;
+			case THROW_EXCEPTION:
+				GameException gameException = (GameException)inStream.readObject();
+				throwGameException(gameException);
+				break;
 			default:
 				break;
 		}
@@ -122,6 +127,11 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 	@Override
 	public void notifyPlayerTurn(String player) throws IOException {
 		clientController.notifyPlayerTurn(player);
+	}
+
+	@Override
+	public void throwGameException(GameException gameException) throws IOException {
+		clientController.throwGameException(gameException);
 	}
 
 }

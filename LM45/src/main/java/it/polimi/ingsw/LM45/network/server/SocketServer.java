@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import it.polimi.ingsw.LM45.exceptions.GameException;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.network.client.ClientInterface;
@@ -64,8 +65,8 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 				break;
 			case PLACE_FAMILIAR:
 				FamiliarColor familiarColor = (FamiliarColor)inStream.readObject();
-				Integer slotID = (Integer)inStream.readObject();
 				SlotType slotType = (SlotType)inStream.readObject();
+				Integer slotID = (Integer)inStream.readObject();
 				placeFamiliar(familiarColor, slotType, slotID);
 				break;
 			case INCREASE_FAMILIAR_VALUE:
@@ -139,6 +140,12 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 	public void notifyPlayerTurn(String player) throws IOException {
 		outStream.writeObject(ClientMessages.NOTIFY_TURN);
 		outStream.writeObject(player);
+	}
+
+	@Override
+	public void throwGameException(GameException gameException) throws IOException {
+		outStream.writeObject(ClientMessages.THROW_EXCEPTION);
+		outStream.writeObject(gameException);
 	}
 
 }

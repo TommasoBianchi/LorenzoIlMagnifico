@@ -2,6 +2,7 @@ package it.polimi.ingsw.LM45.network.server;
 
 import java.io.IOException;
 
+import it.polimi.ingsw.LM45.exceptions.GameException;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.network.client.ClientInterface;
@@ -62,6 +63,11 @@ public class RMIServer implements RemoteServerInterface, ClientInterface {
 	@Override
 	public void notifyPlayerTurn(String player) throws IOException {
 		remoteClient.notifyPlayerTurn(player);
+	}
+
+	@Override
+	public void throwGameException(GameException gameException) throws IOException {
+		remoteClient.throwGameException(gameException);
 	}
 
 }

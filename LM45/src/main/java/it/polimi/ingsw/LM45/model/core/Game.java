@@ -22,6 +22,7 @@ public class Game {
 	private int currentPlayerIndex;
 	private int currentRound; // A game is made of 3 periods, 6 turns, 24 rounds
 	private int currentTurn;
+	private Player currentPlayer;
 	
 	public Game(List<Player> players, Map<CardType, List<Card>> deck, List<LeaderCard> leaderCards, Map<PeriodType, List<Excommunication>> excommunicationDeck){
 		this.players = players;
@@ -56,10 +57,6 @@ public class Game {
 		return currentRound < 4 || (currentRound == 4 && players.stream().skip(currentPlayerIndex).anyMatch(player -> player.getHasToSkipFirstTurn()));
 	}
 	
-	public Player getCurrentPlayer(){
-		return players.get(currentPlayerIndex);
-	}
-	
 	public Player getNextPlayer(){
 		if(currentRound == 0){
 			while(currentPlayerIndex < players.size() && players.get(currentPlayerIndex).getHasToSkipFirstTurn() == true)
@@ -70,7 +67,7 @@ public class Game {
 				currentPlayerIndex++;
 		}
 		
-		Player currentPlayer = players.get(currentPlayerIndex);
+		currentPlayer = players.get(currentPlayerIndex);
 		
 		currentPlayerIndex++;		
 		if(currentPlayerIndex >= players.size()){

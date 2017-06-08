@@ -7,6 +7,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
+import it.polimi.ingsw.LM45.exceptions.GameException;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.network.server.RMIRemoteFactory;
@@ -69,6 +70,11 @@ public class RMIClient implements RemoteClientInterface, ServerInterface {
 	@Override
 	public void notifyPlayerTurn(String player) throws IOException {
 		clientController.notifyPlayerTurn(player);
+	}
+
+	@Override
+	public void throwGameException(GameException gameException) throws IOException {
+		clientController.throwGameException(gameException);
 	}
 	
 }

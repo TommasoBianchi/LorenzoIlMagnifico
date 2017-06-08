@@ -5,6 +5,7 @@ import java.rmi.NotBoundException;
 import java.util.Scanner;
 
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
+import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.network.server.ServerInterface;
 
 public class ClientMain {
@@ -55,6 +56,15 @@ public class ClientMain {
 			serverInterface.increaseFamiliarValue(FamiliarColor.UNCOLORED);
 			serverInterface.placeFamiliar(FamiliarColor.UNCOLORED, 5);
 			serverInterface.endTurn();*/
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		scanner.nextLine();
+		System.out.println("GGG");
+		try {
+			serverInterface.placeFamiliar(FamiliarColor.BLACK, SlotType.BUILDING, 99);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
