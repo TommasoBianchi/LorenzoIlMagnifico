@@ -14,7 +14,7 @@ public class ClientController {
 			System.out.println("It's my turn");
 		}
 		else {
-			System.out.println("It's" + player + "turn");
+			System.out.println("It's" + player + " turn");
 		}
 	}
 	
