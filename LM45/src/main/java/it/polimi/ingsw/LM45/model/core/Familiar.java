@@ -58,6 +58,10 @@ public class Familiar {
 		this.player.addResources(new Resource(ResourceType.SERVANTS, -servantBonusCost));
 	}
 	
+	public boolean getIsPlaced(){
+		return this.isPlaced;
+	}
+	
 	public void setIsPlaced(boolean value){
 		this.isPlaced = value;
 	}

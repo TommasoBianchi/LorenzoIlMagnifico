@@ -4,6 +4,7 @@ package it.polimi.ingsw.LM45.model.core;
 import java.util.List;
 import java.util.Map;
 
+import it.polimi.ingsw.LM45.exceptions.IllegalActionException;
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.CardType;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
@@ -55,6 +56,10 @@ public class Game {
 		return currentRound < 4 || (currentRound == 4 && players.stream().skip(currentPlayerIndex).anyMatch(player -> player.getHasToSkipFirstTurn()));
 	}
 	
+	public Player getCurrentPlayer(){
+		return players.get(currentPlayerIndex);
+	}
+	
 	public Player getNextPlayer(){
 		if(currentRound == 0){
 			while(currentPlayerIndex < players.size() && players.get(currentPlayerIndex).getHasToSkipFirstTurn() == true)
@@ -76,6 +81,20 @@ public class Game {
 		return currentPlayer;
 	}
 	
+	public void nextTurn(){
+		// Get player order from the council slot
+		List<Player> orderedPlayers = board.getCouncilOrder();
+		for(Player player : players)
+			if(!orderedPlayers.contains(player)) // Add players that did not put a familiar in the council slot
+				orderedPlayers.add(player);
+		players = orderedPlayers;
+		
+		// Reset turn counters
+		currentPlayerIndex = 0;
+		currentRound = 0;
+		currentTurn++;
+	}
+	
 	private void shuffleDecks(){
 		for(CardType cardType : deck.keySet())
 			deck.put(cardType, ShuffleHelper.shuffleByPeriod(deck.get(cardType)));
@@ -85,4 +104,9 @@ public class Game {
 		for(PeriodType periodType : excommunicationDeck.keySet())
 			excommunicationDeck.put(periodType, ShuffleHelper.shuffle(excommunicationDeck.get(periodType)));
 	}
+	
+	public Slot getSlot(SlotType slotType, int slotID) throws IllegalActionException {
+		return board.getSlot(slotType, slotID);
+	}
+	
 }

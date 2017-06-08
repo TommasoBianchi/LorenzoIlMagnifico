@@ -3,6 +3,7 @@ package it.polimi.ingsw.LM45.network.server;
 import java.io.IOException;
 
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
+import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.network.client.ClientInterface;
 import it.polimi.ingsw.LM45.network.client.RemoteClientInterface;
 
@@ -24,8 +25,8 @@ public class RMIServer implements RemoteServerInterface, ClientInterface {
 	}
 
 	@Override
-	public void placeFamiliar(FamiliarColor familiarColor, Integer slotID) throws IOException {
-		serverController.placeFamiliar(username, familiarColor, slotID);
+	public void placeFamiliar(FamiliarColor familiarColor, SlotType slotType, Integer slotID) throws IOException {
+		serverController.placeFamiliar(username, familiarColor, slotType, slotID);
 	}
 
 	@Override

@@ -7,6 +7,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
+import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.network.server.ServerInterface;
 import it.polimi.ingsw.LM45.network.server.ServerMessages;
 
@@ -77,9 +78,10 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 	}
 
 	@Override
-	public void placeFamiliar(FamiliarColor familiarColor, Integer slotID) throws IOException {
+	public void placeFamiliar(FamiliarColor familiarColor, SlotType slotType, Integer slotID) throws IOException {
 		outStream.writeObject(ServerMessages.PLACE_FAMILIAR);	
 		outStream.writeObject(familiarColor);			
+		outStream.writeObject(slotType);		
 		outStream.writeObject(slotID);		
 	}
 

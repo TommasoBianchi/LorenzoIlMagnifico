@@ -76,5 +76,9 @@ public class Slot {
 			familiar.setIsPlaced(false);
 		familiars.clear();
 	}
+	
+	public Player[] getPlayersInSlot(){
+		return familiars.stream().map(familiar -> familiar.getPlayer()).toArray(Player[]::new);
+	}
 
 }

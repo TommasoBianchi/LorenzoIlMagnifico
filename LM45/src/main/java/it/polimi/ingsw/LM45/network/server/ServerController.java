@@ -14,12 +14,17 @@ import java.util.stream.Collectors;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 
+import it.polimi.ingsw.LM45.exceptions.IllegalActionException;
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.CardType;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
+import it.polimi.ingsw.LM45.model.core.Familiar;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.Game;
 import it.polimi.ingsw.LM45.model.core.Player;
+import it.polimi.ingsw.LM45.model.core.Slot;
+import it.polimi.ingsw.LM45.model.core.SlotType;
+import it.polimi.ingsw.LM45.model.effects.ActionModifier;
 import it.polimi.ingsw.LM45.network.client.ClientInterface;
 import it.polimi.ingsw.LM45.serialization.FileManager;
 import javafx.scene.paint.Color;
@@ -55,6 +60,7 @@ public class ServerController {
 	}
 
 	public void login(String username, ClientInterface clientInterface) {
+		// TODO: if players.containsKey(username) maybe just reconnect to that
 		while (users.containsKey(username) || players.containsKey(username)) {
 			username += new Random().nextInt(10);
 		}
@@ -64,17 +70,16 @@ public class ServerController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		System.out.println(username + " logged in");
 		users.put(username, clientInterface);
 		Color randomColor = availableColors.remove(new Random().nextInt(availableColors.size()));
 		players.put(username, new Player(username, randomColor));
 		System.out.println("Currently in the game: " + players.keySet().stream().reduce("", (a, b) -> a + b + " "));
-		
-		if(players.size() == maxNumberOfPlayers){
+
+		if (players.size() == maxNumberOfPlayers) {
 			startGame();
-		}
-		else if(players.size() > 1){
+		} else if (players.size() > 1) {
 			setGameStartTimer();
 		}
 	}
@@ -83,9 +88,25 @@ public class ServerController {
 		users.remove(username);
 	}
 
-	public void placeFamiliar(String player, FamiliarColor familiarColor, Integer slotID) {
-		// TODO: implement
-		System.out.println(player + " placed familiar " + familiarColor + " in slot " + slotID);
+	public void placeFamiliar(String player, FamiliarColor familiarColor, SlotType slotType, Integer slotID) {
+		if (players.containsKey(player)) {
+			System.out.println(player + " tried to place familiar " + familiarColor + " in slot " + slotID + " of type " + slotType);
+			try {
+				Slot slot = game.getSlot(slotType, slotID);
+				Familiar familiar = players.get(player).getFamiliarByColor(familiarColor);
+				ActionModifier actionModifier = ActionModifier.EMPTY; // FIXME: grab the right ActionModifier
+				if(slot.canAddFamiliar(familiar, actionModifier)){
+					// TODO: somewhere extends effectResolutor
+					//slot.addFamiliar(familiar, actionModifier, effectResolutor);
+					System.out.println(player + " successfully placed the familiar");
+				}
+				else 
+					throw new IllegalActionException("Cannot add a familiar of color " + familiarColor + " in slot " + slotID + " of type " + slotType);
+			} catch (IllegalActionException e) {
+				// TODO: send exception back to the client
+				System.err.println(e.getMessage());
+			}
+		}
 	}
 
 	public void increaseFamiliarValue(String player, FamiliarColor familiarColor) {
@@ -120,17 +141,18 @@ public class ServerController {
 		// TODO: implement
 		System.out.println(player + " ended his turn");
 	}
-	
-	public void startGame(){
+
+	public void startGame() {
 		gameStartTimer.cancel();
 		System.out.println("Game is starting!");
-		game = new Game(new ArrayList<Player>(players.values()), deck, new ArrayList<LeaderCard>(leaderCards.values()), new HashMap<>()/*load the excommunication deck*/);
+		game = new Game(new ArrayList<Player>(players.values()), deck, new ArrayList<LeaderCard>(leaderCards.values()),
+				new HashMap<>()/* load the excommunication deck */);
 		game.start();
 		// TODO: notify players
 		// TODO: make first player start his turn
-		
+
 		// TEST!!
-		while(game.hasNextPlayer()){
+		while (game.hasNextPlayer()) {
 			Player nextPlayer = game.getNextPlayer();
 			System.out.println(nextPlayer.getUsername());
 			users.values().stream().forEach(clientInterface -> {
@@ -144,7 +166,7 @@ public class ServerController {
 		}
 		// TEST!!
 	}
-	
+
 	private void setGameStartTimer() {
 		gameStartTimer.schedule(new TimerTask() {
 			@Override

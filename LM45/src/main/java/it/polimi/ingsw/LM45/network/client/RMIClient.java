@@ -8,6 +8,7 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
+import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.network.server.RMIRemoteFactory;
 import it.polimi.ingsw.LM45.network.server.RemoteServerInterface;
 import it.polimi.ingsw.LM45.network.server.ServerInterface;
@@ -31,8 +32,8 @@ public class RMIClient implements RemoteClientInterface, ServerInterface {
 	}
 
 	@Override
-	public void placeFamiliar(FamiliarColor familiarColor, Integer slotID) throws IOException {
-		remoteServer.placeFamiliar(familiarColor, slotID);
+	public void placeFamiliar(FamiliarColor familiarColor, SlotType slotType, Integer slotID) throws IOException {
+		remoteServer.placeFamiliar(familiarColor, slotType, slotID);
 	}
 
 	@Override
