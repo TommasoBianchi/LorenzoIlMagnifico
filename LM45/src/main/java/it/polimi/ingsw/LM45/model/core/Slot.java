@@ -18,22 +18,22 @@ public class Slot {
 	protected SlotType type;
 	protected List<Slot> neighbouringSlots;
 	
-	public Slot(Resource[] immediateBonus, int minDice, SlotType type, boolean multipleFamiliars, boolean multipleFamiliarsOfSamePlayer, List<Slot> neighbouringSlots){
+	public Slot(Resource[] immediateBonus, int minDice, SlotType type, boolean multipleFamiliars, boolean multipleFamiliarsOfSamePlayer){
 		this.immediateBonus = immediateBonus;
 		this.minDice = minDice;
 		this.familiars = new ArrayList<Familiar>();
 		this.multipleFamiliars = multipleFamiliars;
 		this.multipleFamiliarsOfSamePlayer = multipleFamiliarsOfSamePlayer;
 		this.type = type;
-		this.neighbouringSlots = neighbouringSlots;
-	}
-	
-	public Slot(Resource[] immediateBonus, int minDice, SlotType type, boolean multipleFamiliars, boolean multipleFamiliarsOfSamePlayer){
-		this(immediateBonus, minDice, type, multipleFamiliars, multipleFamiliarsOfSamePlayer, new ArrayList<Slot>());
+		this.neighbouringSlots = new ArrayList<>();
 	}
 
 	public Slot(int minDice, SlotType type, boolean multipleFamiliars, boolean multipleFamiliarsOfSamePlayer){
 		this(new Resource[]{}, minDice, type, multipleFamiliars, multipleFamiliarsOfSamePlayer);
+	}
+	
+	public void addNeighbouringSlot(Slot slot){
+		neighbouringSlots.add(slot);
 	}
 
 	public boolean canAddFamiliar(Familiar familiar, ActionModifier actionModifier) {

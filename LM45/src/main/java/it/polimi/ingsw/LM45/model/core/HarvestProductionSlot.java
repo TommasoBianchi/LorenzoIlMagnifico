@@ -4,8 +4,19 @@ import it.polimi.ingsw.LM45.model.effects.ActionModifier;
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
 
 public class HarvestProductionSlot extends Slot {
-	
+
 	public int diceModifier;
+	
+	public HarvestProductionSlot(Resource[] immediateBonus, int minDice, SlotType type, boolean multipleFamiliars,
+			boolean multipleFamiliarsOfSamePlayer, int diceModifier) {
+		super(immediateBonus, minDice, type, multipleFamiliars, multipleFamiliarsOfSamePlayer);
+		this.diceModifier = diceModifier;
+	}
+	
+	public HarvestProductionSlot(Resource[] immediateBonus, int minDice, SlotType type, boolean multipleFamiliars,
+			boolean multipleFamiliarsOfSamePlayer) {
+		this(immediateBonus, minDice, type, multipleFamiliars, multipleFamiliarsOfSamePlayer, 0);
+	}
 	
 	@Override
 	public void addFamiliar(Familiar familiar, ActionModifier actionModifier, EffectResolutor effectResolutor){
