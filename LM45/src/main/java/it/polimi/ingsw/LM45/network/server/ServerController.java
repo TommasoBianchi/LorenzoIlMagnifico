@@ -1,6 +1,7 @@
 package it.polimi.ingsw.LM45.network.server;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -57,7 +58,13 @@ public class ServerController {
 		while (users.containsKey(username) || players.containsKey(username)) {
 			username += new Random().nextInt(10);
 		}
-		// Here may need to call something like clientInterface.setUsername
+		try {
+			clientInterface.setUsername(username);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		System.out.println(username + " logged in");
 		users.put(username, clientInterface);
 		Color randomColor = availableColors.remove(new Random().nextInt(availableColors.size()));
@@ -123,10 +130,17 @@ public class ServerController {
 		// TODO: make first player start his turn
 		
 		// TEST!!
-		players.get("A").setHasToSkipFirstTurn();
-		players.get("C").setHasToSkipFirstTurn();
 		while(game.hasNextPlayer()){
-			System.out.println(game.getNextPlayer().getUsername());
+			Player nextPlayer = game.getNextPlayer();
+			System.out.println(nextPlayer.getUsername());
+			users.values().stream().forEach(clientInterface -> {
+				try {
+					clientInterface.notifyPlayerTurn(nextPlayer.getUsername());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			});
 		}
 		// TEST!!
 	}

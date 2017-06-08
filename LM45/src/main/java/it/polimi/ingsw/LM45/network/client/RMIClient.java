@@ -1,5 +1,6 @@
 package it.polimi.ingsw.LM45.network.client;
 
+import java.io.IOException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -58,6 +59,16 @@ public class RMIClient implements RemoteClientInterface, ServerInterface {
 	@Override
 	public void endTurn() throws RemoteException {
 		remoteServer.endTurn();
+	}
+
+	@Override
+	public void setUsername(String username) throws IOException {
+		clientController.setUsername(username);
+	}
+
+	@Override
+	public void notifyPlayerTurn(String player) throws IOException {
+		clientController.notifyPlayerTurn(player);
 	}
 	
 }

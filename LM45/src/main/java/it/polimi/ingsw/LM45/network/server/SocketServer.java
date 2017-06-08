@@ -127,4 +127,16 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 		serverController.endTurn(username);
 	}
 
+	@Override
+	public void setUsername(String username) throws IOException {
+		outStream.writeObject(ClientMessages.SET_USERNAME);
+		outStream.writeObject(username);
+	}
+
+	@Override
+	public void notifyPlayerTurn(String player) throws IOException {
+		outStream.writeObject(ClientMessages.NOTIFY_TURN);
+		outStream.writeObject(player);
+	}
+
 }

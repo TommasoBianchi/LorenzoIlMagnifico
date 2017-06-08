@@ -56,9 +56,16 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 		}
 	}
 
-	private void handleMessage(ClientMessages messageType) {
+	private void handleMessage(ClientMessages messageType) throws ClassNotFoundException, IOException {
 		switch (messageType) {
-			// FIXME: fix this 
+			case SET_USERNAME:
+				String username = (String)inStream.readObject();
+				setUsername(username);
+				break;
+			case NOTIFY_TURN:
+				String player = (String)inStream.readObject();
+				notifyPlayerTurn(player);
+				break;
 			default:
 				break;
 		}
@@ -104,6 +111,16 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 	@Override
 	public void endTurn() throws IOException {
 		outStream.writeObject(ServerMessages.END_TURN);	
+	}
+
+	@Override
+	public void setUsername(String username) throws IOException {
+		clientController.setUsername(username);
+	}
+
+	@Override
+	public void notifyPlayerTurn(String player) throws IOException {
+		clientController.notifyPlayerTurn(player);
 	}
 
 }

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.LM45.network.server;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
@@ -52,6 +53,16 @@ public class RMIServer implements RemoteServerInterface, ClientInterface {
 	@Override
 	public void endTurn() throws RemoteException {
 		serverController.endTurn(username);
+	}
+
+	@Override
+	public void setUsername(String username) throws IOException {
+		remoteClient.setUsername(username);
+	}
+
+	@Override
+	public void notifyPlayerTurn(String player) throws IOException {
+		remoteClient.notifyPlayerTurn(player);
 	}
 
 }
