@@ -43,8 +43,7 @@ public class Main extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("lobby/LobbyView.fxml"));
-			AnchorPane lobby = new AnchorPane();
-			lobby = (AnchorPane) loader.load();
+			AnchorPane lobby = (AnchorPane) loader.load();
 			Scene scene = new Scene(lobby);
 			primaryStage.setScene(scene);
 			primaryStage.setHeight(Screen.getMainScreen().getHeight());
@@ -107,11 +106,9 @@ public class Main extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("gameboard/GameBoardView.fxml"));
-			AnchorPane gameBoard = new AnchorPane();
-			gameBoard = (AnchorPane) loader.load();
+			AnchorPane gameBoard = (AnchorPane) loader.load();
 			Scene scene = new Scene(gameBoard);
 			primaryStage.setScene(scene);
-			primaryStage.setResizable(false);
 			primaryStage.show();
 			GameBoardController controllerGameBoard = loader.getController();
 			controllerGameBoard.setMain(this);
