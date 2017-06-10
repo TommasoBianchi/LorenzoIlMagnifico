@@ -65,8 +65,8 @@ public class EffectController implements EffectResolutor {
 		player.modifyServantCost(servantBonusCostModifier);
 	}
 
-	public void setHasToSkipFirstTurn() {
-		player.setHasToSkipFirstTurn();
+	public void setHasToSkipFirstRound() {
+		player.setHasToSkipFirstRound();
 	}
 
 	public void noTerritoryRequisites() {

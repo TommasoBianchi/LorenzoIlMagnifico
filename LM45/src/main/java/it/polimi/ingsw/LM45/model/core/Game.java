@@ -65,7 +65,7 @@ public class Game {
 		// Return true if we are in one of the 4 rounds or we are in the 5th (used by the player that have skipped the first) and there are still
 		// players that have skipped the 1st
 		return currentRound < 4
-				|| (currentRound == 4 && players.stream().skip(currentPlayerIndex).anyMatch(player -> player.getHasToSkipFirstTurn()));
+				|| (currentRound == 4 && players.stream().skip(currentPlayerIndex).anyMatch(player -> player.getHasToSkipFirstRound()));
 	}
 
 	/**
@@ -73,11 +73,11 @@ public class Game {
 	 */
 	public Player getNextPlayer() {
 		if (currentRound == 0) {
-			while (currentPlayerIndex < players.size() && players.get(currentPlayerIndex).getHasToSkipFirstTurn() == true)
+			while (currentPlayerIndex < players.size() && players.get(currentPlayerIndex).getHasToSkipFirstRound() == true)
 				currentPlayerIndex++;
 		}
 		else if (currentRound == 4) {
-			while (currentPlayerIndex < players.size() && players.get(currentPlayerIndex).getHasToSkipFirstTurn() == false)
+			while (currentPlayerIndex < players.size() && players.get(currentPlayerIndex).getHasToSkipFirstRound() == false)
 				currentPlayerIndex++;
 		}
 

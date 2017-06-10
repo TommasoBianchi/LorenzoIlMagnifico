@@ -14,7 +14,7 @@ public interface EffectResolutor {
 	public void addFamiliarBonus(FamiliarColor color, int bonus);
 	public void setFamiliarValue(FamiliarColor color, int bonus);
 	public void modifyServantCost(int servantBonusCostModifier);
-	public void setHasToSkipFirstTurn();
+	public void setHasToSkipFirstRound();
 	public void noTerritoryRequisites();
 	public void addPermanentEffect(CardEffect permanentEffect);
 	public void addCard(Card card);
