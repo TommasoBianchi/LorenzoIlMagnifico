@@ -6,8 +6,33 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.paint.Color;
 
 public class GameBoardController {
+	
+	@FXML
+	private Label uncoloredValue;
+	
+	@FXML
+	private Label whiteValue;
+	
+	@FXML
+	private Label orangeValue;
+	
+	@FXML
+	private Label blackValue;
+	
+	@FXML
+	private ImageView uncoloredFamiliar;
+	
+	@FXML
+	private ImageView whiteFamiliar;
+	
+	@FXML
+	private ImageView orangeFamiliar;
+	
+	@FXML
+	private ImageView blackFamiliar;
 	
 	@FXML
 	private Label coins;
@@ -61,6 +86,14 @@ public class GameBoardController {
 	
 	public void setMain(Main main){
 		this.main = main;
+	}
+	
+	public void showFamiliars(String color){
+		String path = "file:Assets/Image/Familiars/" + color + "/";
+		uncoloredFamiliar.setImage(new Image(path + "UNCOLORED.png"));
+		whiteFamiliar.setImage(new Image(path + "WHITE.png"));
+		orangeFamiliar.setImage(new Image(path + "ORANGE.png"));
+		blackFamiliar.setImage(new Image(path + "BLACK.png"));
 	}
 	
 	public void coverSlots(int numPlayers){

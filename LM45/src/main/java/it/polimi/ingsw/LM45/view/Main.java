@@ -114,6 +114,7 @@ public class Main extends Application {
 			GameBoardController controllerGameBoard = loader.getController();
 			controllerGameBoard.setMain(this);
 			controllerGameBoard.coverSlots(2);
+			controllerGameBoard.showFamiliars("BLUE");
 		} catch (IOException | NullPointerException e) { // TODO sistemare
 			e.printStackTrace();
 		}
