@@ -11,6 +11,7 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.function.Consumer;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import com.google.gson.JsonIOException;
@@ -34,6 +35,7 @@ import it.polimi.ingsw.LM45.model.effects.ActionModifier;
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
 import it.polimi.ingsw.LM45.network.client.ClientInterface;
 import it.polimi.ingsw.LM45.serialization.FileManager;
+
 import javafx.scene.paint.Color;
 
 // This is designed to manage only one game (consider renaming it to GameController)
@@ -48,10 +50,13 @@ public class ServerController {
 	private int maxNumberOfPlayers;
 	private long gameStartTimerDelay;
 	private Timer gameStartTimer;
+	private long turnTimerDelay;
+	private Timer turnTimer;
 	private Game game;
 	private Player currentPlayer;
 
-	public ServerController(int maxNumberOfPlayers, long gameStartTimerDelay) throws JsonSyntaxException, JsonIOException, FileNotFoundException {
+	public ServerController(int maxNumberOfPlayers, long gameStartTimerDelay, long turnTimerDelay)
+			throws JsonSyntaxException, JsonIOException, FileNotFoundException {
 		this.users = new HashMap<String, ClientInterface>();
 		this.players = new HashMap<String, Player>();
 		this.effectResolutors = new HashMap<String, EffectResolutor>();
@@ -60,11 +65,14 @@ public class ServerController {
 		this.availableColors.add(Color.RED);
 		this.availableColors.add(Color.GREEN);
 		this.availableColors.add(Color.YELLOW);
-		this.leaderCards = FileManager.loadLeaderCards().stream().collect(Collectors.toMap(leaderCard -> leaderCard.getName(), leaderCard -> leaderCard));
+		this.leaderCards = FileManager.loadLeaderCards().stream()
+				.collect(Collectors.toMap(leaderCard -> leaderCard.getName(), leaderCard -> leaderCard));
 		this.deck = FileManager.loadCards();
 		this.maxNumberOfPlayers = maxNumberOfPlayers;
 		this.gameStartTimerDelay = gameStartTimerDelay;
 		this.gameStartTimer = new Timer();
+		this.turnTimerDelay = turnTimerDelay;
+
 	}
 
 	public void login(String username, ClientInterface clientInterface) {
@@ -121,7 +129,8 @@ public class ServerController {
 					System.out.println(player + " successfully placed the familiar");
 				}
 				else
-					throw new IllegalActionException("Cannot add a familiar of color " + familiarColor + " in slot " + slotID + " of type " + slotType);
+					throw new IllegalActionException(
+							"Cannot add a familiar of color " + familiarColor + " in slot " + slotID + " of type " + slotType);
 			}
 			catch (IllegalActionException e) {
 				manageGameExceptions(player, e);
@@ -173,31 +182,64 @@ public class ServerController {
 		}
 	}
 
-	public void endTurn(String player) {
-		// TODO: implement
-		System.out.println(player + " ended his turn");
+	public void endPlayerRound(String player) {
+		if (currentPlayer.getUsername() == player) {
+			System.out.println(player + " ended his turn");
+			turnTimer.cancel();
+			// TODO: implement
+			nextPlayerRound();
+		}
 	}
 
-	public void startGame() {
+	private void nextPlayerRound() {
+		if (game.hasNextPlayer()) {
+			currentPlayer = game.getNextPlayer();
+			notifyPlayers(clientInterface -> clientInterface.notifyPlayerTurn(currentPlayer.getUsername()));
+			turnTimer = new Timer();
+			turnTimer.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					endPlayerRound(currentPlayer.getUsername());
+				}
+			}, turnTimerDelay);
+		}
+		else {
+			// The turn has finished, so proceed with the next one and do church support phase if necessary
+			if (game.getCurrentTurn() % 2 == 0) {
+				// TODO: Do church support phase
+				System.out.println("Church support phase!");
+			}
+
+			if (game.getCurrentTurn() == 6) {
+				// TODO: end the game!
+				System.out.println("Game ended!");
+			}
+			else {
+				System.out.println("Next turn!");
+				game.startTurn();
+				nextPlayerRound();
+			}
+		}
+	}
+
+	private void startGame() {
 		gameStartTimer.cancel();
 		System.out.println("Game is starting!");
-		game = new Game(new ArrayList<Player>(players.values()), deck, new ArrayList<LeaderCard>(leaderCards.values()), new HashMap<>()/* load the excommunication deck */);
+		game = new Game(new ArrayList<Player>(players.values()), deck, new ArrayList<LeaderCard>(leaderCards.values()),
+				new HashMap<>()/* load the excommunication deck */);
 		game.start();
 		// TODO: notify players
 
-		// Make first player start his turn
-		currentPlayer = game.getNextPlayer();
-		notifyPlayers(clientInterface -> clientInterface.notifyPlayerTurn(currentPlayer.getUsername()));
+		// TODO: make players choose their leaderCards
+		// TODO: make players choose their personalBonusTile
 
-		// TEST!!
-		/*
-		 * while (game.hasNextPlayer()) { Player nextPlayer = game.getNextPlayer(); System.out.println(nextPlayer.getUsername()); users.values().stream().forEach(clientInterface -> { try {
-		 * clientInterface.notifyPlayerTurn(nextPlayer.getUsername()); } catch (IOException e) { manageIOException(e); } }); }
-		 */
-		// TEST!!
+		game.startTurn();
+
+		// Make first player start his turn
+		nextPlayerRound();
 	}
-	
-	public int chooseFrom(String player, String[] alternatives){
+
+	public int chooseFrom(String player, String[] alternatives) {
 		int index = 0;
 		try {
 			index = users.get(player).chooseFrom(alternatives);
@@ -233,7 +275,8 @@ public class ServerController {
 	}
 
 	private boolean playerCanDoActions(String player) {
-		boolean canDo = players.containsKey(player) && users.containsKey(player) && game != null && currentPlayer != null && currentPlayer.getUsername() == player;
+		boolean canDo = players.containsKey(player) && users.containsKey(player) && game != null && currentPlayer != null
+				&& currentPlayer.getUsername() == player;
 
 		if (!canDo && users.containsKey(player)) {
 			GameException gameException = new GameException();
@@ -248,23 +291,25 @@ public class ServerController {
 
 		return canDo;
 	}
-	
-	
+
 	/**
 	 * @author Tommy
 	 *
-	 * @param <T> The element this function has to operate on
-	 * @param <E> The exception this function may throw
+	 * @param <T>
+	 *            The element this function has to operate on
+	 * @param <E>
+	 *            The exception this function may throw
 	 */
 	@FunctionalInterface
 	interface CheckedFunction<T, E extends Throwable> {
-	   void apply(T t) throws E;
-	} 
-	
+		void apply(T t) throws E;
+	}
+
 	/**
-	 * @param c The function ClientInterface's function we want to call on every connected player
+	 * @param c
+	 *            The function ClientInterface's function we want to call on every connected player
 	 */
-	private void notifyPlayers(CheckedFunction<ClientInterface, IOException> c){
+	private void notifyPlayers(CheckedFunction<ClientInterface, IOException> c) {
 		users.entrySet().stream().forEach(entry -> {
 			try {
 				c.apply(entry.getValue());

@@ -52,7 +52,7 @@ public class RMIServer implements RemoteServerInterface, ClientInterface {
 
 	@Override
 	public void endTurn() throws IOException {
-		serverController.endTurn(username);
+		serverController.endPlayerRound(username);
 	}
 
 	@Override

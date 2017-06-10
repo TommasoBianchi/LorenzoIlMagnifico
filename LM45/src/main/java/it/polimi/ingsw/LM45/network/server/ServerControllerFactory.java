@@ -11,11 +11,13 @@ public class ServerControllerFactory {
 	private int instanceCount;
 	private int maxInstanceCount;
 	private long gameStartTimerDelay;
+	private long turnTimerDelay;
 
-	public ServerControllerFactory(int maxInstanceCount, long gameStartTimerDelay) {
+	public ServerControllerFactory(int maxInstanceCount, long gameStartTimerDelay, long turnTimerDelay) {
 		this.instanceCount = 0;
 		this.maxInstanceCount = maxInstanceCount;
 		this.gameStartTimerDelay = gameStartTimerDelay;
+		this.turnTimerDelay = turnTimerDelay;
 		this.currentServerController = createServerControllerInstance();
 	}
 
@@ -31,7 +33,7 @@ public class ServerControllerFactory {
 
 	private ServerController createServerControllerInstance() {
 		try {
-			return new ServerController(maxInstanceCount, gameStartTimerDelay);
+			return new ServerController(maxInstanceCount, gameStartTimerDelay, turnTimerDelay);
 		} catch (JsonSyntaxException | JsonIOException | FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -135,7 +135,7 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 
 	@Override
 	public void endTurn() {
-		serverController.endTurn(username);
+		serverController.endPlayerRound(username);
 	}
 
 	@Override

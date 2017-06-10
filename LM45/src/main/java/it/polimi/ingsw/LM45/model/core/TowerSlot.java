@@ -21,10 +21,6 @@ public class TowerSlot extends Slot {
 		this.card = card;
 	}
 
-	public void removeCard() {
-		hasCard = false;
-	}
-
 	public boolean hasCard() {
 		return this.hasCard;
 	}
@@ -39,6 +35,13 @@ public class TowerSlot extends Slot {
 		super.addFamiliar(familiar, actionModifier, effectResolutor);
 		effectResolutor.addCard(card);
 		this.hasCard = false;
+	}
+	
+	@Override
+	public void clearSlot(){
+		super.clearSlot();
+		hasCard = false;
+		card = null;
 	}
 
 }
