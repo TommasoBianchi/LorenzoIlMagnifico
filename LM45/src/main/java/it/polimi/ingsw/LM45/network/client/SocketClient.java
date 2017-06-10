@@ -75,6 +75,7 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 				String[] alternatives = (String[])inStream.readObject();
 				Integer index = chooseFrom(alternatives);
 				outStream.writeObject(index);
+				break;
 			default:
 				break;
 		}

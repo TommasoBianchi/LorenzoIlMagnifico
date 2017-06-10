@@ -24,6 +24,12 @@ public class Game {
 	private int currentTurn;
 	private Player currentPlayer;
 
+	/**
+	 * @param players the List of Players that partecipate in this game
+	 * @param deck the Cards already loaded by the FileManager
+	 * @param leaderCards the LeaderCards already loaded by the FileManager
+	 * @param excommunicationDeck the Excommunications already loaded by the FileManager
+	 */
 	public Game(List<Player> players, Map<CardType, List<Card>> deck, List<LeaderCard> leaderCards,
 			Map<PeriodType, List<Excommunication>> excommunicationDeck) {
 		this.players = players;
@@ -36,6 +42,13 @@ public class Game {
 		this.currentTurn = 0;
 	}
 
+	/**
+	 * Initialize the status of this Game performing all the operations that are
+	 * we need to do at the beginning of game, in particular:
+	 * - suffle the decks (cards, leaderCards and excommunications)
+	 * - place on the Board three excommunications (one per period)
+	 * - shuffle the players to randomize first turn's order
+	 */
 	public void start() {
 		shuffleDecks();
 
@@ -45,6 +58,9 @@ public class Game {
 		players = ShuffleHelper.shuffle(players); // Randomize first turn order
 	}
 
+	/**
+	 * @return a boolean that is true if and only if there is still someone that needs to play his turn
+	 */
 	public boolean hasNextPlayer() {
 		// Return true if we are in one of the 4 rounds or we are in the 5th (used by the player that have skipped the first) and there are still
 		// players that have skipped the 1st
@@ -52,6 +68,9 @@ public class Game {
 				|| (currentRound == 4 && players.stream().skip(currentPlayerIndex).anyMatch(player -> player.getHasToSkipFirstTurn()));
 	}
 
+	/**
+	 * @return the next Player that needs to play his turn
+	 */
 	public Player getNextPlayer() {
 		if (currentRound == 0) {
 			while (currentPlayerIndex < players.size() && players.get(currentPlayerIndex).getHasToSkipFirstTurn() == true)
@@ -73,6 +92,10 @@ public class Game {
 		return currentPlayer;
 	}
 
+	/**
+	 * Starts a turn by resetting bookkeeping indices, clearing slots, picking new cards for the towerSlots, taking the 
+	 * new turn's order from the councilSlot and rolling the dices for the familiars' values.
+	 */
 	public void startTurn() {
 		// Reset turn counters
 		currentPlayerIndex = 0;
@@ -100,8 +123,21 @@ public class Game {
 		}
 	}
 
+	/**
+	 * @return the current turn (from 1 to 6)
+	 */
 	public int getCurrentTurn() {
 		return currentTurn;
+	}
+
+	/**
+	 * @param slotType the slotType we want to retrieve a slot from
+	 * @param slotID the ID of the slot we want among all the slots of the given SlotType 
+	 * @return the slot of ID slotID among all the slots of the given SlotType
+	 * @throws IllegalActionException if there are no slots of the given SlotType or if the do not contain a slot with ID slotID
+	 */
+	public Slot getSlot(SlotType slotType, int slotID) throws IllegalActionException {
+		return board.getSlot(slotType, slotID);
 	}
 
 	private void shuffleDecks() {
@@ -112,10 +148,6 @@ public class Game {
 
 		for (PeriodType periodType : excommunicationDeck.keySet())
 			excommunicationDeck.put(periodType, ShuffleHelper.shuffle(excommunicationDeck.get(periodType)));
-	}
-
-	public Slot getSlot(SlotType slotType, int slotID) throws IllegalActionException {
-		return board.getSlot(slotType, slotID);
 	}
 
 }

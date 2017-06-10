@@ -5,7 +5,7 @@ import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
 
 public class HarvestProductionSlot extends Slot {
 
-	public int diceModifier;
+	private int diceModifier;
 	
 	public HarvestProductionSlot(Resource[] immediateBonus, int minDice, SlotType type, boolean multipleFamiliars,
 			boolean multipleFamiliarsOfSamePlayer, int diceModifier) {
