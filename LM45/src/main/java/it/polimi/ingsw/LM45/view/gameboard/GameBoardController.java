@@ -2,6 +2,7 @@ package it.polimi.ingsw.LM45.view.gameboard;
 
 import it.polimi.ingsw.LM45.view.Main;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -33,6 +34,33 @@ public class GameBoardController {
 	
 	@FXML
 	private ImageView blackFamiliar;
+	
+	@FXML
+	private Label dialogBox;
+	
+	@FXML
+	private Label myUsername;
+	
+	@FXML
+	private Label username1;
+	
+	@FXML
+	private Label username2;
+	
+	@FXML
+	private Label username3;
+	
+	@FXML
+	private Button myPersonalBoard;
+	
+	@FXML
+	private Button PersonalBoard1;
+	
+	@FXML
+	private Button PersonalBoard2;
+	
+	@FXML
+	private Button PersonalBoard3;
 	
 	@FXML
 	private Label coins;
@@ -113,6 +141,10 @@ public class GameBoardController {
 				coverableHarvestSlot.setDisable(true);
 			}
 		}
+	}
+	
+	public void setUsernames(){
+		//TODO
 	}
 	
 }
