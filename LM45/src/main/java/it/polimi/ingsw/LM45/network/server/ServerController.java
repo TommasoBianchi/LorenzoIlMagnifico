@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 
+import it.polimi.ingsw.LM45.controller.EffectController;
 import it.polimi.ingsw.LM45.exceptions.GameException;
 import it.polimi.ingsw.LM45.exceptions.IllegalActionException;
 import it.polimi.ingsw.LM45.model.cards.Card;
@@ -23,9 +24,12 @@ import it.polimi.ingsw.LM45.model.core.Familiar;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.Game;
 import it.polimi.ingsw.LM45.model.core.Player;
+import it.polimi.ingsw.LM45.model.core.Resource;
+import it.polimi.ingsw.LM45.model.core.ResourceType;
 import it.polimi.ingsw.LM45.model.core.Slot;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.model.effects.ActionModifier;
+import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
 import it.polimi.ingsw.LM45.network.client.ClientInterface;
 import it.polimi.ingsw.LM45.serialization.FileManager;
 import javafx.scene.paint.Color;
@@ -35,6 +39,7 @@ public class ServerController {
 
 	private Map<String, ClientInterface> users;
 	private Map<String, Player> players;
+	private Map<String, EffectResolutor> effectResolutors;
 	private List<Color> availableColors;
 	private Map<String, LeaderCard> leaderCards;
 	private Map<CardType, List<Card>> deck;
@@ -44,17 +49,16 @@ public class ServerController {
 	private Game game;
 	private Player currentPlayer;
 
-	public ServerController(int maxNumberOfPlayers, long gameStartTimerDelay)
-			throws JsonSyntaxException, JsonIOException, FileNotFoundException {
+	public ServerController(int maxNumberOfPlayers, long gameStartTimerDelay) throws JsonSyntaxException, JsonIOException, FileNotFoundException {
 		this.users = new HashMap<String, ClientInterface>();
 		this.players = new HashMap<String, Player>();
+		this.effectResolutors = new HashMap<String, EffectResolutor>();
 		this.availableColors = new ArrayList<Color>();
 		this.availableColors.add(Color.BLUE);
 		this.availableColors.add(Color.RED);
 		this.availableColors.add(Color.GREEN);
 		this.availableColors.add(Color.YELLOW);
-		this.leaderCards = FileManager.loadLeaderCards().stream()
-				.collect(Collectors.toMap(leaderCard -> leaderCard.getName(), leaderCard -> leaderCard));
+		this.leaderCards = FileManager.loadLeaderCards().stream().collect(Collectors.toMap(leaderCard -> leaderCard.getName(), leaderCard -> leaderCard));
 		this.deck = FileManager.loadCards();
 		this.maxNumberOfPlayers = maxNumberOfPlayers;
 		this.gameStartTimerDelay = gameStartTimerDelay;
@@ -62,25 +66,39 @@ public class ServerController {
 	}
 
 	public void login(String username, ClientInterface clientInterface) {
-		// TODO: if players.containsKey(username) maybe just reconnect to that
+		if (players.containsKey(username) && !users.containsKey(username)) {
+			// The player is reconnecting for some reason
+			users.put(username, clientInterface);
+			return;
+		}
+
 		while (users.containsKey(username) || players.containsKey(username)) {
 			username += new Random().nextInt(10);
 		}
 		try {
 			clientInterface.setUsername(username);
-		} catch (IOException e) {
-			manageIOException(e);
+		}
+		catch (IOException e) {
+			// TODO: check this code here and think about it. What has to happen
+			// if a client contacts me to ask for
+			// login but then I can not call him back?
+			e.printStackTrace();
+			return;
+			// manageIOException(player, e);
 		}
 
 		System.out.println(username + " logged in");
 		users.put(username, clientInterface);
 		Color randomColor = availableColors.remove(new Random().nextInt(availableColors.size()));
-		players.put(username, new Player(username, randomColor));
+		Player player = new Player(username, randomColor);
+		players.put(username, player);
+		effectResolutors.put(username, new EffectController(player, this));
 		System.out.println("Currently in the game: " + players.keySet().stream().reduce("", (a, b) -> a + b + " "));
 
 		if (players.size() == maxNumberOfPlayers) {
 			startGame();
-		} else if (players.size() > 1) {
+		}
+		else if (players.size() > 1) {
 			setGameStartTimer();
 		}
 	}
@@ -91,26 +109,20 @@ public class ServerController {
 
 	public void placeFamiliar(String player, FamiliarColor familiarColor, SlotType slotType, Integer slotID) {
 		if (playerCanDoActions(player)) {
-			System.out.println(player + " tried to place familiar " + familiarColor + " in slot " + slotID + " of type "
-					+ slotType);
+			System.out.println(player + " tried to place familiar " + familiarColor + " in slot " + slotID + " of type " + slotType);
 			try {
 				Slot slot = game.getSlot(slotType, slotID);
 				Familiar familiar = players.get(player).getFamiliarByColor(familiarColor);
 				ActionModifier actionModifier = ActionModifier.EMPTY; // FIXME: grab the right ActionModifier
 				if (slot.canAddFamiliar(familiar, actionModifier)) {
-					// TODO: somewhere extends effectResolutor
-					// slot.addFamiliar(familiar, actionModifier, effectResolutor);
+					slot.addFamiliar(familiar, actionModifier, effectResolutors.get(player));
 					System.out.println(player + " successfully placed the familiar");
-				} else
-					throw new IllegalActionException("Cannot add a familiar of color " + familiarColor + " in slot "
-							+ slotID + " of type " + slotType);
-			} catch (IllegalActionException e) {
-				try {
-					users.get(player).throwGameException(e);
-				} catch (IOException e1) {
-					manageIOException(e1);
 				}
-				System.err.println(e.getMessage());
+				else
+					throw new IllegalActionException("Cannot add a familiar of color " + familiarColor + " in slot " + slotID + " of type " + slotType);
+			}
+			catch (IllegalActionException e) {
+				manageGameExceptions(player, e);
 			}
 		}
 	}
@@ -125,21 +137,37 @@ public class ServerController {
 	public void playLeaderCard(String player, String leaderCardName) {
 		if (playerCanDoActions(player) && leaderCards.containsKey(leaderCardName)) {
 			System.out.println(player + " played leader card " + leaderCardName);
-			players.get(player).playLeaderCard(leaderCards.get(leaderCardName));
+			try {
+				players.get(player).playLeaderCard(leaderCards.get(leaderCardName));
+			}
+			catch (IllegalActionException e) {
+				manageGameExceptions(player, e);
+			}
 		}
 	}
 
 	public void activateLeaderCard(String player, String leaderCardName) {
 		if (playerCanDoActions(player) && leaderCards.containsKey(leaderCardName)) {
 			System.out.println(player + " activated leader card " + leaderCardName);
-			// TODO: implement
+			try {
+				players.get(player).activateLeaderCard(leaderCards.get(leaderCardName), effectResolutors.get(player));
+			}
+			catch (IllegalActionException e) {
+				manageGameExceptions(player, e);
+			}
 		}
 	}
 
 	public void discardLeaderCard(String player, String leaderCardName) {
 		if (playerCanDoActions(player) && leaderCards.containsKey(leaderCardName)) {
 			System.out.println(player + " discarded leader card " + leaderCardName);
-			players.get(player).discardLeaderCard(leaderCards.get(leaderCardName));
+			try {
+				players.get(player).discardLeaderCard(leaderCards.get(leaderCardName));
+				effectResolutors.get(player).addResources(new Resource(ResourceType.COUNCIL_PRIVILEGES, 1));
+			}
+			catch (IllegalActionException e) {
+				manageGameExceptions(player, e);
+			}
 		}
 	}
 
@@ -151,28 +179,25 @@ public class ServerController {
 	public void startGame() {
 		gameStartTimer.cancel();
 		System.out.println("Game is starting!");
-		game = new Game(new ArrayList<Player>(players.values()), deck, new ArrayList<LeaderCard>(leaderCards.values()),
-				new HashMap<>()/* load the excommunication deck */);
+		game = new Game(new ArrayList<Player>(players.values()), deck, new ArrayList<LeaderCard>(leaderCards.values()), new HashMap<>()/* load the excommunication deck */);
 		game.start();
 		// TODO: notify players
 
 		// Make first player start his turn
 		currentPlayer = game.getNextPlayer();
-		users.values().stream().forEach(clientInterface -> {
+		users.entrySet().stream().forEach(entry -> {
 			try {
-				clientInterface.notifyPlayerTurn(currentPlayer.getUsername());
-			} catch (IOException e) {
-				manageIOException(e);
+				entry.getValue().notifyPlayerTurn(currentPlayer.getUsername());
+			}
+			catch (IOException e) {
+				manageIOException(entry.getKey(), e);
 			}
 		});
 
 		// TEST!!
 		/*
-		 * while (game.hasNextPlayer()) { Player nextPlayer =
-		 * game.getNextPlayer(); System.out.println(nextPlayer.getUsername());
-		 * users.values().stream().forEach(clientInterface -> { try {
-		 * clientInterface.notifyPlayerTurn(nextPlayer.getUsername()); } catch
-		 * (IOException e) { manageIOException(e); } }); }
+		 * while (game.hasNextPlayer()) { Player nextPlayer = game.getNextPlayer(); System.out.println(nextPlayer.getUsername()); users.values().stream().forEach(clientInterface -> { try {
+		 * clientInterface.notifyPlayerTurn(nextPlayer.getUsername()); } catch (IOException e) { manageIOException(e); } }); }
 		 */
 		// TEST!!
 	}
@@ -187,14 +212,22 @@ public class ServerController {
 		}, gameStartTimerDelay);
 	}
 
-	private void manageIOException(IOException e) {
+	private void manageIOException(String user, IOException e) {
 		// TODO: implement (maybe just disconnect the user)
 		e.printStackTrace();
 	}
 
+	private void manageGameExceptions(String player, GameException gameException) {
+		try {
+			users.get(player).throwGameException(gameException);
+		}
+		catch (IOException e) {
+			manageIOException(player, e);
+		}
+	}
+
 	private boolean playerCanDoActions(String player) {
-		boolean canDo = players.containsKey(player) && users.containsKey(player) && game != null
-				&& currentPlayer != null && currentPlayer.getUsername() == player;
+		boolean canDo = players.containsKey(player) && users.containsKey(player) && game != null && currentPlayer != null && currentPlayer.getUsername() == player;
 
 		if (!canDo && users.containsKey(player)) {
 			GameException gameException = new GameException();
@@ -204,11 +237,7 @@ public class ServerController {
 			else if (currentPlayer.getUsername() != player)
 				gameException = new IllegalActionException("It is not your turn");
 
-			try {
-				users.get(player).throwGameException(gameException);
-			} catch (IOException e) {
-				manageIOException(e);
-			}
+			manageGameExceptions(player, gameException);
 		}
 
 		return canDo;

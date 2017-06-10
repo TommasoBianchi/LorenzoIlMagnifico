@@ -28,10 +28,8 @@ public class Player {
 		this.color = color;
 		this.leaderCards = new ArrayList<LeaderCard>();
 		this.personalBoard = new PersonalBoard();
-		this.familiars = Arrays.stream(FamiliarColor.values()).map(familiarColor -> new Familiar(this, familiarColor))
-				.toArray(Familiar[]::new);
-		this.personalBonusTile = null; // This needs to be chosen later on by
-										// the player
+		this.familiars = Arrays.stream(FamiliarColor.values()).map(familiarColor -> new Familiar(this, familiarColor)).toArray(Familiar[]::new);
+		this.personalBonusTile = null; // This needs to be chosen later on by the player
 		this.payIfTowerIsOccupied = true;
 		this.churchSupportBonuses = new ArrayList<Resource>();
 		this.hasToSkipFirstTurn = false;
@@ -51,16 +49,28 @@ public class Player {
 		leaderCards.add(leaderCard);
 	}
 
-	public void playLeaderCard(LeaderCard leaderCard) {
-		// TODO: implement
+	public void playLeaderCard(LeaderCard leaderCard) throws IllegalActionException {
+		if (leaderCards.contains(leaderCard)) {
+			leaderCard.play();
+		}
+		else {
+			throw new IllegalActionException("You cannot play LeaderCard " + leaderCard.getName() + " because you do not have it");
+		}
 	}
-	
-	public void discardLeaderCard(LeaderCard leaderCard){
-		leaderCards.remove(leaderCard);
-		// TODO: add a council privilege (maybe we can do this in the controller)
+
+	public void discardLeaderCard(LeaderCard leaderCard) throws IllegalActionException {
+		if (!leaderCards.remove(leaderCard))
+			throw new IllegalActionException("You cannot discard LeaderCard " + leaderCard.getName() + " because you do not have it");
 	}
-	
-	/*public activateLeaderCard(leaderCard: LeaderCard) : void	*/
+
+	public void activateLeaderCard(LeaderCard leaderCard, EffectResolutor effectResolutor) throws IllegalActionException {
+		if (leaderCards.contains(leaderCard)) {
+			leaderCard.activate(effectResolutor);
+		}
+		else {
+			throw new IllegalActionException("You cannot activate LeaderCard " + leaderCard.getName() + " because you do not have it");
+		}
+	}
 
 	public void addResources(Resource resource) {
 		if (resource.getAmount() > 0)
@@ -103,45 +113,43 @@ public class Player {
 			familiar.setServantBonusCost(cost);
 		}
 	}
-		
+
 	public void noTerritoryRequisites() {
 		personalBoard.clearTerritoryRequisites();
 	}
-	
+
 	public void addChurchSupportBonus(Resource resource) {
 		churchSupportBonuses.add(resource);
 	}
-	
+
 	public String getUsername() {
 		return username;
 	}
-	
+
 	public boolean getHasToSkipFirstTurn() {
 		return hasToSkipFirstTurn;
 	}
-	
+
 	public void setHasToSkipFirstTurn() {
 		hasToSkipFirstTurn = true;
 	}
-	
+
 	// Use this also to add excommunications
-	public void addPermanentEffect(CardEffect permanentEffect){
+	public void addPermanentEffect(CardEffect permanentEffect) {
 		personalBoard.addPermanentEffect(permanentEffect);
 	}
-	
-	public void harvest(EffectResolutor effectResolutor, int value){
+
+	public void harvest(EffectResolutor effectResolutor, int value) {
 		personalBoard.harvest(effectResolutor, value);
 	}
-	
-	public void produce(EffectResolutor effectResolutor, int value){
+
+	public void produce(EffectResolutor effectResolutor, int value) {
 		personalBoard.produce(effectResolutor, value);
-	}	
+	}
 
 	public Familiar getFamiliarByColor(FamiliarColor familiarColor) throws IllegalActionException {
-		return Arrays.stream(familiars)
-				.filter(familiar -> !familiar.getIsPlaced() && familiar.getFamiliarColor() == familiarColor).findFirst()
-				.orElseThrow(() -> new IllegalActionException(
-						"Familiar of color " + familiarColor + " does not exists or has already been used"));
+		return Arrays.stream(familiars).filter(familiar -> !familiar.getIsPlaced() && familiar.getFamiliarColor() == familiarColor).findFirst()
+				.orElseThrow(() -> new IllegalActionException("Familiar of color " + familiarColor + " does not exists or has already been used"));
 	}
 
 }
