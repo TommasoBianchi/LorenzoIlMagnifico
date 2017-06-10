@@ -1,28 +1,114 @@
 package it.polimi.ingsw.LM45.network.client;
 
+import java.io.IOException;
+import java.rmi.NotBoundException;
+
 import it.polimi.ingsw.LM45.exceptions.GameException;
+import it.polimi.ingsw.LM45.model.core.FamiliarColor;
+import it.polimi.ingsw.LM45.model.core.SlotType;
+import it.polimi.ingsw.LM45.network.server.ServerInterface;
 
 public class ClientController {
-	
+
+	private ConnectionType connectionType;
+	private String host;
+	private ServerInterface serverInterface;
 	private String username;
+
+	public ClientController(ConnectionType connectionType, String host) {
+		this.connectionType = connectionType;
+		this.host = host;
+		
+		try {
+			serverInterface = ServerInterfaceFactory.create(connectionType, host, this);
+		} catch (IOException e) {
+			manageIOException(e);
+		} catch (NotBoundException e) {
+			// Wrap the NotBoundException in a IOException and manage it
+			manageIOException(new IOException(e));
+		}
+	}
 
 	public void setUsername(String username) {
 		this.username = username;
 	}
 
 	public void notifyPlayerTurn(String player) {
-		if(this.username.equals(player)){
+		if (this.username.equals(player)) {
 			// TODO: play turn
 			System.out.println("It's my turn");
-		}
-		else {
+		} else {
 			System.out.println("It's " + player + " turn");
 		}
 	}
-	
-	public void throwGameException(GameException gameException){
+
+	public void throwGameException(GameException gameException) {
 		System.err.println("-- Server sent an exception --");
 		System.err.println(gameException.getMessage());
 	}
-	
+
+	public void login(String username) {
+		try {
+			serverInterface.login(username);
+		} catch (IOException e) {
+			manageIOException(e);
+		}
+	}
+
+	public void placeFamiliar(FamiliarColor familiarColor, SlotType slotType, Integer slotID) {
+		try {
+			serverInterface.placeFamiliar(familiarColor, slotType, slotID);
+		} catch (IOException e) {
+			manageIOException(e);
+		}
+	}
+
+	public void increaseFamiliarValue(FamiliarColor familiarColor) {
+		try {
+			serverInterface.increaseFamiliarValue(familiarColor);
+		} catch (IOException e) {
+			manageIOException(e);
+		}
+	}
+
+	public void playLeaderCard(String leaderCardName) {
+		try {
+			serverInterface.playLeaderCard(leaderCardName);
+		} catch (IOException e) {
+			manageIOException(e);
+		}
+	}
+
+	public void activateLeaderCard(String leaderCardName) {
+		try {
+			serverInterface.activateLeaderCard(leaderCardName);
+		} catch (IOException e) {
+			manageIOException(e);
+		}
+	}
+
+	public void discardLeaderCard(String leaderCardName) {
+		try {
+			serverInterface.discardLeaderCard(leaderCardName);
+		} catch (IOException e) {
+			manageIOException(e);
+		}
+	}
+
+	public void endTurn() {
+		try {
+			serverInterface.endTurn();
+		} catch (IOException e) {
+			manageIOException(e);
+		}
+	}
+
+	private void manageIOException(IOException e) {		
+		// TODO: implement better
+		e.printStackTrace();
+		
+		// Maybe try to reconnect
+		//serverInterface = ServerInterfaceFactory.create(connectionType, host, this);
+	}
+
 }

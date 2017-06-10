@@ -1,12 +1,9 @@
 package it.polimi.ingsw.LM45.network.client;
 
-import java.io.IOException;
-import java.rmi.NotBoundException;
 import java.util.Scanner;
 
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.SlotType;
-import it.polimi.ingsw.LM45.network.server.ServerInterface;
 
 public class ClientMain {
 
@@ -29,46 +26,18 @@ public class ClientMain {
 		
 		System.out.println("You have selected " + selectedType + " - " + types[selectedType]);
 		
-		ClientController clientController = new ClientController();
-		ServerInterface serverInterface = null;
-		
-		try {
-			serverInterface = ServerInterfaceFactory.create(types[selectedType], "127.0.0.1", clientController);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return;
-		} catch (NotBoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return;
-		}
+		ClientController clientController = new ClientController(types[selectedType], "127.0.0.1");
 
 		System.out.println("Insert your username");
 		String username = scanner.nextLine();
 		
-		try {
-			serverInterface.login(username);
-			/*serverInterface.playLeaderCard("Sisto IV");
-			serverInterface.activateLeaderCard("Sisto IV");
-			serverInterface.discardLeaderCard("Sisto IV");
-			serverInterface.discardLeaderCard("Carta inesistente");
-			serverInterface.increaseFamiliarValue(FamiliarColor.UNCOLORED);
-			serverInterface.placeFamiliar(FamiliarColor.UNCOLORED, 5);
-			serverInterface.endTurn();*/
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		clientController.login(username);
 		
 		scanner.nextLine();
-		System.out.println("GGG");
-		try {
-			serverInterface.placeFamiliar(FamiliarColor.BLACK, SlotType.BUILDING, 99);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		clientController.placeFamiliar(FamiliarColor.BLACK, SlotType.BUILDING, 99);
+		
+		scanner.close();
 	}
 	
 }
