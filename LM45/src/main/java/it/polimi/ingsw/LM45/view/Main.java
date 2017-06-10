@@ -2,6 +2,7 @@ package it.polimi.ingsw.LM45.view;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -112,7 +113,8 @@ public class Main extends Application {
 			primaryStage.show();
 			GameBoardController controllerGameBoard = loader.getController();
 			controllerGameBoard.setMain(this);
-		} catch (IOException e) { // TODO sistemare
+			controllerGameBoard.coverSlots(2);
+		} catch (IOException | NullPointerException e) { // TODO sistemare
 			e.printStackTrace();
 		}
 	}
