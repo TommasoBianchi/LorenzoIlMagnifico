@@ -71,6 +71,10 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 				GameException gameException = (GameException)inStream.readObject();
 				throwGameException(gameException);
 				break;
+			case CHOOSE:
+				String[] alternatives = (String[])inStream.readObject();
+				Integer index = chooseFrom(alternatives);
+				outStream.writeObject(index);
 			default:
 				break;
 		}
@@ -132,6 +136,11 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 	@Override
 	public void throwGameException(GameException gameException) throws IOException {
 		clientController.throwGameException(gameException);
+	}
+
+	@Override
+	public int chooseFrom(String[] alternatives) throws IOException {
+		return clientController.chooseFrom(alternatives);
 	}
 
 }

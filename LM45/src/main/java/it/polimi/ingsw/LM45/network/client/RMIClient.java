@@ -76,5 +76,10 @@ public class RMIClient implements RemoteClientInterface, ServerInterface {
 	public void throwGameException(GameException gameException) throws IOException {
 		clientController.throwGameException(gameException);
 	}
+
+	@Override
+	public int chooseFrom(String[] alternatives) throws IOException {
+		return clientController.chooseFrom(alternatives);
+	}
 	
 }

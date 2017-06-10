@@ -70,4 +70,9 @@ public class RMIServer implements RemoteServerInterface, ClientInterface {
 		remoteClient.throwGameException(gameException);
 	}
 
+	@Override
+	public int chooseFrom(String[] alternatives) throws IOException {
+		return remoteClient.chooseFrom(alternatives);
+	}
+
 }

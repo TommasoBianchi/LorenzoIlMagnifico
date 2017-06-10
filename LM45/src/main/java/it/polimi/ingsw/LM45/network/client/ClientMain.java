@@ -33,9 +33,7 @@ public class ClientMain {
 		
 		clientController.login(username);
 		
-		scanner.nextLine();
-		
-		clientController.placeFamiliar(FamiliarColor.BLACK, SlotType.BUILDING, 99);
+		// TODO: start view
 		
 		scanner.close();
 	}

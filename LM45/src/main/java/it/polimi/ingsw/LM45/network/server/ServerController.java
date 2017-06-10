@@ -3,12 +3,14 @@ package it.polimi.ingsw.LM45.network.server;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import com.google.gson.JsonIOException;
@@ -160,10 +162,10 @@ public class ServerController {
 
 	public void discardLeaderCard(String player, String leaderCardName) {
 		if (playerCanDoActions(player) && leaderCards.containsKey(leaderCardName)) {
-			System.out.println(player + " discarded leader card " + leaderCardName);
 			try {
 				players.get(player).discardLeaderCard(leaderCards.get(leaderCardName));
-				effectResolutors.get(player).addResources(new Resource(ResourceType.COUNCIL_PRIVILEGES, 1));
+				System.out.println(player + " discarded leader card " + leaderCardName);
+				effectResolutors.get(player).addResources(new Resource(ResourceType.COUNCIL_PRIVILEGES, 2));
 			}
 			catch (IllegalActionException e) {
 				manageGameExceptions(player, e);
@@ -185,14 +187,7 @@ public class ServerController {
 
 		// Make first player start his turn
 		currentPlayer = game.getNextPlayer();
-		users.entrySet().stream().forEach(entry -> {
-			try {
-				entry.getValue().notifyPlayerTurn(currentPlayer.getUsername());
-			}
-			catch (IOException e) {
-				manageIOException(entry.getKey(), e);
-			}
-		});
+		notifyPlayers(clientInterface -> clientInterface.notifyPlayerTurn(currentPlayer.getUsername()));
 
 		// TEST!!
 		/*
@@ -200,6 +195,17 @@ public class ServerController {
 		 * clientInterface.notifyPlayerTurn(nextPlayer.getUsername()); } catch (IOException e) { manageIOException(e); } }); }
 		 */
 		// TEST!!
+	}
+	
+	public int chooseFrom(String player, String[] alternatives){
+		int index = 0;
+		try {
+			index = users.get(player).chooseFrom(alternatives);
+		}
+		catch (IOException e) {
+			manageIOException(player, e);
+		}
+		return index;
 	}
 
 	private void setGameStartTimer() {
@@ -241,6 +247,32 @@ public class ServerController {
 		}
 
 		return canDo;
+	}
+	
+	
+	/**
+	 * @author Tommy
+	 *
+	 * @param <T> The element this function has to operate on
+	 * @param <E> The exception this function may throw
+	 */
+	@FunctionalInterface
+	interface CheckedFunction<T, E extends Throwable> {
+	   void apply(T t) throws E;
+	} 
+	
+	/**
+	 * @param c The function ClientInterface's function we want to call on every connected player
+	 */
+	private void notifyPlayers(CheckedFunction<ClientInterface, IOException> c){
+		users.entrySet().stream().forEach(entry -> {
+			try {
+				c.apply(entry.getValue());
+			}
+			catch (IOException e) {
+				manageIOException(entry.getKey(), e);
+			}
+		});
 	}
 
 }

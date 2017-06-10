@@ -25,5 +25,10 @@ public class Resource {
 	public Resource multiply(int value){
 		return new Resource(resourceType, amount * value);
 	}
+	
+	@Override
+	public String toString(){
+		return amount + " " + resourceType;
+	}
 
 }

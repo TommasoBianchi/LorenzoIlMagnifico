@@ -6,7 +6,7 @@ import java.rmi.RemoteException;
 public class ServerMain {
 	
 	public static void main(String[] args){
-		int maxPlayersAmount = 4;
+		int maxPlayersAmount = 2;
 		int gameStartTimerDelay = 5000; // Time in milliseconds
 		int socketPort = 7000;
 		// TODO: think of what may be configurable from args

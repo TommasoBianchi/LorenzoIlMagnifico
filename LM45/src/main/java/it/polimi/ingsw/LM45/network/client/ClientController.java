@@ -102,6 +102,12 @@ public class ClientController {
 			manageIOException(e);
 		}
 	}
+	
+	public int chooseFrom(String[] alternatives) {
+		// TODO: implement in a sensible way
+		// maybe with a call to the view interface
+		return 0;
+	}
 
 	private void manageIOException(IOException e) {		
 		// TODO: implement better
