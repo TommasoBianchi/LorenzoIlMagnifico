@@ -27,7 +27,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class Main extends Application {
+public class ViewController extends Application {
 
 	private Stage primaryStage;
 
@@ -43,7 +43,7 @@ public class Main extends Application {
 	public void showLobbyView() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("lobby/LobbyView.fxml"));
+			loader.setLocation(ViewController.class.getResource("lobby/LobbyView.fxml"));
 			AnchorPane lobby = (AnchorPane) loader.load();
 			Scene scene = new Scene(lobby);
 			primaryStage.setScene(scene);
@@ -63,7 +63,7 @@ public class Main extends Application {
 
 	public void showPersonalBoard() {
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("personalBoard/PersonalBoardScene.fxml"));
+		loader.setLocation(ViewController.class.getResource("personalBoard/PersonalBoardScene.fxml"));
 		PersonalBoardController controller = new PersonalBoardController(false);
 		loader.setController(controller);
 
@@ -106,7 +106,7 @@ public class Main extends Application {
 	public void showGameBoard() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("gameboard/GameBoardView.fxml"));
+			loader.setLocation(ViewController.class.getResource("gameboard/GameBoardView.fxml"));
 			AnchorPane gameBoard = (AnchorPane) loader.load();
 			Scene scene = new Scene(gameBoard);
 			primaryStage.setScene(scene);

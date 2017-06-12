@@ -1,6 +1,6 @@
 package it.polimi.ingsw.LM45.view.gameboard;
 
-import it.polimi.ingsw.LM45.view.Main;
+import it.polimi.ingsw.LM45.view.ViewController;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -142,11 +142,27 @@ public class GameBoardController {
 		String slotType = new String(slot.getId().substring(0, slot.getId().length()-1));
 		int position = Integer.parseInt(slot.getId().substring(slot.getId().length()-1));
 		System.out.println(slotType + " " + position);
+		//TODO method to give to the server slotType and position
 	}
 	
 	public void slotModify(String slotType, Integer position){
-		FlowPane slot = (FlowPane)scene.lookup("#"+slotType+Integer.toString(position));
+		FlowPane slot = (FlowPane)scene.lookup("#"+slotType+position);
 		slot.setStyle("-fx-background-color: black;");
+		//TODO method to addFamiliar
+	}
+	
+	public void zoomImage(MouseEvent event){
+		ImageView image = (ImageView)event.getSource();
+		image.setScaleX(2);
+		image.setScaleY(2);
+		image.setTranslateY(50);
+	}
+	
+	public void resetZoomImage(MouseEvent event){
+		ImageView image = (ImageView)event.getSource();
+		image.setScaleX(1);
+		image.setScaleY(1);
+		image.setTranslateY(0);
 	}
 	
 }

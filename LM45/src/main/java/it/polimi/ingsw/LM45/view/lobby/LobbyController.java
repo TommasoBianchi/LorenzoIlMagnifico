@@ -1,6 +1,6 @@
 package it.polimi.ingsw.LM45.view.lobby;
 
-import it.polimi.ingsw.LM45.view.Main;
+import it.polimi.ingsw.LM45.view.ViewController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.RadioButton;
@@ -29,7 +29,7 @@ public class LobbyController {
 	@FXML
 	private TextField nickname;
 	
-	private Main main;
+	private ViewController main;
 	
 	public LobbyController() {
 	}
@@ -61,7 +61,7 @@ public class LobbyController {
 		 */
 	}
 	
-	public void setMain (Main main) {
+	public void setMain (ViewController main) {
 		this.main = main;
 	}
 }

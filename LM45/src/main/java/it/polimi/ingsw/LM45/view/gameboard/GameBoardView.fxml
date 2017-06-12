@@ -29,7 +29,7 @@
                <children>
                   <ImageView fitHeight="750.0" fitWidth="600.0" layoutX="117.0" layoutY="8.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="0.0">
                      <image>
-                        <Image url="../../../../../../../../../Assets/Image/GameBoard/GameBoard.JPG" />
+                        <Image url="file:Assets/Image/GameBoard/GameBoard.JPG" />
                      </image>
                   </ImageView>
                   <FlowPane id="TERRITORY3" fx:id="slotBuilding3" layoutX="100.0" layoutY="44.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
@@ -57,6 +57,28 @@
                   <FlowPane id="MARKET3" fx:id="coverableMarketSlot3" layoutX="541.0" layoutY="661.0" onMouseClicked="#slotAction" prefHeight="51.0" prefWidth="57.0" />
                   <FlowPane id="PRODUCTION1" fx:id="coverableProductionSlot" layoutX="84.0" layoutY="623.0" onMouseClicked="#slotAction" prefHeight="51.0" prefWidth="152.0" />
                   <FlowPane id="HARVEST1" fx:id="coverableHarvestSlot" layoutX="84.0" layoutY="687.0" onMouseClicked="#slotAction" prefHeight="51.0" prefWidth="152.0" />
+                  <ImageView id="VIEWTERRITORY3" fitHeight="96.0" fitWidth="80.0" layoutX="8.0" layoutY="14.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView id="VIEWTERRITORY2" fitHeight="96.0" fitWidth="80.0" layoutX="8.0" layoutY="115.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView id="VIEWTERRITORY1" fitHeight="96.0" fitWidth="80.0" layoutX="8.0" layoutY="216.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView id="VIEWTERRITORY0" fitHeight="96.0" fitWidth="80.0" layoutX="8.0" layoutY="317.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView id="VIEWCHARACTER3" fitHeight="96.0" fitWidth="80.0" layoutX="156.0" layoutY="14.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView id="VIEWCHARACTER2" fitHeight="96.0" fitWidth="80.0" layoutX="156.0" layoutY="115.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView id="VIEWCHARACTER1" fitHeight="96.0" fitWidth="80.0" layoutX="156.0" layoutY="216.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView id="VIEWCHARACTER0" fitHeight="96.0" fitWidth="80.0" layoutX="156.0" layoutY="317.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView id="VIEWBUILDING3" fitHeight="96.0" fitWidth="80.0" layoutX="301.0" layoutY="14.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView id="VIEWVENTURE3" fitHeight="96.0" fitWidth="80.0" layoutX="446.0" layoutY="12.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true">
+                     <image>
+                        <Image url="file:Assets/Image/Cards/VENTURE/Building%20the%20Towers.png" />
+                     </image></ImageView>
+                  <ImageView id="VIEWVENTURE2" fitHeight="96.0" fitWidth="80.0" layoutX="446.0" layoutY="115.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView id="VIEWVENTURE1" fitHeight="96.0" fitWidth="80.0" layoutX="446.0" layoutY="216.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView id="VIEWVENTURE0" fitHeight="96.0" fitWidth="80.0" layoutX="446.0" layoutY="317.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true">
+                     <image>
+                        <Image url="file:Assets/Image/Cards/VENTURE/Hiring%20Mercenaries.png" />
+                     </image></ImageView>
+                  <ImageView id="VIEWBUILDING2" fitHeight="96.0" fitWidth="80.0" layoutX="301.0" layoutY="115.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView id="VIEWBUILDING1" fitHeight="96.0" fitWidth="80.0" layoutX="301.0" layoutY="216.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView id="VIEWBUILDING0" fitHeight="96.0" fitWidth="80.0" layoutX="301.0" layoutY="317.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" preserveRatio="true" />
                </children></AnchorPane>
             <AnchorPane prefHeight="750.0" prefWidth="658.0" GridPane.columnIndex="1">
                <children>
@@ -86,7 +108,7 @@
                                  <children>
                                     <ImageView fitHeight="120.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../../../../../../Assets/Image/Resources/VICTORY.PNG" />
+                                          <Image url="file:Assets/Image/Resources/VICTORY.PNG" />
                                        </image>
                                        <GridPane.margin>
                                           <Insets left="17.0" />
@@ -94,7 +116,7 @@
                                     </ImageView>
                                     <ImageView fitHeight="150.0" fitWidth="114.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
                                        <image>
-                                          <Image url="@../../../../../../../../../Assets/Image/Resources/MILITARY.PNG" />
+                                          <Image url="file:Assets/Image/Resources/MILITARY.PNG" />
                                        </image>
                                        <GridPane.margin>
                                           <Insets left="23.0" />
@@ -102,7 +124,7 @@
                                     </ImageView>
                                     <ImageView fitHeight="150.0" fitWidth="133.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
                                        <image>
-                                          <Image url="@../../../../../../../../../Assets/Image/Resources/FAITH.PNG" />
+                                          <Image url="file:Assets/Image/Resources/FAITH.PNG" />
                                        </image>
                                        <GridPane.margin>
                                           <Insets left="10.0" />
@@ -250,12 +272,12 @@
                                           <Insets left="20.0" />
                                        </GridPane.margin>
                                        <image>
-                                          <Image url="@../../../../../../../../../Assets/Image/Resources/COINS.PNG" />
+                                          <Image url="file:Assets/Image/Resources/COINS.PNG" />
                                        </image>
                                     </ImageView>
                                     <ImageView fitHeight="150.0" fitWidth="133.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
                                        <image>
-                                          <Image url="@../../../../../../../../../Assets/Image/Resources/STONE.PNG" />
+                                          <Image url="file:Assets/Image/Resources/STONE.PNG" />
                                        </image>
                                        <GridPane.margin>
                                           <Insets left="13.0" />
@@ -263,7 +285,7 @@
                                     </ImageView>
                                     <ImageView fitHeight="150.0" fitWidth="123.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
                                        <image>
-                                          <Image url="@../../../../../../../../../Assets/Image/Resources/WOOD.PNG" />
+                                          <Image url="file:Assets/Image/Resources/WOOD.PNG" />
                                        </image>
                                        <GridPane.margin>
                                           <Insets left="18.0" />
@@ -271,7 +293,7 @@
                                     </ImageView>
                                     <ImageView fitHeight="150.0" fitWidth="113.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3">
                                        <image>
-                                          <Image url="@../../../../../../../../../Assets/Image/Resources/SERVANTS.PNG" />
+                                          <Image url="file:Assets/Image/Resources/SERVANTS.PNG" />
                                        </image>
                                        <GridPane.margin>
                                           <Insets left="20.0" />
@@ -408,7 +430,7 @@
                            <children>
                               <ImageView fitHeight="161.0" fitWidth="299.0" layoutX="-1.0" layoutY="43.0" pickOnBounds="true">
                                  <image>
-                                    <Image url="@../../../../../../../../../Assets/Image/Lobby/WoodPanel.PNG" />
+                                    <Image url="file:Assets/Image/Lobby/WoodPanel.PNG" />
                                  </image>
                               </ImageView>
                               <Label fx:id="dialogBox" alignment="CENTER" contentDisplay="CENTER" layoutX="145.0" layoutY="111.0" text="Select Familiar" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="80.0">
