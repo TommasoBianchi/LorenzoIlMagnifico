@@ -2,10 +2,12 @@ package it.polimi.ingsw.LM45.view.gameboard;
 
 import it.polimi.ingsw.LM45.view.Main;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 
@@ -39,7 +41,7 @@ public class GameBoardController {
 	private Label dialogBox;
 	
 	@FXML
-	private Label myUsername;
+	private Label username0;
 	
 	@FXML
 	private Label username1;
@@ -51,16 +53,16 @@ public class GameBoardController {
 	private Label username3;
 	
 	@FXML
-	private Button myPersonalBoard;
+	private Button personalBoard0;
 	
 	@FXML
-	private Button PersonalBoard1;
+	private Button personalBoard1;
 	
 	@FXML
-	private Button PersonalBoard2;
+	private Button personalBoard2;
 	
 	@FXML
-	private Button PersonalBoard3;
+	private Button personalBoard3;
 	
 	@FXML
 	private Label coins;
@@ -84,36 +86,24 @@ public class GameBoardController {
 	private Label faith;
 	
 	@FXML
-	private FlowPane marketSlot0;
-	
-	@FXML
-	private FlowPane marketSlot1;
-	
-	@FXML
 	private FlowPane coverableMarketSlot2;
 	
 	@FXML
 	private FlowPane coverableMarketSlot3;
 	
 	@FXML
-	private FlowPane productionSlot;
-	
-	@FXML
 	private FlowPane coverableProductionSlot;
-	
-	@FXML
-	private FlowPane harvestSlot;
 	
 	@FXML
 	private FlowPane coverableHarvestSlot;
 	
-	private Main main;
+	private Scene scene;
 	
 	public GameBoardController(){
 	}
 	
-	public void setMain(Main main){
-		this.main = main;
+	public void setScene(Scene scene){
+		this.scene = scene;
 	}
 	
 	public void showFamiliars(String color){
@@ -145,6 +135,18 @@ public class GameBoardController {
 	
 	public void setUsernames(){
 		//TODO
+	}
+	
+	public void slotAction(MouseEvent event) {
+		FlowPane slot = (FlowPane)event.getSource();
+		String slotType = new String(slot.getId().substring(0, slot.getId().length()-1));
+		int position = Integer.parseInt(slot.getId().substring(slot.getId().length()-1));
+		System.out.println(slotType + " " + position);
+	}
+	
+	public void slotModify(String slotType, Integer position){
+		FlowPane slot = (FlowPane)scene.lookup("#"+slotType+Integer.toString(position));
+		slot.setStyle("-fx-background-color: black;");
 	}
 	
 }

@@ -112,9 +112,10 @@ public class Main extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			GameBoardController controllerGameBoard = loader.getController();
-			controllerGameBoard.setMain(this);
+			controllerGameBoard.setScene(scene);
 			controllerGameBoard.coverSlots(2);
 			controllerGameBoard.showFamiliars("BLUE");
+			controllerGameBoard.slotModify("TERRITORY", 0);
 		} catch (IOException | NullPointerException e) { // TODO sistemare
 			e.printStackTrace();
 		}

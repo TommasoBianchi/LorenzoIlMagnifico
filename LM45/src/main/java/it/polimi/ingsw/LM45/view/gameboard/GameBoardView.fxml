@@ -32,31 +32,31 @@
                         <Image url="../../../../../../../../../Assets/Image/GameBoard/GameBoard.JPG" />
                      </image>
                   </ImageView>
-                  <FlowPane layoutX="100.0" layoutY="44.0" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane layoutX="100.0" layoutY="146.0" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane layoutX="100.0" layoutY="247.0" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane layoutX="100.0" layoutY="348.0" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane layoutX="248.0" layoutY="44.0" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane layoutX="395.0" layoutY="44.0" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane layoutX="540.0" layoutY="44.0" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane layoutX="248.0" layoutY="146.0" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane layoutX="395.0" layoutY="146.0" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane layoutX="540.0" layoutY="146.0" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane layoutX="248.0" layoutY="247.0" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane layoutX="248.0" layoutY="348.0" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane layoutX="395.0" layoutY="247.0" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane layoutX="540.0" layoutY="247.0" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane layoutX="395.0" layoutY="348.0" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane layoutX="540.0" layoutY="348.0" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane alignment="CENTER_RIGHT" columnHalignment="RIGHT" layoutX="314.0" layoutY="422.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="51.0" prefWidth="180.0" />
-                  <FlowPane fx:id="productionSlot" layoutX="14.0" layoutY="630.0" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane fx:id="harvestSlot" layoutX="14.0" layoutY="696.0" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane fx:id="marketSlot0" layoutX="371.0" layoutY="616.0" prefHeight="34.0" prefWidth="39.0" />
-                  <FlowPane fx:id="coverableMarketSlot2" layoutX="494.0" layoutY="622.0" prefHeight="51.0" prefWidth="57.0" />
-                  <FlowPane fx:id="marketSlot1" layoutX="439.0" layoutY="616.0" prefHeight="30.0" prefWidth="39.0" />
-                  <FlowPane fx:id="coverableMarketSlot3" layoutX="541.0" layoutY="661.0" prefHeight="51.0" prefWidth="57.0" />
-                  <FlowPane fx:id="coverableProductionSlot" layoutX="84.0" layoutY="623.0" prefHeight="51.0" prefWidth="152.0" />
-                  <FlowPane fx:id="coverableHarvestSlot" layoutX="84.0" layoutY="687.0" prefHeight="51.0" prefWidth="152.0" />
+                  <FlowPane id="TERRITORY3" fx:id="slotBuilding3" layoutX="100.0" layoutY="44.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="TERRITORY2" fx:id="slotBuilding2" layoutX="100.0" layoutY="146.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="TERRITORY1" fx:id="slotBuilding1" layoutX="100.0" layoutY="247.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="TERRITORY0" fx:id="slotBuilding0" layoutX="100.0" layoutY="348.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="CHARACTER3" layoutX="248.0" layoutY="44.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="BUILDING3" layoutX="395.0" layoutY="44.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="VENTURE3" layoutX="540.0" layoutY="44.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="CHARACTER2" layoutX="248.0" layoutY="146.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="BUILDING2" layoutX="395.0" layoutY="146.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="VENTURE2" layoutX="540.0" layoutY="146.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="CHARACTER1" layoutX="248.0" layoutY="247.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="CHARACTER0" layoutX="248.0" layoutY="348.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="BUILDING1" layoutX="395.0" layoutY="247.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="VENTURE1" layoutX="540.0" layoutY="247.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="BUILDING0" layoutX="395.0" layoutY="348.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="VENTURE0" layoutX="540.0" layoutY="348.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="COUNCIL" alignment="CENTER_RIGHT" columnHalignment="RIGHT" layoutX="314.0" layoutY="422.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#slotAction" prefHeight="51.0" prefWidth="180.0" />
+                  <FlowPane id="PRODUCTION0" fx:id="productionSlot" layoutX="14.0" layoutY="630.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="HARVEST0" fx:id="harvestSlot" layoutX="14.0" layoutY="696.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="MARKET0" fx:id="marketSlot0" layoutX="371.0" layoutY="616.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="39.0" />
+                  <FlowPane id="MARKET2" fx:id="coverableMarketSlot2" layoutX="494.0" layoutY="622.0" onMouseClicked="#slotAction" prefHeight="51.0" prefWidth="57.0" />
+                  <FlowPane id="MARKET1" fx:id="marketSlot1" layoutX="439.0" layoutY="616.0" onMouseClicked="#slotAction" prefHeight="30.0" prefWidth="39.0" />
+                  <FlowPane id="MARKET3" fx:id="coverableMarketSlot3" layoutX="541.0" layoutY="661.0" onMouseClicked="#slotAction" prefHeight="51.0" prefWidth="57.0" />
+                  <FlowPane id="PRODUCTION1" fx:id="coverableProductionSlot" layoutX="84.0" layoutY="623.0" onMouseClicked="#slotAction" prefHeight="51.0" prefWidth="152.0" />
+                  <FlowPane id="HARVEST1" fx:id="coverableHarvestSlot" layoutX="84.0" layoutY="687.0" onMouseClicked="#slotAction" prefHeight="51.0" prefWidth="152.0" />
                </children></AnchorPane>
             <AnchorPane prefHeight="750.0" prefWidth="658.0" GridPane.columnIndex="1">
                <children>
@@ -358,7 +358,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Label fx:id="myUsername" alignment="CENTER" prefHeight="48.0" prefWidth="110.0" text="Username" textFill="#ffc000">
+                                    <Label fx:id="username0" alignment="CENTER" prefHeight="48.0" prefWidth="110.0" text="Username" textFill="#ffc000">
                                        <font>
                                           <Font name="System Italic" size="14.0" />
                                        </font>
@@ -378,22 +378,22 @@
                                           <Font name="System Italic" size="14.0" />
                                        </font>
                                     </Label>
-                                    <Button fx:id="myPersonalBoard" mnemonicParsing="false" text="PersonalBoard" GridPane.columnIndex="1">
+                                    <Button fx:id="personalBoard0" mnemonicParsing="false" text="PersonalBoard" GridPane.columnIndex="1">
                                        <GridPane.margin>
                                           <Insets />
                                        </GridPane.margin>
                                     </Button>
-                                    <Button fx:id="PersonalBoard1" mnemonicParsing="false" text="PersonalBoard" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <Button fx:id="personalBoard1" mnemonicParsing="false" text="PersonalBoard" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                        <GridPane.margin>
                                           <Insets />
                                        </GridPane.margin>
                                     </Button>
-                                    <Button fx:id="PersonalBoard2" mnemonicParsing="false" text="PersonalBoard" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                    <Button fx:id="personalBoard2" mnemonicParsing="false" text="PersonalBoard" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                        <GridPane.margin>
                                           <Insets />
                                        </GridPane.margin>
                                     </Button>
-                                    <Button fx:id="PersonalBoard3" mnemonicParsing="false" text="PersonalBoard" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                    <Button fx:id="personalBoard3" mnemonicParsing="false" text="PersonalBoard" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                        <GridPane.margin>
                                           <Insets />
                                        </GridPane.margin>
