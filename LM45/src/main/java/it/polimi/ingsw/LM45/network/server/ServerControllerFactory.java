@@ -31,6 +31,10 @@ public class ServerControllerFactory {
 		return currentServerController;
 	}
 
+	public void shutdown(){
+		// TODO: implement
+	}
+
 	private ServerController createServerControllerInstance() {
 		try {
 			return new ServerController(maxInstanceCount, gameStartTimerDelay, turnTimerDelay);

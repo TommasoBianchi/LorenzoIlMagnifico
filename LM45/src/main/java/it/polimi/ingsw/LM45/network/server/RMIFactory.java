@@ -29,5 +29,9 @@ private ServerControllerFactory serverControllerFactory;
 		RMIServer rmiServer = new RMIServer(serverControllerFactory.getServerControllerInstance(), remoteClient);
 		return (RemoteServerInterface)UnicastRemoteObject.exportObject(rmiServer, 0);
 	}
+	
+	public void shutdown(){
+		// TODO: implement
+	}
 
 }
