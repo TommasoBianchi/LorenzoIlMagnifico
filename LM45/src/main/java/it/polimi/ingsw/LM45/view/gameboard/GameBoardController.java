@@ -185,7 +185,7 @@ public class GameBoardController {
 	public void showPersonalBoard(MouseEvent event) {
 		Button button = (Button)event.getSource();
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(InitializeViewController.class.getResource("personalBoard/PersonalBoardScene.fxml"));
+		loader.setLocation(InitializeViewController.class.getResource("../personalBoard/PersonalBoardScene.fxml"));
 		PersonalBoardController controller = new PersonalBoardController(false);
 		loader.setController(controller);
 
