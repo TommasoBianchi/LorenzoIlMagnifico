@@ -1,4 +1,4 @@
-package it.polimi.ingsw.LM45.view;
+package it.polimi.ingsw.LM45.view.controller;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -27,7 +27,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class ViewController extends Application {
+public class InitializeViewController extends Application {
 
 	private Stage primaryStage;
 
@@ -35,15 +35,13 @@ public class ViewController extends Application {
 		this.primaryStage = stage;
 		this.primaryStage.setTitle("Lorenzo il Magnifico");
 		// showLobbyView();
-		// showPersonalBoard();
-		// showPersonalBoard();
 		showGameBoard();
 	}
 
 	public void showLobbyView() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(ViewController.class.getResource("lobby/LobbyView.fxml"));
+			loader.setLocation(InitializeViewController.class.getResource("lobby/LobbyView.fxml"));
 			AnchorPane lobby = (AnchorPane) loader.load();
 			Scene scene = new Scene(lobby);
 			primaryStage.setScene(scene);
@@ -61,52 +59,10 @@ public class ViewController extends Application {
 		}
 	}
 
-	public void showPersonalBoard() {
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(ViewController.class.getResource("personalBoard/PersonalBoardScene.fxml"));
-		PersonalBoardController controller = new PersonalBoardController(false);
-		loader.setController(controller);
-
-		try {
-			Scene scene = new Scene(loader.load());
-
-			Stage stage = new Stage();
-			stage.setResizable(false);
-			stage.setScene(scene);
-			stage.show();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
-		// TEST
-		try {
-			Map<CardType, List<Card>> deck = FileManager.loadCards();
-
-			for (int i = 0; i < 12; i++) {
-				CardType cardType = CardType.values()[(new Random()).nextInt(CardType.values().length - 1)];
-				Card card = deck.get(cardType).get(0);
-				controller.addCard(card);
-			}
-
-			for (ResourceType resourceType : ResourceType.values())
-				controller.setResource(new Resource(resourceType, new Random().nextInt(20)));
-
-			for (int i = 0; i < 4; i++) {
-				controller.addLeaderCard(null);
-			}
-		} catch (JsonSyntaxException | JsonIOException | FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		// TEST
-
-	}
-
 	public void showGameBoard() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(ViewController.class.getResource("gameboard/GameBoardView.fxml"));
+			loader.setLocation(InitializeViewController.class.getResource("gameboard/GameBoardView.fxml"));
 			AnchorPane gameBoard = (AnchorPane) loader.load();
 			Scene scene = new Scene(gameBoard);
 			primaryStage.setScene(scene);

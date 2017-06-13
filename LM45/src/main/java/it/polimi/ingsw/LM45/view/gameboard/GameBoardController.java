@@ -1,7 +1,23 @@
 package it.polimi.ingsw.LM45.view.gameboard;
 
-import it.polimi.ingsw.LM45.view.ViewController;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonSyntaxException;
+
+import it.polimi.ingsw.LM45.model.cards.Card;
+import it.polimi.ingsw.LM45.model.cards.CardType;
+import it.polimi.ingsw.LM45.model.core.Resource;
+import it.polimi.ingsw.LM45.model.core.ResourceType;
+import it.polimi.ingsw.LM45.serialization.FileManager;
+import it.polimi.ingsw.LM45.view.controller.InitializeViewController;
+import it.polimi.ingsw.LM45.view.personalBoard.PersonalBoardController;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -10,6 +26,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 public class GameBoardController {
 	
@@ -134,7 +151,7 @@ public class GameBoardController {
 	}
 	
 	public void setUsernames(){
-		//TODO
+		//TODO set usernames and ID on Buttons
 	}
 	
 	public void slotAction(MouseEvent event) {
@@ -163,6 +180,50 @@ public class GameBoardController {
 		image.setScaleX(1);
 		image.setScaleY(1);
 		image.setTranslateY(0);
+	}
+	
+	public void showPersonalBoard(MouseEvent event) {
+		Button button = (Button)event.getSource();
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(InitializeViewController.class.getResource("personalBoard/PersonalBoardScene.fxml"));
+		PersonalBoardController controller = new PersonalBoardController(false);
+		loader.setController(controller);
+
+		try {
+			Scene scene = new Scene(loader.load());
+
+			Stage stage = new Stage();
+			stage.setResizable(false);
+			stage.setScene(scene);
+			stage.setTitle(button.getId());
+			stage.show();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		// TEST
+		try {
+			Map<CardType, List<Card>> deck = FileManager.loadCards();
+
+			for (int i = 0; i < 12; i++) {
+				CardType cardType = CardType.values()[(new Random()).nextInt(CardType.values().length - 1)];
+				Card card = deck.get(cardType).get(0);
+				controller.addCard(card);
+			}
+
+			for (ResourceType resourceType : ResourceType.values())
+				controller.setResource(new Resource(resourceType, new Random().nextInt(20)));
+
+			for (int i = 0; i < 4; i++) {
+				controller.addLeaderCard(null);
+			}
+		} catch (JsonSyntaxException | JsonIOException | FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// TEST
+
 	}
 	
 }

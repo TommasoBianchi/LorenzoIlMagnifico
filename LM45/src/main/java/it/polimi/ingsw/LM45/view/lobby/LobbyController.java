@@ -1,6 +1,6 @@
 package it.polimi.ingsw.LM45.view.lobby;
 
-import it.polimi.ingsw.LM45.view.ViewController;
+import it.polimi.ingsw.LM45.view.controller.InitializeViewController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.RadioButton;
@@ -29,7 +29,7 @@ public class LobbyController {
 	@FXML
 	private TextField nickname;
 	
-	private ViewController main;
+	private InitializeViewController main;
 	
 	public LobbyController() {
 	}
@@ -58,10 +58,12 @@ public class LobbyController {
 		 * 	avvia socket;
 		 * 
 		 * lo sesso poi per CLI e GUI
+		 * 
+		 * metti avvia gioco con Enter
 		 */
 	}
 	
-	public void setMain (ViewController main) {
+	public void setMain (InitializeViewController main) {
 		this.main = main;
 	}
 }

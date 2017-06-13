@@ -400,22 +400,22 @@
                                           <Font name="System Italic" size="14.0" />
                                        </font>
                                     </Label>
-                                    <Button fx:id="personalBoard0" mnemonicParsing="false" text="PersonalBoard" GridPane.columnIndex="1">
+                                    <Button fx:id="personalBoard0" mnemonicParsing="false" onMouseClicked="#showPersonalBoard" text="PersonalBoard" GridPane.columnIndex="1">
                                        <GridPane.margin>
                                           <Insets />
                                        </GridPane.margin>
                                     </Button>
-                                    <Button fx:id="personalBoard1" mnemonicParsing="false" text="PersonalBoard" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <Button fx:id="personalBoard1" mnemonicParsing="false" onMouseClicked="#showPersonalBoard" text="PersonalBoard" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                        <GridPane.margin>
                                           <Insets />
                                        </GridPane.margin>
                                     </Button>
-                                    <Button fx:id="personalBoard2" mnemonicParsing="false" text="PersonalBoard" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                    <Button fx:id="personalBoard2" mnemonicParsing="false" onMouseClicked="#showPersonalBoard" text="PersonalBoard" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                        <GridPane.margin>
                                           <Insets />
                                        </GridPane.margin>
                                     </Button>
-                                    <Button fx:id="personalBoard3" mnemonicParsing="false" text="PersonalBoard" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                    <Button fx:id="personalBoard3" mnemonicParsing="false" onMouseClicked="#showPersonalBoard" text="PersonalBoard" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                        <GridPane.margin>
                                           <Insets />
                                        </GridPane.margin>
