@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import it.polimi.ingsw.LM45.model.core.Resource;
-import it.polimi.ingsw.LM45.model.core.ResourceType;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 
 public class BoardConfiguration implements Configuration {

@@ -36,6 +36,10 @@ public class ActionModifier {
 	public ActionModifier(Resource[] costModifiers, Resource[] gainModifiers, int diceBonus) {
 		this(costModifiers, gainModifiers, diceBonus, false, false, true);
 	}
+	
+	public ActionModifier(Resource[] costModifiers) {
+		this(costModifiers, new Resource[]{}, 0);
+	}
 
 	public ActionModifier(boolean blockImmediateResources, boolean canPlaceMultipleFamiliars,
 			boolean canPlaceFamiliars) {

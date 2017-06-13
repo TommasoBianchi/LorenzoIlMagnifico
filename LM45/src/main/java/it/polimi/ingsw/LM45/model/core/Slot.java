@@ -98,6 +98,20 @@ public class Slot {
 		return familiars.stream().map(familiar -> familiar.getPlayer()).toArray(Player[]::new);
 	}
 	
+	/**
+	 * @return the slotType of this slot
+	 */
+	public SlotType getType(){
+		return this.type;
+	}
+	
+	/**
+	 * @return true if there are no familiars in this slot
+	 */
+	public boolean isEmpty(){
+		return this.familiars.isEmpty();
+	}
+	
 	private boolean isOccupied(Familiar familiar) {
 		boolean hasFamiliarInNeighbouringSlots = false;
 		for (Slot neighbouringSlot : neighbouringSlots) {
@@ -114,13 +128,6 @@ public class Slot {
 
 	private boolean isFamiliarValueOK(Familiar familiar, ActionModifier actionModifier) {
 		return familiar.getValue() + actionModifier.getDiceBonus() >= minDice;
-	}
-	
-	/**
-	 * @return the slotType of this slot
-	 */
-	public SlotType getType(){
-		return this.type;
 	}
 
 }

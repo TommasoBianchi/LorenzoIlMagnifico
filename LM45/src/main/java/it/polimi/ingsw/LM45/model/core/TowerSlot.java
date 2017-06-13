@@ -27,13 +27,17 @@ public class TowerSlot extends Slot {
 
 	@Override
 	public boolean canAddFamiliar(Familiar familiar, ActionModifier actionModifier) {
-		return super.canAddFamiliar(familiar, actionModifier) && hasCard && card.canPick(familiar.getPlayer());
+		if(hasToPayTower(familiar.getPlayer()))
+			actionModifier.merge(new ActionModifier(new Resource[]{ new Resource(ResourceType.COINS, 3) }));
+		return super.canAddFamiliar(familiar, actionModifier) && hasCard && card.canPick(familiar.getPlayer(), actionModifier);
 	}
 
 	@Override
 	public void addFamiliar(Familiar familiar, ActionModifier actionModifier, EffectResolutor effectResolutor) {
 		super.addFamiliar(familiar, actionModifier, effectResolutor);
-		effectResolutor.addCard(card);
+		if(hasToPayTower(familiar.getPlayer()))
+			actionModifier.merge(new ActionModifier(new Resource[]{ new Resource(ResourceType.COINS, 3) }));
+		effectResolutor.addCard(card, actionModifier);
 		this.hasCard = false;
 	}
 	
@@ -42,6 +46,11 @@ public class TowerSlot extends Slot {
 		super.clearSlot();
 		hasCard = false;
 		card = null;
+	}
+	
+	private boolean hasToPayTower(Player player){
+		long nonEmptyNeighbours = neighbouringSlots.stream().filter(slot -> !slot.isEmpty()).count();
+		return nonEmptyNeighbours > 0 && player.getPayIfTowerIsOccupied();
 	}
 
 }

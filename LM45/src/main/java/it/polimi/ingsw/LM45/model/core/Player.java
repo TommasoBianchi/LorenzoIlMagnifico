@@ -1,5 +1,6 @@
 package it.polimi.ingsw.LM45.model.core;
 
+import java.awt.Desktop.Action;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -8,6 +9,7 @@ import javafx.scene.paint.Color;
 import it.polimi.ingsw.LM45.exceptions.IllegalActionException;
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
+import it.polimi.ingsw.LM45.model.effects.ActionModifier;
 import it.polimi.ingsw.LM45.model.effects.CardEffect;
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
 
@@ -41,17 +43,19 @@ public class Player {
 
 	/**
 	 * @param card the card to check
+	 * @param actionModifier the actionModifier for the action the player is trying to do (in this case, picking a card of a specific cardType)
 	 * @return true if we can add that card to this player's personalBoard (including check about territoryRequisites and about card's cost)
 	 */
-	public boolean canAddCard(Card card) {
-		return card.canPick(this) && personalBoard.canAddCard(card);
+	public boolean canAddCard(Card card, ActionModifier actionModifier) {
+		return card.canPick(this, actionModifier) && personalBoard.canAddCard(card);
 	}
 
 	/**
 	 * @param card the card we want to add to this player's personalBoard
 	 */
-	public void addCard(Card card) {
+	public void addCard(Card card, ActionModifier actionModifier) {
 		personalBoard.addCard(card);
+		card.payCost(this, actionModifier);
 	}
 
 	/**
@@ -238,6 +242,15 @@ public class Player {
 	public Familiar getFamiliarByColor(FamiliarColor familiarColor) throws IllegalActionException {
 		return Arrays.stream(familiars).filter(familiar -> !familiar.getIsPlaced() && familiar.getFamiliarColor() == familiarColor).findFirst()
 				.orElseThrow(() -> new IllegalActionException("Familiar of color " + familiarColor + " does not exists or has already been used"));
+	}
+	
+
+	/**
+	 * @return true if this player must pay 3 COINS every time he places a familiar in a tower already occupied
+	 * by another player
+	 */
+	public boolean getPayIfTowerIsOccupied() {
+		return payIfTowerIsOccupied;
 	}
 
 }
