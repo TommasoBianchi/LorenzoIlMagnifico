@@ -20,7 +20,7 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 	private ClientController clientController;
 	private boolean isRunning;
 
-	public SocketClient(String host, int port, ClientController clientController) throws UnknownHostException, IOException {
+	public SocketClient(String host, int port, ClientController clientController) throws IOException {
 		this.clientController = clientController;
 		
 		socket = new Socket(host, port);
