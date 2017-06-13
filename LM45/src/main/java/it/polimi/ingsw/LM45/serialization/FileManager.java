@@ -144,9 +144,6 @@ public class FileManager {
 		
 		try {
 			saveConfiguration(new ServerConfiguration(2, 25000, 2000, 7000));
-			ServerConfiguration sConfiguration = loadConfiguration(ServerConfiguration.class);
-			System.out.println(sConfiguration.getGameStartTimerDelay());
-			System.out.println(sConfiguration.getServerSocketPort());
 			
 			Map<SlotType, Resource[][]> slotsConfiguration = new EnumMap<>(SlotType.class);
 			slotsConfiguration.put(SlotType.TERRITORY, 
@@ -172,14 +169,10 @@ public class FileManager {
 					new Resource[][]{ new Resource[]{ new Resource(ResourceType.COINS, 1), new Resource(ResourceType.COUNCIL_PRIVILEGES, 1) } });
 			
 			saveConfiguration(new BoardConfiguration(slotsConfiguration));
-			BoardConfiguration bConfiguration = loadConfiguration(BoardConfiguration.class);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-		if(true)
-			return;
 
 		// Territories
 		// I Period
