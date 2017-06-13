@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javafx.scene.paint.Color;
 import it.polimi.ingsw.LM45.exceptions.IllegalActionException;
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
@@ -15,7 +14,7 @@ import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
 public class Player {
 
 	private String username;
-	private Color color; // FIXME: probably unneeded here
+	private PlayerColor playerColor;
 	private List<LeaderCard> leaderCards;
 	private PersonalBoard personalBoard;
 	private Familiar[] familiars;
@@ -28,9 +27,9 @@ public class Player {
 	 * @param username the username of this player
 	 * @param color the color of this player (i.e. of his pawns)
 	 */
-	public Player(String username, Color color) {
+	public Player(String username, PlayerColor playerColor) {
 		this.username = username;
-		this.color = color;
+		this.playerColor = playerColor;
 		this.leaderCards = new ArrayList<LeaderCard>();
 		this.personalBoard = new PersonalBoard();
 		this.familiars = Arrays.stream(FamiliarColor.values()).map(familiarColor -> new Familiar(this, familiarColor)).toArray(Familiar[]::new);
@@ -255,8 +254,8 @@ public class Player {
 	/**
 	 * @return the color this player has on the board
 	 */
-	public Color getColor(){
-		return color;
+	public PlayerColor getColor(){
+		return playerColor;
 	}
 
 }

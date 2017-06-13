@@ -3,6 +3,7 @@ package it.polimi.ingsw.LM45.network.server;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,7 @@ import it.polimi.ingsw.LM45.model.core.Familiar;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.Game;
 import it.polimi.ingsw.LM45.model.core.Player;
+import it.polimi.ingsw.LM45.model.core.PlayerColor;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.ResourceType;
 import it.polimi.ingsw.LM45.model.core.Slot;
@@ -42,7 +44,7 @@ public class ServerController {
 	private Map<String, ClientInterface> users;
 	private Map<String, Player> players;
 	private Map<String, EffectResolutor> effectResolutors;
-	private List<Color> availableColors;
+	private List<PlayerColor> availableColors;
 	private BoardConfiguration boardConfiguration;
 	private Map<String, LeaderCard> leaderCards;
 	private Map<CardType, List<Card>> deck;
@@ -59,11 +61,7 @@ public class ServerController {
 		this.users = new HashMap<String, ClientInterface>();
 		this.players = new HashMap<String, Player>();
 		this.effectResolutors = new HashMap<String, EffectResolutor>();
-		this.availableColors = new ArrayList<Color>();
-		this.availableColors.add(Color.BLUE);
-		this.availableColors.add(Color.RED);
-		this.availableColors.add(Color.GREEN);
-		this.availableColors.add(Color.YELLOW);
+		this.availableColors = new ArrayList<PlayerColor>(Arrays.asList(PlayerColor.values()));
 		this.boardConfiguration = FileManager.loadConfiguration(BoardConfiguration.class);
 		this.leaderCards = FileManager.loadLeaderCards().stream()
 				.collect(Collectors.toMap(leaderCard -> leaderCard.getName(), leaderCard -> leaderCard));
@@ -98,7 +96,7 @@ public class ServerController {
 
 		System.out.println(username + " logged in");
 		users.put(username, clientInterface);
-		Color randomColor = availableColors.remove(new Random().nextInt(availableColors.size()));
+		PlayerColor randomColor = availableColors.remove(new Random().nextInt(availableColors.size()));
 		Player player = new Player(username, randomColor);
 		players.put(username, player);
 		effectResolutors.put(username, new EffectController(player, this));
