@@ -17,14 +17,17 @@ public class Board {
 	private Map<SlotType, Slot[]> slots;
 	private Map<SlotType, TowerSlot[]> towerSlots;
 	private Map<PeriodType, Excommunication> excommunications;
+	private Resource[][] churchSupportResources;
 
 	/**
-	 * Initializes a new Board by instantiating the collections needed to hold slots and excommunications
+	 * Initializes a new Board by instantiating the collections needed to hold slots and excommunications plus the
+	 * resources you receive when you support the Church.
 	 */
 	public Board(BoardConfiguration boardConfiguration) {
 		this.slots = new EnumMap<SlotType, Slot[]>(SlotType.class);
 		this.towerSlots = new EnumMap<SlotType, TowerSlot[]>(SlotType.class);
 		this.excommunications = new EnumMap<PeriodType, Excommunication>(PeriodType.class);
+		this.churchSupportResources = boardConfiguration.getChurchSupportResources();
 		
 		// Create the four towers
 		for (SlotType slotType : new SlotType[] { SlotType.TERRITORY, SlotType.BUILDING, SlotType.CHARACTER, SlotType.VENTURE }) {
@@ -123,5 +126,16 @@ public class Board {
 	 */
 	public void placeExcommunication(Excommunication excommunication) {
 		excommunications.put(excommunication.getPeriodType(), excommunication);
+	}
+	
+	/** 
+	 * @param faithPoints how many faith points a player has
+	 * @return the resources he'd gain by supporting the Church
+	 */
+	public Resource[] getChurchSupportResources(int faithPoints){
+		if(faithPoints < churchSupportResources.length)
+			return churchSupportResources[faithPoints].clone();
+		else
+			return new Resource[]{};
 	}
 }

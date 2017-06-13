@@ -138,5 +138,103 @@
         }
       ]
     }
+  ],
+  "churchSupportResources": [
+    [
+      {
+        "resourceType": "VICTORY",
+        "amount": 0
+      }
+    ],
+    [
+      {
+        "resourceType": "VICTORY",
+        "amount": 1
+      }
+    ],
+    [
+      {
+        "resourceType": "VICTORY",
+        "amount": 2
+      }
+    ],
+    [
+      {
+        "resourceType": "VICTORY",
+        "amount": 3
+      }
+    ],
+    [
+      {
+        "resourceType": "VICTORY",
+        "amount": 4
+      }
+    ],
+    [
+      {
+        "resourceType": "VICTORY",
+        "amount": 5
+      }
+    ],
+    [
+      {
+        "resourceType": "VICTORY",
+        "amount": 7
+      }
+    ],
+    [
+      {
+        "resourceType": "VICTORY",
+        "amount": 9
+      }
+    ],
+    [
+      {
+        "resourceType": "VICTORY",
+        "amount": 11
+      }
+    ],
+    [
+      {
+        "resourceType": "VICTORY",
+        "amount": 13
+      }
+    ],
+    [
+      {
+        "resourceType": "VICTORY",
+        "amount": 15
+      }
+    ],
+    [
+      {
+        "resourceType": "VICTORY",
+        "amount": 17
+      }
+    ],
+    [
+      {
+        "resourceType": "VICTORY",
+        "amount": 19
+      }
+    ],
+    [
+      {
+        "resourceType": "VICTORY",
+        "amount": 22
+      }
+    ],
+    [
+      {
+        "resourceType": "VICTORY",
+        "amount": 25
+      }
+    ],
+    [
+      {
+        "resourceType": "VICTORY",
+        "amount": 30
+      }
+    ]
   ]
 }

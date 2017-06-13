@@ -166,7 +166,26 @@ public class FileManager {
 			slotsConfiguration.put(SlotType.COUNCIL, 
 					new Resource[][]{ new Resource[]{ new Resource(ResourceType.COINS, 1), new Resource(ResourceType.COUNCIL_PRIVILEGES, 1) } });
 			
-			saveConfiguration(new BoardConfiguration(slotsConfiguration));
+			Resource[][] churchSupportResources = new Resource[][]{
+				new Resource[]{ new Resource(ResourceType.VICTORY, 0) },
+				new Resource[]{ new Resource(ResourceType.VICTORY, 1) },
+				new Resource[]{ new Resource(ResourceType.VICTORY, 2) },
+				new Resource[]{ new Resource(ResourceType.VICTORY, 3) },
+				new Resource[]{ new Resource(ResourceType.VICTORY, 4) },
+				new Resource[]{ new Resource(ResourceType.VICTORY, 5) },
+				new Resource[]{ new Resource(ResourceType.VICTORY, 7) },
+				new Resource[]{ new Resource(ResourceType.VICTORY, 9) },
+				new Resource[]{ new Resource(ResourceType.VICTORY, 11) },
+				new Resource[]{ new Resource(ResourceType.VICTORY, 13) },
+				new Resource[]{ new Resource(ResourceType.VICTORY, 15) },
+				new Resource[]{ new Resource(ResourceType.VICTORY, 17) },
+				new Resource[]{ new Resource(ResourceType.VICTORY, 19) },
+				new Resource[]{ new Resource(ResourceType.VICTORY, 22) },
+				new Resource[]{ new Resource(ResourceType.VICTORY, 25) },
+				new Resource[]{ new Resource(ResourceType.VICTORY, 30) }
+			};
+			
+			saveConfiguration(new BoardConfiguration(slotsConfiguration, churchSupportResources));
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
