@@ -59,6 +59,7 @@ public class Board {
 		
 		// Create the council slot
 		Slot councilSlot = new Slot(boardConfiguration.getSlotBonuses(SlotType.COUNCIL, 0), 1, SlotType.COUNCIL, true, true);
+		slots.put(SlotType.COUNCIL, new Slot[]{ councilSlot });
 	}
 
 	/**
@@ -104,6 +105,9 @@ public class Board {
 	 * by the time they have been put on it
 	 */
 	public List<Player> getCouncilOrder() {
+		if(!slots.containsKey(SlotType.COUNCIL) || slots.get(SlotType.COUNCIL).length == 0)
+			return new ArrayList<Player>();
+		
 		Slot councilSlot = slots.get(SlotType.COUNCIL)[0];
 		Player[] playersInCouncilSlot = councilSlot.getPlayersInSlot();
 		List<Player> orderedPlayers = new ArrayList<Player>();
