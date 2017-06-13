@@ -1,10 +1,10 @@
 {
-  "minDiceToGather": 4,
+  "minDiceToHarvest": 4,
   "name": "Castle",
   "periodType": "III",
   "cardType": "TERRITORY",
   "cost": {
-    "cost": []
+    "costResources": []
   },
   "immediateEffect": {
     "effects": [

@@ -4,7 +4,7 @@
   "periodType": "III",
   "cardType": "BUILDING",
   "cost": {
-    "cost": [
+    "costResources": [
       {
         "resourceType": "COINS",
         "amount": 3

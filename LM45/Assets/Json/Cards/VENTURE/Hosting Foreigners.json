@@ -1,12 +1,12 @@
 {
   "alternativeCost": {
-    "cost": []
+    "costResources": []
   },
   "name": "Hosting Foreigners",
   "periodType": "II",
   "cardType": "VENTURE",
   "cost": {
-    "cost": [
+    "costResources": [
       {
         "resourceType": "WOOD",
         "amount": 4

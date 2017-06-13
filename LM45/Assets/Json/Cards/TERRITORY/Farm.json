@@ -1,10 +1,10 @@
 {
-  "minDiceToGather": 3,
+  "minDiceToHarvest": 3,
   "name": "Farm",
   "periodType": "III",
   "cardType": "TERRITORY",
   "cost": {
-    "cost": []
+    "costResources": []
   },
   "immediateEffect": {
     "effects": [

@@ -1,10 +1,10 @@
 {
-  "minDiceToGather": 4,
+  "minDiceToHarvest": 4,
   "name": "Gravel Pit",
   "periodType": "I",
   "cardType": "TERRITORY",
   "cost": {
-    "cost": []
+    "costResources": []
   },
   "immediateEffect": {
     "effects": [

@@ -1,6 +1,6 @@
 {
   "alternativeCost": {
-    "cost": [
+    "costResources": [
       {
         "resourceType": "WOOD",
         "amount": 3
@@ -25,7 +25,7 @@
         "amount": 10
       }
     ],
-    "cost": [
+    "costResources": [
       {
         "resourceType": "MILITARY",
         "amount": 5

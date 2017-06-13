@@ -1,12 +1,12 @@
 {
   "alternativeCost": {
-    "cost": []
+    "costResources": []
   },
   "name": "Improving the Canals",
   "periodType": "II",
   "cardType": "VENTURE",
   "cost": {
-    "cost": [
+    "costResources": [
       {
         "resourceType": "SERVANTS",
         "amount": 2

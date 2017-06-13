@@ -1,10 +1,10 @@
 {
-  "minDiceToGather": 1,
+  "minDiceToHarvest": 1,
   "name": "Commercial Hub",
   "periodType": "I",
   "cardType": "TERRITORY",
   "cost": {
-    "cost": []
+    "costResources": []
   },
   "immediateEffect": {
     "effects": [],

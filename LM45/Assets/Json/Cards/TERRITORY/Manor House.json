@@ -1,10 +1,10 @@
 {
-  "minDiceToGather": 5,
+  "minDiceToHarvest": 5,
   "name": "Manor House",
   "periodType": "II",
   "cardType": "TERRITORY",
   "cost": {
-    "cost": []
+    "costResources": []
   },
   "immediateEffect": {
     "effects": [],

@@ -1,12 +1,12 @@
 {
   "alternativeCost": {
-    "cost": []
+    "costResources": []
   },
   "name": "Promoting Sacred Art",
   "periodType": "III",
   "cardType": "VENTURE",
   "cost": {
-    "cost": [
+    "costResources": [
       {
         "resourceType": "WOOD",
         "amount": 6

@@ -1,10 +1,10 @@
 {
-  "minDiceToGather": 6,
+  "minDiceToHarvest": 6,
   "name": "Dukedom",
   "periodType": "II",
   "cardType": "TERRITORY",
   "cost": {
-    "cost": []
+    "costResources": []
   },
   "immediateEffect": {
     "effects": [

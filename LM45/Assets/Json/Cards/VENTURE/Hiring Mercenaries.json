@@ -1,12 +1,12 @@
 {
   "alternativeCost": {
-    "cost": []
+    "costResources": []
   },
   "name": "Hiring Mercenaries",
   "periodType": "III",
   "cardType": "VENTURE",
   "cost": {
-    "cost": [
+    "costResources": [
       {
         "resourceType": "COINS",
         "amount": 8
