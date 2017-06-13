@@ -1,6 +1,7 @@
 package it.polimi.ingsw.LM45.model.cards;
 
 import it.polimi.ingsw.LM45.model.core.Player;
+import it.polimi.ingsw.LM45.model.effects.ActionModifier;
 import it.polimi.ingsw.LM45.model.effects.CardEffect;
 
 public class Venture extends Card {
@@ -20,8 +21,8 @@ public class Venture extends Card {
 	}
 
 	@Override
-	public boolean canPick(Player player) {
-		return super.canPick(player) && alternativeCost.canPay(player);
+	public boolean canPick(Player player, ActionModifier actionModifier) {
+		return super.canPick(player, actionModifier) && alternativeCost.canPay(player, actionModifier);
 	}
 
 }
