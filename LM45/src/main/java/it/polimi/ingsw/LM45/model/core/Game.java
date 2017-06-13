@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import it.polimi.ingsw.LM45.config.BoardConfiguration;
 import it.polimi.ingsw.LM45.exceptions.IllegalActionException;
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.CardType;
@@ -30,10 +31,10 @@ public class Game {
 	 * @param leaderCards the LeaderCards already loaded by the FileManager
 	 * @param excommunicationDeck the Excommunications already loaded by the FileManager
 	 */
-	public Game(List<Player> players, Map<CardType, List<Card>> deck, List<LeaderCard> leaderCards,
+	public Game(List<Player> players, BoardConfiguration boardConfiguration, Map<CardType, List<Card>> deck, List<LeaderCard> leaderCards,
 			Map<PeriodType, List<Excommunication>> excommunicationDeck) {
 		this.players = players;
-		this.board = new Board();
+		this.board = new Board(boardConfiguration);
 		this.deck = deck;
 		this.leaderCards = leaderCards;
 		this.excommunicationDeck = excommunicationDeck;

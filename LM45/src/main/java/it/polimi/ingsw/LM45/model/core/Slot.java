@@ -35,15 +35,16 @@ public class Slot {
 		this.neighbouringSlots = new ArrayList<>();
 	}
 
+	// FIXME: remove if it remains unneeded
 	/**
 	 * @param minDice the minimum value of a familiar in order to be place in this slot
 	 * @param type the {@link SlotType} of this slot
 	 * @param multipleFamiliars true if multiple players can put their familiars in this slot
 	 * @param multipleFamiliarsOfSamePlayer true if even a single player can put multiple of his familiars in this slot
 	 */
-	public Slot(int minDice, SlotType type, boolean multipleFamiliars, boolean multipleFamiliarsOfSamePlayer){
+	/*public Slot(int minDice, SlotType type, boolean multipleFamiliars, boolean multipleFamiliarsOfSamePlayer){
 		this(new Resource[]{}, minDice, type, multipleFamiliars, multipleFamiliarsOfSamePlayer);
-	}
+	}*/
 	
 	/**
 	 * This function is used to form groups of slots in which a player can place only one of his familiars
