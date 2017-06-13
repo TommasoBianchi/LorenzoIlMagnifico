@@ -23,7 +23,7 @@ public class ClientMain {
 		
 		System.out.println("You have selected " + selectedType + " - " + types[selectedType]);
 		
-		ClientController clientController = new ClientController(types[selectedType], "127.0.0.1");
+		ClientController clientController = new ClientController(types[selectedType], "127.0.0.1", 7000);
 
 		System.out.println("Insert your username");
 		String username = scanner.nextLine();
