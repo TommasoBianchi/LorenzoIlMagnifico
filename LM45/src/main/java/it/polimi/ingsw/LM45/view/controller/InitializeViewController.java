@@ -19,6 +19,7 @@ import it.polimi.ingsw.LM45.serialization.FileManager;
 import com.sun.glass.ui.Screen;
 
 import it.polimi.ingsw.LM45.view.gameboard.GameBoardController;
+import it.polimi.ingsw.LM45.view.leadercard.LeaderCardChoiceController;
 import it.polimi.ingsw.LM45.view.lobby.LobbyController;
 import it.polimi.ingsw.LM45.view.personalBoard.PersonalBoardController;
 import javafx.application.Application;
@@ -30,18 +31,19 @@ import javafx.stage.Stage;
 public class InitializeViewController extends Application {
 
 	private Stage primaryStage;
+	private GuiController viewController;
 
 	public void start(Stage stage) {
 		this.primaryStage = stage;
 		this.primaryStage.setTitle("Lorenzo il Magnifico");
-		// showLobbyView();
-		showGameBoard();
+		//showLobbyView();
+		showLeaderCardChoice();
 	}
 
 	public void showLobbyView() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(InitializeViewController.class.getResource("lobby/LobbyView.fxml"));
+			loader.setLocation(InitializeViewController.class.getResource("../lobby/LobbyView.fxml"));
 			AnchorPane lobby = (AnchorPane) loader.load();
 			Scene scene = new Scene(lobby);
 			primaryStage.setScene(scene);
@@ -55,6 +57,24 @@ public class InitializeViewController extends Application {
 			LobbyController controller = loader.getController();
 			controller.setMain(this);
 		} catch (IOException e) { // TODO sistemare
+			e.printStackTrace();
+		}
+	}
+	
+	public void showLeaderCardChoice() {
+		try {
+			FXMLLoader loader2 = new FXMLLoader();
+			loader2.setLocation(InitializeViewController.class.getResource("../leadercard/LeaderCardChoiceView.fxml"));
+			AnchorPane leaderChoice = (AnchorPane) loader2.load();
+			Scene scene = new Scene(leaderChoice);
+			primaryStage.setScene(scene);
+			primaryStage.setResizable(false);
+			primaryStage.setWidth(Screen.getMainScreen().getVisibleWidth());
+			primaryStage.setHeight(Screen.getMainScreen().getVisibleHeight());
+			primaryStage.show();
+			LeaderCardChoiceController controller = loader2.getController();
+			controller.showLeaders(new String[]{"Bartolomeo Colleoni", "Cesare Borgia", "Cosimo de' Medici"});
+		} catch (IOException | NullPointerException e) { //TODO sistemare
 			e.printStackTrace();
 		}
 	}

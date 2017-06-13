@@ -1,5 +1,6 @@
 package it.polimi.ingsw.LM45.view.lobby;
 
+import it.polimi.ingsw.LM45.controller.ClientLauncher;
 import it.polimi.ingsw.LM45.view.controller.InitializeViewController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -18,30 +19,25 @@ public class LobbyController {
 	private GridPane grid;
 	
 	@FXML
-	private RadioButton socket;
-	
-	@FXML
-	private RadioButton cli;
-	
-	@FXML
 	private RadioButton gui;
 	
 	@FXML
 	private TextField nickname;
 	
-	private InitializeViewController main;
+	@FXML
+	private TextField serverIp;
 	
-	public LobbyController() {
-	}
+	@FXML
+	private TextField serverPort;
+	
+	private InitializeViewController main;
 	
 	@FXML
 	private void handlePlayButton() {
 		
 		String playerNickname = nickname.getText();
 		
-		if(!playerNickname.equals("")){
-	    	System.out.println(playerNickname);
-	    } else {
+		if(playerNickname.equals("")){
 	    		Alert alert = new Alert(AlertType.WARNING);
 	    		alert.initOwner(main.getPrimaryStage());
 	    		alert.setTitle("Attention !");
@@ -49,25 +45,33 @@ public class LobbyController {
 	    		alert.setContentText("Please Please Insert a Nickname");
 	    		
 	    		alert.showAndWait();
-	   	}
+	   	} else if(serverIp.getText().equals("")){
+    		Alert alert = new Alert(AlertType.WARNING);
+    		alert.initOwner(main.getPrimaryStage());
+    		alert.setTitle("Attention !");
+    		alert.setHeaderText("No Server IP Inserted");
+    		alert.setContentText("Please Please Insert a Server IP");
+    		
+    		alert.showAndWait();
+		} else if(serverPort.getText().equals("")){
+    		Alert alert = new Alert(AlertType.WARNING);
+    		alert.initOwner(main.getPrimaryStage());
+    		alert.setTitle("Attention !");
+    		alert.setHeaderText("No Server Port Inserted");
+    		alert.setContentText("Please Please Insert a Server Port");
+    		
+    		alert.showAndWait();
+		}
 		
-		
-		/* Chiama launch di ClientLauncher su controller
-		 *  
-		 * Controlla radio toggle tipo
-		 * if( rmi.isSelected )
-		 * 	avvia RMI;
-		 * else
-		 * 	avvia socket;
-		 * 
-		 * lo sesso poi per CLI e GUI
-		 * 
-		 * metti avvia gioco con Enter
-		 * 
-		 * ip server text field
-		 * 
-		 * porta server text field
-		 */
+		ClientLauncher.launch(playerNickname, serverIp.getText(), Integer.parseInt(serverPort.getText()), rmi.isSelected(), gui.isSelected());
+	}
+	
+	public void serverError(String error){
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.initOwner(main.getPrimaryStage());
+		alert.setTitle("Attention !");
+		alert.setHeaderText("Server Error");
+		alert.setContentText(error);
 	}
 	
 	public void setMain (InitializeViewController main) {
