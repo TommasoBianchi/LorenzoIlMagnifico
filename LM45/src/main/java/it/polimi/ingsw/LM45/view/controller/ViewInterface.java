@@ -1,6 +1,7 @@
 package it.polimi.ingsw.LM45.view.controller;
 
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
+import it.polimi.ingsw.LM45.model.core.PlayerColor;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.network.client.ClientController;
@@ -17,7 +18,7 @@ public interface ViewInterface {
 	public int chooseFrom(String[] alternatives);
 	public void setClientController(ClientController clientController);
 	public void setResources(Resource[] resources, String username);
-	public void setFamiliarValue(FamiliarColor color, int value, String username);
+	public void setFamiliarValue(FamiliarColor familiarColor, int value, String username);
 	
 	
 }
