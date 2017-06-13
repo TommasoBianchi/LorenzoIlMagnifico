@@ -3,15 +3,12 @@ package it.polimi.ingsw.LM45.network.server;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.function.Consumer;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import com.google.gson.JsonIOException;
@@ -35,7 +32,7 @@ import it.polimi.ingsw.LM45.model.effects.ActionModifier;
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
 import it.polimi.ingsw.LM45.network.client.ClientInterface;
 import it.polimi.ingsw.LM45.serialization.FileManager;
-
+import it.polimi.ingsw.LM45.util.CheckedFunction;
 import javafx.scene.paint.Color;
 
 // This is designed to manage only one game (consider renaming it to GameController)
@@ -293,21 +290,8 @@ public class ServerController {
 	}
 
 	/**
-	 * @author Tommy
-	 *
-	 * @param <T>
-	 *            The element this function has to operate on
-	 * @param <E>
-	 *            The exception this function may throw
-	 */
-	@FunctionalInterface
-	interface CheckedFunction<T, E extends Throwable> {
-		void apply(T t) throws E;
-	}
-
-	/**
-	 * @param c
-	 *            The function ClientInterface's function we want to call on every connected player
+	 * Notify every connected client about something
+	 * @param c the ClientInterface's function we want to call on every connected player
 	 */
 	private void notifyPlayers(CheckedFunction<ClientInterface, IOException> c) {
 		users.entrySet().stream().forEach(entry -> {
