@@ -15,37 +15,35 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 
-import it.polimi.ingsw.LM45.model.cards.Card;
-import it.polimi.ingsw.LM45.model.cards.CardType;
-import it.polimi.ingsw.LM45.model.effects.Effect;
-import it.polimi.ingsw.LM45.model.cards.LeaderCard;
-
-// Necessari per il main di test
-import it.polimi.ingsw.LM45.model.effects.ResourceEffect;
-import it.polimi.ingsw.LM45.model.effects.CopyEffect;
 import it.polimi.ingsw.LM45.config.BoardConfiguration;
 import it.polimi.ingsw.LM45.config.Configuration;
 import it.polimi.ingsw.LM45.config.ServerConfiguration;
 import it.polimi.ingsw.LM45.model.cards.Building;
-import it.polimi.ingsw.LM45.model.effects.FamiliarEffect;
-import it.polimi.ingsw.LM45.model.effects.GainModifierEffect;
-import it.polimi.ingsw.LM45.model.effects.NoTerritoryRequisiteEffect;
-import it.polimi.ingsw.LM45.model.effects.CardEffect;
-import it.polimi.ingsw.LM45.model.effects.ChurchSupportBonusEffect;
-import it.polimi.ingsw.LM45.model.effects.CostModifierEffect;
-import it.polimi.ingsw.LM45.model.effects.SlotModifierEffect;
+import it.polimi.ingsw.LM45.model.cards.Card;
+import it.polimi.ingsw.LM45.model.cards.CardType;
+import it.polimi.ingsw.LM45.model.cards.Character;
 import it.polimi.ingsw.LM45.model.cards.Cost;
 import it.polimi.ingsw.LM45.model.cards.CostWithPrerequisites;
+import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.cards.PeriodType;
-import it.polimi.ingsw.LM45.model.effects.ActionEffect;
+import it.polimi.ingsw.LM45.model.cards.Territory;
+import it.polimi.ingsw.LM45.model.cards.Venture;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.ResourceType;
-import it.polimi.ingsw.LM45.model.core.Slot;
 import it.polimi.ingsw.LM45.model.core.SlotType;
-import it.polimi.ingsw.LM45.model.cards.Territory;
-import it.polimi.ingsw.LM45.model.cards.Venture;
-import it.polimi.ingsw.LM45.model.cards.Character;
+import it.polimi.ingsw.LM45.model.effects.ActionEffect;
+import it.polimi.ingsw.LM45.model.effects.CardEffect;
+import it.polimi.ingsw.LM45.model.effects.ChurchSupportBonusEffect;
+import it.polimi.ingsw.LM45.model.effects.CopyEffect;
+import it.polimi.ingsw.LM45.model.effects.CostModifierEffect;
+import it.polimi.ingsw.LM45.model.effects.Effect;
+import it.polimi.ingsw.LM45.model.effects.FamiliarEffect;
+import it.polimi.ingsw.LM45.model.effects.GainModifierEffect;
+import it.polimi.ingsw.LM45.model.effects.NoTerritoryRequisiteEffect;
+// Necessari per il main di test
+import it.polimi.ingsw.LM45.model.effects.ResourceEffect;
+import it.polimi.ingsw.LM45.model.effects.SlotModifierEffect;
 
 public class FileManager {
 

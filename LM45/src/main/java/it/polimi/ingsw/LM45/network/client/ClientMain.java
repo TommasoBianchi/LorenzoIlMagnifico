@@ -2,9 +2,6 @@ package it.polimi.ingsw.LM45.network.client;
 
 import java.util.Scanner;
 
-import it.polimi.ingsw.LM45.model.core.FamiliarColor;
-import it.polimi.ingsw.LM45.model.core.SlotType;
-
 public class ClientMain {
 
 	public static void main(String[] args){
