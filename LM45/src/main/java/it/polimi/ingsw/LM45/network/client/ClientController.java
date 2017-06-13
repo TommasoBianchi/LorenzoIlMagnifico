@@ -12,15 +12,17 @@ public class ClientController {
 
 	private ConnectionType connectionType;
 	private String host;
+	private int port;
 	private ServerInterface serverInterface;
 	private String username;
 
-	public ClientController(ConnectionType connectionType, String host) {
+	public ClientController(ConnectionType connectionType, String host, int port) {
 		this.connectionType = connectionType;
 		this.host = host;
+		this.port = port;
 		
 		try {
-			serverInterface = ServerInterfaceFactory.create(connectionType, host, this);
+			serverInterface = ServerInterfaceFactory.create(connectionType, host, port, this);
 		} catch (IOException e) {
 			manageIOException(e);
 		} catch (NotBoundException e) {
