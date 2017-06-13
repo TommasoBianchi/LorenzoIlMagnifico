@@ -1,10 +1,10 @@
 {
-  "minDiceToGather": 4,
+  "minDiceToHarvest": 4,
   "name": "Mining Town",
   "periodType": "II",
   "cardType": "TERRITORY",
   "cost": {
-    "cost": []
+    "costResources": []
   },
   "immediateEffect": {
     "effects": [

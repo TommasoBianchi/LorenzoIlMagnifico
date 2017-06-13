@@ -37,5 +37,9 @@ public class SocketFactory implements Runnable {
 			}
 		}
 	}
+
+	public void shutdown(){
+		// TODO: implement
+	}
 	
 }

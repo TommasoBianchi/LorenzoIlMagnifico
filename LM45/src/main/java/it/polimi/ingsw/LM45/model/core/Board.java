@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.Map;
 
+import it.polimi.ingsw.LM45.config.BoardConfiguration;
 import it.polimi.ingsw.LM45.exceptions.IllegalActionException;
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
@@ -16,27 +17,52 @@ public class Board {
 	private Map<SlotType, Slot[]> slots;
 	private Map<SlotType, TowerSlot[]> towerSlots;
 	private Map<PeriodType, Excommunication> excommunications;
+	private Resource[][] churchSupportResources;
 
 	/**
-	 * Initializes a new Board by instantiating the collections needed to hold slots and excommunications
+	 * Initializes a new Board by instantiating the collections needed to hold slots and excommunications plus the
+	 * resources you receive when you support the Church.
 	 */
-	public Board( /* TODO: pass BoardConfiguration */ ) {
-		this.slots = new EnumMap<SlotType, Slot[]>(SlotType.class); // FIXME: maybe this is now not necessary?
+	public Board(BoardConfiguration boardConfiguration) {
+		this.slots = new EnumMap<SlotType, Slot[]>(SlotType.class);
 		this.towerSlots = new EnumMap<SlotType, TowerSlot[]>(SlotType.class);
 		this.excommunications = new EnumMap<PeriodType, Excommunication>(PeriodType.class);
-
-		// TEST
+		this.churchSupportResources = boardConfiguration.getChurchSupportResources();
+		
+		// Create the four towers
 		for (SlotType slotType : new SlotType[] { SlotType.TERRITORY, SlotType.BUILDING, SlotType.CHARACTER, SlotType.VENTURE }) {
-			TowerSlot[] tower = new TowerSlot[] { new TowerSlot(new Resource[] {}, 1, slotType, false, false),
-					new TowerSlot(new Resource[] {}, 3, slotType, false, false), new TowerSlot(new Resource[] {}, 5, slotType, false, false),
-					new TowerSlot(new Resource[] {}, 7, slotType, false, false) };
-			for (TowerSlot towerSlot : tower)
+			TowerSlot[] tower = new TowerSlot[] { 
+					new TowerSlot(boardConfiguration.getSlotBonuses(slotType, 0), 1, slotType, false, false),
+					new TowerSlot(boardConfiguration.getSlotBonuses(slotType, 1), 3, slotType, false, false), 
+					new TowerSlot(boardConfiguration.getSlotBonuses(slotType, 2), 5, slotType, false, false),
+					new TowerSlot(boardConfiguration.getSlotBonuses(slotType, 3), 7, slotType, false, false) };
+			for (TowerSlot towerSlot : tower) // Setup all the towerSlots in this tower as neighbours of each other
 				for (TowerSlot neighbourTowerSlot : tower)
 					towerSlot.addNeighbouringSlot(neighbourTowerSlot);
 			towerSlots.put(slotType, tower);
 		}
-		slots.put(SlotType.COUNCIL, new Slot[]{ new Slot(1, SlotType.COUNCIL, true, true) });
-		// TEST
+		
+		// Create the production/harvest slots
+		for (SlotType slotType : new SlotType[] { SlotType.PRODUCTION, SlotType.HARVEST }) {
+			Slot smallSlot = new HarvestProductionSlot(boardConfiguration.getSlotBonuses(slotType, 0), 1, slotType, false, false);
+			Slot bigSlot = new HarvestProductionSlot(boardConfiguration.getSlotBonuses(slotType, 1), 1, slotType, true, false, -3);
+			smallSlot.addNeighbouringSlot(bigSlot);
+			bigSlot.addNeighbouringSlot(smallSlot);
+			slots.put(slotType, new Slot[]{ smallSlot, bigSlot });
+		}
+		
+		// Create the market slots
+		Slot[] marketSlots = new Slot[]{
+			new Slot(boardConfiguration.getSlotBonuses(SlotType.MARKET, 0), 1, SlotType.MARKET, false, false),
+			new Slot(boardConfiguration.getSlotBonuses(SlotType.MARKET, 1), 1, SlotType.MARKET, false, false),
+			new Slot(boardConfiguration.getSlotBonuses(SlotType.MARKET, 2), 1, SlotType.MARKET, false, false),
+			new Slot(boardConfiguration.getSlotBonuses(SlotType.MARKET, 3), 1, SlotType.MARKET, false, false),
+		};
+		slots.put(SlotType.MARKET, marketSlots);
+		
+		// Create the council slot
+		Slot councilSlot = new Slot(boardConfiguration.getSlotBonuses(SlotType.COUNCIL, 0), 1, SlotType.COUNCIL, true, true);
+		slots.put(SlotType.COUNCIL, new Slot[]{ councilSlot });
 	}
 
 	/**
@@ -82,6 +108,9 @@ public class Board {
 	 * by the time they have been put on it
 	 */
 	public List<Player> getCouncilOrder() {
+		if(!slots.containsKey(SlotType.COUNCIL) || slots.get(SlotType.COUNCIL).length == 0)
+			return new ArrayList<Player>();
+		
 		Slot councilSlot = slots.get(SlotType.COUNCIL)[0];
 		Player[] playersInCouncilSlot = councilSlot.getPlayersInSlot();
 		List<Player> orderedPlayers = new ArrayList<Player>();
@@ -97,5 +126,16 @@ public class Board {
 	 */
 	public void placeExcommunication(Excommunication excommunication) {
 		excommunications.put(excommunication.getPeriodType(), excommunication);
+	}
+	
+	/** 
+	 * @param faithPoints how many faith points a player has
+	 * @return the resources he'd gain by supporting the Church
+	 */
+	public Resource[] getChurchSupportResources(int faithPoints){
+		if(faithPoints < churchSupportResources.length)
+			return churchSupportResources[faithPoints].clone();
+		else
+			return new Resource[]{};
 	}
 }

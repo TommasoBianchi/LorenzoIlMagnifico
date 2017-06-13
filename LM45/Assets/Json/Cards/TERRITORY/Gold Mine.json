@@ -1,10 +1,10 @@
 {
-  "minDiceToGather": 1,
+  "minDiceToHarvest": 1,
   "name": "Gold Mine",
   "periodType": "II",
   "cardType": "TERRITORY",
   "cost": {
-    "cost": []
+    "costResources": []
   },
   "immediateEffect": {
     "effects": [

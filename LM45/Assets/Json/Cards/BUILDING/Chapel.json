@@ -4,7 +4,7 @@
   "periodType": "I",
   "cardType": "BUILDING",
   "cost": {
-    "cost": [
+    "costResources": [
       {
         "resourceType": "WOOD",
         "amount": 2

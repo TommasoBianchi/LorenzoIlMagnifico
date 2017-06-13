@@ -1,6 +1,7 @@
 package it.polimi.ingsw.LM45.model.cards;
 
 import it.polimi.ingsw.LM45.model.core.Player;
+import it.polimi.ingsw.LM45.model.effects.ActionModifier;
 import it.polimi.ingsw.LM45.model.effects.CardEffect;
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
 
@@ -21,8 +22,12 @@ public abstract class Card {
 		this.effect = effect;
 	}
 	
-	public boolean canPick(Player player){
-		return cost.canPay(player) && player.canAddCard(this);
+	public boolean canPick(Player player, ActionModifier actionModifier){
+		return cost.canPay(player, actionModifier);
+	}
+	
+	public void payCost(Player player, ActionModifier actionModifier){
+		cost.pay(player, actionModifier);
 	}
 	
 	public String getName(){

@@ -1,12 +1,12 @@
 {
   "alternativeCost": {
-    "cost": []
+    "costResources": []
   },
   "name": "Building the Walls",
   "periodType": "I",
   "cardType": "VENTURE",
   "cost": {
-    "cost": [
+    "costResources": [
       {
         "resourceType": "STONE",
         "amount": 3

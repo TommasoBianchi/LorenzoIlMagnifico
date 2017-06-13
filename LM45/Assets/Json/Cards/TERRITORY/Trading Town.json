@@ -1,10 +1,10 @@
 {
-  "minDiceToGather": 1,
+  "minDiceToHarvest": 1,
   "name": "Trading Town",
   "periodType": "III",
   "cardType": "TERRITORY",
   "cost": {
-    "cost": []
+    "costResources": []
   },
   "immediateEffect": {
     "effects": [

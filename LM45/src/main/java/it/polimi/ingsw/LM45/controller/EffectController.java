@@ -8,6 +8,7 @@ import it.polimi.ingsw.LM45.model.core.Player;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.ResourceType;
 import it.polimi.ingsw.LM45.model.core.SlotType;
+import it.polimi.ingsw.LM45.model.effects.ActionModifier;
 import it.polimi.ingsw.LM45.model.effects.CardEffect;
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
 import it.polimi.ingsw.LM45.network.server.ServerController;
@@ -77,8 +78,8 @@ public class EffectController implements EffectResolutor {
 		player.addPermanentEffect(permanentEffect);
 	}
 
-	public void addCard(Card card) {
-		player.addCard(card);
+	public void addCard(Card card, ActionModifier actionModifier) {
+		player.addCard(card, actionModifier);
 	}
 
 	public void doBonusAction(SlotType slotType, int diceNumber, Resource[] discount) {

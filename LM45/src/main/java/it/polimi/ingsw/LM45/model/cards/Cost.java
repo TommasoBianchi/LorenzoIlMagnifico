@@ -1,31 +1,48 @@
 package it.polimi.ingsw.LM45.model.cards;
 
 import java.util.Arrays;
+import java.util.Map;
+import java.util.stream.Stream;
 
 import it.polimi.ingsw.LM45.model.core.Player;
 import it.polimi.ingsw.LM45.model.core.Resource;
-import it.polimi.ingsw.LM45.model.effects.CardEffect;
-import it.polimi.ingsw.LM45.model.effects.Effect;
+import it.polimi.ingsw.LM45.model.core.ResourceType;
+import it.polimi.ingsw.LM45.model.effects.ActionModifier;
 
 public class Cost {
 
 	public static final Cost EMPTY = new Cost(new Resource[] {});
 
-	protected Resource[] cost;
+	protected Resource[] costResources;
 
-	public Cost(Resource[] cost) {
-		this.cost = cost;
+	/**
+	 * @param costResources the resources that compose this cost
+	 */
+	public Cost(Resource[] costResources) {
+		this.costResources = costResources;
 	}
 
-	public boolean canPay(Player player) {
-		// Make sure to check if player has a positive amount of resources
-		return Arrays.stream(cost).map(resource -> resource.getAmount() > 0 ? resource : resource.multiply(-1))
-				.allMatch(resource -> player.hasResources(resource));
+	/**
+	 * @param player the player whom resources you want to check
+	 * @param actionModifier the actionModifier for the action the player is trying to do
+	 * @return true if the player can pay the cost modified (either increased or decreased) by the action modifier
+	 */
+	public boolean canPay(Player player, ActionModifier actionModifier) {
+		Map<ResourceType, Integer> costModifiers = actionModifier.getCostModifiers();
+		Stream<Resource> resourcesToPay = Arrays.stream(costResources)
+				.map(resource -> resource.increment(costModifiers.getOrDefault(resource.getResourceType(), 0)));
+		return resourcesToPay.allMatch(resource -> player.hasResources(resource));
 	}
 
-	public void pay(Player player) {
-		// Make sure to add a negative amount of resources (to pay the cost)
-		Arrays.stream(cost).map(resource -> resource.getAmount() > 0 ? resource.multiply(-1) : resource)
-				.forEach(resource -> player.addResources(resource));
+	/**
+	 * @param player the player which has to pay this cost
+	 * @param actionModifier the actionModifier for the action the player is trying to do
+	 */
+	public void pay(Player player, ActionModifier actionModifier) {
+		Map<ResourceType, Integer> costModifiers = actionModifier.getCostModifiers();
+		Stream<Resource> resourcesToPay = Arrays.stream(costResources)
+				.map(resource -> resource.getAmount() > 0 ? resource.multiply(-1) : resource) // To make sure to subtract resources
+				.map(resource -> resource.increment(costModifiers.getOrDefault(resource.getResourceType(), 0)));
+		resourcesToPay.forEach(resource -> player.addResources(resource));
 	}
 }

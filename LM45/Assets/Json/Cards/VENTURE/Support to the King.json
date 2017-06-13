@@ -1,6 +1,6 @@
 {
   "alternativeCost": {
-    "cost": []
+    "costResources": []
   },
   "name": "Support to the King",
   "periodType": "II",
@@ -12,7 +12,7 @@
         "amount": 6
       }
     ],
-    "cost": [
+    "costResources": [
       {
         "resourceType": "MILITARY",
         "amount": 3

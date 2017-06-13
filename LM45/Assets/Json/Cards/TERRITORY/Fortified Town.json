@@ -1,10 +1,10 @@
 {
-  "minDiceToGather": 2,
+  "minDiceToHarvest": 2,
   "name": "Fortified Town",
   "periodType": "III",
   "cardType": "TERRITORY",
   "cost": {
-    "cost": []
+    "costResources": []
   },
   "immediateEffect": {
     "effects": [

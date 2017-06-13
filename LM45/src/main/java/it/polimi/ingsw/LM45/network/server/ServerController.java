@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 
+import it.polimi.ingsw.LM45.config.BoardConfiguration;
 import it.polimi.ingsw.LM45.controller.EffectController;
 import it.polimi.ingsw.LM45.exceptions.GameException;
 import it.polimi.ingsw.LM45.exceptions.IllegalActionException;
@@ -42,6 +43,7 @@ public class ServerController {
 	private Map<String, Player> players;
 	private Map<String, EffectResolutor> effectResolutors;
 	private List<Color> availableColors;
+	private BoardConfiguration boardConfiguration;
 	private Map<String, LeaderCard> leaderCards;
 	private Map<CardType, List<Card>> deck;
 	private int maxNumberOfPlayers;
@@ -62,6 +64,7 @@ public class ServerController {
 		this.availableColors.add(Color.RED);
 		this.availableColors.add(Color.GREEN);
 		this.availableColors.add(Color.YELLOW);
+		this.boardConfiguration = FileManager.loadConfiguration(BoardConfiguration.class);
 		this.leaderCards = FileManager.loadLeaderCards().stream()
 				.collect(Collectors.toMap(leaderCard -> leaderCard.getName(), leaderCard -> leaderCard));
 		this.deck = FileManager.loadCards();
@@ -69,7 +72,6 @@ public class ServerController {
 		this.gameStartTimerDelay = gameStartTimerDelay;
 		this.gameStartTimer = new Timer();
 		this.turnTimerDelay = turnTimerDelay;
-
 	}
 
 	public void login(String username, ClientInterface clientInterface) {
@@ -222,7 +224,7 @@ public class ServerController {
 	private void startGame() {
 		gameStartTimer.cancel();
 		System.out.println("Game is starting!");
-		game = new Game(new ArrayList<Player>(players.values()), deck, new ArrayList<LeaderCard>(leaderCards.values()),
+		game = new Game(new ArrayList<Player>(players.values()), boardConfiguration, deck, new ArrayList<LeaderCard>(leaderCards.values()),
 				new HashMap<>()/* load the excommunication deck */);
 		game.start();
 		// TODO: notify players

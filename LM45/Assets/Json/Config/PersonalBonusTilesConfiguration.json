@@ -1,0 +1,108 @@
+{
+  "personalBonusTiles": [
+    {
+      "productionBonuses": [
+        {
+          "resourceType": "SERVANTS",
+          "amount": 1
+        },
+        {
+          "resourceType": "COINS",
+          "amount": 2
+        }
+      ],
+      "harvestBonuses": [
+        {
+          "resourceType": "WOOD",
+          "amount": 1
+        },
+        {
+          "resourceType": "STONE",
+          "amount": 1
+        },
+        {
+          "resourceType": "MILITARY",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "productionBonuses": [
+        {
+          "resourceType": "SERVANTS",
+          "amount": 1
+        },
+        {
+          "resourceType": "MILITARY",
+          "amount": 2
+        }
+      ],
+      "harvestBonuses": [
+        {
+          "resourceType": "WOOD",
+          "amount": 1
+        },
+        {
+          "resourceType": "STONE",
+          "amount": 1
+        },
+        {
+          "resourceType": "COINS",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "productionBonuses": [
+        {
+          "resourceType": "SERVANTS",
+          "amount": 2
+        },
+        {
+          "resourceType": "COINS",
+          "amount": 1
+        }
+      ],
+      "harvestBonuses": [
+        {
+          "resourceType": "WOOD",
+          "amount": 1
+        },
+        {
+          "resourceType": "STONE",
+          "amount": 1
+        },
+        {
+          "resourceType": "MILITARY",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "productionBonuses": [
+        {
+          "resourceType": "MILITARY",
+          "amount": 2
+        },
+        {
+          "resourceType": "COINS",
+          "amount": 1
+        }
+      ],
+      "harvestBonuses": [
+        {
+          "resourceType": "WOOD",
+          "amount": 1
+        },
+        {
+          "resourceType": "STONE",
+          "amount": 1
+        },
+        {
+          "resourceType": "SERVANTS",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

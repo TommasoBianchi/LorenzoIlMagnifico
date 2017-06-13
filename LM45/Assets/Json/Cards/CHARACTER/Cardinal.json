@@ -3,7 +3,7 @@
   "periodType": "III",
   "cardType": "CHARACTER",
   "cost": {
-    "cost": [
+    "costResources": [
       {
         "resourceType": "COINS",
         "amount": 4

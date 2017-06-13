@@ -45,7 +45,7 @@ public class Familiar {
 	 * @param valueIsStatic set this to true to lock the value of this familiar between different turns
 	 */
 	public void setValue(int value, boolean valueIsStatic){
-		if(!valueIsStatic){
+		if(!this.valueIsStatic){
 			this.value = value;
 			this.valueIsStatic = valueIsStatic;
 		}

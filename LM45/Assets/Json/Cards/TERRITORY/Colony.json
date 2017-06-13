@@ -1,10 +1,10 @@
 {
-  "minDiceToGather": 5,
+  "minDiceToHarvest": 5,
   "name": "Colony",
   "periodType": "III",
   "cardType": "TERRITORY",
   "cost": {
-    "cost": []
+    "costResources": []
   },
   "immediateEffect": {
     "effects": [

@@ -1,6 +1,6 @@
 {
   "alternativeCost": {
-    "cost": []
+    "costResources": []
   },
   "name": "Military Conquest",
   "periodType": "III",
@@ -12,7 +12,7 @@
         "amount": 12
       }
     ],
-    "cost": [
+    "costResources": [
       {
         "resourceType": "MILITARY",
         "amount": 6

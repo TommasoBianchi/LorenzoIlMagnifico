@@ -17,7 +17,7 @@ public interface EffectResolutor {
 	public void setHasToSkipFirstRound();
 	public void noTerritoryRequisites();
 	public void addPermanentEffect(CardEffect permanentEffect);
-	public void addCard(Card card);
+	public void addCard(Card card, ActionModifier actionModifier);
 	public void harvest(int value);
 	public void produce(int value);
 	 

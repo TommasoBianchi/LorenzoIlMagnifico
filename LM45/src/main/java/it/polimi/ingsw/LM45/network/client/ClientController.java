@@ -7,20 +7,25 @@ import it.polimi.ingsw.LM45.exceptions.GameException;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.network.server.ServerInterface;
+import it.polimi.ingsw.LM45.view.controller.ViewInterface;
 
 public class ClientController {
 
 	private ConnectionType connectionType;
 	private String host;
+	private int port;
 	private ServerInterface serverInterface;
+	private ViewInterface viewInterface;
 	private String username;
 
-	public ClientController(ConnectionType connectionType, String host) {
+	public ClientController(ConnectionType connectionType, String host, int port, ViewInterface viewInterface) {
 		this.connectionType = connectionType;
 		this.host = host;
+		this.port = port;
+		this.viewInterface = viewInterface;
 		
 		try {
-			serverInterface = ServerInterfaceFactory.create(connectionType, host, this);
+			serverInterface = ServerInterfaceFactory.create(connectionType, host, port, this);
 		} catch (IOException e) {
 			manageIOException(e);
 		} catch (NotBoundException e) {

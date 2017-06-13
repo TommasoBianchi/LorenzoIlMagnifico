@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import it.polimi.ingsw.LM45.model.core.Resource;
-import it.polimi.ingsw.LM45.model.core.ResourceType;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 
 public class BoardConfiguration implements Configuration {
@@ -26,8 +25,9 @@ public class BoardConfiguration implements Configuration {
 	}
 
 	private SlotConfiguration[] slotConfigurations;
+	private Resource[][] churchSupportResources;
 
-	public BoardConfiguration(Map<SlotType, Resource[][]> slotConfigurations) {
+	public BoardConfiguration(Map<SlotType, Resource[][]> slotConfigurations, Resource[][] churchSupportResources) {
 		List<SlotConfiguration> usefulSlotConfiguration = new ArrayList<>();
 		
 		for(Entry<SlotType, Resource[][]> entry : slotConfigurations.entrySet()){
@@ -40,13 +40,18 @@ public class BoardConfiguration implements Configuration {
 		}
 		
 		this.slotConfigurations = usefulSlotConfiguration.stream().toArray(SlotConfiguration[]::new);
+		this.churchSupportResources = churchSupportResources.clone();
 	}
 
 	public Resource[] getSlotBonuses(SlotType slotType, int slotID) {
 		return Arrays.stream(slotConfigurations)
 				.filter(slotConfiguration -> slotConfiguration.slotType == slotType
 						&& slotConfiguration.slotID == slotID)
-				.map(slotConfiguration -> slotConfiguration.bonuses).findFirst().orElse(new Resource[] {});
+				.map(slotConfiguration -> slotConfiguration.bonuses).findFirst().orElse(new Resource[] {}).clone();
+	}
+	
+	public Resource[][] getChurchSupportResources(){
+		return churchSupportResources.clone();
 	}
 
 }

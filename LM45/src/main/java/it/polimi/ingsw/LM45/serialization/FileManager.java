@@ -15,43 +15,41 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 
-import it.polimi.ingsw.LM45.model.cards.Card;
-import it.polimi.ingsw.LM45.model.cards.CardType;
-import it.polimi.ingsw.LM45.model.effects.Effect;
-import it.polimi.ingsw.LM45.model.cards.LeaderCard;
-
-// Necessari per il main di test
-import it.polimi.ingsw.LM45.model.effects.ResourceEffect;
-import it.polimi.ingsw.LM45.model.effects.CopyEffect;
 import it.polimi.ingsw.LM45.config.BoardConfiguration;
 import it.polimi.ingsw.LM45.config.Configuration;
+import it.polimi.ingsw.LM45.config.PersonalBonusTilesConfiguration;
 import it.polimi.ingsw.LM45.config.ServerConfiguration;
 import it.polimi.ingsw.LM45.model.cards.Building;
+import it.polimi.ingsw.LM45.model.cards.Card;
+import it.polimi.ingsw.LM45.model.cards.CardType;
+import it.polimi.ingsw.LM45.model.cards.Character;
+import it.polimi.ingsw.LM45.model.cards.Cost;
+import it.polimi.ingsw.LM45.model.cards.CostWithPrerequisites;
+import it.polimi.ingsw.LM45.model.cards.LeaderCard;
+import it.polimi.ingsw.LM45.model.cards.PeriodType;
+import it.polimi.ingsw.LM45.model.cards.Territory;
+import it.polimi.ingsw.LM45.model.cards.Venture;
+import it.polimi.ingsw.LM45.model.core.FamiliarColor;
+import it.polimi.ingsw.LM45.model.core.PersonalBonusTile;
+import it.polimi.ingsw.LM45.model.core.Resource;
+import it.polimi.ingsw.LM45.model.core.ResourceType;
+import it.polimi.ingsw.LM45.model.core.SlotType;
+import it.polimi.ingsw.LM45.model.effects.ActionEffect;
+import it.polimi.ingsw.LM45.model.effects.CardEffect;
+import it.polimi.ingsw.LM45.model.effects.ChurchSupportBonusEffect;
+import it.polimi.ingsw.LM45.model.effects.CopyEffect;
+import it.polimi.ingsw.LM45.model.effects.CostModifierEffect;
+import it.polimi.ingsw.LM45.model.effects.Effect;
 import it.polimi.ingsw.LM45.model.effects.FamiliarEffect;
 import it.polimi.ingsw.LM45.model.effects.GainModifierEffect;
 import it.polimi.ingsw.LM45.model.effects.NoTerritoryRequisiteEffect;
-import it.polimi.ingsw.LM45.model.effects.CardEffect;
-import it.polimi.ingsw.LM45.model.effects.ChurchSupportBonusEffect;
-import it.polimi.ingsw.LM45.model.effects.CostModifierEffect;
+import it.polimi.ingsw.LM45.model.effects.ResourceEffect;
 import it.polimi.ingsw.LM45.model.effects.SlotModifierEffect;
-import it.polimi.ingsw.LM45.model.cards.Cost;
-import it.polimi.ingsw.LM45.model.cards.CostWithPrerequisites;
-import it.polimi.ingsw.LM45.model.cards.PeriodType;
-import it.polimi.ingsw.LM45.model.effects.ActionEffect;
-import it.polimi.ingsw.LM45.model.core.FamiliarColor;
-import it.polimi.ingsw.LM45.model.core.Resource;
-import it.polimi.ingsw.LM45.model.core.ResourceType;
-import it.polimi.ingsw.LM45.model.core.Slot;
-import it.polimi.ingsw.LM45.model.core.SlotType;
-import it.polimi.ingsw.LM45.model.cards.Territory;
-import it.polimi.ingsw.LM45.model.cards.Venture;
-import it.polimi.ingsw.LM45.model.cards.Character;
 
 public class FileManager {
 
 	private static final String BASE_PATH = "Assets/Json";
-	private static final Gson GSON = new GsonBuilder().setPrettyPrinting()
-			.registerTypeAdapter(Effect.class, new GsonTypeAdapter<Effect>())
+	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().registerTypeAdapter(Effect.class, new GsonTypeAdapter<Effect>())
 			.registerTypeAdapter(Card.class, new GsonTypeAdapter<Card>()).create();
 
 	public static void saveCard(Card card) throws IOException {
@@ -79,7 +77,7 @@ public class FileManager {
 		GSON.toJson(leaderCard, LeaderCard.class, writer);
 		writer.close();
 	}
-	
+
 	public static <T extends Configuration> void saveConfiguration(T configuration) throws IOException {
 		String path = BASE_PATH + "/Config";
 		File directory = new File(path);
@@ -93,8 +91,7 @@ public class FileManager {
 		writer.close();
 	}
 
-	public static Map<CardType, List<Card>> loadCards()
-			throws JsonSyntaxException, JsonIOException, FileNotFoundException {
+	public static Map<CardType, List<Card>> loadCards() throws JsonSyntaxException, JsonIOException, FileNotFoundException {
 		Map<CardType, List<Card>> deck = new EnumMap<CardType, List<Card>>(CardType.class);
 		File folder = new File(BASE_PATH + "/Cards/");
 
@@ -116,25 +113,24 @@ public class FileManager {
 
 		return deck;
 	}
-	
-	public static List<LeaderCard> loadLeaderCards()
-			throws JsonSyntaxException, JsonIOException, FileNotFoundException{
+
+	public static List<LeaderCard> loadLeaderCards() throws JsonSyntaxException, JsonIOException, FileNotFoundException {
 		List<LeaderCard> leaderCards = new ArrayList<LeaderCard>();
 		File folder = new File(BASE_PATH + "/LeaderCards/");
-		
+
 		for (File file : folder.listFiles()) {
 			if (file.isFile()) {
 				LeaderCard leaderCard = GSON.fromJson(new FileReader(file), LeaderCard.class);
 				leaderCards.add(leaderCard);
 			}
 		}
-		
+
 		return leaderCards;
 	}
-	
-	public static <T extends Configuration> T loadConfiguration(Class<T> cl) throws JsonSyntaxException, JsonIOException, FileNotFoundException{
+
+	public static <T extends Configuration> T loadConfiguration(Class<T> cl) throws JsonSyntaxException, JsonIOException, FileNotFoundException {
 		File file = new File(BASE_PATH + "/Config/" + cl.getSimpleName() + ".json");
-		
+
 		return GSON.fromJson(new FileReader(file), cl);
 	}
 
@@ -143,11 +139,10 @@ public class FileManager {
 		Card[] cards = new Card[96];
 		
 		try {
+			// Save serverConfiguration
 			saveConfiguration(new ServerConfiguration(2, 25000, 2000, 7000));
-			ServerConfiguration sConfiguration = loadConfiguration(ServerConfiguration.class);
-			System.out.println(sConfiguration.getGameStartTimerDelay());
-			System.out.println(sConfiguration.getServerSocketPort());
-			
+
+			// Save boardConfiguration
 			Map<SlotType, Resource[][]> slotsConfiguration = new EnumMap<>(SlotType.class);
 			slotsConfiguration.put(SlotType.TERRITORY, 
 					new Resource[][]{ new Resource[]{}, new Resource[]{}, 
@@ -171,15 +166,45 @@ public class FileManager {
 			slotsConfiguration.put(SlotType.COUNCIL, 
 					new Resource[][]{ new Resource[]{ new Resource(ResourceType.COINS, 1), new Resource(ResourceType.COUNCIL_PRIVILEGES, 1) } });
 			
-			saveConfiguration(new BoardConfiguration(slotsConfiguration));
-			BoardConfiguration bConfiguration = loadConfiguration(BoardConfiguration.class);
+			Resource[][] churchSupportResources = new Resource[][]{
+				new Resource[]{ new Resource(ResourceType.VICTORY, 0) },
+				new Resource[]{ new Resource(ResourceType.VICTORY, 1) },
+				new Resource[]{ new Resource(ResourceType.VICTORY, 2) },
+				new Resource[]{ new Resource(ResourceType.VICTORY, 3) },
+				new Resource[]{ new Resource(ResourceType.VICTORY, 4) },
+				new Resource[]{ new Resource(ResourceType.VICTORY, 5) },
+				new Resource[]{ new Resource(ResourceType.VICTORY, 7) },
+				new Resource[]{ new Resource(ResourceType.VICTORY, 9) },
+				new Resource[]{ new Resource(ResourceType.VICTORY, 11) },
+				new Resource[]{ new Resource(ResourceType.VICTORY, 13) },
+				new Resource[]{ new Resource(ResourceType.VICTORY, 15) },
+				new Resource[]{ new Resource(ResourceType.VICTORY, 17) },
+				new Resource[]{ new Resource(ResourceType.VICTORY, 19) },
+				new Resource[]{ new Resource(ResourceType.VICTORY, 22) },
+				new Resource[]{ new Resource(ResourceType.VICTORY, 25) },
+				new Resource[]{ new Resource(ResourceType.VICTORY, 30) }
+			};
+			
+			saveConfiguration(new BoardConfiguration(slotsConfiguration, churchSupportResources));
+
+			// Save PersonalBonusTilesConfiguration
+			PersonalBonusTile[] personalBonusTiles = new PersonalBonusTile[]{
+					new PersonalBonusTile(new Resource[]{ new Resource(ResourceType.SERVANTS, 1), new Resource(ResourceType.COINS, 2) },
+							new Resource[]{ new Resource(ResourceType.WOOD, 1), new Resource(ResourceType.STONE, 1), new Resource(ResourceType.MILITARY, 1), }),
+					new PersonalBonusTile(new Resource[]{ new Resource(ResourceType.SERVANTS, 1), new Resource(ResourceType.MILITARY, 2) },
+							new Resource[]{ new Resource(ResourceType.WOOD, 1), new Resource(ResourceType.STONE, 1), new Resource(ResourceType.COINS, 1), }),
+					new PersonalBonusTile(new Resource[]{ new Resource(ResourceType.SERVANTS, 2), new Resource(ResourceType.COINS, 1) },
+							new Resource[]{ new Resource(ResourceType.WOOD, 1), new Resource(ResourceType.STONE, 1), new Resource(ResourceType.MILITARY, 1), }),
+					new PersonalBonusTile(new Resource[]{ new Resource(ResourceType.MILITARY, 2), new Resource(ResourceType.COINS, 1) },
+							new Resource[]{ new Resource(ResourceType.WOOD, 1), new Resource(ResourceType.STONE, 1), new Resource(ResourceType.SERVANTS, 1), })
+			};
+			
+			saveConfiguration(new PersonalBonusTilesConfiguration(personalBonusTiles));
+			
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-		if(true)
-			return;
 
 		// Territories
 		// I Period
