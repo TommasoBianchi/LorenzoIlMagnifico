@@ -62,10 +62,13 @@ public class InitializeViewController extends Application {
 	public void showGameBoard() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(InitializeViewController.class.getResource("gameboard/GameBoardView.fxml"));
+			loader.setLocation(InitializeViewController.class.getResource("../gameboard/GameBoardView.fxml"));
 			AnchorPane gameBoard = (AnchorPane) loader.load();
 			Scene scene = new Scene(gameBoard);
 			primaryStage.setScene(scene);
+			primaryStage.setResizable(false);
+			primaryStage.setWidth(Screen.getMainScreen().getVisibleWidth());
+			primaryStage.setHeight(Screen.getMainScreen().getVisibleHeight());
 			primaryStage.show();
 			GameBoardController controllerGameBoard = loader.getController();
 			controllerGameBoard.setScene(scene);

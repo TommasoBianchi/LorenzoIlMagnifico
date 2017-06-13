@@ -51,7 +51,10 @@ public class LobbyController {
 	    		alert.showAndWait();
 	   	}
 		
-		/* Controlla radio toggle tipo
+		
+		/* Chiama launch di ClientLauncher su controller
+		 *  
+		 * Controlla radio toggle tipo
 		 * if( rmi.isSelected )
 		 * 	avvia RMI;
 		 * else
@@ -60,6 +63,10 @@ public class LobbyController {
 		 * lo sesso poi per CLI e GUI
 		 * 
 		 * metti avvia gioco con Enter
+		 * 
+		 * ip server text field
+		 * 
+		 * porta server text field
 		 */
 	}
 	
