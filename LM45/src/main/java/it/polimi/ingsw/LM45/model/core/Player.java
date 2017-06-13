@@ -1,6 +1,5 @@
 package it.polimi.ingsw.LM45.model.core;
 
-import java.awt.Desktop.Action;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -251,6 +250,13 @@ public class Player {
 	 */
 	public boolean getPayIfTowerIsOccupied() {
 		return payIfTowerIsOccupied;
+	}
+	
+	/**
+	 * @return the color this player has on the board
+	 */
+	public Color getColor(){
+		return color;
 	}
 
 }
