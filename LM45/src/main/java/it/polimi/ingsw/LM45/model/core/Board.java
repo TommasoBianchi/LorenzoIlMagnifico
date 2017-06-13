@@ -8,7 +8,6 @@ import java.util.Map;
 
 import it.polimi.ingsw.LM45.exceptions.IllegalActionException;
 import it.polimi.ingsw.LM45.model.cards.Card;
-import it.polimi.ingsw.LM45.model.cards.CardType;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
 import it.polimi.ingsw.LM45.model.cards.PeriodType;
 
@@ -21,7 +20,7 @@ public class Board {
 	/**
 	 * Initializes a new Board by instantiating the collections needed to hold slots and excommunications
 	 */
-	public Board() {
+	public Board( /* TODO: pass BoardConfiguration */ ) {
 		this.slots = new EnumMap<SlotType, Slot[]>(SlotType.class); // FIXME: maybe this is now not necessary?
 		this.towerSlots = new EnumMap<SlotType, TowerSlot[]>(SlotType.class);
 		this.excommunications = new EnumMap<PeriodType, Excommunication>(PeriodType.class);

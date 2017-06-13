@@ -1,0 +1,142 @@
+{
+  "slotConfigurations": [
+    {
+      "slotType": "TERRITORY",
+      "slotID": 2,
+      "bonuses": [
+        {
+          "resourceType": "WOOD",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "slotType": "TERRITORY",
+      "slotID": 3,
+      "bonuses": [
+        {
+          "resourceType": "WOOD",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "slotType": "BUILDING",
+      "slotID": 2,
+      "bonuses": [
+        {
+          "resourceType": "MILITARY",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "slotType": "BUILDING",
+      "slotID": 3,
+      "bonuses": [
+        {
+          "resourceType": "MILITARY",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "slotType": "CHARACTER",
+      "slotID": 2,
+      "bonuses": [
+        {
+          "resourceType": "STONE",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "slotType": "CHARACTER",
+      "slotID": 3,
+      "bonuses": [
+        {
+          "resourceType": "STONE",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "slotType": "VENTURE",
+      "slotID": 2,
+      "bonuses": [
+        {
+          "resourceType": "COINS",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "slotType": "VENTURE",
+      "slotID": 3,
+      "bonuses": [
+        {
+          "resourceType": "COINS",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "slotType": "COUNCIL",
+      "slotID": 0,
+      "bonuses": [
+        {
+          "resourceType": "COINS",
+          "amount": 1
+        },
+        {
+          "resourceType": "COUNCIL_PRIVILEGES",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "slotType": "MARKET",
+      "slotID": 0,
+      "bonuses": [
+        {
+          "resourceType": "COINS",
+          "amount": 5
+        }
+      ]
+    },
+    {
+      "slotType": "MARKET",
+      "slotID": 1,
+      "bonuses": [
+        {
+          "resourceType": "SERVANTS",
+          "amount": 5
+        }
+      ]
+    },
+    {
+      "slotType": "MARKET",
+      "slotID": 2,
+      "bonuses": [
+        {
+          "resourceType": "MILITARY",
+          "amount": 3
+        },
+        {
+          "resourceType": "COINS",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "slotType": "MARKET",
+      "slotID": 3,
+      "bonuses": [
+        {
+          "resourceType": "COUNCIL_PRIVILEGES",
+          "amount": 2
+        }
+      ]
+    }
+  ]
+}

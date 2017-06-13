@@ -23,6 +23,9 @@ import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 // Necessari per il main di test
 import it.polimi.ingsw.LM45.model.effects.ResourceEffect;
 import it.polimi.ingsw.LM45.model.effects.CopyEffect;
+import it.polimi.ingsw.LM45.config.BoardConfiguration;
+import it.polimi.ingsw.LM45.config.Configuration;
+import it.polimi.ingsw.LM45.config.ServerConfiguration;
 import it.polimi.ingsw.LM45.model.cards.Building;
 import it.polimi.ingsw.LM45.model.effects.FamiliarEffect;
 import it.polimi.ingsw.LM45.model.effects.GainModifierEffect;
@@ -38,6 +41,7 @@ import it.polimi.ingsw.LM45.model.effects.ActionEffect;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.ResourceType;
+import it.polimi.ingsw.LM45.model.core.Slot;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.model.cards.Territory;
 import it.polimi.ingsw.LM45.model.cards.Venture;
@@ -73,6 +77,19 @@ public class FileManager {
 
 		FileWriter writer = new FileWriter(path + "/" + leaderCard.getName() + ".json");
 		GSON.toJson(leaderCard, LeaderCard.class, writer);
+		writer.close();
+	}
+	
+	public static <T extends Configuration> void saveConfiguration(T configuration) throws IOException {
+		String path = BASE_PATH + "/Config";
+		File directory = new File(path);
+
+		if (!directory.exists()) {
+			directory.mkdirs();
+		}
+
+		FileWriter writer = new FileWriter(path + "/" + configuration.getClass().getSimpleName() + ".json");
+		GSON.toJson(configuration, writer);
 		writer.close();
 	}
 
@@ -114,10 +131,55 @@ public class FileManager {
 		
 		return leaderCards;
 	}
+	
+	public static <T extends Configuration> T loadConfiguration(Class<T> cl) throws JsonSyntaxException, JsonIOException, FileNotFoundException{
+		File file = new File(BASE_PATH + "/Config/" + cl.getSimpleName() + ".json");
+		
+		return GSON.fromJson(new FileReader(file), cl);
+	}
 
 	// Main di test
 	public static void main(String[] args) {
 		Card[] cards = new Card[96];
+		
+		try {
+			saveConfiguration(new ServerConfiguration(2, 25000, 2000, 7000));
+			ServerConfiguration sConfiguration = loadConfiguration(ServerConfiguration.class);
+			System.out.println(sConfiguration.getGameStartTimerDelay());
+			System.out.println(sConfiguration.getServerSocketPort());
+			
+			Map<SlotType, Resource[][]> slotsConfiguration = new EnumMap<>(SlotType.class);
+			slotsConfiguration.put(SlotType.TERRITORY, 
+					new Resource[][]{ new Resource[]{}, new Resource[]{}, 
+				new Resource[]{ new Resource(ResourceType.WOOD, 1) }, new Resource[]{ new Resource(ResourceType.WOOD, 2) } });
+			slotsConfiguration.put(SlotType.CHARACTER, 
+					new Resource[][]{ new Resource[]{}, new Resource[]{}, 
+				new Resource[]{ new Resource(ResourceType.STONE, 1) }, new Resource[]{ new Resource(ResourceType.STONE, 2) } });
+			slotsConfiguration.put(SlotType.BUILDING, 
+					new Resource[][]{ new Resource[]{}, new Resource[]{}, 
+				new Resource[]{ new Resource(ResourceType.MILITARY, 1) }, new Resource[]{ new Resource(ResourceType.MILITARY, 2) } });
+			slotsConfiguration.put(SlotType.VENTURE, 
+					new Resource[][]{ new Resource[]{}, new Resource[]{}, 
+				new Resource[]{ new Resource(ResourceType.COINS, 1) }, new Resource[]{ new Resource(ResourceType.COINS, 2) } });
+
+			slotsConfiguration.put(SlotType.MARKET, 
+					new Resource[][]{ new Resource[]{ new Resource(ResourceType.COINS, 5) }, 
+				new Resource[]{ new Resource(ResourceType.SERVANTS, 5) }, 
+				new Resource[]{ new Resource(ResourceType.MILITARY, 3), new Resource(ResourceType.COINS, 2) }, 
+				new Resource[]{ new Resource(ResourceType.COUNCIL_PRIVILEGES, 2) } });
+
+			slotsConfiguration.put(SlotType.COUNCIL, 
+					new Resource[][]{ new Resource[]{ new Resource(ResourceType.COINS, 1), new Resource(ResourceType.COUNCIL_PRIVILEGES, 1) } });
+			
+			saveConfiguration(new BoardConfiguration(slotsConfiguration));
+			BoardConfiguration bConfiguration = loadConfiguration(BoardConfiguration.class);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		if(true)
+			return;
 
 		// Territories
 		// I Period

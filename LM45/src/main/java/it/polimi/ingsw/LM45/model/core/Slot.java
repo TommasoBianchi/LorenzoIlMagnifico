@@ -115,5 +115,12 @@ public class Slot {
 	private boolean isFamiliarValueOK(Familiar familiar, ActionModifier actionModifier) {
 		return familiar.getValue() + actionModifier.getDiceBonus() >= minDice;
 	}
+	
+	/**
+	 * @return the slotType of this slot
+	 */
+	public SlotType getType(){
+		return this.type;
+	}
 
 }
