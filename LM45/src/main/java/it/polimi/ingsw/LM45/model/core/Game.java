@@ -150,5 +150,12 @@ public class Game {
 		for (PeriodType periodType : excommunicationDeck.keySet())
 			excommunicationDeck.put(periodType, ShuffleHelper.shuffle(excommunicationDeck.get(periodType)));
 	}
+	
+	/**
+	 * @return an array containing the players ordered by the turn order
+	 */
+	public Player[] getOrderedPlayers(){
+		return players.stream().toArray(Player[]::new);
+	}
 
 }
