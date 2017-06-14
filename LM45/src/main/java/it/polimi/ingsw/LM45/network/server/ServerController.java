@@ -1,5 +1,6 @@
 package it.polimi.ingsw.LM45.network.server;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 
 import it.polimi.ingsw.LM45.config.BoardConfiguration;
+import it.polimi.ingsw.LM45.config.PersonalBonusTilesConfiguration;
 import it.polimi.ingsw.LM45.controller.EffectController;
 import it.polimi.ingsw.LM45.exceptions.GameException;
 import it.polimi.ingsw.LM45.exceptions.IllegalActionException;
@@ -25,6 +27,7 @@ import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.core.Familiar;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.Game;
+import it.polimi.ingsw.LM45.model.core.PersonalBonusTile;
 import it.polimi.ingsw.LM45.model.core.Player;
 import it.polimi.ingsw.LM45.model.core.PlayerColor;
 import it.polimi.ingsw.LM45.model.core.Resource;
@@ -46,6 +49,7 @@ public class ServerController {
 	private Map<String, EffectResolutor> effectResolutors;
 	private List<PlayerColor> availableColors;
 	private BoardConfiguration boardConfiguration;
+	private PersonalBonusTilesConfiguration personalBonusTilesConfiguration;
 	private Map<String, LeaderCard> leaderCards;
 	private Map<CardType, List<Card>> deck;
 	private int maxNumberOfPlayers;
@@ -63,6 +67,7 @@ public class ServerController {
 		this.effectResolutors = new HashMap<String, EffectResolutor>();
 		this.availableColors = new ArrayList<PlayerColor>(Arrays.asList(PlayerColor.values()));
 		this.boardConfiguration = FileManager.loadConfiguration(BoardConfiguration.class);
+		this.personalBonusTilesConfiguration = FileManager.loadConfiguration(PersonalBonusTilesConfiguration.class);
 		this.leaderCards = FileManager.loadLeaderCards().stream()
 				.collect(Collectors.toMap(leaderCard -> leaderCard.getName(), leaderCard -> leaderCard));
 		this.deck = FileManager.loadCards();
@@ -224,10 +229,12 @@ public class ServerController {
 		game = new Game(new ArrayList<Player>(players.values()), boardConfiguration, deck, new ArrayList<LeaderCard>(leaderCards.values()),
 				new HashMap<>()/* load the excommunication deck */);
 		game.start();
-		// TODO: notify players
 
+		giveBaseResources();
+		choosePersonalBonusTiles();
 		chooseLeaderCards();
-		// TODO: make players choose their personalBonusTile
+
+		// TODO: send players the starting state of the board
 
 		game.startTurn();
 
@@ -294,7 +301,7 @@ public class ServerController {
 		List<LeaderCard> shuffledLeaderCards = ShuffleHelper.shuffle(leaderCards.values());
 		Map<String, List<LeaderCard>> leaderCardsToChoose = new HashMap<>();
 		int i = 0;
-		for(String playerUsername : players.keySet()){
+		for (String playerUsername : players.keySet()) {
 			List<LeaderCard> leaderCardsToChooseByThisPlayer = new ArrayList<>();
 			leaderCardsToChooseByThisPlayer.add(shuffledLeaderCards.get(4 * i + 0));
 			leaderCardsToChooseByThisPlayer.add(shuffledLeaderCards.get(4 * i + 1));
@@ -303,34 +310,69 @@ public class ServerController {
 			leaderCardsToChoose.put(playerUsername, leaderCardsToChooseByThisPlayer);
 			i++;
 		}
-		
-		for(i = 0; i < 3; i++){
+
+		for (i = 0; i < 3; i++) {
 			// Make every player choose a leaderCard and remove it from the chosable ones
 			players.keySet().forEach(playerUsername -> {
 				System.out.println(playerUsername + " has to choose");
-				int index = chooseFrom(playerUsername, 
+				int index = chooseFrom(playerUsername,
 						leaderCardsToChoose.get(playerUsername).stream().map(leaderCard -> leaderCard.toString()).toArray(String[]::new));
 				System.out.println(playerUsername + " has chosen");
 				LeaderCard chosenLeaderCard = leaderCardsToChoose.get(playerUsername).get(index);
 				players.get(playerUsername).addLeaderCard(chosenLeaderCard);
 				leaderCardsToChoose.get(playerUsername).remove(chosenLeaderCard);
 			});
-			
+
 			// Swap chosable leaderCards between players
 			String[] playersUsernames = players.keySet().stream().toArray(String[]::new);
 			List<LeaderCard> firstList = leaderCardsToChoose.get(playersUsernames[0]);
-			for(int j = 1; j < playersUsernames.length; j++){
+			for (int j = 1; j < playersUsernames.length; j++) {
 				leaderCardsToChoose.put(playersUsernames[j - 1], leaderCardsToChoose.get(playersUsernames[j]));
 			}
 			leaderCardsToChoose.put(playersUsernames[playersUsernames.length - 1], firstList);
 		}
-		
+
 		players.entrySet().forEach(entry -> entry.getValue().addLeaderCard(leaderCardsToChoose.get(entry.getKey()).get(0)));
+	}
+
+	private void choosePersonalBonusTiles() {
+		List<PersonalBonusTile> personalBonusTiles = new ArrayList<>(Arrays.asList(personalBonusTilesConfiguration.getPersonalBonusTiles()));
+		Player[] orderedPlayers = game.getOrderedPlayers();
+
+		for (Player player : orderedPlayers) {
+			int chosenIndex = 0;
+			if (personalBonusTiles.size() > 1) {
+				chosenIndex = chooseFrom(player.getUsername(),
+						personalBonusTiles.stream().map(personalBonusTile -> personalBonusTile.toString()).toArray(String[]::new));
+			}
+			System.out.println(personalBonusTiles.getClass().getCanonicalName());
+			PersonalBonusTile chosenPersonalBonusTile = personalBonusTiles.remove(chosenIndex);
+			player.setPersonalBonusTile(chosenPersonalBonusTile);
+		}
+	}
+
+	private void giveBaseResources() {
+		Player[] orderedPlayers = game.getOrderedPlayers();
+
+		Arrays.stream(orderedPlayers).forEach(player -> {
+			player.addResources(new Resource(ResourceType.WOOD, 2));
+			player.addResources(new Resource(ResourceType.STONE, 2));
+			player.addResources(new Resource(ResourceType.SERVANTS, 3));
+		});
+
+		orderedPlayers[0].addResources(new Resource(ResourceType.COINS, 5));
+		orderedPlayers[1].addResources(new Resource(ResourceType.COINS, 6));
+		if (orderedPlayers.length > 2)
+			orderedPlayers[2].addResources(new Resource(ResourceType.COINS, 7));
+		if (orderedPlayers.length > 3)
+			orderedPlayers[3].addResources(new Resource(ResourceType.COINS, 8));
 	}
 
 	/**
 	 * Notify every connected client about something
-	 * @param c the ClientInterface's function we want to call on every connected player
+	 * 
+	 * @param c
+	 *            the ClientInterface's function we want to call on every connected player
 	 */
 	private void notifyPlayers(CheckedFunction<ClientInterface, IOException> c) {
 		users.entrySet().stream().forEach(entry -> {
