@@ -10,6 +10,10 @@ public class CostWithPrerequisites extends Cost {
 
 	private Resource[] prerequisites;
 
+	/**
+	 * @param cost the resources player needs to pay to pick the Card
+	 * @param prerequisites the resources player needs to have to pick the card
+	 */
 	public CostWithPrerequisites(Resource[] cost, Resource[] prerequisites) {
 		super(cost);
 		this.prerequisites = prerequisites;

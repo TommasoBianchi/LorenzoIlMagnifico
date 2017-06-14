@@ -14,6 +14,13 @@ public abstract class Card {
 	protected CardEffect immediateEffect;
 	protected CardEffect effect;
 	
+	/**
+	 * @param name name of the Card
+	 * @param periodType period of the Card : I,II or III
+	 * @param cost the resources player needs to pay ot to have to pick the Card
+	 * @param immediateEffect the effect that is activated immediately when Card is picked
+	 * @param effect the effect that is not activated immediately
+	 */
 	public Card(String name, PeriodType periodType, Cost cost, CardEffect immediateEffect, CardEffect effect){
 		this.name = name;
 		this.periodType = periodType;
@@ -24,8 +31,7 @@ public abstract class Card {
 	
 	/**
 	 * @param player Player that want to pick the Card
-	 * @param actionModifier Collection of effect's attributes of other Cards or Malus that player owns
-	 * that influence this Card attributes
+	 * @param actionModifier the actionModifier for the action the player is trying to do
 	 * @return True, if player has requisites and resources to pick the card
 	 */
 	public boolean canPick(Player player, ActionModifier actionModifier){
@@ -34,39 +40,36 @@ public abstract class Card {
 	
 	/**
 	 * @param player player that what to pay the cost's resources
-	 * @param actionModifier Collection of effect's attributes of other Cards or Malus that player owns
-	 * that influence this Card attributes
+	 * @param actionModifier the actionModifier for the action the player is trying to do
 	 */
 	public void payCost(Player player, ActionModifier actionModifier){
 		cost.pay(player, actionModifier);
 	}
 	
 	/**
-	 * @return the Card name.
+	 * @return the Card name
 	 */
 	public String getName(){
 		return this.name;
 	}
 
 	/**
-	 * @return the Card Period : I, II or III.
+	 * @return the Card Period : I, II or III
 	 */
 	public PeriodType getPeriodType() {
 		return this.periodType;
 	}
 	
 	/**
-	 * @return the cardType of the Card : BUILDING, TERRITORY, CHARACTER or VENTURE.
+	 * @return the cardType of the Card : BUILDING, TERRITORY, CHARACTER or VENTURE
 	 */
 	public CardType getCardType(){
 		return this.cardType;
 	}
 	
 	/**
-	 * Resolves ImmediateEffect and controls if effect is a permanentEffect.
-	 * If it's permanent it calls addPermanentEffect(effect), otherwise it means
-	 * it's a BUILDING or TERRITORY card with a resourceEffect that needs to be activated
-	 * only by a production or harvest action.
+	 * Resolves ImmediateEffect and controls if effect is a permanentEffect
+	 * If it's permanent it calls addPermanentEffect(effect), otherwise it does nothing
 	 * 
 	 * @param effectResolutor interface with all methods that model can use to call the EffectController
 	 */
@@ -78,7 +81,7 @@ public abstract class Card {
 	
 	/**
 	 * @param effectResolutor interface with all methods that model can use to call the EffectController
-	 * @param diceValue value of harvest and produce action
+	 * @param diceValue min value of the action to resolve the effect
 	 */
 	public void resolveEffect(EffectResolutor effectResolutor, int diceValue){
 		effect.resolveEffects(effectResolutor);

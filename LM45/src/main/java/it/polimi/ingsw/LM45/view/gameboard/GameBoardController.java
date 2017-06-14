@@ -182,6 +182,10 @@ public class GameBoardController {
 		image.setTranslateY(0);
 	}
 	
+	//TODO add servantsCost
+	
+	//TODO button to spend Servant
+	
 	public void showPersonalBoard(MouseEvent event) {
 		Button button = (Button)event.getSource();
 		FXMLLoader loader = new FXMLLoader();

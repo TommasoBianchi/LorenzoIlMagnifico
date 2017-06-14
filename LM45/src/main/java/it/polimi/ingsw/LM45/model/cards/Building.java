@@ -7,6 +7,14 @@ public class Building extends Card {
 	
 	private int minDiceToProduce;
 
+	/**
+	 * @param name name of the Card
+	 * @param periodType period of the Card : I,II or III
+	 * @param cost the resources player needs to pay or to have to pick the Card
+	 * @param immediateEffects the effect that is activated immediately when Card is picked
+	 * @param effects the effect that is not activated immediately
+	 * @param minDiceToProduce min value to activate effects
+	 */
 	public Building(String name, PeriodType periodType, Cost cost, CardEffect immediateEffects,
 			CardEffect effects, int minDiceToProduce) {
 		super(name, periodType, cost, immediateEffects, effects);
