@@ -48,4 +48,11 @@ public class LeaderCard {
 		}
 	}
 
+	@Override
+	public String toString() {
+		return name + " (LeaderCard)\n" + "Requisites: "
+				+ Arrays.stream(requisites).map(resource -> resource.toString()).reduce("", (a, b) -> a + " " + b) + "\n" + "Effect: "
+				+ effect.toString();
+	}
+
 }
