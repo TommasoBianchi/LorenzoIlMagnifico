@@ -73,7 +73,7 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 				break;
 			case CHOOSE:
 				String[] alternatives = (String[])inStream.readObject();
-				Integer index = chooseFrom(alternatives);
+				Integer index = new Integer(chooseFrom(alternatives));
 				outStream.writeObject(index);
 				break;
 			default:

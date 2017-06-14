@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.locks.ReentrantLock;
 
 import it.polimi.ingsw.LM45.exceptions.GameException;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
@@ -16,6 +19,8 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 	private Socket socket;
 	private ObjectOutputStream outStream;
 	private ObjectInputStream inStream;
+	private Queue<Object> inputQueue;
+	private ReentrantLock inputStreamLock;
 
 	private ServerController serverController;
 	private boolean isRunning;
@@ -24,6 +29,8 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 	public SocketServer(Socket socket, ServerController serverController) throws IOException {
 		this.serverController = serverController;
 		this.socket = socket;
+		this.inputQueue = new ConcurrentLinkedQueue<>();
+		this.inputStreamLock = new ReentrantLock();
 
 		outStream = new ObjectOutputStream(socket.getOutputStream());
 		inStream = new ObjectInputStream(socket.getInputStream());
@@ -37,8 +44,22 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 	public void run() {
 		while (isRunning) {
 			try {
-				ServerMessages messageType = (ServerMessages) inStream.readObject();
-				handleMessage(messageType);
+				inputStreamLock.lock();
+				Object inputObject = inStream.readObject();
+				inputStreamLock.unlock();
+				try {
+					ServerMessages messageType = (ServerMessages)inputObject;
+					handleMessage(messageType);
+				}
+				catch (ClassCastException e) {
+					boolean queueWasEmpty = inputQueue.isEmpty();
+					inputQueue.add(inputObject);
+					if(queueWasEmpty){
+						synchronized (inputQueue) {
+							inputQueue.notify();
+						}
+					}
+				}
 			}
 			catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
@@ -157,15 +178,48 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 		outStream.writeObject(ClientMessages.CHOOSE);
 		outStream.writeObject(alternatives);
 		Integer index = 0;
-		try {
+		
+		if(inputStreamLock.tryLock()){
+			try {
+				index = (Integer)inStream.readObject();
+			}
+			catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			inputStreamLock.unlock();
+		}
+		else {
+			if(inputQueue.isEmpty()){
+				synchronized (inputQueue) {
+					try {
+						inputQueue.wait();
+					}
+					catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+			index = (Integer)inputQueue.remove();
+		}
+		
+		
+		/*try {
 			// WARNING: this may cause problems if we call chooseFrom from a different thread than the one
 			// that is currently waiting for ServerMessages
-			index = (Integer)inStream.readObject();
+			Object object = inStream.readObject();
+			System.out.println("Choose from received: " + object.toString());
+			if(object instanceof Integer)
+				return (Integer)object;
+			else
+				return 0;
+			//index = (Integer)inStream.readObject();
 		}
 		catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}
+		}*/
 		
 		return index;
 	}
