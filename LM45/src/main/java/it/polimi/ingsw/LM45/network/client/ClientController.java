@@ -42,9 +42,10 @@ public class ClientController {
 
 	public void notifyPlayerTurn(String player) {
 		if (this.username.equals(player)) {
-			// TODO: play turn
+			viewInterface.myTurn();
 			System.out.println("It's my turn");
 		} else {
+			viewInterface.playerTurn(player);
 			System.out.println("It's " + player + " turn");
 		}
 	}

@@ -19,6 +19,7 @@ public interface ViewInterface {
 	public void setClientController(ClientController clientController);
 	public void setResources(Resource[] resources, String username);
 	public void setFamiliarValue(FamiliarColor familiarColor, int value, String username);
-	
+	public void myTurn();
+	public void playerTurn(String username);
 	
 }

@@ -1,5 +1,7 @@
 package it.polimi.ingsw.LM45.view.leadercard;
 
+import java.util.Arrays;
+
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -32,9 +34,11 @@ public class LeaderCardChoiceController {
 				public void handle(MouseEvent event){
 					System.out.println(leader);				//TODO call method leaderChosen(leader)
 					leaders.getChildren().clear();
+					Arrays.asList(leadersName).indexOf(leader);
 				}
 			});
 		}
+		
 		
 	}
 

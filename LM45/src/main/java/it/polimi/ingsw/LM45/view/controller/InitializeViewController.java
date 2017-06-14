@@ -31,7 +31,7 @@ import javafx.stage.Stage;
 public class InitializeViewController extends Application {
 
 	private Stage primaryStage;
-	private GuiController viewController;
+	private GuiController guiController;
 
 	public void start(Stage stage) {
 		this.primaryStage = stage;
