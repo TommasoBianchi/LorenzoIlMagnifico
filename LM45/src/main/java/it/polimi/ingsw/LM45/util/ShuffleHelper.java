@@ -2,6 +2,7 @@ package it.polimi.ingsw.LM45.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -12,7 +13,7 @@ import it.polimi.ingsw.LM45.model.cards.PeriodType;
 public class ShuffleHelper {
 	
 	// Durstenfeld algorithm
-	public static <T> List<T> shuffle(List<T> list){
+	public static <T> List<T> shuffle(Collection<T> list){
 		Random random = new Random();
 		@SuppressWarnings("unchecked") // Because of Java's dumb implementation of generics with type erasure
 		T[] result = (T[])list.toArray();
