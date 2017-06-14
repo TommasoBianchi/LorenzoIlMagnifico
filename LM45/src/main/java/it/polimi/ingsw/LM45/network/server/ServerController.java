@@ -36,7 +36,7 @@ import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
 import it.polimi.ingsw.LM45.network.client.ClientInterface;
 import it.polimi.ingsw.LM45.serialization.FileManager;
 import it.polimi.ingsw.LM45.util.CheckedFunction;
-import javafx.scene.paint.Color;
+import it.polimi.ingsw.LM45.util.ShuffleHelper;
 
 // This is designed to manage only one game (consider renaming it to GameController)
 public class ServerController {
@@ -88,7 +88,7 @@ public class ServerController {
 		catch (IOException e) {
 			// TODO: check this code here and think about it. What has to happen
 			// if a client contacts me to ask for
-			// login but then I can not call him back?
+			// login but then I cannot call him back?
 			e.printStackTrace();
 			return;
 			// manageIOException(player, e);
@@ -171,7 +171,7 @@ public class ServerController {
 			try {
 				players.get(player).discardLeaderCard(leaderCards.get(leaderCardName));
 				System.out.println(player + " discarded leader card " + leaderCardName);
-				effectResolutors.get(player).addResources(new Resource(ResourceType.COUNCIL_PRIVILEGES, 2));
+				effectResolutors.get(player).addResources(new Resource(ResourceType.COUNCIL_PRIVILEGES, 1));
 			}
 			catch (IllegalActionException e) {
 				manageGameExceptions(player, e);
@@ -183,7 +183,6 @@ public class ServerController {
 		if (currentPlayer.getUsername() == player) {
 			System.out.println(player + " ended his turn");
 			turnTimer.cancel();
-			// TODO: implement
 			nextPlayerRound();
 		}
 	}
@@ -227,7 +226,7 @@ public class ServerController {
 		game.start();
 		// TODO: notify players
 
-		// TODO: make players choose their leaderCards
+		chooseLeaderCards();
 		// TODO: make players choose their personalBonusTile
 
 		game.startTurn();
@@ -287,6 +286,46 @@ public class ServerController {
 		}
 
 		return canDo;
+	}
+
+	private void chooseLeaderCards() {
+		// Make players choose their leaderCards
+		// FIXME: is this even remotely right?
+		List<LeaderCard> shuffledLeaderCards = ShuffleHelper.shuffle(leaderCards.values());
+		Map<String, List<LeaderCard>> leaderCardsToChoose = new HashMap<>();
+		int i = 0;
+		for(String playerUsername : players.keySet()){
+			List<LeaderCard> leaderCardsToChooseByThisPlayer = new ArrayList<>();
+			leaderCardsToChooseByThisPlayer.add(shuffledLeaderCards.get(4 * i + 0));
+			leaderCardsToChooseByThisPlayer.add(shuffledLeaderCards.get(4 * i + 1));
+			leaderCardsToChooseByThisPlayer.add(shuffledLeaderCards.get(4 * i + 2));
+			leaderCardsToChooseByThisPlayer.add(shuffledLeaderCards.get(4 * i + 3));
+			leaderCardsToChoose.put(playerUsername, leaderCardsToChooseByThisPlayer);
+			i++;
+		}
+		
+		for(i = 0; i < 3; i++){
+			// Make every player choose a leaderCard and remove it from the chosable ones
+			players.keySet().forEach(playerUsername -> {
+				System.out.println(playerUsername + " has to choose");
+				int index = chooseFrom(playerUsername, 
+						leaderCardsToChoose.get(playerUsername).stream().map(leaderCard -> leaderCard.toString()).toArray(String[]::new));
+				System.out.println(playerUsername + " has chosen");
+				LeaderCard chosenLeaderCard = leaderCardsToChoose.get(playerUsername).get(index);
+				players.get(playerUsername).addLeaderCard(chosenLeaderCard);
+				leaderCardsToChoose.get(playerUsername).remove(chosenLeaderCard);
+			});
+			
+			// Swap chosable leaderCards between players
+			String[] playersUsernames = players.keySet().stream().toArray(String[]::new);
+			List<LeaderCard> firstList = leaderCardsToChoose.get(playersUsernames[0]);
+			for(int j = 1; j < playersUsernames.length; j++){
+				leaderCardsToChoose.put(playersUsernames[j - 1], leaderCardsToChoose.get(playersUsernames[j]));
+			}
+			leaderCardsToChoose.put(playersUsernames[playersUsernames.length - 1], firstList);
+		}
+		
+		players.entrySet().forEach(entry -> entry.getValue().addLeaderCard(leaderCardsToChoose.get(entry.getKey()).get(0)));
 	}
 
 	/**

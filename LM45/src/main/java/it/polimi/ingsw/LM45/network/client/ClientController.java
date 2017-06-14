@@ -2,6 +2,8 @@ package it.polimi.ingsw.LM45.network.client;
 
 import java.io.IOException;
 import java.rmi.NotBoundException;
+import java.util.Arrays;
+import java.util.Random;
 
 import it.polimi.ingsw.LM45.exceptions.GameException;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
@@ -111,7 +113,18 @@ public class ClientController {
 	public int chooseFrom(String[] alternatives) {
 		// TODO: implement in a sensible way
 		// maybe with a call to the view interface
-		return 0;
+		
+		// TEST
+		System.out.println("");
+		System.out.println("Choose between this things: ");
+		System.out.println(Arrays.stream(alternatives).reduce("", (a, b) -> a + "\n" + b));
+		int chosenNumber = alternatives.length > 0 ? new Random().nextInt(alternatives.length) : 0;
+		System.out.println("");
+		System.out.println("You have chosen " + alternatives[chosenNumber]);
+		System.out.println("");
+		// TEST
+		
+		return chosenNumber;
 	}
 
 	private void manageIOException(IOException e) {		
