@@ -257,5 +257,12 @@ public class Player {
 	public PlayerColor getColor(){
 		return playerColor;
 	}
+	
+	/**
+	 * @param personalBonusTile the personalBonusTile you want to set to this player
+	 */
+	public void setPersonalBonusTile(PersonalBonusTile personalBonusTile){
+		this.personalBonusTile = personalBonusTile;
+	}
 
 }
