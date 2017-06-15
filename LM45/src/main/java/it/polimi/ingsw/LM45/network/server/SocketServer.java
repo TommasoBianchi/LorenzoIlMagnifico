@@ -56,7 +56,7 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 					inputQueue.add(inputObject);
 					if(queueWasEmpty){
 						synchronized (inputQueue) {
-							inputQueue.notify();
+							inputQueue.notifyAll();
 						}
 					}
 				}
@@ -198,6 +198,7 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 					catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
+						return index;
 					}
 				}
 			}

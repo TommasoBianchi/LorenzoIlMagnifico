@@ -297,7 +297,6 @@ public class ServerController {
 
 	private void chooseLeaderCards() {
 		// Make players choose their leaderCards
-		// FIXME: is this even remotely right?
 		List<LeaderCard> shuffledLeaderCards = ShuffleHelper.shuffle(leaderCards.values());
 		Map<String, List<LeaderCard>> leaderCardsToChoose = new HashMap<>();
 		int i = 0;
