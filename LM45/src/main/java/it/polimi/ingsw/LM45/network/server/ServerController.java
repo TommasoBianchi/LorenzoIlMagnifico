@@ -6,11 +6,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import com.google.gson.JsonIOException;
@@ -39,6 +41,7 @@ import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
 import it.polimi.ingsw.LM45.network.client.ClientInterface;
 import it.polimi.ingsw.LM45.serialization.FileManager;
 import it.polimi.ingsw.LM45.util.CheckedFunction;
+import it.polimi.ingsw.LM45.util.Pair;
 import it.polimi.ingsw.LM45.util.ShuffleHelper;
 
 // This is designed to manage only one game (consider renaming it to GameController)
@@ -80,24 +83,16 @@ public class ServerController {
 	public void login(String username, ClientInterface clientInterface) {
 		if (players.containsKey(username) && !users.containsKey(username)) {
 			// The player is reconnecting for some reason
+			System.out.println("Player " + username + " has been reconnected to this game");
 			users.put(username, clientInterface);
+			setPlayerUsername(username, clientInterface);
 			return;
 		}
 
 		while (users.containsKey(username) || players.containsKey(username)) {
 			username += new Random().nextInt(10);
-		}
-		try {
-			clientInterface.setUsername(username);
-		}
-		catch (IOException e) {
-			// TODO: check this code here and think about it. What has to happen
-			// if a client contacts me to ask for
-			// login but then I cannot call him back?
-			e.printStackTrace();
-			return;
-			// manageIOException(player, e);
-		}
+		}		
+		setPlayerUsername(username, clientInterface);
 
 		System.out.println(username + " logged in");
 		users.put(username, clientInterface);
@@ -116,7 +111,9 @@ public class ServerController {
 	}
 
 	public void removeUser(String username) {
+		System.out.println("Disconnecting " + username);
 		users.remove(username);
+		ServerControllerFactory.addDisconnectedUser(username, this);
 	}
 
 	public void placeFamiliar(String player, FamiliarColor familiarColor, SlotType slotType, Integer slotID) {
@@ -192,9 +189,29 @@ public class ServerController {
 		}
 	}
 
+	private void setPlayerUsername(String username, ClientInterface clientInterface) {
+		try {
+			clientInterface.setUsername(username);
+		}
+		catch (IOException e) {
+			// TODO: check this code here and think about it. What has to happen
+			// if a client contacts me to ask for
+			// login but then I cannot call him back?
+			e.printStackTrace();
+			// manageIOException(player, e);
+		}
+	}
+
 	private void nextPlayerRound() {
 		if (game.hasNextPlayer()) {
 			currentPlayer = game.getNextPlayer();
+			
+			// Make disconnected players skip their rounds
+			if(!users.containsKey(currentPlayer.getUsername())){
+				endPlayerRound(currentPlayer.getUsername());
+				return;
+			}
+			
 			notifyPlayers(clientInterface -> clientInterface.notifyPlayerTurn(currentPlayer.getUsername()));
 			turnTimer = new Timer();
 			turnTimer.schedule(new TimerTask() {
@@ -264,8 +281,9 @@ public class ServerController {
 	}
 
 	private void manageIOException(String user, IOException e) {
-		// TODO: implement (maybe just disconnect the user)
-		e.printStackTrace();
+		System.err.println("IOexception!");
+		removeUser(user);
+		//e.printStackTrace();
 	}
 
 	private void manageGameExceptions(String player, GameException gameException) {
@@ -344,7 +362,7 @@ public class ServerController {
 				chosenIndex = chooseFrom(player.getUsername(),
 						personalBonusTiles.stream().map(personalBonusTile -> personalBonusTile.toString()).toArray(String[]::new));
 			}
-			System.out.println(personalBonusTiles.getClass().getCanonicalName());
+
 			PersonalBonusTile chosenPersonalBonusTile = personalBonusTiles.remove(chosenIndex);
 			player.setPersonalBonusTile(chosenPersonalBonusTile);
 		}
@@ -374,14 +392,21 @@ public class ServerController {
 	 *            the ClientInterface's function we want to call on every connected player
 	 */
 	private void notifyPlayers(CheckedFunction<ClientInterface, IOException> c) {
-		users.entrySet().stream().forEach(entry -> {
+		List<Pair<String, IOException>> raisedIOException = new ArrayList<>();
+		
+		users.entrySet().stream().parallel().forEach(entry -> {
+			System.out.println("Notify " + entry.getKey() + " of something");
 			try {
 				c.apply(entry.getValue());
 			}
 			catch (IOException e) {
-				manageIOException(entry.getKey(), e);
+				// Save the raised IOException to manage them later because they can cause
+				// a player to be disconnected and so the underlying users map may be modified
+				raisedIOException.add(new Pair<String, IOException>(entry.getKey(), e));
 			}
 		});
+		
+		raisedIOException.stream().forEach(pair -> manageIOException(pair._1(), pair._2()));
 	}
 
 }

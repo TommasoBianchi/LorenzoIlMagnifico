@@ -2,6 +2,9 @@ package it.polimi.ingsw.LM45.network.client;
 
 import java.util.Scanner;
 
+import it.polimi.ingsw.LM45.view.controller.ViewInterfaceFactory;
+import it.polimi.ingsw.LM45.view.controller.ViewType;
+
 public class ClientMain {
 
 	public static void main(String[] args){
@@ -23,7 +26,7 @@ public class ClientMain {
 		
 		System.out.println("You have selected " + selectedType + " - " + types[selectedType]);
 		
-		ClientController clientController = new ClientController(types[selectedType], "127.0.0.1", 7000, null);
+		ClientController clientController = new ClientController(types[selectedType], "127.0.0.1", 7000, ViewInterfaceFactory.create(ViewType.GUI));
 
 		System.out.println("Insert your username");
 		String username = scanner.nextLine();

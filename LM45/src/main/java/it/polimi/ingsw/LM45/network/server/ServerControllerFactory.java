@@ -27,6 +27,10 @@ public class ServerControllerFactory {
 	}
 
 	public static ServerController getServerControllerInstance(String username){
+		if(disconnectedUsersDictionary.containsKey(username)){
+			return disconnectedUsersDictionary.remove(username);
+		}
+		
 		if(currentServerController == null || instanceCount >= maxInstanceCount){
 			instanceCount = 0;
 			currentServerController = createServerControllerInstance(username);
@@ -44,7 +48,7 @@ public class ServerControllerFactory {
 		// TODO: implement
 	}
 
-	private static ServerController createServerControllerInstance(String username) {
+	private static ServerController createServerControllerInstance(String username) {		
 		try {
 			return new ServerController(maxInstanceCount, gameStartTimerDelay, turnTimerDelay);
 		} catch (JsonSyntaxException | JsonIOException | FileNotFoundException e) {
