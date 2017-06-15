@@ -69,6 +69,10 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 					socket.close();
 					isRunning = false;
 					serverController.removeUser(username);
+					// Release resources that were waiting on the inputQueue
+					synchronized (inputQueue) {
+						inputQueue.notifyAll();
+					}
 				} catch (IOException e2) {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
@@ -207,7 +211,9 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 					}
 				}
 			}
-			index = (Integer) inputQueue.remove();
+			index = (Integer) inputQueue.poll();
+			if(index == null)
+				index = 0;
 		}
 
 		/*

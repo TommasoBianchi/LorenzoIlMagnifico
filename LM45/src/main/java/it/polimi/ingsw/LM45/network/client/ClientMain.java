@@ -2,13 +2,13 @@ package it.polimi.ingsw.LM45.network.client;
 
 import java.util.Scanner;
 
-import it.polimi.ingsw.LM45.view.controller.ViewInterfaceFactory;
-import it.polimi.ingsw.LM45.view.controller.ViewType;
+import it.polimi.ingsw.LM45.controller.ClientLauncher;
 
 public class ClientMain {
+	
+	public static final Scanner scanner = new Scanner(System.in);
 
 	public static void main(String[] args){
-		Scanner scanner = new Scanner(System.in);
 		
 		System.out.println("Choose your connection type");
 		ConnectionType[] types = ConnectionType.values();
@@ -25,17 +25,10 @@ public class ClientMain {
 		}
 		
 		System.out.println("You have selected " + selectedType + " - " + types[selectedType]);
-		
-		ClientController clientController = new ClientController(types[selectedType], "127.0.0.1", 7000, ViewInterfaceFactory.create(ViewType.GUI));
-
 		System.out.println("Insert your username");
 		String username = scanner.nextLine();
 		
-		clientController.login(username);
-		
-		// TODO: start view
-		
-		scanner.close();
+		ClientLauncher.launch(username, "127.0.0.1", 7000, types[selectedType] == ConnectionType.RMI, true);
 	}
 	
 }

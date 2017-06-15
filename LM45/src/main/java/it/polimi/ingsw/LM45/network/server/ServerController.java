@@ -10,6 +10,9 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import com.google.gson.JsonIOException;
@@ -88,7 +91,7 @@ public class ServerController {
 
 		while (users.containsKey(username) || players.containsKey(username)) {
 			username += new Random().nextInt(10);
-		}		
+		}
 		setPlayerUsername(username, clientInterface);
 
 		System.out.println(username + " logged in");
@@ -111,6 +114,9 @@ public class ServerController {
 		System.out.println("Disconnecting " + username);
 		users.remove(username);
 		ServerControllerFactory.addDisconnectedUser(username, this);
+		// NOTE: what happens when all the players disconnect?
+		// We may want to stop and cancel this game?
+		// Maybe we prefer to stop it waiting for a player to log in again?
 	}
 
 	public void placeFamiliar(String player, FamiliarColor familiarColor, SlotType slotType, Integer slotID) {
@@ -202,13 +208,13 @@ public class ServerController {
 	private void nextPlayerRound() {
 		if (game.hasNextPlayer()) {
 			currentPlayer = game.getNextPlayer();
-			
+
 			// Make disconnected players skip their rounds
-			if(!users.containsKey(currentPlayer.getUsername())){
+			if (!users.containsKey(currentPlayer.getUsername())) {
 				endPlayerRound(currentPlayer.getUsername());
 				return;
 			}
-			
+
 			notifyPlayers(clientInterface -> clientInterface.notifyPlayerTurn(currentPlayer.getUsername()));
 			turnTimer = new Timer();
 			turnTimer.schedule(new TimerTask() {
@@ -245,7 +251,7 @@ public class ServerController {
 		game.start();
 
 		giveBaseResources();
-		choosePersonalBonusTiles();
+		// choosePersonalBonusTiles();
 		chooseLeaderCards();
 
 		// TODO: send players the starting state of the board
@@ -280,7 +286,7 @@ public class ServerController {
 	private void manageIOException(String user, IOException e) {
 		System.err.println("IOexception!");
 		removeUser(user);
-		//e.printStackTrace();
+		// e.printStackTrace();
 	}
 
 	private void manageGameExceptions(String player, GameException gameException) {
@@ -326,16 +332,46 @@ public class ServerController {
 		}
 
 		for (i = 0; i < 3; i++) {
-			// Make every player choose a leaderCard and remove it from the chosable ones
-			players.keySet().forEach(playerUsername -> {
-				System.out.println(playerUsername + " has to choose");
-				int index = chooseFrom(playerUsername,
-						leaderCardsToChoose.get(playerUsername).stream().map(leaderCard -> leaderCard.toString()).toArray(String[]::new));
-				System.out.println(playerUsername + " has chosen");
-				LeaderCard chosenLeaderCard = leaderCardsToChoose.get(playerUsername).get(index);
-				players.get(playerUsername).addLeaderCard(chosenLeaderCard);
-				leaderCardsToChoose.get(playerUsername).remove(chosenLeaderCard);
+			ExecutorService executorService = Executors.newFixedThreadPool(4);
+			// Give each (connected) player the possibility to choose a leaderCard (in parallel)
+			users.keySet().forEach(playerUsername -> {
+				executorService.submit(() -> {
+					int index = chooseFrom(playerUsername,
+							leaderCardsToChoose.get(playerUsername).stream().map(leaderCard -> leaderCard.toString()).toArray(String[]::new));
+					LeaderCard chosenLeaderCard = leaderCardsToChoose.get(playerUsername).get(index);
+					System.out.println(playerUsername + " has chosen " + chosenLeaderCard.getName());
+					players.get(playerUsername).addLeaderCard(chosenLeaderCard);
+					leaderCardsToChoose.get(playerUsername).remove(chosenLeaderCard);
+				});
 			});
+
+			// Wait their decision only for a fixed amount of time
+			executorService.shutdown();
+			try {
+				executorService.awaitTermination(turnTimerDelay, TimeUnit.MILLISECONDS);
+			}
+			catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			// Choose for the player that have not chose before the timeout
+			int remainingLeaderCardsAtThisIteration = 4 - 1 - i;
+			players.keySet().forEach(playerUsername -> {
+				if (leaderCardsToChoose.get(playerUsername).size() > remainingLeaderCardsAtThisIteration) {
+					LeaderCard chosenLeaderCard = leaderCardsToChoose.get(playerUsername).get(0);
+					System.out.println("I have chosen for " + playerUsername + " " + chosenLeaderCard.getName());
+					players.get(playerUsername).addLeaderCard(chosenLeaderCard);
+					leaderCardsToChoose.get(playerUsername).remove(chosenLeaderCard);
+				}
+			});
+
+			/*
+			 * // Make every player choose a leaderCard and remove it from the chosable ones players.keySet().forEach(playerUsername -> { System.out.println(playerUsername + " has to choose"); int
+			 * index = (users.containsKey(playerUsername)) ? chooseFrom(playerUsername, leaderCardsToChoose.get(playerUsername).stream().map(leaderCard ->
+			 * leaderCard.toString()).toArray(String[]::new)) : 0; System.out.println(playerUsername + " has chosen"); LeaderCard chosenLeaderCard = leaderCardsToChoose.get(playerUsername).get(index);
+			 * players.get(playerUsername).addLeaderCard(chosenLeaderCard); leaderCardsToChoose.get(playerUsername).remove(chosenLeaderCard); });
+			 */
 
 			// Swap chosable leaderCards between players
 			String[] playersUsernames = players.keySet().stream().toArray(String[]::new);
@@ -355,7 +391,7 @@ public class ServerController {
 
 		for (Player player : orderedPlayers) {
 			int chosenIndex = 0;
-			if (personalBonusTiles.size() > 1) {
+			if (personalBonusTiles.size() > 1 && users.containsKey(player.getUsername())) {
 				chosenIndex = chooseFrom(player.getUsername(),
 						personalBonusTiles.stream().map(personalBonusTile -> personalBonusTile.toString()).toArray(String[]::new));
 			}
@@ -390,7 +426,7 @@ public class ServerController {
 	 */
 	private void notifyPlayers(CheckedFunction<ClientInterface, IOException> c) {
 		List<Pair<String, IOException>> raisedIOException = new ArrayList<>();
-		
+
 		users.entrySet().stream().parallel().forEach(entry -> {
 			System.out.println("Notify " + entry.getKey() + " of something");
 			try {
@@ -402,7 +438,7 @@ public class ServerController {
 				raisedIOException.add(new Pair<String, IOException>(entry.getKey(), e));
 			}
 		});
-		
+
 		raisedIOException.stream().forEach(pair -> manageIOException(pair._1(), pair._2()));
 	}
 
