@@ -26,8 +26,7 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 	private boolean isRunning;
 	private String username;
 
-	public SocketServer(Socket socket, ServerController serverController) throws IOException {
-		this.serverController = serverController;
+	public SocketServer(Socket socket) throws IOException {
 		this.socket = socket;
 		this.inputQueue = new ConcurrentLinkedQueue<>();
 		this.inputStreamLock = new ReentrantLock();
@@ -48,24 +47,21 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 				Object inputObject = inStream.readObject();
 				inputStreamLock.unlock();
 				try {
-					ServerMessages messageType = (ServerMessages)inputObject;
+					ServerMessages messageType = (ServerMessages) inputObject;
 					handleMessage(messageType);
-				}
-				catch (ClassCastException e) {
+				} catch (ClassCastException e) {
 					boolean queueWasEmpty = inputQueue.isEmpty();
 					inputQueue.add(inputObject);
-					if(queueWasEmpty){
+					if (queueWasEmpty) {
 						synchronized (inputQueue) {
 							inputQueue.notifyAll();
 						}
 					}
 				}
-			}
-			catch (ClassNotFoundException e) {
+			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-			catch (IOException e) {
+			} catch (IOException e) {
 				// here it means the socket has been closed
 				try {
 					outStream.close();
@@ -73,8 +69,7 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 					socket.close();
 					isRunning = false;
 					serverController.removeUser(username);
-				}
-				catch (IOException e2) {
+				} catch (IOException e2) {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
 				}
@@ -84,75 +79,88 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 
 	private void handleMessage(ServerMessages messageType) throws ClassNotFoundException, IOException {
 		switch (messageType) {
-			case LOGIN:
-				String username = (String) inStream.readObject();
-				login(username);
-				break;
-			case PLACE_FAMILIAR:
-				FamiliarColor familiarColor = (FamiliarColor) inStream.readObject();
-				SlotType slotType = (SlotType) inStream.readObject();
-				Integer slotID = (Integer) inStream.readObject();
-				placeFamiliar(familiarColor, slotType, slotID);
-				break;
-			case INCREASE_FAMILIAR_VALUE:
-				familiarColor = (FamiliarColor) inStream.readObject();
-				increaseFamiliarValue(familiarColor);
-				break;
-			case PLAY_LEADER:
-				String leaderCardName = (String) inStream.readObject();
-				playLeaderCard(leaderCardName);
-				break;
-			case ACTIVATE_LEADER:
-				leaderCardName = (String) inStream.readObject();
-				activateLeaderCard(leaderCardName);
-				break;
-			case DISCARD_LEADER:
-				leaderCardName = (String) inStream.readObject();
-				discardLeaderCard(leaderCardName);
-				break;
-			case END_TURN:
-				endTurn();
-				break;
+		case LOGIN:
+			String username = (String) inStream.readObject();
+			login(username);
+			break;
+		case PLACE_FAMILIAR:
+			FamiliarColor familiarColor = (FamiliarColor) inStream.readObject();
+			SlotType slotType = (SlotType) inStream.readObject();
+			Integer slotID = (Integer) inStream.readObject();
+			placeFamiliar(familiarColor, slotType, slotID);
+			break;
+		case INCREASE_FAMILIAR_VALUE:
+			familiarColor = (FamiliarColor) inStream.readObject();
+			increaseFamiliarValue(familiarColor);
+			break;
+		case PLAY_LEADER:
+			String leaderCardName = (String) inStream.readObject();
+			playLeaderCard(leaderCardName);
+			break;
+		case ACTIVATE_LEADER:
+			leaderCardName = (String) inStream.readObject();
+			activateLeaderCard(leaderCardName);
+			break;
+		case DISCARD_LEADER:
+			leaderCardName = (String) inStream.readObject();
+			discardLeaderCard(leaderCardName);
+			break;
+		case END_TURN:
+			endTurn();
+			break;
 
-			default:
-				break;
+		default:
+			break;
 		}
 	}
 
 	@Override
 	public void login(String username) {
 		this.username = username;
+		serverController = ServerControllerFactory.getServerControllerInstance(username);
 		serverController.login(username, this);
 	}
 
 	@Override
 	public void placeFamiliar(FamiliarColor familiarColor, SlotType slotType, Integer slotID) {
-		serverController.placeFamiliar(username, familiarColor, slotType, slotID);
+		if (serverController != null) {
+			serverController.placeFamiliar(username, familiarColor, slotType, slotID);
+		}
 	}
 
 	@Override
 	public void increaseFamiliarValue(FamiliarColor familiarColor) {
-		serverController.increaseFamiliarValue(username, familiarColor);
+		if (serverController != null) {
+			serverController.increaseFamiliarValue(username, familiarColor);
+		}
 	}
 
 	@Override
 	public void playLeaderCard(String leaderCardName) {
-		serverController.playLeaderCard(username, leaderCardName);
+		if (serverController != null) {
+			serverController.playLeaderCard(username, leaderCardName);
+		}
 	}
 
 	@Override
 	public void activateLeaderCard(String leaderCardName) {
-		serverController.activateLeaderCard(username, leaderCardName);
+		if (serverController != null) {
+			serverController.activateLeaderCard(username, leaderCardName);
+		}
 	}
 
 	@Override
 	public void discardLeaderCard(String leaderCardName) {
-		serverController.discardLeaderCard(username, leaderCardName);
+		if (serverController != null) {
+			serverController.discardLeaderCard(username, leaderCardName);
+		}
 	}
 
 	@Override
 	public void endTurn() {
-		serverController.endPlayerRound(username);
+		if (serverController != null) {
+			serverController.endPlayerRound(username);
+		}
 	}
 
 	@Override
@@ -178,50 +186,41 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 		outStream.writeObject(ClientMessages.CHOOSE);
 		outStream.writeObject(alternatives);
 		Integer index = 0;
-		
-		if(inputStreamLock.tryLock()){
+
+		if (inputStreamLock.tryLock()) {
 			try {
-				index = (Integer)inStream.readObject();
-			}
-			catch (ClassNotFoundException e) {
+				index = (Integer) inStream.readObject();
+			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			inputStreamLock.unlock();
-		}
-		else {
-			if(inputQueue.isEmpty()){
+		} else {
+			if (inputQueue.isEmpty()) {
 				synchronized (inputQueue) {
 					try {
 						inputQueue.wait();
-					}
-					catch (InterruptedException e) {
+					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 						return index;
 					}
 				}
 			}
-			index = (Integer)inputQueue.remove();
+			index = (Integer) inputQueue.remove();
 		}
-		
-		
-		/*try {
-			// WARNING: this may cause problems if we call chooseFrom from a different thread than the one
-			// that is currently waiting for ServerMessages
-			Object object = inStream.readObject();
-			System.out.println("Choose from received: " + object.toString());
-			if(object instanceof Integer)
-				return (Integer)object;
-			else
-				return 0;
-			//index = (Integer)inStream.readObject();
-		}
-		catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}*/
-		
+
+		/*
+		 * try { // WARNING: this may cause problems if we call chooseFrom from
+		 * a different thread than the one // that is currently waiting for
+		 * ServerMessages Object object = inStream.readObject();
+		 * System.out.println("Choose from received: " + object.toString());
+		 * if(object instanceof Integer) return (Integer)object; else return 0;
+		 * //index = (Integer)inStream.readObject(); } catch
+		 * (ClassNotFoundException e1) { // TODO Auto-generated catch block
+		 * e1.printStackTrace(); }
+		 */
+
 		return index;
 	}
 

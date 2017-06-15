@@ -26,7 +26,7 @@ private ServerControllerFactory serverControllerFactory;
 
 	@Override
 	public RemoteServerInterface getServerInterface(RemoteClientInterface remoteClient) throws RemoteException {
-		RMIServer rmiServer = new RMIServer(serverControllerFactory.getServerControllerInstance(), remoteClient);
+		RMIServer rmiServer = new RMIServer(remoteClient);
 		return (RemoteServerInterface)UnicastRemoteObject.exportObject(rmiServer, 0);
 	}
 	

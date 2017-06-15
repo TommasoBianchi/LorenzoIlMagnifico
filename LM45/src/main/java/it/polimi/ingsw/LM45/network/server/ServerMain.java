@@ -27,7 +27,7 @@ public class ServerMain {
 			e.printStackTrace();
 		}
 
-		serverControllerFactory = new ServerControllerFactory(serverConfiguration.getMaxPlayersAmount(),
+		ServerControllerFactory.initialize(serverConfiguration.getMaxPlayersAmount(),
 				serverConfiguration.getGameStartTimerDelay(), serverConfiguration.getTurnTimerDelay());
 
 		try {
@@ -54,7 +54,7 @@ public class ServerMain {
 			public void run() {
 				socketFactory.shutdown();
 				rmiFactory.shutdown();
-				serverControllerFactory.shutdown();
+				ServerControllerFactory.shutdown();
 			}
 		});
 	}
