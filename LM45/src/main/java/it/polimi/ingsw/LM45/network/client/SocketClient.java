@@ -44,7 +44,6 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 		while (isRunning) {
 			try {
 				ClientMessages messageType = (ClientMessages) inStream.readObject();
-
 				handleMessage(messageType);
 			}
 			catch (ClassNotFoundException e) {
@@ -157,6 +156,12 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 		return clientController.chooseFrom(alternatives);
 	}
 
+	/**
+	 * Perform some asynchronous processing. Useful to free as soon as possible the thread
+	 * waiting on the inStream
+	 * 
+	 * @param action the function to execute asynchronously (IOException already handled)
+	 */
 	private void performAsync(CheckedAction<IOException> action) {
 		executorService.submit(() -> {
 			try {

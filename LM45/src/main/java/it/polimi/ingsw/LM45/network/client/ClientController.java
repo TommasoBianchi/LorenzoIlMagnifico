@@ -8,6 +8,8 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import com.sun.media.jfxmedia.events.NewFrameEvent;
+
 import it.polimi.ingsw.LM45.exceptions.GameException;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.SlotType;
@@ -127,6 +129,7 @@ public class ClientController {
 	// TEST
 	private Queue<String> inQueue = new ConcurrentLinkedQueue<>();
 	private Integer threadCounter = 0;
+	private Object threadCounterLockToken = new Object();
 	// TEST
 
 	public int chooseFrom(String[] alternatives) {
@@ -142,8 +145,9 @@ public class ClientController {
 	
 	// TEST: this function mimic the work of the view interface (in particular of the CLI)
 	private int viewChooseFrom(String[] alternatives){
+		// See big explanation below
 		int oldThreadCounter = 0;
-		synchronized (threadCounter) {
+		synchronized (threadCounterLockToken) {
 			threadCounter++;
 			oldThreadCounter = threadCounter;
 		}
@@ -153,10 +157,21 @@ public class ClientController {
 		System.out.println(Arrays.stream(alternatives).map(s -> "- " + s).reduce("", (a, b) -> a + "\n" + b));
 		int chosenNumber = alternatives.length > 0 ? new Random().nextInt(alternatives.length) : 0;
 
+		// All this is to make sure that if more then one thread has come to this point (let's say thread1, thread2, thread3) and 
+		// the first one of those has naturally put himself in wait for something from the scanner, then what should happen is this:
+		// - thread1 reads from the scanner at a certain point, realized he's no more the most recent thread and so adds the line read
+		//		to the inQueue; then he returns -1 which is outside of the valid range of chosable index.
+		// - one between thread2 and thread3 will gain the lock on this; in the first case thread2 will read from the inQueue, realize
+		// 		he's the wrong thread and so re-add it to the inQueue, while in the second one thread3 will correctly get the line read
+		// 		from the inQueue and will process it to return the choice to the caller.
+		//
+		// NOTE: main assumption here is that if chooseFrom is called a second time while another thread is waiting to resolve a chooseFrom
+		// 		 call, then only the last choice will be the relevant one (probably the server has already decided we were too slow to
+		//		 choose and so already handled for us the previous choice).
 		synchronized (this) {
 			String s = (inQueue.isEmpty()) ? ClientMain.scanner.nextLine() : inQueue.remove();
 			int newThreadCounter = 0;
-			synchronized (threadCounter) {
+			synchronized (threadCounterLockToken) {
 				newThreadCounter = threadCounter;
 			}
 			if (oldThreadCounter == newThreadCounter) {

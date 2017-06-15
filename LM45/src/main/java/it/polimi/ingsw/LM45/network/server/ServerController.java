@@ -351,8 +351,13 @@ public class ServerController {
 				executorService.awaitTermination(turnTimerDelay, TimeUnit.MILLISECONDS);
 			}
 			catch (InterruptedException e) {
-				// TODO Auto-generated catch block
+				// TODO: think better about how should we manage this exception
+				System.err.println("ServerController::chooseLeaderCards() -- " +
+						"An InterruptedException occurred while awaiting executorService to terminate."
+						+ "Forcing executorService shutdown and propagating interrupt.");
 				e.printStackTrace();
+				executorService.shutdownNow();
+				Thread.currentThread().interrupt();
 			}
 
 			// Choose for the player that have not chose before the timeout
