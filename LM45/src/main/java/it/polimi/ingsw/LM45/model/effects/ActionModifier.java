@@ -1,7 +1,7 @@
 package it.polimi.ingsw.LM45.model.effects;
 
-import java.util.Map;
 import java.util.EnumMap;
+import java.util.Map;
 
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.ResourceType;
