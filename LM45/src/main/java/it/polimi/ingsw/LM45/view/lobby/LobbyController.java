@@ -62,18 +62,13 @@ public class LobbyController {
     		alert.showAndWait();
 		}
 		
+		//TODO try catch of the method launch if the server doesn't exists
+		
 		ClientLauncher.launch(playerNickname, serverIp.getText(), Integer.parseInt(serverPort.getText()), rmi.isSelected(), gui.isSelected());
+		
 	}
 	
-	public void serverError(String error){
-		Alert alert = new Alert(AlertType.WARNING);
-		alert.initOwner(main.getPrimaryStage());
-		alert.setTitle("Attention !");
-		alert.setHeaderText("Server Error");
-		alert.setContentText(error);
-	}
-	
-	public void setMain (InitializeViewController main) {
+		public void setMain (InitializeViewController main) {
 		this.main = main;
 	}
 }
