@@ -7,6 +7,8 @@ import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.omg.CORBA.portable.IndirectionException;
+
 import it.polimi.ingsw.LM45.exceptions.GameException;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.SlotType;
@@ -83,7 +85,8 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 				String[] alternatives = (String[]) inStream.readObject();
 				performAsync(() -> {
 					Integer index = new Integer(chooseFrom(alternatives));
-					outStream.writeObject(index);
+					if(index >= 0 && index < alternatives.length)
+						outStream.writeObject(index);
 				});
 				break;
 			default:
