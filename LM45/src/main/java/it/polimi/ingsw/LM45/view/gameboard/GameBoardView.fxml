@@ -406,7 +406,7 @@
                                                 <Font name="Bell MT Bold" size="28.0" />
                                              </font>
                                              <GridPane.margin>
-                                                <Insets left="47.0" top="70.0" />
+                                                <Insets left="40.0" top="70.0" />
                                              </GridPane.margin>
                                           </Label>
                                           <ImageView id="UNCOLORED" fitHeight="15.0" fitWidth="15.0" onMouseClicked="#spendServant" pickOnBounds="true" preserveRatio="true">
@@ -414,7 +414,7 @@
                                                 <Image url="file:Assets/Image/GameBoard/AddIcon.png" />
                                              </image>
                                              <GridPane.margin>
-                                                <Insets left="70.0" top="75.0" />
+                                                <Insets left="65.0" top="75.0" />
                                              </GridPane.margin>
                                           </ImageView>
                                        </children>
@@ -437,7 +437,7 @@
                                           </ImageView>
                                           <Label fx:id="blackValue" alignment="CENTER" text="0" textFill="WHITE">
                                              <GridPane.margin>
-                                                <Insets left="47.0" top="70.0" />
+                                                <Insets left="40.0" top="70.0" />
                                              </GridPane.margin>
                                              <font>
                                                 <Font name="Bell MT Bold" size="28.0" />
@@ -445,7 +445,7 @@
                                           </Label>
                                           <ImageView id="BLACK" fitHeight="15.0" fitWidth="15.0" onMouseClicked="#spendServant" pickOnBounds="true" preserveRatio="true">
                                              <GridPane.margin>
-                                                <Insets left="70.0" top="75.0" />
+                                                <Insets left="65.0" top="75.0" />
                                              </GridPane.margin>
                                              <image>
                                                 <Image url="file:Assets/Image/GameBoard/AddIcon.png" />
@@ -474,7 +474,7 @@
                                                 <Font name="Bell MT Bold" size="28.0" />
                                              </font>
                                              <GridPane.margin>
-                                                <Insets left="47.0" top="70.0" />
+                                                <Insets left="40.0" top="70.0" />
                                              </GridPane.margin>
                                           </Label>
                                           <ImageView id="ORANGE" fitHeight="15.0" fitWidth="15.0" onMouseClicked="#spendServant" pickOnBounds="true" preserveRatio="true">
@@ -482,7 +482,7 @@
                                                 <Image url="file:Assets/Image/GameBoard/AddIcon.png" />
                                              </image>
                                              <GridPane.margin>
-                                                <Insets left="70.0" top="75.0" />
+                                                <Insets left="65.0" top="75.0" />
                                              </GridPane.margin>
                                           </ImageView>
                                        </children>
@@ -505,7 +505,7 @@
                                           </ImageView>
                                           <Label fx:id="whiteValue" alignment="CENTER" text="0" textFill="WHITE">
                                              <GridPane.margin>
-                                                <Insets left="47.0" top="70.0" />
+                                                <Insets left="40.0" top="70.0" />
                                              </GridPane.margin>
                                              <font>
                                                 <Font name="Bell MT Bold" size="28.0" />
@@ -513,7 +513,7 @@
                                           </Label>
                                           <ImageView id="WHITE" fitHeight="15.0" fitWidth="15.0" onMouseClicked="#spendServant" pickOnBounds="true" preserveRatio="true">
                                              <GridPane.margin>
-                                                <Insets left="70.0" top="75.0" />
+                                                <Insets left="65.0" top="75.0" />
                                              </GridPane.margin>
                                              <image>
                                                 <Image url="file:Assets/Image/GameBoard/AddIcon.png" />
