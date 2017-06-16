@@ -69,6 +69,10 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 					socket.close();
 					isRunning = false;
 					serverController.removeUser(username);
+					// Release resources that were waiting on the inputQueue
+					synchronized (inputQueue) {
+						inputQueue.notifyAll();
+					}
 				} catch (IOException e2) {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
@@ -187,6 +191,10 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 		outStream.writeObject(alternatives);
 		Integer index = 0;
 
+		// This code is needed to synchronize the inStream.readObject() we need to do here with the fact that there may be
+		// another thread (the "socket listener" implemented by the run method) waiting on the same inputStream.
+		// The fact that we also may be called from the "socket listener" thread forces us to also consider the case
+		// in which no one is waiting on inStream so we have to call readObject on our own.
 		if (inputStreamLock.tryLock()) {
 			try {
 				index = (Integer) inStream.readObject();
@@ -202,24 +210,18 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 						inputQueue.wait();
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
+						System.err.println("SocketServer::chooseFrom() -- " +
+								"An InterruptedException occurred while waiting on inputQueue. Propagating interrupt and returning 0");
 						e.printStackTrace();
-						return index;
+						Thread.currentThread().interrupt();
+						return 0;
 					}
 				}
 			}
-			index = (Integer) inputQueue.remove();
+			index = (Integer) inputQueue.poll();
+			if(index == null)
+				index = 0;
 		}
-
-		/*
-		 * try { // WARNING: this may cause problems if we call chooseFrom from
-		 * a different thread than the one // that is currently waiting for
-		 * ServerMessages Object object = inStream.readObject();
-		 * System.out.println("Choose from received: " + object.toString());
-		 * if(object instanceof Integer) return (Integer)object; else return 0;
-		 * //index = (Integer)inStream.readObject(); } catch
-		 * (ClassNotFoundException e1) { // TODO Auto-generated catch block
-		 * e1.printStackTrace(); }
-		 */
 
 		return index;
 	}

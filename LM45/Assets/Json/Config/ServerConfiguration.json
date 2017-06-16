@@ -1,6 +1,6 @@
 {
-  "maxPlayersAmount": 4,
+  "maxPlayersAmount": 2,
   "gameStartTimerDelay": 60000,
-  "turnTimerDelay": 10000,
+  "turnTimerDelay": 60000,
   "serverSocketPort": 7000
 }
