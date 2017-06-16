@@ -36,31 +36,20 @@ public class LobbyController {
 		
 		String playerNickname = nickname.getText();
 		
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.initOwner(main.getPrimaryStage());
+		alert.setTitle("Attention !");
 		if(playerNickname.equals("")){
-	    		Alert alert = new Alert(AlertType.WARNING);
-	    		alert.initOwner(main.getPrimaryStage());
-	    		alert.setTitle("Attention !");
 	    		alert.setHeaderText("No Nickname Inserted");
 	    		alert.setContentText("Please Please Insert a Nickname");
-	    		
-	    		alert.showAndWait();
 	   	} else if(serverIp.getText().equals("")){
-    		Alert alert = new Alert(AlertType.WARNING);
-    		alert.initOwner(main.getPrimaryStage());
-    		alert.setTitle("Attention !");
     		alert.setHeaderText("No Server IP Inserted");
     		alert.setContentText("Please Please Insert a Server IP");
-    		
-    		alert.showAndWait();
 		} else if(serverPort.getText().equals("")){
-    		Alert alert = new Alert(AlertType.WARNING);
-    		alert.initOwner(main.getPrimaryStage());
-    		alert.setTitle("Attention !");
     		alert.setHeaderText("No Server Port Inserted");
     		alert.setContentText("Please Please Insert a Server Port");
-    		
-    		alert.showAndWait();
 		}
+		alert.showAndWait();
 		
 		//TODO try catch of the method launch if the server doesn't exists
 		
