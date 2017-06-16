@@ -15,6 +15,7 @@ import it.polimi.ingsw.LM45.model.cards.CardType;
 import it.polimi.ingsw.LM45.model.core.PlayerColor;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.ResourceType;
+import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.serialization.FileManager;
 import it.polimi.ingsw.LM45.view.controller.InitializeViewController;
 import it.polimi.ingsw.LM45.view.personalBoard.PersonalBoardController;
@@ -283,6 +284,40 @@ public class GameBoardController {
 	public void spendServant(MouseEvent event) {
 		ImageView addIcon = (ImageView)event.getSource();
 		//TODO ClientController.spendServant(addIcon.getId());
+	}
+	
+	public void addCard(String username, Card card){
+		if(username == myPersonalBoard.getId())
+			myPersonalController.addCard(card);
+		else if(username == personalBoard1.getId())
+			personalController1.addCard(card);
+		else if(username == personalBoard2.getId())
+			personalController2.addCard(card);
+		else
+			personalController3.addCard(card);
+	}
+	
+	public void newPeriod(Map<CardType, List<Card>> towerCards, int[] familiarsValues){
+		
+		// Add new towers cards of the new Period
+		for(CardType cardType : new CardType[]{CardType.BUILDING, CardType.CHARACTER, CardType.TERRITORY, CardType.VENTURE}){
+			for(int i=0; i<4; i++){
+				Card card = towerCards.get(cardType).get(i);
+				ImageView image = (ImageView)gameScene.lookup("#VIEW" + cardType + i);
+				image.setImage(new Image("file:Assets/Image/Cards/" + cardType + "/" + card.getName() + ".jpg"));
+			}
+		}
+		
+		// Remove all familiars from slots
+		for(SlotType slotType : new SlotType[]{SlotType.BUILDING, SlotType.CHARACTER, SlotType.COUNCIL, SlotType.HARVEST,
+				SlotType.MARKET, SlotType.PRODUCTION, SlotType.TERRITORY, SlotType.VENTURE}){
+			for(int i=0; i<4; i++){
+				FlowPane slot = (FlowPane)gameScene.lookup("#" + slotType + i);
+				slot.getChildren().clear();
+			}
+		}
+		
+		//TODO setFamiliars(familiarValues)
 	}
 	
 }
