@@ -1,5 +1,8 @@
 package it.polimi.ingsw.LM45.view.controller;
 
+import java.util.Arrays;
+
+import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.PlayerColor;
 import it.polimi.ingsw.LM45.model.core.Resource;
@@ -15,6 +18,12 @@ public class GuiController implements ViewInterface {
 	LeaderCardChoiceController leaderChoiceController;
 	GameBoardController gameBoardController;
 	InitializeViewController initializeController;
+	
+	int choice = -1;
+	
+	public void setChoice(int value){
+		this.choice = value;
+	}
 	
 	public void setLobbyController(LobbyController lobbyController){
 		this.lobbyController = lobbyController;
@@ -36,8 +45,18 @@ public class GuiController implements ViewInterface {
 		initializeController.showLeaderCardChoice();
 	}
 	
-	public void showGameBoardView() {
+	public void showGameBoardView(int numPlayers, PlayerColor playerColor, String[] playersUsername) {
+				
+	}
+	
+	public int chooseLeaderCard(LeaderCard[] leaders) {
+		leaderChoiceController.chooseLeader(Arrays.stream(leaders).map(leaderCard -> leaderCard.getName()));
+		while(choice == -1);
+		int x = choice;
+		choice = -1;
+		return x;
 		
+		//TODO fix it better
 	}
 
 	public void setUsername(String username) {

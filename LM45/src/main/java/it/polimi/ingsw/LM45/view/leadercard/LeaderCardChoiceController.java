@@ -2,6 +2,7 @@ package it.polimi.ingsw.LM45.view.leadercard;
 
 import java.util.Arrays;
 
+import it.polimi.ingsw.LM45.view.controller.GuiController;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -16,8 +17,7 @@ public class LeaderCardChoiceController {
 	@FXML
 	private FlowPane leaders;
 	
-	private static int choice = 10;
-	private static boolean choiceMade = false;
+	private GuiController guiController;
 	
 	public void chooseLeader(String[] leadersName){
 		
@@ -39,14 +39,13 @@ public class LeaderCardChoiceController {
 				public void handle(MouseEvent event){
 					System.out.println(leader);
 					leaders.getChildren().clear();
-					LeaderCardChoiceController.choice = Arrays.asList(leadersName).indexOf(leader);
-					choiceMade = true;
+					Arrays.asList(leadersName).indexOf(leader);
 				}
 			});
 		}
-		while(!choiceMade);
-		int x = choice;
-		choice = 10;
-		System.out.println(x);
+	}
+	
+	public void setGuiController(GuiController guiController) {
+		this.guiController = guiController;
 	}
 }

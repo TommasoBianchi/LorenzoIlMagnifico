@@ -1,5 +1,6 @@
 package it.polimi.ingsw.LM45.view.controller;
 
+import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.PlayerColor;
 import it.polimi.ingsw.LM45.model.core.Resource;
@@ -9,12 +10,12 @@ import it.polimi.ingsw.LM45.network.client.ClientController;
 public interface ViewInterface {
 
 	public void showLeaderCardChoiceView();
-	public void showGameBoardView();
+	public int chooseLeaderCard(LeaderCard[] leaders);
+	public void showGameBoardView(int numPlayers, PlayerColor playerColor, String[] playersUsername);
 	public void setUsername(String username);
 	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor);
 	// do also disableFamiliar() in the GameBoard
 	public void pickCard(String Name);
-	public void numPlayers(int numPlayers);
 	public void addCardsOnTower(String[] names, SlotType slotType);
 	public void doBonusAction(SlotType slotType, int value);
 	public int chooseFrom(String[] alternatives);

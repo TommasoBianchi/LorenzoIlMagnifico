@@ -60,8 +60,8 @@ public class InitializeViewController extends Application {
 			primaryStage.setHeight(Screen.getMainScreen().getVisibleHeight());
 			primaryStage.show();
 			LeaderCardChoiceController controller = loader2.getController();
-			//guiController.setLeaderChoiceController(controller);
-			controller.chooseLeader(new String[]{"Bartolomeo Colleoni", "Cesare Borgia", "Cosimo de' Medici"});
+			guiController.setLeaderChoiceController(controller);
+			controller.setGuiController(guiController);
 		} catch (IOException | NullPointerException e) { //TODO sistemare
 			e.printStackTrace();
 		}
