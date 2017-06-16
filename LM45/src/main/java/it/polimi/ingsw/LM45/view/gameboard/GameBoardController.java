@@ -160,10 +160,10 @@ public class GameBoardController {
 					personalControllers[i].addCard(card);
 				}
 
-				for (ResourceType resourceType : ResourceType.values())
+				for (ResourceType resourceType : ResourceType.values()){
 					personalControllers[i].setResource(new Resource(resourceType, new Random().nextInt(20)));
-
-					personalControllers[i].addLeaderCard(null);
+				}
+				personalControllers[i].addLeaderCard(null);
 			} catch (JsonSyntaxException | JsonIOException | FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

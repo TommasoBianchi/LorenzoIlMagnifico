@@ -6,11 +6,13 @@ public class ViewInterfaceFactory {
 	}
 
 	public static ViewInterface create(ViewType viewType) {
-		// TODO: add CLI
+	
 		switch (viewType) {
 			case GUI:
 				return new GuiController();
-			//case CLI:
+			
+			case CLI:
+				return new CliController();
 				
 			default:
 				return new GuiController();
