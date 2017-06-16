@@ -33,10 +33,10 @@
                         <Image url="file:Assets/Image/GameBoard/GameBoard.JPG" />
                      </image>
                   </ImageView>
-                  <FlowPane id="TERRITORY3" fx:id="slotBuilding3" layoutX="100.0" layoutY="44.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane id="TERRITORY2" fx:id="slotBuilding2" layoutX="100.0" layoutY="146.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane id="TERRITORY1" fx:id="slotBuilding1" layoutX="100.0" layoutY="247.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane id="TERRITORY0" fx:id="slotBuilding0" layoutX="100.0" layoutY="348.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="TERRITORY3" layoutX="100.0" layoutY="44.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="TERRITORY2" layoutX="100.0" layoutY="146.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="TERRITORY1" layoutX="100.0" layoutY="247.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="TERRITORY0" layoutX="100.0" layoutY="348.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
                   <FlowPane id="CHARACTER3" layoutX="248.0" layoutY="44.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
                   <FlowPane id="BUILDING3" layoutX="395.0" layoutY="44.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
                   <FlowPane id="VENTURE3" layoutX="540.0" layoutY="44.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
@@ -50,11 +50,11 @@
                   <FlowPane id="BUILDING0" layoutX="395.0" layoutY="348.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
                   <FlowPane id="VENTURE0" layoutX="540.0" layoutY="348.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
                   <FlowPane id="COUNCIL0" alignment="CENTER_RIGHT" columnHalignment="RIGHT" layoutX="314.0" layoutY="422.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#slotAction" prefHeight="51.0" prefWidth="180.0" />
-                  <FlowPane id="PRODUCTION0" fx:id="productionSlot" layoutX="14.0" layoutY="630.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane id="HARVEST0" fx:id="harvestSlot" layoutX="14.0" layoutY="696.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane id="MARKET0" fx:id="marketSlot0" layoutX="371.0" layoutY="616.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="39.0" />
+                  <FlowPane id="PRODUCTION0" layoutX="14.0" layoutY="630.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="HARVEST0" layoutX="14.0" layoutY="696.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="MARKET0" layoutX="371.0" layoutY="616.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="39.0" />
                   <FlowPane id="MARKET2" fx:id="coverableMarketSlot2" layoutX="494.0" layoutY="622.0" onMouseClicked="#slotAction" prefHeight="51.0" prefWidth="57.0" />
-                  <FlowPane id="MARKET1" fx:id="marketSlot1" layoutX="439.0" layoutY="616.0" onMouseClicked="#slotAction" prefHeight="30.0" prefWidth="39.0" />
+                  <FlowPane id="MARKET1" layoutX="439.0" layoutY="616.0" onMouseClicked="#slotAction" prefHeight="30.0" prefWidth="39.0" />
                   <FlowPane id="MARKET3" fx:id="coverableMarketSlot3" layoutX="541.0" layoutY="661.0" onMouseClicked="#slotAction" prefHeight="51.0" prefWidth="57.0" />
                   <FlowPane id="PRODUCTION1" fx:id="coverableProductionSlot" layoutX="84.0" layoutY="623.0" onMouseClicked="#slotAction" prefHeight="51.0" prefWidth="152.0" />
                   <FlowPane id="HARVEST1" fx:id="coverableHarvestSlot" layoutX="84.0" layoutY="687.0" onMouseClicked="#slotAction" prefHeight="51.0" prefWidth="152.0" />
@@ -378,7 +378,7 @@
                      <children>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                            <children>
-                              <GridPane alignment="CENTER" layoutY="100.0" prefHeight="280.0" prefWidth="264.0" AnchorPane.bottomAnchor="104.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="80.0">
+                              <GridPane alignment="CENTER" layoutY="100.0" prefHeight="280.0" prefWidth="264.0" AnchorPane.bottomAnchor="104.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="70.0">
                                 <columnConstraints>
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -388,123 +388,138 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <GridPane prefHeight="194.0" prefWidth="107.0" style="-fx-border-color: #914f0e; -fx-border-width: 3; -fx-border-radius: 20; -fx-border-style: dashed centered;" GridPane.rowIndex="1">
-                                      <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                      </columnConstraints>
-                                       <children>
-                                          <Label fx:id="orangeValue" alignment="CENTER" text="0" textFill="WHITE">
-                                             <GridPane.margin>
-                                                <Insets left="47.0" top="60.0" />
-                                             </GridPane.margin>
-                                             <font>
-                                                <Font name="Bell MT Bold" size="28.0" />
-                                             </font>
-                                          </Label>
-                                          <ImageView fx:id="orangeFamiliar" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                                             <GridPane.margin>
-                                                <Insets bottom="35.0" left="27.0" />
-                                             </GridPane.margin>
-                                             <image>
-                                                <Image url="file:Assets/Image/Familiars/BLUE/ORANGE.PNG" />
-                                             </image>
-                                          </ImageView>
-                                       </children>
-                                       <rowConstraints>
-                                          <RowConstraints maxHeight="1.7976931348623157E308" minHeight="120.0" percentHeight="0.0" prefHeight="145.0" />
-                                          <RowConstraints maxHeight="1.7976931348623157E308" minHeight="0.0" percentHeight="0.0" prefHeight="0.0" />
-                                       </rowConstraints>
-                                       <GridPane.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </GridPane.margin>
-                                    </GridPane>
-                                    <GridPane style="-fx-border-color: #914f0e; -fx-border-width: 3; -fx-border-radius: 20; -fx-border-style: dashed centered;" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                       <children>
-                                          <ImageView fx:id="blackFamiliar" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                                             <GridPane.margin>
-                                                <Insets bottom="30.0" left="27.0" />
-                                             </GridPane.margin>
-                                             <image>
-                                                <Image url="file:Assets/Image/Familiars/BLUE/BLACK.PNG" />
-                                             </image>
-                                          </ImageView>
-                                          <Label fx:id="blackValue" alignment="CENTER" text="0" textFill="WHITE">
-                                             <GridPane.margin>
-                                                <Insets left="47.0" top="65.0" />
-                                             </GridPane.margin>
-                                             <font>
-                                                <Font name="Bell MT Bold" size="28.0" />
-                                             </font>
-                                          </Label>
-                                       </children>
+                                    <GridPane style="-fx-border-color: #914f0e; -fx-border-width: 3; -fx-border-radius: 20; -fx-border-style: solid;">
                                        <columnConstraints>
-                                          <ColumnConstraints maxWidth="115.0" minWidth="97.0" prefWidth="115.0" />
-                                          <ColumnConstraints maxWidth="18.0" minWidth="0.0" prefWidth="0.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                        </columnConstraints>
                                        <rowConstraints>
-                                          <RowConstraints maxHeight="206.0" minHeight="103.0" prefHeight="206.0" />
-                                          <RowConstraints maxHeight="125.0" minHeight="0.0" prefHeight="0.0" />
-                                          <RowConstraints maxHeight="22.0" minHeight="0.0" prefHeight="0.0" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                        </rowConstraints>
-                                       <GridPane.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </GridPane.margin>
-                                    </GridPane>
-                                    <GridPane prefHeight="143.0" prefWidth="115.0" style="-fx-border-color: #914f0e; -fx-border-width: 3; -fx-border-radius: 20; -fx-border-style: dashed centered;">
-                                      <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                      </columnConstraints>
-                                      <rowConstraints>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                      </rowConstraints>
                                        <children>
                                           <ImageView fx:id="uncoloredFamiliar" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                                              <GridPane.margin>
-                                                <Insets bottom="30.0" left="27.0" />
+                                                <Insets bottom="30.0" left="22.0" />
                                              </GridPane.margin>
-                                             <image>
-                                                <Image url="file:Assets/Image/Familiars/BLUE/UNCOLORED.PNG" />
-                                             </image>
                                           </ImageView>
                                           <Label fx:id="uncoloredValue" alignment="CENTER" text="0" textFill="WHITE">
-                                             <GridPane.margin>
-                                                <Insets left="47.0" top="65.0" />
-                                             </GridPane.margin>
                                              <font>
                                                 <Font name="Bell MT Bold" size="28.0" />
                                              </font>
+                                             <GridPane.margin>
+                                                <Insets left="47.0" top="70.0" />
+                                             </GridPane.margin>
                                           </Label>
+                                          <ImageView id="UNCOLORED" fitHeight="15.0" fitWidth="15.0" onMouseClicked="#spendServant" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="file:Assets/Image/GameBoard/AddIcon.png" />
+                                             </image>
+                                             <GridPane.margin>
+                                                <Insets left="70.0" top="75.0" />
+                                             </GridPane.margin>
+                                          </ImageView>
                                        </children>
                                        <GridPane.margin>
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </GridPane.margin>
                                     </GridPane>
-                                    <GridPane prefHeight="143.0" prefWidth="43.0" style="-fx-border-color: #914f0e; -fx-border-width: 3; -fx-border-radius: 20; -fx-border-style: dashed centered;" GridPane.columnIndex="1">
+                                    <GridPane prefHeight="143.0" prefWidth="115.0" style="-fx-border-color: #914f0e; -fx-border-width: 3; -fx-border-radius: 20; -fx-border-style: solid;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                      </columnConstraints>
                                       <rowConstraints>
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                        <children>
-                                          <ImageView fx:id="whiteFamiliar" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="blackFamiliar" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                                              <GridPane.margin>
-                                                <Insets bottom="30.0" left="27.0" />
+                                                <Insets bottom="30.0" left="22.0" />
                                              </GridPane.margin>
-                                             <image>
-                                                <Image url="file:Assets/Image/Familiars/BLUE/WHITE.PNG" />
-                                             </image>
                                           </ImageView>
-                                          <Label fx:id="whiteValue" alignment="CENTER" text="0" textFill="WHITE">
+                                          <Label fx:id="blackValue" alignment="CENTER" text="0" textFill="WHITE">
                                              <GridPane.margin>
-                                                <Insets left="47.0" top="65.0" />
+                                                <Insets left="47.0" top="70.0" />
                                              </GridPane.margin>
                                              <font>
                                                 <Font name="Bell MT Bold" size="28.0" />
                                              </font>
                                           </Label>
+                                          <ImageView id="BLACK" fitHeight="15.0" fitWidth="15.0" onMouseClicked="#spendServant" pickOnBounds="true" preserveRatio="true">
+                                             <GridPane.margin>
+                                                <Insets left="70.0" top="75.0" />
+                                             </GridPane.margin>
+                                             <image>
+                                                <Image url="file:Assets/Image/GameBoard/AddIcon.png" />
+                                             </image>
+                                          </ImageView>
                                        </children>
+                                       <GridPane.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </GridPane.margin>
+                                    </GridPane>
+                                    <GridPane style="-fx-border-color: #914f0e; -fx-border-width: 3; -fx-border-radius: 20; -fx-border-style: solid;" GridPane.rowIndex="1">
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <ImageView fx:id="orangeFamiliar" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                             <GridPane.margin>
+                                                <Insets bottom="30.0" left="22.0" />
+                                             </GridPane.margin>
+                                          </ImageView>
+                                          <Label fx:id="orangeValue" alignment="CENTER" text="0" textFill="WHITE">
+                                             <font>
+                                                <Font name="Bell MT Bold" size="28.0" />
+                                             </font>
+                                             <GridPane.margin>
+                                                <Insets left="47.0" top="70.0" />
+                                             </GridPane.margin>
+                                          </Label>
+                                          <ImageView id="ORANGE" fitHeight="15.0" fitWidth="15.0" onMouseClicked="#spendServant" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="file:Assets/Image/GameBoard/AddIcon.png" />
+                                             </image>
+                                             <GridPane.margin>
+                                                <Insets left="70.0" top="75.0" />
+                                             </GridPane.margin>
+                                          </ImageView>
+                                       </children>
+                                       <GridPane.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </GridPane.margin>
+                                    </GridPane>
+                                    <GridPane prefHeight="143.0" prefWidth="115.0" style="-fx-border-color: #914f0e; -fx-border-width: 3; -fx-border-radius: 20; -fx-border-style: solid;" GridPane.columnIndex="1">
                                        <columnConstraints>
-                                          <ColumnConstraints maxWidth="115.0" minWidth="97.0" prefWidth="115.0" />
-                                          <ColumnConstraints maxWidth="18.0" minWidth="0.0" prefWidth="0.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                        </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <ImageView fx:id="whiteFamiliar" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                             <GridPane.margin>
+                                                <Insets bottom="30.0" left="22.0" />
+                                             </GridPane.margin>
+                                          </ImageView>
+                                          <Label fx:id="whiteValue" alignment="CENTER" text="0" textFill="WHITE">
+                                             <GridPane.margin>
+                                                <Insets left="47.0" top="70.0" />
+                                             </GridPane.margin>
+                                             <font>
+                                                <Font name="Bell MT Bold" size="28.0" />
+                                             </font>
+                                          </Label>
+                                          <ImageView id="WHITE" fitHeight="15.0" fitWidth="15.0" onMouseClicked="#spendServant" pickOnBounds="true" preserveRatio="true">
+                                             <GridPane.margin>
+                                                <Insets left="70.0" top="75.0" />
+                                             </GridPane.margin>
+                                             <image>
+                                                <Image url="file:Assets/Image/GameBoard/AddIcon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
                                        <GridPane.margin>
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </GridPane.margin>
@@ -514,6 +529,27 @@
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
                               </GridPane>
+                              <Button alignment="CENTER" contentDisplay="CENTER" layoutX="116.0" layoutY="431.0" mnemonicParsing="false" onAction="#endTurn" prefHeight="35.0" prefWidth="114.0" text="END TURN" AnchorPane.bottomAnchor="38.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="431.0" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="38.0" layoutY="-3.0" prefHeight="39.0" prefWidth="218.0" text="To increase Familiar value" textAlignment="CENTER" textFill="#ffc000" wrapText="true" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="38.0" AnchorPane.topAnchor="-30.0">
+                                 <font>
+                                    <Font name="Bell MT Italic" size="16.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="48.0" layoutY="7.0" prefHeight="34.0" prefWidth="218.0" text="you have to spend :" textAlignment="CENTER" textFill="#ffc000" wrapText="true" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="38.0" AnchorPane.topAnchor="-5.0">
+                                 <font>
+                                    <Font name="Bell MT Italic" size="16.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="servantCost" alignment="CENTER" contentDisplay="CENTER" layoutX="147.0" layoutY="31.0" prefHeight="29.0" prefWidth="24.0" text="1" textFill="#ffc000" wrapText="true" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="140.0" AnchorPane.topAnchor="22.0">
+                                 <font>
+                                    <Font name="Bell MT Italic" size="29.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="153.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="128.0" AnchorPane.rightAnchor="86.0" AnchorPane.topAnchor="5.0">
+                                 <image>
+                                    <Image url="file:Assets/Image/Resources/SERVANTS.PNG" />
+                                 </image>
+                              </ImageView>
                            </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="388.0" prefWidth="294.0">
@@ -528,7 +564,8 @@
                                     <Font name="Cordia New Bold Italic" size="20.0" />
                                  </font>
                               </Label>
-                           </children></AnchorPane>
+                           </children>
+                        </AnchorPane>
                      </children>
                   </GridPane>
                </children>

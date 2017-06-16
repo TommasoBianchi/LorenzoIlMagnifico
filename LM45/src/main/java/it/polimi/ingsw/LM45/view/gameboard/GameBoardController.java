@@ -31,6 +31,9 @@ import javafx.stage.Stage;
 public class GameBoardController {
 	
 	@FXML
+	private Label servantCost;
+	
+	@FXML
 	private Label uncoloredValue;
 	
 	@FXML
@@ -123,12 +126,21 @@ public class GameBoardController {
 		this.scene = scene;
 	}
 	
-	public void setFamiliars(PlayerColor color){
-		String path = "file:Assets/Image/Familiars/" + color + "/";
+	public void setServantCost(int cost) {
+		servantCost.setText(Integer.toString(cost));
+	}
+	
+	public void setFamiliars(PlayerColor color, int[] values){
+		String path = "file:Assets/Image/Familiars/" + color.toString() + "/";
 		uncoloredFamiliar.setImage(new Image(path + "UNCOLORED.png"));
 		whiteFamiliar.setImage(new Image(path + "WHITE.png"));
 		orangeFamiliar.setImage(new Image(path + "ORANGE.png"));
 		blackFamiliar.setImage(new Image(path + "BLACK.png"));
+		
+		uncoloredValue.setText(Integer.toString(values[0]));
+		whiteValue.setText(Integer.toString(values[1]));
+		orangeValue.setText(Integer.toString(values[2]));
+		blackValue.setText(Integer.toString(values[3]));
 	}
 	
 	public void coverSlots(int numPlayers){
@@ -228,6 +240,19 @@ public class GameBoardController {
 		}
 		// TEST
 
+	}
+	
+	public void endTurn() {
+		// TODO call endTurn on ClientController
+	}
+	
+	public void setDialog(String text) {
+		dialogBox.setText(text);;
+	}
+	
+	public void spendServant(MouseEvent event) {
+		ImageView addIcon = (ImageView)event.getSource();
+		//TODO ClientController.spendServant(addIcon.getId());
 	}
 	
 }

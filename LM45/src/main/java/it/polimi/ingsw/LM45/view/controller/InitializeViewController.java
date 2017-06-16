@@ -23,7 +23,8 @@ public class InitializeViewController extends Application {
 		this.primaryStage = stage;
 		this.primaryStage.setTitle("Lorenzo il Magnifico");
 		//showLobbyView();
-		showLeaderCardChoice();
+		//showLeaderCardChoice();
+		showGameBoard(2, PlayerColor.RED, new String[]{"Pippo", "Cucu", "Lulu"});
 	}
 
 	public void showLobbyView() {
@@ -79,11 +80,12 @@ public class InitializeViewController extends Application {
 			primaryStage.setHeight(Screen.getMainScreen().getVisibleHeight());
 			primaryStage.show();
 			GameBoardController controllerGameBoard = loader.getController();
-			guiController.setGameBoardController(controllerGameBoard);
+			//guiController.setGameBoardController(controllerGameBoard);
 			controllerGameBoard.setScene(scene);
 			controllerGameBoard.coverSlots(numOfPlayers);
-			controllerGameBoard.setFamiliars(playerColor);
+			controllerGameBoard.setFamiliars(playerColor, new int[]{1,2,3,4});
 			controllerGameBoard.setUsernames(playersUsername);
+			controllerGameBoard.setServantCost(4);
 		} catch (IOException | NullPointerException e) { // TODO sistemare
 			e.printStackTrace();
 		}
