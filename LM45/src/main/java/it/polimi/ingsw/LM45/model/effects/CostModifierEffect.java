@@ -28,5 +28,10 @@ public class CostModifierEffect extends Effect {
 		// FIXME: need a smart way to implement this!
 		return ActionModifier.EMPTY;
 	}
+	
+	@Override
+	public String toString() {
+		//TODO
+	}
 
 }

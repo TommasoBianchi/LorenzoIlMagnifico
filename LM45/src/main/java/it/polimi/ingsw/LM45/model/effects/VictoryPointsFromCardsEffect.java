@@ -17,5 +17,14 @@ public class VictoryPointsFromCardsEffect extends Effect {
 					-effectResolutor.getResourceAmount(cardType.toResourceType())));
 		}
 	}
+	
+	@Override
+	public String toString() {
+		if (cardType == CardType.BUILDING) {
+			return "At the end of the game, you lose 1 Victory Point for every wood and stone on your Building Cards’ costs\n";
+		} else {
+			return "At the end of the game, you don’t score Victory Points for any of your" + cardType.toString() + " cards\n";
+		}
+	}
 
 }

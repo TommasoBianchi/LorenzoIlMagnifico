@@ -6,5 +6,10 @@ public class JumpFirstTurnEffect extends Effect {
 	public void resolveEffect(EffectResolutor effectResolutor) {
 		effectResolutor.setHasToSkipFirstRound();
 	}
+	
+	@Override
+	public String toString() {
+		return "Jump First Turn\n";
+	}
 
 }

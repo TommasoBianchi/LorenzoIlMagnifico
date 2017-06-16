@@ -37,5 +37,11 @@ public class ActionEffect extends Effect {
 		else
 			return ActionModifier.EMPTY;
 	}
+	
+	@Override
+	public String toString() {
+		return "Action Effect : type " + slotType.toString() + " value " + diceNumber + 
+				Arrays.stream(discount).map(resource -> resource.toString()).reduce(" discount ", (a,b) -> a + " " + b);
+	}
 
 }

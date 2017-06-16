@@ -1,5 +1,7 @@
 package it.polimi.ingsw.LM45.model.effects;
 
+import java.util.Arrays;
+
 import it.polimi.ingsw.LM45.model.core.Resource;
 
 public class ResourceEffect extends Effect {
@@ -44,6 +46,17 @@ public class ResourceEffect extends Effect {
 				effectResolutor.addResources(resource.multiply(multiplier));
 			}
 		}
+	}
+	
+	@Override
+	public String toString() {
+		if(resourceToMultiply != null)
+			return Arrays.stream(resourcesToPay).map(resource -> resource.toString()).reduce("Pay ", (a,b) -> a + " " + b) + " " +
+				Arrays.stream(resourcesToGain).map(resource -> resource.toString()).reduce("Gain ", (a,b) -> a + " " + b) + " X " +
+				resourceToMultiply.toString() + "\n";
+		else
+			return Arrays.stream(resourcesToPay).map(resource -> resource.toString()).reduce("Pay ", (a,b) -> a + " " + b) + " " +
+			Arrays.stream(resourcesToGain).map(resource -> resource.toString()).reduce("Gain ", (a,b) -> a + " " + b) + "\n";
 	}
 
 }

@@ -6,5 +6,10 @@ public class NoTerritoryRequisiteEffect extends Effect {
 	public void resolveEffect(EffectResolutor effectResolutor) {
 		effectResolutor.noTerritoryRequisites();
 	}
+	
+	@Override
+	public String toString() {
+		return "No more military requisites if you have more than 2 Territory Cards\n";
+	}
 
 }

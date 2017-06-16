@@ -30,5 +30,15 @@ public class SlotModifierEffect extends Effect {
 		else
 			return ActionModifier.EMPTY;
 	}
+	
+	@Override
+	public String toString() {
+		if(!canPlaceFamiliars)
+			return "Can't place familiars in " + slotType.toString() + " slots\n";
+		else if(canPlaceMultipleFamiliars)
+			return "Can place familiars in occupied action slots\n";
+		else
+			return "Can't receive bonus resources from tower slots\n";
+	}
 
 }

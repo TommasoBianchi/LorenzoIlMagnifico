@@ -14,5 +14,10 @@ public class ChurchSupportBonusEffect extends Effect {
 	public void resolveEffect(EffectResolutor effectResolutor) {
 		effectResolutor.addChurchSupportBonus(resource);
 	}
+	
+	@Override
+	public String toString() {
+		return "Church Support Bonus : " + resource.toString();
+	}
 
 }

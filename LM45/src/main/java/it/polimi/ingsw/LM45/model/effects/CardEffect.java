@@ -60,8 +60,8 @@ public class CardEffect {
 	@Override
 	public String toString() {
 		if(effectsAreAlternative)
-			return Arrays.stream(effects).map(effect -> effect.toString()).reduce("", (a,b) -> a + " or " + b) + "\n";
+			return Arrays.stream(effects).map(effect -> effect.toString()).reduce("", (a,b) -> a + "\nor " + b) + "\n";
 		else
-			return Arrays.stream(effects).map(effect -> effect.toString()).reduce("", (a,b) -> a + " and " + b) + "\n";
+			return Arrays.stream(effects).map(effect -> effect.toString()).reduce("", (a,b) -> a + "\nand " + b) + "\n";
 	}
 }

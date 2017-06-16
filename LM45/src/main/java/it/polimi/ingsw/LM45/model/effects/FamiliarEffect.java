@@ -1,5 +1,7 @@
 package it.polimi.ingsw.LM45.model.effects;
 
+import java.util.Arrays;
+
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 
 public class FamiliarEffect extends Effect {
@@ -29,6 +31,18 @@ public class FamiliarEffect extends Effect {
 		
 		if (servantBonusCostModifier != 1)
 			effectResolutor.modifyServantCost(servantBonusCostModifier);
+	}
+	
+	@Override
+	public String toString() {
+		if(servantBonusCostModifier != 1)
+			return "Spend " + servantBonusCostModifier + " to increase familiars value of 1 point";
+		else if(bonusIsToAdd)
+			return "+ " + bonus + " bonus for familiars " +
+					Arrays.stream(colors).map(FamiliarColor -> FamiliarColor.toString()).reduce("", (a,b) -> a + " " + b) + "\n";
+		else
+			return "set value " + bonus + " to familiars " +
+			Arrays.stream(colors).map(FamiliarColor -> FamiliarColor.toString()).reduce("", (a,b) -> a + " " + b) + "\n";
 	}
 	
 }

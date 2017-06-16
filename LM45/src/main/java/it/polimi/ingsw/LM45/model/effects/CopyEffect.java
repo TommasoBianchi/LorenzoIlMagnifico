@@ -10,5 +10,13 @@ public class CopyEffect extends Effect {
 			copiedEffect = effectResolutor.copyEffect();
 		copiedEffect.resolveEffects(effectResolutor);
 	}
+	
+	@Override
+	public String toString() {
+		if(copiedEffect != null)
+			return copiedEffect.toString();
+		else
+			return "Copy the effect of an active leaderCard";
+	}
 
 }
