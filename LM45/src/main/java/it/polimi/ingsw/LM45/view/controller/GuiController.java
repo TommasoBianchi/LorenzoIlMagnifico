@@ -16,8 +16,6 @@ public class GuiController implements ViewInterface {
 	GameBoardController gameBoardController;
 	InitializeViewController initializeController;
 	
-	int choice;
-	
 	public void setLobbyController(LobbyController lobbyController){
 		this.lobbyController = lobbyController;
 	}
@@ -32,6 +30,14 @@ public class GuiController implements ViewInterface {
 	
 	public void setInitializeController(InitializeViewController initializeController){
 		this.initializeController = initializeController;
+	}
+	
+	public void showLeaderCardChoiceView (){
+		initializeController.showLeaderCardChoice();
+	}
+	
+	public void showGameBoardView() {
+		
 	}
 
 	public void setUsername(String username) {
@@ -65,7 +71,7 @@ public class GuiController implements ViewInterface {
 	}
 
 	public int chooseFrom(String[] alternatives) {
-		// TODO Auto-generated method stub
+		
 		return 0;
 	}
 

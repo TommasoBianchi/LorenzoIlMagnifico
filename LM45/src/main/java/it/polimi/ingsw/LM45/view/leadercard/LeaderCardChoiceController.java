@@ -16,9 +16,14 @@ public class LeaderCardChoiceController {
 	@FXML
 	private FlowPane leaders;
 	
-	public void showLeaders(String[] leadersName){
+	private static int choice = 10;
+	private static boolean choiceMade = false;
+	
+	public void chooseLeader(String[] leadersName){
 		
 		String path = "file:Assets/Image/Cards/LEADER/";
+		
+		leaders.getChildren().clear();
 		
 		for(String leader : leadersName){
 			leaders.setHgap(20);
@@ -32,14 +37,16 @@ public class LeaderCardChoiceController {
 				
 				@Override
 				public void handle(MouseEvent event){
-					System.out.println(leader);				//TODO call method leaderChosen(leader)
+					System.out.println(leader);
 					leaders.getChildren().clear();
-					Arrays.asList(leadersName).indexOf(leader);
+					LeaderCardChoiceController.choice = Arrays.asList(leadersName).indexOf(leader);
+					choiceMade = true;
 				}
 			});
 		}
-		
-		
+		while(!choiceMade);
+		int x = choice;
+		choice = 10;
+		System.out.println(x);
 	}
-
 }

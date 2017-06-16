@@ -8,6 +8,8 @@ import it.polimi.ingsw.LM45.network.client.ClientController;
 
 public interface ViewInterface {
 
+	public void showLeaderCardChoiceView();
+	public void showGameBoardView();
 	public void setUsername(String username);
 	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor);
 	// do also disableFamiliar() in the GameBoard

@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.sun.glass.ui.Screen;
 
+import it.polimi.ingsw.LM45.model.core.PlayerColor;
 import it.polimi.ingsw.LM45.view.gameboard.GameBoardController;
 import it.polimi.ingsw.LM45.view.leadercard.LeaderCardChoiceController;
 import it.polimi.ingsw.LM45.view.lobby.LobbyController;
@@ -40,6 +41,7 @@ public class InitializeViewController extends Application {
 			primaryStage.setResizable(false);
 			primaryStage.show();
 			LobbyController controller = loader.getController();
+			guiController.setLobbyController(controller);
 			controller.setMain(this);
 		} catch (IOException e) { // TODO sistemare
 			e.printStackTrace();
@@ -58,13 +60,14 @@ public class InitializeViewController extends Application {
 			primaryStage.setHeight(Screen.getMainScreen().getVisibleHeight());
 			primaryStage.show();
 			LeaderCardChoiceController controller = loader2.getController();
-			controller.showLeaders(new String[]{"Bartolomeo Colleoni", "Cesare Borgia", "Cosimo de' Medici"});
+			//guiController.setLeaderChoiceController(controller);
+			controller.chooseLeader(new String[]{"Bartolomeo Colleoni", "Cesare Borgia", "Cosimo de' Medici"});
 		} catch (IOException | NullPointerException e) { //TODO sistemare
 			e.printStackTrace();
 		}
 	}
 
-	public void showGameBoard() {
+	public void showGameBoard(int numOfPlayers, PlayerColor playerColor, String[] playersUsername) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(InitializeViewController.class.getResource("../gameboard/GameBoardView.fxml"));
@@ -76,10 +79,11 @@ public class InitializeViewController extends Application {
 			primaryStage.setHeight(Screen.getMainScreen().getVisibleHeight());
 			primaryStage.show();
 			GameBoardController controllerGameBoard = loader.getController();
+			guiController.setGameBoardController(controllerGameBoard);
 			controllerGameBoard.setScene(scene);
-			controllerGameBoard.coverSlots(2);
-			controllerGameBoard.showFamiliars("BLUE");
-			controllerGameBoard.slotModify("TERRITORY", 0);
+			controllerGameBoard.coverSlots(numOfPlayers);
+			controllerGameBoard.setFamiliars(playerColor);
+			controllerGameBoard.setUsernames(playersUsername);
 		} catch (IOException | NullPointerException e) { // TODO sistemare
 			e.printStackTrace();
 		}

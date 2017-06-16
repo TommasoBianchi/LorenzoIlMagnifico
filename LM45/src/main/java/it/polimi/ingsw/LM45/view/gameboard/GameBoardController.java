@@ -11,6 +11,7 @@ import com.google.gson.JsonSyntaxException;
 
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.CardType;
+import it.polimi.ingsw.LM45.model.core.PlayerColor;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.ResourceType;
 import it.polimi.ingsw.LM45.serialization.FileManager;
@@ -122,7 +123,7 @@ public class GameBoardController {
 		this.scene = scene;
 	}
 	
-	public void showFamiliars(String color){
+	public void setFamiliars(PlayerColor color){
 		String path = "file:Assets/Image/Familiars/" + color + "/";
 		uncoloredFamiliar.setImage(new Image(path + "UNCOLORED.png"));
 		whiteFamiliar.setImage(new Image(path + "WHITE.png"));
@@ -149,7 +150,7 @@ public class GameBoardController {
 		}
 	}
 	
-	public void setUsernames(){
+	public void setUsernames(String[] usernames){
 		//TODO set usernames and ID on Buttons
 	}
 	
