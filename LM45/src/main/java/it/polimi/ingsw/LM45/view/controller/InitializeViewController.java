@@ -11,6 +11,7 @@ import it.polimi.ingsw.LM45.view.lobby.LobbyController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -22,6 +23,7 @@ public class InitializeViewController extends Application {
 	public void start(Stage stage) {
 		this.primaryStage = stage;
 		this.primaryStage.setTitle("Lorenzo il Magnifico");
+		this.primaryStage.getIcons().add(new Image("file:Assets/Image/Cards/LEADER/LeaderCard Cover.jpg"));
 		//showLobbyView();
 		//showLeaderCardChoice();
 		showGameBoard(2, PlayerColor.RED, new String[]{"Pippo", "Cucu", "Lulu"});
@@ -85,7 +87,9 @@ public class InitializeViewController extends Application {
 			controllerGameBoard.coverSlots(numOfPlayers);
 			controllerGameBoard.setFamiliars(playerColor, new int[]{1,2,3,4});
 			controllerGameBoard.setUsernames(playersUsername);
-			controllerGameBoard.setServantCost(4);
+			controllerGameBoard.setMyUsername("JOH");
+			controllerGameBoard.setServantCost(1);
+			primaryStage.getScene().setOnMouseClicked(null);
 		} catch (IOException | NullPointerException e) { // TODO sistemare
 			e.printStackTrace();
 		}

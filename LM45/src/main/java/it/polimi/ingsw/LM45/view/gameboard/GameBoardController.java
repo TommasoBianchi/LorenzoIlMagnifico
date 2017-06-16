@@ -8,6 +8,7 @@ import java.util.Random;
 
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
+import com.sun.glass.ui.Screen;
 
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.CardType;
@@ -61,7 +62,7 @@ public class GameBoardController {
 	private Label dialogBox;
 	
 	@FXML
-	private Label username0;
+	private Label myUsername;
 	
 	@FXML
 	private Label username1;
@@ -73,7 +74,7 @@ public class GameBoardController {
 	private Label username3;
 	
 	@FXML
-	private Button personalBoard0;
+	private Button myPersonalBoard;
 	
 	@FXML
 	private Button personalBoard1;
@@ -117,13 +118,64 @@ public class GameBoardController {
 	@FXML
 	private FlowPane coverableHarvestSlot;
 	
-	private Scene scene;
+	private Stage myPersonalStage = new Stage();
+	private Stage personalStage1 = new Stage();
+	private Stage personalStage2 = new Stage();
+	private Stage personalStage3 = new Stage();
+	
+	private PersonalBoardController myPersonalController = new PersonalBoardController();
+	private PersonalBoardController personalController1 = new PersonalBoardController();
+	private PersonalBoardController personalController2 = new PersonalBoardController();
+	private PersonalBoardController personalController3 = new PersonalBoardController();
+	
+	private Scene gameScene;
+	
+	@FXML
+	public void initialize() {
+		Stage[] stages = {myPersonalStage, personalStage1, personalStage2, personalStage3};
+		PersonalBoardController[] personalControllers = {myPersonalController, personalController1, personalController2,
+				personalController3};
+		for(int i=0; i<4; i++){
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(GameBoardController.class.getResource("../personalBoard/PersonalBoardScene.fxml"));
+			loader.setController(personalControllers[i]);
+			try { Scene scene = new Scene(loader.load());
+					stages[i].setResizable(false);
+					stages[i].setScene(scene);
+					stages[i].setWidth(Screen.getMainScreen().getVisibleWidth());
+					stages[i].setHeight(Screen.getMainScreen().getVisibleHeight());
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			// TEST
+			try {
+				Map<CardType, List<Card>> deck = FileManager.loadCards();
+
+				for (int j = 0; j < 12; j++) {
+					CardType cardType = CardType.values()[(new Random()).nextInt(CardType.values().length - 1)];
+					Card card = deck.get(cardType).get(0);
+					personalControllers[i].addCard(card);
+				}
+
+				for (ResourceType resourceType : ResourceType.values())
+					personalControllers[i].setResource(new Resource(resourceType, new Random().nextInt(20)));
+
+					personalControllers[i].addLeaderCard(null);
+			} catch (JsonSyntaxException | JsonIOException | FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			// TEST
+		}
+	}
 	
 	public GameBoardController(){
 	}
 	
 	public void setScene(Scene scene){
-		this.scene = scene;
+		this.gameScene = scene;
 	}
 	
 	public void setServantCost(int cost) {
@@ -162,8 +214,17 @@ public class GameBoardController {
 		}
 	}
 	
+	public void setMyUsername(String username) {
+		myPersonalBoard.setId(username);
+	}
+	
 	public void setUsernames(String[] usernames){
-		//TODO set usernames and ID on Buttons
+		username1.setText(usernames[0]);
+		username2.setText(usernames[1]);
+		username3.setText(usernames[2]);
+		personalBoard1.setId(usernames[0]);
+		personalBoard2.setId(usernames[1]);
+		personalBoard3.setId(usernames[2]);
 	}
 	
 	public void slotAction(MouseEvent event) {
@@ -175,7 +236,7 @@ public class GameBoardController {
 	}
 	
 	public void slotModify(String slotType, Integer position){
-		FlowPane slot = (FlowPane)scene.lookup("#"+slotType+position);
+		FlowPane slot = (FlowPane)gameScene.lookup("#"+slotType+position);
 		slot.setStyle("-fx-background-color: black;");
 		//TODO method to addFamiliar
 	}
@@ -200,45 +261,14 @@ public class GameBoardController {
 	
 	public void showPersonalBoard(MouseEvent event) {
 		Button button = (Button)event.getSource();
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(InitializeViewController.class.getResource("../personalBoard/PersonalBoardScene.fxml"));
-		PersonalBoardController controller = new PersonalBoardController(false);
-		loader.setController(controller);
-
-		try {
-			Scene scene = new Scene(loader.load());
-
-			Stage stage = new Stage();
-			stage.setResizable(false);
-			stage.setScene(scene);
-			stage.setTitle(button.getId());
-			stage.show();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
-		// TEST
-		try {
-			Map<CardType, List<Card>> deck = FileManager.loadCards();
-
-			for (int i = 0; i < 12; i++) {
-				CardType cardType = CardType.values()[(new Random()).nextInt(CardType.values().length - 1)];
-				Card card = deck.get(cardType).get(0);
-				controller.addCard(card);
-			}
-
-			for (ResourceType resourceType : ResourceType.values())
-				controller.setResource(new Resource(resourceType, new Random().nextInt(20)));
-
-			for (int i = 0; i < 4; i++) {
-				controller.addLeaderCard(null);
-			}
-		} catch (JsonSyntaxException | JsonIOException | FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		// TEST
+		if(button.getId() == myPersonalBoard.getId())
+			myPersonalStage.show();
+		else if(button.getId() == personalBoard1.getId())
+			personalStage1.show();
+		else if(button.getId() == personalBoard2.getId())
+			personalStage2.show();
+		else
+			personalStage3.show();
 
 	}
 	

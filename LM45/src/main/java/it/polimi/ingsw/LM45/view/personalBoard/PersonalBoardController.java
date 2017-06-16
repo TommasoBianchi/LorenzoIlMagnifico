@@ -59,10 +59,6 @@ public class PersonalBoardController {
 	private Map<ResourceType, Text> resourceTexts = new EnumMap<ResourceType, Text>(ResourceType.class);
 	private boolean isLocalPlayer;
 	
-	public PersonalBoardController(boolean isLocalPlayer){
-		this.isLocalPlayer = isLocalPlayer;
-	}
-
 	@FXML
 	public void initialize() {
 		cardFlowPanes.put(CardType.TERRITORY, territories);

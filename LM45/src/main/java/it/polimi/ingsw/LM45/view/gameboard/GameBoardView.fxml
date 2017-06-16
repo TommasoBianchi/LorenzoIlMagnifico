@@ -208,7 +208,7 @@
                            </children></AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <GridPane layoutX="21.0" layoutY="80.0" prefHeight="250.0" prefWidth="299.0" style="-fx-border-color: #914f0e; -fx-border-radius: 20; -fx-border-width: 4; -fx-border-style: dashed centered;" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="40.0">
+                              <GridPane alignment="CENTER" layoutX="21.0" layoutY="80.0" prefHeight="250.0" prefWidth="299.0" style="-fx-border-color: #914f0e; -fx-border-radius: 20; -fx-border-width: 4; -fx-border-style: dashed centered;" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="40.0">
                                 <columnConstraints>
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -220,7 +220,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Label fx:id="username0" alignment="CENTER" prefHeight="48.0" prefWidth="110.0" text="Username" textFill="#ffc000">
+                                    <Label fx:id="myUsername" alignment="CENTER" prefHeight="48.0" prefWidth="110.0" text="Me" textFill="#ffc000">
                                        <font>
                                           <Font name="System Italic" size="14.0" />
                                        </font>
@@ -240,24 +240,24 @@
                                           <Font name="System Italic" size="14.0" />
                                        </font>
                                     </Label>
-                                    <Button fx:id="personalBoard0" mnemonicParsing="false" onMouseClicked="#showPersonalBoard" text="PersonalBoard" GridPane.columnIndex="1">
+                                    <Button fx:id="myPersonalBoard" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#showPersonalBoard" text="MyPersonalBoard" GridPane.columnIndex="1">
                                        <GridPane.margin>
                                           <Insets />
                                        </GridPane.margin>
                                     </Button>
-                                    <Button fx:id="personalBoard1" mnemonicParsing="false" onMouseClicked="#showPersonalBoard" text="PersonalBoard" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <Button fx:id="personalBoard1" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#showPersonalBoard" text="PersonalBoard" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                        <GridPane.margin>
-                                          <Insets />
+                                          <Insets left="7.0" />
                                        </GridPane.margin>
                                     </Button>
-                                    <Button fx:id="personalBoard2" mnemonicParsing="false" onMouseClicked="#showPersonalBoard" text="PersonalBoard" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                    <Button fx:id="personalBoard2" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#showPersonalBoard" text="PersonalBoard" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                        <GridPane.margin>
-                                          <Insets />
+                                          <Insets left="7.0" />
                                        </GridPane.margin>
                                     </Button>
-                                    <Button fx:id="personalBoard3" mnemonicParsing="false" onMouseClicked="#showPersonalBoard" text="PersonalBoard" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                    <Button fx:id="personalBoard3" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#showPersonalBoard" text="PersonalBoard" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                        <GridPane.margin>
-                                          <Insets />
+                                          <Insets left="7.0" />
                                        </GridPane.margin>
                                     </Button>
                                  </children>
@@ -540,7 +540,7 @@
                                     <Font name="Bell MT Italic" size="16.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="servantCost" alignment="CENTER" contentDisplay="CENTER" layoutX="147.0" layoutY="31.0" prefHeight="29.0" prefWidth="24.0" text="1" textFill="#ffc000" wrapText="true" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="140.0" AnchorPane.topAnchor="22.0">
+                              <Label fx:id="servantCost" alignment="CENTER" contentDisplay="CENTER" layoutX="147.0" layoutY="31.0" prefHeight="29.0" prefWidth="24.0" text="1" textFill="#ffc000" wrapText="true" AnchorPane.leftAnchor="125.0" AnchorPane.rightAnchor="145.0" AnchorPane.topAnchor="22.0">
                                  <font>
                                     <Font name="Bell MT Italic" size="29.0" />
                                  </font>
