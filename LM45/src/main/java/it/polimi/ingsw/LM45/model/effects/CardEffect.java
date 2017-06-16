@@ -56,4 +56,12 @@ public class CardEffect {
 	public boolean getEffectsArePermanent(){
 		return effectsArePermanent;
 	}
+	
+	@Override
+	public String toString() {
+		if(effectsAreAlternative)
+			return Arrays.stream(effects).map(effect -> effect.toString()).reduce("", (a,b) -> a + " or " + b) + "\n";
+		else
+			return Arrays.stream(effects).map(effect -> effect.toString()).reduce("", (a,b) -> a + " and " + b) + "\n";
+	}
 }
