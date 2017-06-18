@@ -25,7 +25,7 @@ public class ClientController {
 	private ViewInterface viewInterface;
 	private String username;
 
-	public ClientController(ConnectionType connectionType, String host, int port, ViewInterface viewInterface) {
+	public ClientController(ConnectionType connectionType, String host, int port, ViewInterface viewInterface) throws IOException {
 		this.connectionType = connectionType;
 		this.host = host;
 		this.port = port;
@@ -34,12 +34,8 @@ public class ClientController {
 		try {
 			serverInterface = ServerInterfaceFactory.create(connectionType, host, port, this);
 		}
-		catch (IOException e) {
-			manageIOException(e);
-		}
 		catch (NotBoundException e) {
-			// Wrap the NotBoundException in a IOException and manage it
-			manageIOException(new IOException(e));
+			throw new IOException(e);
 		}
 	}
 

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.LM45.network.client;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 import it.polimi.ingsw.LM45.controller.ClientLauncher;
@@ -28,7 +29,13 @@ public class ClientMain {
 		System.out.println("Insert your username");
 		String username = scanner.nextLine();
 		
-		ClientLauncher.launch(username, "127.0.0.1", 7000, types[selectedType] == ConnectionType.RMI, true);
+		try {
+			ClientLauncher.launch(username, "127.0.0.1", 7000, types[selectedType] == ConnectionType.RMI, true);
+		}
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }

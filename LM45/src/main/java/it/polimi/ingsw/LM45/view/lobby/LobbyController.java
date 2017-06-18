@@ -1,5 +1,7 @@
 package it.polimi.ingsw.LM45.view.lobby;
 
+import java.io.IOException;
+
 import it.polimi.ingsw.LM45.controller.ClientLauncher;
 import it.polimi.ingsw.LM45.view.controller.InitializeViewController;
 import javafx.fxml.FXML;
@@ -39,22 +41,37 @@ public class LobbyController {
 		Alert alert = new Alert(AlertType.WARNING);
 		alert.initOwner(main.getPrimaryStage());
 		alert.setTitle("Attention !");
+		
+		int portNumber = 0;
+		try {
+			portNumber = Integer.parseInt(serverPort.getText());
+		}
+		catch (NumberFormatException e1) {
+    		alert.setHeaderText("No Valid Server Port Inserted");
+    		alert.setContentText("Please Insert a Valid Server Port");
+    		alert.showAndWait();
+    		return;
+		}
+		
 		if(playerNickname.equals("")){
 	    		alert.setHeaderText("No Nickname Inserted");
-	    		alert.setContentText("Please Please Insert a Nickname");
+	    		alert.setContentText("Please Insert a Nickname");
+	    		alert.showAndWait();
 	   	} else if(serverIp.getText().equals("")){
     		alert.setHeaderText("No Server IP Inserted");
-    		alert.setContentText("Please Please Insert a Server IP");
-		} else if(serverPort.getText().equals("")){
-    		alert.setHeaderText("No Server Port Inserted");
-    		alert.setContentText("Please Please Insert a Server Port");
+    		alert.setContentText("Please Insert a Server IP");
+    		alert.showAndWait();
+	   	}
+		else {
+			try {
+				ClientLauncher.launch(playerNickname, serverIp.getText(), portNumber, rmi.isSelected(), gui.isSelected());
+			}
+			catch (IOException e) {
+	    		alert.setHeaderText("Unable to connect");
+	    		alert.setContentText("Couldn't find server or RMI registry");
+	    		alert.showAndWait();
+			}			
 		}
-		alert.showAndWait();
-		
-		//TODO try catch of the method launch if the server doesn't exists
-		
-		ClientLauncher.launch(playerNickname, serverIp.getText(), Integer.parseInt(serverPort.getText()), rmi.isSelected(), gui.isSelected());
-		
 	}
 	
 		public void setMain (InitializeViewController main) {

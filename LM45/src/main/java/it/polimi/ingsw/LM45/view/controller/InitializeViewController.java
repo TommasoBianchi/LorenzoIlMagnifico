@@ -24,9 +24,9 @@ public class InitializeViewController extends Application {
 		this.primaryStage = stage;
 		this.primaryStage.setTitle("Lorenzo il Magnifico");
 		this.primaryStage.getIcons().add(new Image("file:Assets/Image/Cards/LEADER/LeaderCard Cover.jpg"));
-		//showLobbyView();
+		showLobbyView();
 		//showLeaderCardChoice();
-		showGameBoard(2, PlayerColor.RED, new String[]{"Pippo", "Cucu", "Lulu"});
+		//showGameBoard(2, PlayerColor.RED, new String[]{"Pippo", "Cucu", "Lulu"});
 	}
 
 	public void showLobbyView() {
@@ -44,7 +44,7 @@ public class InitializeViewController extends Application {
 			primaryStage.setResizable(false);
 			primaryStage.show();
 			LobbyController controller = loader.getController();
-			guiController.setLobbyController(controller);
+			//guiController.setLobbyController(controller);
 			controller.setMain(this);
 		} catch (IOException e) { // TODO sistemare
 			e.printStackTrace();
