@@ -50,7 +50,7 @@ public class GuiController implements ViewInterface {
 	}
 	
 	public int chooseLeaderCard(LeaderCard[] leaders) {
-		leaderChoiceController.chooseLeader(Arrays.stream(leaders).map(leaderCard -> leaderCard.getName()));
+		leaderChoiceController.chooseLeader(Arrays.stream(leaders).map(leaderCard -> leaderCard.getName()).toArray(String[]::new));
 		while(choice == -1);
 		int x = choice;
 		choice = -1;

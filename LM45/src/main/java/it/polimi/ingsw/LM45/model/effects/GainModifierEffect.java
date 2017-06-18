@@ -31,7 +31,8 @@ public class GainModifierEffect extends Effect {
 	
 	@Override
 	public String toString() {
-		//TODO
+		//TODO: implement
+		return "";
 	}
 
 }
