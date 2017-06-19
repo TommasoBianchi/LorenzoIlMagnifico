@@ -110,6 +110,7 @@ public class Game {
 				orderedPlayers.add(player);
 		players = orderedPlayers;
 		
+		// Setup towers
 		board.clearSlots();
 		deck.keySet().stream().forEach(cardType -> {
 			for (int i = 0; i < 4; i++)
@@ -156,6 +157,14 @@ public class Game {
 	 */
 	public Player[] getOrderedPlayers(){
 		return players.stream().toArray(Player[]::new);
+	}
+	
+	/**
+	 * @param type the cardType of the cards contained in the requested tower
+	 * @return the cards present in the requested tower
+	 */
+	public Card[] getCardsOnTower(CardType type){
+		return board.getCardsOnTower(type);
 	}
 
 }

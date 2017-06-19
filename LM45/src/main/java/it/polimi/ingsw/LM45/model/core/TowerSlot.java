@@ -6,15 +6,15 @@ import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
 
 public class TowerSlot extends Slot {
 
+	private Card card;
+	private boolean hasCard;
+
 	public TowerSlot(Resource[] immediateBonus, int minDice, SlotType type, boolean multipleFamiliars,
 			boolean multipleFamiliarsOfSamePlayer) {
 		super(immediateBonus, minDice, type, multipleFamiliars, multipleFamiliarsOfSamePlayer);
 		this.card = null;
 		this.hasCard = false;
 	}
-
-	private Card card;
-	private boolean hasCard;
 
 	public void placeCard(Card card) {
 		hasCard = true;
@@ -23,6 +23,10 @@ public class TowerSlot extends Slot {
 
 	public boolean hasCard() {
 		return this.hasCard;
+	}
+	
+	public Card getCard(){
+		return card;
 	}
 
 	@Override
