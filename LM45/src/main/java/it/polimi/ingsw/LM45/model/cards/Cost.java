@@ -45,4 +45,9 @@ public class Cost {
 				.map(resource -> resource.increment(costModifiers.getOrDefault(resource.getResourceType(), 0)));
 		resourcesToPay.forEach(resource -> player.addResources(resource));
 	}
+	
+	@Override
+	public String toString(){
+		return Arrays.stream(costResources).map(resource -> resource.toString()).reduce((a, b) -> a + " " + b).orElse("");
+	}
 }

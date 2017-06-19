@@ -27,4 +27,9 @@ public class Territory extends Card {
 			effect.resolveEffects(effectResolutor);
 	}
 	
+	@Override
+	public String toString(){
+		return super.toString() + "\n" + "Min dice to harvest: " + minDiceToHarvest;
+	}
+	
 }
