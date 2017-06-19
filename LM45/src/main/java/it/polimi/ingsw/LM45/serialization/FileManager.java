@@ -25,6 +25,7 @@ import it.polimi.ingsw.LM45.model.cards.CardType;
 import it.polimi.ingsw.LM45.model.cards.Character;
 import it.polimi.ingsw.LM45.model.cards.Cost;
 import it.polimi.ingsw.LM45.model.cards.CostWithPrerequisites;
+import it.polimi.ingsw.LM45.model.cards.Excommunication;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.cards.PeriodType;
 import it.polimi.ingsw.LM45.model.cards.Territory;
@@ -77,6 +78,19 @@ public class FileManager {
 		GSON.toJson(leaderCard, LeaderCard.class, writer);
 		writer.close();
 	}
+	
+	public static void saveExcommunication(Excommunication excommunication) throws IOException {
+		String path = BASE_PATH + "/Excommunications/" + excommunication.getPeriodType();
+		File directory = new File(path);
+
+		if (!directory.exists()) {
+			directory.mkdirs();
+		}
+
+		FileWriter writer = new FileWriter(path + "/" + excommunication.getName() + ".json");
+		GSON.toJson(excommunication, Excommunication.class, writer);
+		writer.close();
+	}
 
 	public static <T extends Configuration> void saveConfiguration(T configuration) throws IOException {
 		String path = BASE_PATH + "/Config";
@@ -126,6 +140,29 @@ public class FileManager {
 		}
 
 		return leaderCards;
+	}
+	
+	public static Map<PeriodType, List<Excommunication>> loadExcommunications() throws JsonSyntaxException, JsonIOException, FileNotFoundException {
+		Map<PeriodType, List<Excommunication>> deck = new EnumMap<PeriodType, List<Excommunication>>(PeriodType.class);
+		File folder = new File(BASE_PATH + "/Excommunications/");
+
+		for (File dir : folder.listFiles()) {
+			if (dir.isDirectory()) {
+				PeriodType periodType = PeriodType.valueOf(dir.getName());
+				List<Excommunication> excommunications = new ArrayList<Excommunication>();
+
+				for (File file : dir.listFiles()) {
+					if (file.isFile()) {
+						Excommunication excommunication = GSON.fromJson(new FileReader(file), Excommunication.class);
+						excommunications.add(excommunication);
+					}
+				}
+
+				deck.put(periodType, excommunications);
+			}
+		}
+
+		return deck;
 	}
 
 	public static <T extends Configuration> T loadConfiguration(Class<T> cl) throws JsonSyntaxException, JsonIOException, FileNotFoundException {
@@ -802,12 +839,32 @@ public class FileManager {
 		leaderCards[19] = new LeaderCard("Pico della Mirandola",
 				new CardEffect(new CostModifierEffect(new Resource(ResourceType.COINS, -3), true, false, false)),
 				new Resource[] { new Resource(ResourceType.VENTURE, 4), new Resource(ResourceType.BUILDING, 2) });
+		
+		Excommunication[] excommunications = new Excommunication[21];
+		
+		excommunications[0] = new Excommunication("1_1", PeriodType.I,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 8)})));
+		excommunications[1] = new Excommunication("1_2", PeriodType.I,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 8)})));
+		excommunications[2] = new Excommunication("1_3", PeriodType.I,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 8)})));
+		excommunications[3] = new Excommunication("1_4", PeriodType.I,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 8)})));
+		excommunications[4] = new Excommunication("1_5", PeriodType.I,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 8)})));
+		excommunications[5] = new Excommunication("1_6", PeriodType.I,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 8)})));
+		excommunications[6] = new Excommunication("1_7", PeriodType.I,
+				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 8)})));
+		
 
 		try {
 			for (Card card : cards)
 				saveCard(card);
 			for(LeaderCard leaderCard : leaderCards)
 				saveLeaderCard(leaderCard);
+			for (Excommunication excommunication : excommunications)
+				saveExcommunication(excommunication);
 
 			Map<CardType, List<Card>> deck = loadCards();
 			for (CardType cardType : new CardType[] { CardType.TERRITORY, CardType.CHARACTER, CardType.VENTURE,

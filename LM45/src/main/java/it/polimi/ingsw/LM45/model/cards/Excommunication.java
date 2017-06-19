@@ -5,14 +5,28 @@ import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
 
 public class Excommunication {
 
+	private String name;
 	private PeriodType periodType;
 	private CardEffect effect;
+	
+	public Excommunication(String name, PeriodType periodType, CardEffect effect){
+		this.name = name;
+		this.periodType = periodType;
+		this.effect = effect;
+	}
 	
 	/**
 	 * @return the period: I, II or III
 	 */
 	public PeriodType getPeriodType(){
 		return this.periodType;
+	}
+	
+	/**
+	 * @return excommunication name
+	 */
+	public String getName(){
+		return name;
 	}
 	
 	/**
