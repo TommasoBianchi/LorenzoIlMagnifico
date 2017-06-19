@@ -18,7 +18,12 @@ import it.polimi.ingsw.LM45.view.lobby.LobbyController;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -152,8 +157,24 @@ public class GuiController implements ViewInterface {
 			return -1;
 		else if(alternatives[0].contains("(LeaderCard)"))
 			return chooseLeaderCard(alternatives);
-		else
-			return 0; // TODO: implement
+		else {
+			Dialog dialog = new Dialog();
+			GridPane root = new GridPane();
+			HBox box = new HBox(alternatives.length);
+			ToggleGroup group = new ToggleGroup();
+			RadioButton button1 = new RadioButton(alternatives[0]);
+			box.getChildren().add(button1);
+			for (int i=1;i<alternatives.length;i++) {
+				RadioButton button2 = new RadioButton(alternatives[i]);
+				button2.setToggleGroup(group);
+				box.getChildren().add(button2);
+			}
+			button1.setSelected(true);
+			root.add(box, 0, 0);
+			dialog.getDialogPane().setContent(root);
+			dialog.showAndWait();
+			return group.getToggles().indexOf(group.getSelectedToggle());
+		}
 	}
 
 	public void setClientController(ClientController clientController) {
