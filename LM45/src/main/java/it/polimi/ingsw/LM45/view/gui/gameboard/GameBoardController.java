@@ -8,7 +8,6 @@ import java.util.Random;
 
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
-import com.sun.glass.ui.Screen;
 
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.CardType;
@@ -29,6 +28,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class GameBoardController {
@@ -148,8 +148,8 @@ public class GameBoardController {
 			try { Scene scene = new Scene(loader.load());
 					stages[i].setResizable(false);
 					stages[i].setScene(scene);
-					stages[i].setWidth(Screen.getMainScreen().getVisibleWidth());
-					stages[i].setHeight(Screen.getMainScreen().getVisibleHeight());
+					stages[i].setWidth(Screen.getPrimary().getVisualBounds().getWidth());
+					stages[i].setHeight(Screen.getPrimary().getVisualBounds().getWidth());
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

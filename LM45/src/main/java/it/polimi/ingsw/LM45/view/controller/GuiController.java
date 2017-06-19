@@ -2,8 +2,10 @@ package it.polimi.ingsw.LM45.view.controller;
 
 import java.io.IOException;
 import java.util.Arrays;
-
-import com.sun.glass.ui.Screen;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.FutureTask;
 
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
@@ -19,6 +21,7 @@ import it.polimi.ingsw.LM45.view.lobby.LobbyController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class GuiController implements ViewInterface {
@@ -47,16 +50,16 @@ public class GuiController implements ViewInterface {
 		this.gameBoardController = gameBoardController;
 	}
 	
-	public void showLeaderCardChoice() {
+	public void showLeaderCardChoiceView() {
 		try {
 			FXMLLoader loader2 = new FXMLLoader();
-			loader2.setLocation(Main.class.getResource("../leadercard/LeaderCardChoiceView.fxml"));
+			loader2.setLocation(Main.class.getResource("../gui/leadercard/LeaderCardChoiceView.fxml"));
 			AnchorPane leaderChoice = (AnchorPane) loader2.load();
 			Scene scene = new Scene(leaderChoice);
 			stage.setScene(scene);
 			stage.setResizable(false);
-			stage.setWidth(Screen.getMainScreen().getVisibleWidth());
-			stage.setHeight(Screen.getMainScreen().getVisibleHeight());
+			stage.setWidth(Screen.getPrimary().getVisualBounds().getWidth());
+			stage.setHeight(Screen.getPrimary().getVisualBounds().getHeight());
 			stage.show();
 			LeaderCardChoiceController controller = loader2.getController();
 			leaderChoiceController = controller;
@@ -69,13 +72,13 @@ public class GuiController implements ViewInterface {
 	public void showGameBoard(PlayerColor playerColor, String[] playersUsername) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("../gameboard/GameBoardView.fxml"));
+			loader.setLocation(Main.class.getResource("../gui/gameboard/GameBoardView.fxml"));
 			AnchorPane gameBoard = (AnchorPane) loader.load();
 			Scene scene = new Scene(gameBoard);
 			stage.setScene(scene);
 			stage.setResizable(false);
-			stage.setWidth(Screen.getMainScreen().getVisibleWidth());
-			stage.setHeight(Screen.getMainScreen().getVisibleHeight());
+			stage.setWidth(Screen.getPrimary().getVisualBounds().getWidth());
+			stage.setHeight(Screen.getPrimary().getVisualBounds().getHeight());
 			stage.show();
 			GameBoardController controllerGameBoard = loader.getController();
 			//guiController.setGameBoardController(controllerGameBoard);
@@ -97,11 +100,20 @@ public class GuiController implements ViewInterface {
 	
 	public int chooseLeaderCard(String[] leaders) {
 		leaderChoiceController.chooseLeader(Arrays.stream(leaders).map(leader -> leader.substring(0, leader.indexOf("(")-1)).toArray(String[]::new));
-		while(choice == -1);
+		try {
+			Thread.sleep(60000);
+		}
+		catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+		
+		/*while(choice == -1);
 		int x = choice;
 		choice = -1;
-		return x;
 		
+		return x;*/		
 	}
 
 	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor) {
@@ -125,8 +137,8 @@ public class GuiController implements ViewInterface {
 	}
 
 	public int chooseFrom(String[] alternatives) {
-		
-		return 0;
+		// TEST
+		return chooseLeaderCard(alternatives);
 	}
 
 	public void setClientController(ClientController clientController) {
@@ -208,12 +220,6 @@ public class GuiController implements ViewInterface {
 
 	@Override
 	public void activateLeaderCard(String username, LeaderCard leader) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void showLeaderCardChoiceView() {
 		// TODO Auto-generated method stub
 		
 	}

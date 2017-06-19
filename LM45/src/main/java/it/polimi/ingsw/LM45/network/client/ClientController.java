@@ -133,8 +133,10 @@ public class ClientController {
 		// maybe with a call to the view interface
 
 		// TEST		
-		int chosenNumber = viewChooseFrom(alternatives);		
+		//int chosenNumber = viewChooseFrom(alternatives);		
 		// TEST
+		
+		int chosenNumber = viewInterface.chooseFrom(alternatives);
 
 		return chosenNumber;
 	}
