@@ -138,7 +138,8 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 				break;
 			case SET_PERSONALTILE:
 				PersonalBonusTile personalBonusTile = (PersonalBonusTile) inStream.readObject();
-				performAsync(() -> setPersonalBonusTile(personalBonusTile)); 
+				username = (String) inStream.readObject();
+				performAsync(() -> setPersonalBonusTile(username, personalBonusTile)); 
 			default:
 				break;
 		}
@@ -266,8 +267,8 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 	}
 
 	@Override
-	public void setPersonalBonusTile(PersonalBonusTile personalBonusTile) throws IOException {
-		clientController.setPersonalBonusTile(personalBonusTile);
+	public void setPersonalBonusTile(String username, PersonalBonusTile personalBonusTile) throws IOException {
+		clientController.setPersonalBonusTile(username, personalBonusTile);
 	}
 
 }

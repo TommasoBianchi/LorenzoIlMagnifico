@@ -26,6 +26,6 @@ public interface ClientInterface {
 	public void setFamiliar(String username,FamiliarColor color, int value) throws IOException;
 	public void doBonusAction(SlotType slotType, int value) throws IOException;
 	public void setResources(Resource[] resources, String username) throws IOException;
-	public void setPersonalBonusTile(PersonalBonusTile personalBonusTile) throws IOException;
+	public void setPersonalBonusTile(String username, PersonalBonusTile personalBonusTile) throws IOException;
 	
 }

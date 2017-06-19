@@ -129,8 +129,8 @@ public class RMIClient implements RemoteClientInterface, ServerInterface {
 	}
 
 	@Override
-	public void setPersonalBonusTile(PersonalBonusTile personalBonusTile) throws IOException {
-		clientController.setPersonalBonusTile(personalBonusTile);
+	public void setPersonalBonusTile(String username, PersonalBonusTile personalBonusTile) throws IOException {
+		clientController.setPersonalBonusTile(username, personalBonusTile);
 	}
 	
 }

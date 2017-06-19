@@ -223,8 +223,8 @@ public class ClientController {
 		viewInterface.setResources(resources, username);
 	}
 	
-	public void setPersonalBonusTile(PersonalBonusTile personalBonusTile){
-		viewInterface.setPersonalBonusTile(personalBonusTile);
+	public void setPersonalBonusTile(String username, PersonalBonusTile personalBonusTile){
+		viewInterface.setPersonalBonusTile(username, personalBonusTile);
 	}
 
 	private void manageIOException(IOException e) {

@@ -34,6 +34,6 @@ public interface ViewInterface {
 	public void discardLeaderCard(String username, LeaderCard leader);
 	public void playLeaderCard(String username, LeaderCard leader);
 	public void activateLeaderCard(String username, LeaderCard leader);
-	public void setPersonalBonusTile(PersonalBonusTile personalBonusTile);
+	public void setPersonalBonusTile(String username, PersonalBonusTile personalBonusTile);
 	
 }

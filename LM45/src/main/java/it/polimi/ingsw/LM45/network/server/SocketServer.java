@@ -290,9 +290,10 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 	}
 
 	@Override
-	public void setPersonalBonusTile(PersonalBonusTile personalBonusTile) throws IOException {
+	public void setPersonalBonusTile(String username, PersonalBonusTile personalBonusTile) throws IOException {
 		outStream.writeObject(ClientMessages.SET_PERSONALTILE);
 		outStream.writeObject(personalBonusTile);
+		outStream.writeObject(username);
 	}
 
 }

@@ -134,8 +134,8 @@ public class RMIServer implements RemoteServerInterface, ClientInterface {
 	}
 
 	@Override
-	public void setPersonalBonusTile(PersonalBonusTile personalBonusTile) throws IOException {
-		remoteClient.setPersonalBonusTile(personalBonusTile);
+	public void setPersonalBonusTile(String username, PersonalBonusTile personalBonusTile) throws IOException {
+		remoteClient.setPersonalBonusTile(username, personalBonusTile);
 	}
 
 }
