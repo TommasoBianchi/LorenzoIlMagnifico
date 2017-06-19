@@ -17,7 +17,7 @@ public class ChurchSupportBonusEffect extends Effect {
 	
 	@Override
 	public String toString() {
-		return "Church Support Bonus : " + resource.toString();
+		return "Whenever you support the Church you gain an additional " + resource.toString();
 	}
 
 }

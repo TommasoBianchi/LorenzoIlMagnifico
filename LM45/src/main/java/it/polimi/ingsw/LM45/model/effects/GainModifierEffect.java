@@ -33,7 +33,7 @@ public class GainModifierEffect extends Effect {
 	public String toString() {
 		String where = (canModifyCardGain && canModifyTowerGain) ? "cards and towers" : (canModifyCardGain) ? "cards" : "towers";
 		String sign = (isMultiplier) ? "x" : (resource.getAmount() > 0) ? "+" : "-";
-		return "Whenever you have to gain " + resource.getResourceType() + " on " + where + ", you gain " + sign + resource.getAmount();
+		return "Whenever you have to gain " + resource.getResourceType() + " on " + where + ", you gain " + sign + Math.abs(resource.getAmount());
 	}
 
 }

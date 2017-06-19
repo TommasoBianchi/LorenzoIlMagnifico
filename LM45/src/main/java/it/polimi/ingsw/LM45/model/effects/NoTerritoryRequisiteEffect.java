@@ -9,7 +9,7 @@ public class NoTerritoryRequisiteEffect extends Effect {
 	
 	@Override
 	public String toString() {
-		return "No more military requisites if you have more than 2 Territory Cards\n";
+		return "No more military requisites for Territories";
 	}
 
 }

@@ -31,17 +31,18 @@ public class ActionEffect extends Effect {
 		if (slotType == this.slotType)
 			// Make sure the discount is expressed as a negative cost modifier (otherwise it won't be a discount)
 			return new ActionModifier(
-					Arrays.stream(discount).map(resource -> resource.getAmount() > 0 ? resource.multiply(-1) : resource)
-							.toArray(Resource[]::new),
+					Arrays.stream(discount).map(resource -> resource.getAmount() > 0 ? resource.multiply(-1) : resource).toArray(Resource[]::new),
 					new Resource[] {}, diceNumber);
 		else
 			return ActionModifier.EMPTY;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Action Effect : type " + slotType.toString() + " value " + diceNumber + 
-				Arrays.stream(discount).map(resource -> resource.toString()).reduce(" discount ", (a,b) -> a + " " + b);
+		String discountString = "";
+		if (discount.length > 0)
+			discountString = Arrays.stream(discount).map(resource -> resource.toString()).reduce(" and a discount of ", (a, b) -> a + " " + b);
+		return "You can do an action of type " + slotType.toString() + " with a value of " + diceNumber + discountString;
 	}
 
 }
