@@ -47,11 +47,6 @@ public class LobbyController {
 		AnchorPane lobby = (AnchorPane) loader.load();
 		Scene scene = new Scene(lobby);
 		stage.setScene(scene);
-		stage.setHeight(720);
-		double ratio = lobby.getPrefWidth() / lobby.getPrefHeight();
-		stage.setWidth(ratio * Screen.getPrimary().getBounds().getHeight());
-		lobby.lookup("#grid").prefWidth(ratio * stage.getHeight());
-		lobby.lookup("#grid").maxWidth(ratio * stage.getHeight());
 		stage.setResizable(false);
 		stage.show();
 	}
