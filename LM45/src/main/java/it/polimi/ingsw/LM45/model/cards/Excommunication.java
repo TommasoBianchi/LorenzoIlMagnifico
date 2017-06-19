@@ -1,6 +1,7 @@
 package it.polimi.ingsw.LM45.model.cards;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 import it.polimi.ingsw.LM45.model.effects.CardEffect;
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
@@ -41,6 +42,12 @@ public class Excommunication implements Serializable {
 			effectResolutor.addPermanentEffect(effect);
 		else
 			effect.resolveEffects(effectResolutor);
+	}
+	
+	@Override
+	public String toString() {
+		return name + " (Excommunication - " + periodType + ")\n" + "Effect: "
+				+ effect.toString();
 	}
 	
 }
