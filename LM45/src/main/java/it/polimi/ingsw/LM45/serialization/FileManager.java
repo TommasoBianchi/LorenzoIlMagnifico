@@ -80,7 +80,7 @@ public class FileManager {
 	}
 	
 	public static void saveExcommunication(Excommunication excommunication) throws IOException {
-		String path = BASE_PATH + "/Excommunications/" + excommunication.getPeriodType();
+		String path = BASE_PATH + "/Excommunications/" + excommunication.getPeriodType().name();
 		File directory = new File(path);
 
 		if (!directory.exists()) {
