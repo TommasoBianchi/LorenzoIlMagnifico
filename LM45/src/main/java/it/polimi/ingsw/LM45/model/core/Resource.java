@@ -1,12 +1,16 @@
 package it.polimi.ingsw.LM45.model.core;
 
+import java.io.Serializable;
+
 /**
  * @author Tommy
  *
  * This class represents a certain amount of resources of a given resourceType.
  * It is an immutable class, i.e. its state can never change after initialization in the constructor.
  */
-public class Resource {
+public class Resource implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	
 	private ResourceType resourceType;
 	private int amount;

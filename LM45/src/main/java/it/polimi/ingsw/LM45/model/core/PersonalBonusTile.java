@@ -1,10 +1,13 @@
 package it.polimi.ingsw.LM45.model.core;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
 
-public class PersonalBonusTile {
+public class PersonalBonusTile implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private static final int MIN_DICE = 1;
 
