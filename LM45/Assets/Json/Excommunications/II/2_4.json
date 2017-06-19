@@ -1,0 +1,16 @@
+{
+  "name": "2_4",
+  "periodType": "II",
+  "effect": {
+    "effects": [
+      {
+        "slotType": "VENTURE",
+        "diceNumber": -4,
+        "discount": [],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ActionEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": true
+  }
+}

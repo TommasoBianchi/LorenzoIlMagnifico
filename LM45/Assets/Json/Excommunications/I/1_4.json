@@ -1,0 +1,30 @@
+{
+  "name": "1_4",
+  "periodType": "I",
+  "effect": {
+    "effects": [
+      {
+        "resource": {
+          "resourceType": "MILITARY",
+          "amount": -1
+        },
+        "canModifyCardGain": true,
+        "canModifyTowerGain": true,
+        "isMultiplier": false,
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.GainModifierEffect"
+      },
+      {
+        "resource": {
+          "resourceType": "MILITARY",
+          "amount": -1
+        },
+        "canModifyCardGain": true,
+        "canModifyTowerGain": true,
+        "isMultiplier": false,
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.GainModifierEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": true
+  }
+}

@@ -6,6 +6,10 @@ import it.polimi.ingsw.LM45.model.core.Resource;
 public class VictoryPointsFromCardsEffect extends Effect {
 
 	private CardType cardType;
+	
+	public VictoryPointsFromCardsEffect(CardType cardType) {
+		this.cardType = cardType;
+	}
 
 	@Override
 	public void resolveEffect(EffectResolutor effectResolutor) {

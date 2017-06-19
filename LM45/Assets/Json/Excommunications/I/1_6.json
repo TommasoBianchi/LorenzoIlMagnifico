@@ -1,0 +1,16 @@
+{
+  "name": "1_6",
+  "periodType": "I",
+  "effect": {
+    "effects": [
+      {
+        "slotType": "PRODUCTION",
+        "diceNumber": -3,
+        "discount": [],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ActionEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": true
+  }
+}

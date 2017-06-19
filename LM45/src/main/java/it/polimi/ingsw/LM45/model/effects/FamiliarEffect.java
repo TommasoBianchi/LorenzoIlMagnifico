@@ -21,16 +21,15 @@ public class FamiliarEffect extends Effect {
 
 	@Override
 	public void resolveEffect(EffectResolutor effectResolutor) {
-		if( bonusIsToAdd ){
+		if (servantBonusCostModifier != 1)
+			effectResolutor.modifyServantCost(servantBonusCostModifier);
+		else if( bonusIsToAdd ){
 			for ( FamiliarColor color:colors)
 				effectResolutor.addFamiliarBonus(color, bonus);
 		} else {
 			for ( FamiliarColor color : colors)
 				effectResolutor.setFamiliarValue(color, bonus);
 		}
-		
-		if (servantBonusCostModifier != 1)
-			effectResolutor.modifyServantCost(servantBonusCostModifier);
 	}
 	
 	@Override

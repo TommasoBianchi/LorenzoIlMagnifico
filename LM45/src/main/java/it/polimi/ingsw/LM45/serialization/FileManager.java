@@ -43,9 +43,11 @@ import it.polimi.ingsw.LM45.model.effects.CostModifierEffect;
 import it.polimi.ingsw.LM45.model.effects.Effect;
 import it.polimi.ingsw.LM45.model.effects.FamiliarEffect;
 import it.polimi.ingsw.LM45.model.effects.GainModifierEffect;
+import it.polimi.ingsw.LM45.model.effects.JumpFirstTurnEffect;
 import it.polimi.ingsw.LM45.model.effects.NoTerritoryRequisiteEffect;
 import it.polimi.ingsw.LM45.model.effects.ResourceEffect;
 import it.polimi.ingsw.LM45.model.effects.SlotModifierEffect;
+import it.polimi.ingsw.LM45.model.effects.VictoryPointsFromCardsEffect;
 
 public class FileManager {
 
@@ -842,20 +844,65 @@ public class FileManager {
 		
 		Excommunication[] excommunications = new Excommunication[21];
 		
+		//I Period
 		excommunications[0] = new Excommunication("1_1", PeriodType.I,
-				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 8)})));
+				new CardEffect(new GainModifierEffect(new Resource(ResourceType.MILITARY, -1), true, true, false), true));
 		excommunications[1] = new Excommunication("1_2", PeriodType.I,
-				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 8)})));
+				new CardEffect(new GainModifierEffect(new Resource(ResourceType.COINS, -1), true, true, false), true));
 		excommunications[2] = new Excommunication("1_3", PeriodType.I,
-				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 8)})));
+				new CardEffect(new GainModifierEffect(new Resource(ResourceType.SERVANTS, -1), true, true, false), true));
 		excommunications[3] = new Excommunication("1_4", PeriodType.I,
-				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 8)})));
+				new CardEffect(new Effect[] {
+						new GainModifierEffect(new Resource(ResourceType.MILITARY, -1), true, true, false),
+						new GainModifierEffect(new Resource(ResourceType.MILITARY, -1), true, true, false)}, false, true));
 		excommunications[4] = new Excommunication("1_5", PeriodType.I,
-				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 8)})));
+				new CardEffect(new ActionEffect(SlotType.HARVEST, -3), true));
 		excommunications[5] = new Excommunication("1_6", PeriodType.I,
-				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 8)})));
+				new CardEffect(new ActionEffect(SlotType.PRODUCTION, -3), true));
 		excommunications[6] = new Excommunication("1_7", PeriodType.I,
-				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 8)})));
+				new CardEffect(new FamiliarEffect(-1, false, new FamiliarColor[]{FamiliarColor.BLACK, FamiliarColor.ORANGE,
+						FamiliarColor.ORANGE}, 1)));
+		
+		//II Period
+		excommunications[7] = new Excommunication("2_1", PeriodType.II,
+				new CardEffect(new ActionEffect(SlotType.TERRITORY, -4), true));
+		excommunications[8] = new Excommunication("2_2", PeriodType.II,
+				new CardEffect(new ActionEffect(SlotType.BUILDING, -4), true));
+		excommunications[9] = new Excommunication("2_3", PeriodType.II,
+				new CardEffect(new ActionEffect(SlotType.CHARACTER, -4), true));
+		excommunications[10] = new Excommunication("2_4", PeriodType.II,
+				new CardEffect(new ActionEffect(SlotType.VENTURE, -4), true));
+		excommunications[11] = new Excommunication("2_5", PeriodType.II,
+				new CardEffect(new SlotModifierEffect(SlotType.MARKET, false, false, false), true));
+		excommunications[12] = new Excommunication("2_6", PeriodType.II,
+				new CardEffect(new FamiliarEffect(0, false, new FamiliarColor[]{}, 2)));
+		excommunications[13] = new Excommunication("2_7", PeriodType.II,
+				new CardEffect(new JumpFirstTurnEffect()));
+		
+		//III Period
+		excommunications[14] = new Excommunication("3_1", PeriodType.III,
+				new CardEffect(new VictoryPointsFromCardsEffect(CardType.CHARACTER)));
+		excommunications[15] = new Excommunication("3_2", PeriodType.III,
+				new CardEffect(new VictoryPointsFromCardsEffect(CardType.VENTURE)));
+		excommunications[16] = new Excommunication("3_3", PeriodType.III,
+				new CardEffect(new VictoryPointsFromCardsEffect(CardType.TERRITORY)));
+		excommunications[17] = new Excommunication("3_4", PeriodType.III,
+				new CardEffect(new ResourceEffect(new Resource(ResourceType.VICTORY, 5),
+						new Resource[]{new Resource(ResourceType.VICTORY, -1)})));
+		excommunications[18] = new Excommunication("3_5", PeriodType.III,
+				new CardEffect(new ResourceEffect(new Resource(ResourceType.MILITARY, 1),
+						new Resource[]{new Resource(ResourceType.VICTORY, -1)})));
+		excommunications[19] = new Excommunication("3_6", PeriodType.III,
+				new CardEffect(new VictoryPointsFromCardsEffect(CardType.BUILDING)));
+		excommunications[20] = new Excommunication("3_7", PeriodType.III,
+				new CardEffect(new Effect[]{new ResourceEffect(new Resource(ResourceType.COINS, 1),
+						new Resource[]{new Resource(ResourceType.VICTORY, -1)}),
+						new ResourceEffect(new Resource(ResourceType.WOOD, 1),
+								new Resource[]{new Resource(ResourceType.VICTORY, -1)}),
+						new ResourceEffect(new Resource(ResourceType.STONE, 1),
+								new Resource[]{new Resource(ResourceType.VICTORY, -1)}),
+						new ResourceEffect(new Resource(ResourceType.SERVANTS, 1),
+								new Resource[]{new Resource(ResourceType.VICTORY, -1)})}, false));
 		
 
 		try {
@@ -883,6 +930,16 @@ public class FileManager {
 			System.out.println("");
 			for(LeaderCard leaderCard : loadLeaderCards()){
 				System.out.println("\n" + leaderCard.toString() + "\n");
+			}
+			
+			System.out.println("Excommunications :");
+			Map<PeriodType, List<Excommunication>> excommunicationDeck = loadExcommunications();
+			for (PeriodType periodType : new PeriodType[] { PeriodType.I, PeriodType.II, PeriodType.III}) {
+				System.out.println(periodType);
+				for(Excommunication excommunication : excommunicationDeck.get(periodType)){
+					System.out.println("\n" + excommunication.toString() + "\n");
+					System.out.println("------------------");
+				}
 			}
 
 		} catch (IOException e) {
