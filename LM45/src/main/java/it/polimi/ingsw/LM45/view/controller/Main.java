@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 	
-	private static final boolean FAST_TESTING = true;
+	private static final boolean FAST_TESTING = false;
 
 	private Stage primaryStage;
 

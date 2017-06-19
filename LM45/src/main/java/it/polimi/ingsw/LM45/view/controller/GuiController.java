@@ -67,8 +67,6 @@ public class GuiController implements ViewInterface {
 			Scene scene = new Scene(leaderChoice);
 			stage.setScene(scene);
 			stage.setResizable(false);
-			stage.setWidth(Screen.getPrimary().getVisualBounds().getWidth());
-			stage.setHeight(Screen.getPrimary().getVisualBounds().getHeight());
 			stage.show();
 			LeaderCardChoiceController controller = loader2.getController();
 			leaderChoiceController = controller;
@@ -87,11 +85,9 @@ public class GuiController implements ViewInterface {
 			Scene scene = new Scene(gameBoard);
 			stage.setScene(scene);
 			stage.setResizable(false);
-			stage.setWidth(Screen.getPrimary().getVisualBounds().getWidth());
-			stage.setHeight(Screen.getPrimary().getVisualBounds().getHeight());
 			stage.show();
 			GameBoardController controllerGameBoard = loader.getController();
-			// guiController.setGameBoardController(controllerGameBoard);
+			this.setGameBoardController(controllerGameBoard);
 			controllerGameBoard.setScene(scene);
 			controllerGameBoard.coverSlots(playersUsername.length);
 			controllerGameBoard.setFamiliars(playerColor, new int[] { 1, 2, 3, 4 });
