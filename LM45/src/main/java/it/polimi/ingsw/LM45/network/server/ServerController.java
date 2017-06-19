@@ -25,7 +25,9 @@ import it.polimi.ingsw.LM45.exceptions.GameException;
 import it.polimi.ingsw.LM45.exceptions.IllegalActionException;
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.CardType;
+import it.polimi.ingsw.LM45.model.cards.Excommunication;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
+import it.polimi.ingsw.LM45.model.cards.PeriodType;
 import it.polimi.ingsw.LM45.model.core.Familiar;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.Game;
@@ -55,6 +57,7 @@ public class ServerController {
 	private PersonalBonusTilesConfiguration personalBonusTilesConfiguration;
 	private Map<String, LeaderCard> leaderCards;
 	private Map<CardType, List<Card>> deck;
+	private Map<PeriodType, List<Excommunication>> excommunications;
 	private int maxNumberOfPlayers;
 	private long gameStartTimerDelay;
 	private Timer gameStartTimer;
@@ -74,6 +77,7 @@ public class ServerController {
 		this.leaderCards = FileManager.loadLeaderCards().stream()
 				.collect(Collectors.toMap(leaderCard -> leaderCard.getName(), leaderCard -> leaderCard));
 		this.deck = FileManager.loadCards();
+		this.excommunications = FileManager.loadExcommunications();
 		this.maxNumberOfPlayers = maxNumberOfPlayers;
 		this.gameStartTimerDelay = gameStartTimerDelay;
 		this.gameStartTimer = new Timer();
@@ -247,11 +251,11 @@ public class ServerController {
 		gameStartTimer.cancel();
 		System.out.println("Game is starting!");
 		game = new Game(new ArrayList<Player>(players.values()), boardConfiguration, deck, new ArrayList<LeaderCard>(leaderCards.values()),
-				new HashMap<>()/* load the excommunication deck */);
+				excommunications);
 		game.start();
 
 		giveBaseResources();
-		// choosePersonalBonusTiles();
+		choosePersonalBonusTiles();
 		chooseLeaderCards();
 
 		// TODO: send players the starting state of the board
@@ -317,7 +321,9 @@ public class ServerController {
 	}
 
 	private void chooseLeaderCards() {
-		// Make players choose their leaderCards
+		Map<String, LeaderCard[]> chosenLeaderCards = new HashMap<>();
+		
+		// Shuffle the leaderCards and take 4 of them for each of the players
 		List<LeaderCard> shuffledLeaderCards = ShuffleHelper.shuffle(leaderCards.values());
 		Map<String, List<LeaderCard>> leaderCardsToChoose = new HashMap<>();
 		int i = 0;
@@ -328,11 +334,14 @@ public class ServerController {
 			leaderCardsToChooseByThisPlayer.add(shuffledLeaderCards.get(4 * i + 2));
 			leaderCardsToChooseByThisPlayer.add(shuffledLeaderCards.get(4 * i + 3));
 			leaderCardsToChoose.put(playerUsername, leaderCardsToChooseByThisPlayer);
+			chosenLeaderCards.put(playerUsername, new LeaderCard[4]);
 			i++;
 		}
 
+		// Make players choose their leaderCards
 		for (i = 0; i < 3; i++) {
 			ExecutorService executorService = Executors.newFixedThreadPool(4);
+			int currentIndex = i;
 			// Give each (connected) player the possibility to choose a leaderCard (in parallel)
 			users.keySet().forEach(playerUsername -> {
 				executorService.submit(() -> {
@@ -341,6 +350,7 @@ public class ServerController {
 					LeaderCard chosenLeaderCard = leaderCardsToChoose.get(playerUsername).get(index);
 					System.out.println(playerUsername + " has chosen " + chosenLeaderCard.getName());
 					players.get(playerUsername).addLeaderCard(chosenLeaderCard);
+					chosenLeaderCards.get(playerUsername)[currentIndex] = chosenLeaderCard;
 					leaderCardsToChoose.get(playerUsername).remove(chosenLeaderCard);
 				});
 			});
@@ -352,9 +362,9 @@ public class ServerController {
 			}
 			catch (InterruptedException e) {
 				// TODO: think better about how should we manage this exception
-				System.err.println("ServerController::chooseLeaderCards() -- " +
-						"An InterruptedException occurred while awaiting executorService to terminate."
-						+ "Forcing executorService shutdown and propagating interrupt.");
+				System.err.println(
+						"ServerController::chooseLeaderCards() -- " + "An InterruptedException occurred while awaiting executorService to terminate."
+								+ "Forcing executorService shutdown and propagating interrupt.");
 				e.printStackTrace();
 				executorService.shutdownNow();
 				Thread.currentThread().interrupt();
@@ -368,15 +378,9 @@ public class ServerController {
 					System.out.println("I have chosen for " + playerUsername + " " + chosenLeaderCard.getName());
 					players.get(playerUsername).addLeaderCard(chosenLeaderCard);
 					leaderCardsToChoose.get(playerUsername).remove(chosenLeaderCard);
+					chosenLeaderCards.get(playerUsername)[currentIndex] = chosenLeaderCard;
 				}
 			});
-
-			/*
-			 * // Make every player choose a leaderCard and remove it from the chosable ones players.keySet().forEach(playerUsername -> { System.out.println(playerUsername + " has to choose"); int
-			 * index = (users.containsKey(playerUsername)) ? chooseFrom(playerUsername, leaderCardsToChoose.get(playerUsername).stream().map(leaderCard ->
-			 * leaderCard.toString()).toArray(String[]::new)) : 0; System.out.println(playerUsername + " has chosen"); LeaderCard chosenLeaderCard = leaderCardsToChoose.get(playerUsername).get(index);
-			 * players.get(playerUsername).addLeaderCard(chosenLeaderCard); leaderCardsToChoose.get(playerUsername).remove(chosenLeaderCard); });
-			 */
 
 			// Swap chosable leaderCards between players
 			String[] playersUsernames = players.keySet().stream().toArray(String[]::new);
@@ -387,7 +391,20 @@ public class ServerController {
 			leaderCardsToChoose.put(playersUsernames[playersUsernames.length - 1], firstList);
 		}
 
-		players.entrySet().forEach(entry -> entry.getValue().addLeaderCard(leaderCardsToChoose.get(entry.getKey()).get(0)));
+		players.forEach((username, player) -> {
+			LeaderCard leaderCard = leaderCardsToChoose.get(username).get(0);
+			player.addLeaderCard(leaderCard);
+			chosenLeaderCards.get(username)[3] = leaderCard;
+		});
+		
+		users.forEach((username, clientInterface) -> {
+			try {
+				clientInterface.setLeaderCards(chosenLeaderCards.get(username));
+			}
+			catch (IOException e) {
+				manageIOException(username, e);
+			}
+		});
 	}
 
 	private void choosePersonalBonusTiles() {
@@ -402,7 +419,9 @@ public class ServerController {
 			}
 
 			PersonalBonusTile chosenPersonalBonusTile = personalBonusTiles.remove(chosenIndex);
+			System.out.println(player.getUsername() + " has chosen " + chosenPersonalBonusTile);
 			player.setPersonalBonusTile(chosenPersonalBonusTile);
+			notifyPlayers(clientInterface -> clientInterface.setPersonalBonusTile(player.getUsername(), chosenPersonalBonusTile));
 		}
 	}
 
@@ -416,11 +435,17 @@ public class ServerController {
 		});
 
 		orderedPlayers[0].addResources(new Resource(ResourceType.COINS, 5));
+		notifyPlayers(clientInterface -> clientInterface.setResources(orderedPlayers[0].getAllResources(), orderedPlayers[0].getUsername()));
 		orderedPlayers[1].addResources(new Resource(ResourceType.COINS, 6));
-		if (orderedPlayers.length > 2)
+		notifyPlayers(clientInterface -> clientInterface.setResources(orderedPlayers[1].getAllResources(), orderedPlayers[1].getUsername()));
+		if (orderedPlayers.length > 2) {
 			orderedPlayers[2].addResources(new Resource(ResourceType.COINS, 7));
-		if (orderedPlayers.length > 3)
+			notifyPlayers(clientInterface -> clientInterface.setResources(orderedPlayers[2].getAllResources(), orderedPlayers[2].getUsername()));
+		}
+		if (orderedPlayers.length > 3) {
 			orderedPlayers[3].addResources(new Resource(ResourceType.COINS, 8));
+			notifyPlayers(clientInterface -> clientInterface.setResources(orderedPlayers[3].getAllResources(), orderedPlayers[3].getUsername()));
+		}
 	}
 
 	/**
