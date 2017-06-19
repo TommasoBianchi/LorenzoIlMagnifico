@@ -59,6 +59,13 @@ public class PersonalBoard {
 	public int getResourceAmount(ResourceType resourceType) {
 		return resources.getOrDefault(resourceType, 0);
 	}
+	
+	/**
+	 * @return an array containing all the resources this personalBoard contains
+	 */
+	public Resource[] getAllResources(){
+		return resources.entrySet().stream().map(entry -> new Resource(entry.getKey(), entry.getValue())).toArray(Resource[]::new);
+	}
 
 	/**
 	 * @param resource the type of resource to check

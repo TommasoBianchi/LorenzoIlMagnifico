@@ -119,6 +119,13 @@ public class Player {
 	public int getResourceAmount(ResourceType resourceType) {
 		return personalBoard.getResourceAmount(resourceType);
 	}
+	
+	/**
+	 * @return an array containing all the resources this player has
+	 */
+	public Resource[] getAllResources(){
+		return personalBoard.getAllResources();
+	}
 
 	/**
 	 * @param resource the type of resource to check
