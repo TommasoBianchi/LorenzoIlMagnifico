@@ -15,6 +15,7 @@ import it.polimi.ingsw.LM45.network.client.ClientController;
 import it.polimi.ingsw.LM45.view.gui.gameboard.GameBoardController;
 import it.polimi.ingsw.LM45.view.gui.leadercard.LeaderCardChoiceController;
 import it.polimi.ingsw.LM45.view.lobby.LobbyController;
+
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -26,6 +27,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.scene.control.ButtonType;
 
 public class GuiController implements ViewInterface {
 
@@ -107,31 +109,6 @@ public class GuiController implements ViewInterface {
 		// playerusername ha tutti gli username...myusername lo prendo dal client controller
 	}
 
-	public int chooseLeaderCard(String[] leaders) {
-		Platform.runLater(new Runnable() {
-			@Override
-			public void run() {
-				leaderChoiceController
-						.chooseLeader(Arrays.stream(leaders).map(leader -> leader.substring(0, leader.indexOf("(") - 1)).toArray(String[]::new));
-			}
-		});
-
-		synchronized (choiceLockToken) {
-			while(choice == -1)
-				try {
-					choiceLockToken.wait();
-				}
-				catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-			int x = choice;
-			choice = -1;
-			return x;
-		}
-	}
-
 	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor) {
 		// TODO Auto-generated method stub
 
@@ -153,27 +130,49 @@ public class GuiController implements ViewInterface {
 	}
 
 	public int chooseFrom(String[] alternatives) {
-		if(alternatives.length <= 0)
+		if (alternatives.length <= 0)
 			return -1;
-		else if(alternatives[0].contains("(LeaderCard)"))
-			return chooseLeaderCard(alternatives);
+		else if (alternatives[0].contains("(LeaderCard)"))
+			return choose(alternatives, () -> leaderChoiceController
+					.chooseLeader(Arrays.stream(alternatives).map(leader -> leader.substring(0, leader.indexOf("(") - 1)).toArray(String[]::new)));
 		else {
-			Dialog dialog = new Dialog();
-			GridPane root = new GridPane();
-			HBox box = new HBox(alternatives.length);
-			ToggleGroup group = new ToggleGroup();
-			RadioButton button1 = new RadioButton(alternatives[0]);
-			box.getChildren().add(button1);
-			for (int i=1;i<alternatives.length;i++) {
-				RadioButton button2 = new RadioButton(alternatives[i]);
-				button2.setToggleGroup(group);
-				box.getChildren().add(button2);
-			}
-			button1.setSelected(true);
-			root.add(box, 0, 0);
-			dialog.getDialogPane().setContent(root);
-			dialog.showAndWait();
-			return group.getToggles().indexOf(group.getSelectedToggle());
+			return choose(alternatives, () -> {
+				Dialog<ButtonType> dialog = new Dialog<>();
+				dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+				GridPane root = new GridPane();
+				HBox box = new HBox(alternatives.length);
+				ToggleGroup group = new ToggleGroup();
+				for (int i = 0; i < alternatives.length; i++) {
+					RadioButton button = new RadioButton(alternatives[i]);
+					button.setToggleGroup(group);
+					button.setText(alternatives[i]);
+					box.getChildren().add(button);
+				}
+				root.add(box, 0, 0);
+				dialog.getDialogPane().setContent(root);
+				System.out.println("Showing dialog for chooseFrom");
+				dialog.showAndWait();
+				setChoice(group.getToggles().indexOf(group.getSelectedToggle()));
+			});
+		}
+	}
+
+	private int choose(String[] alternative, Runnable uiCallback) {
+		Platform.runLater(uiCallback);
+
+		synchronized (choiceLockToken) {
+			while (choice == -1)
+				try {
+					choiceLockToken.wait();
+				}
+				catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			int x = choice;
+			choice = -1;
+			return x;
 		}
 	}
 
@@ -263,6 +262,6 @@ public class GuiController implements ViewInterface {
 	@Override
 	public void setPersonalBonusTile(String username, PersonalBonusTile personalBonusTile) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

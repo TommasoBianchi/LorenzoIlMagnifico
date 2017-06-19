@@ -42,7 +42,8 @@ import it.polimi.ingsw.LM45.model.effects.ActionModifier;
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
 import it.polimi.ingsw.LM45.network.client.ClientInterface;
 import it.polimi.ingsw.LM45.serialization.FileManager;
-import it.polimi.ingsw.LM45.util.CheckedFunction;
+import it.polimi.ingsw.LM45.util.CheckedFunction1;
+import it.polimi.ingsw.LM45.util.CheckedFunction2;
 import it.polimi.ingsw.LM45.util.Pair;
 import it.polimi.ingsw.LM45.util.ShuffleHelper;
 
@@ -397,14 +398,7 @@ public class ServerController {
 			chosenLeaderCards.get(username)[3] = leaderCard;
 		});
 		
-		users.forEach((username, clientInterface) -> {
-			try {
-				clientInterface.setLeaderCards(chosenLeaderCards.get(username));
-			}
-			catch (IOException e) {
-				manageIOException(username, e);
-			}
-		});
+		notifyPlayers((username, clientInterface) -> clientInterface.setLeaderCards(chosenLeaderCards.get(username)));
 	}
 
 	private void choosePersonalBonusTiles() {
@@ -414,6 +408,7 @@ public class ServerController {
 		for (Player player : orderedPlayers) {
 			int chosenIndex = 0;
 			if (personalBonusTiles.size() > 1 && users.containsKey(player.getUsername())) {
+				System.out.println(player + " has to choose a personalBonusTile");
 				chosenIndex = chooseFrom(player.getUsername(),
 						personalBonusTiles.stream().map(personalBonusTile -> personalBonusTile.toString()).toArray(String[]::new));
 			}
@@ -447,20 +442,28 @@ public class ServerController {
 			notifyPlayers(clientInterface -> clientInterface.setResources(orderedPlayers[3].getAllResources(), orderedPlayers[3].getUsername()));
 		}
 	}
-
+	
 	/**
 	 * Notify every connected client about something
 	 * 
-	 * @param c
-	 *            the ClientInterface's function we want to call on every connected player
+	 * @param c the function we want to call on every connected player (providing access to only the clientInterface) 
 	 */
-	private void notifyPlayers(CheckedFunction<ClientInterface, IOException> c) {
+	private void notifyPlayers(CheckedFunction1<ClientInterface, IOException> c) {
+		notifyPlayers((username, clientInterface) -> c.apply(clientInterface)); 
+	}
+		
+	/**
+	 * Notify every connected client about something
+	 * 
+	 * @param c the function we want to call on every connected player (providing access to both the username and the clientInterface) 
+	 */
+	private void notifyPlayers(CheckedFunction2<String, ClientInterface, IOException> c) {
 		List<Pair<String, IOException>> raisedIOException = new ArrayList<>();
 
 		users.entrySet().stream().parallel().forEach(entry -> {
 			System.out.println("Notify " + entry.getKey() + " of something");
 			try {
-				c.apply(entry.getValue());
+				c.apply(entry.getKey(), entry.getValue());
 			}
 			catch (IOException e) {
 				// Save the raised IOException to manage them later because they can cause
