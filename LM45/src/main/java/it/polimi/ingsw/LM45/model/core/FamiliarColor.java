@@ -4,5 +4,6 @@ public enum FamiliarColor {
 	WHITE,
 	ORANGE,
 	BLACK,
-	UNCOLORED;		
+	UNCOLORED,
+	BONUS;
 }

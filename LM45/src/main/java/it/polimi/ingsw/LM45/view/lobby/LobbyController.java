@@ -3,7 +3,7 @@ package it.polimi.ingsw.LM45.view.lobby;
 import java.io.IOException;
 
 import it.polimi.ingsw.LM45.controller.ClientLauncher;
-import it.polimi.ingsw.LM45.view.controller.InitializeViewController;
+import it.polimi.ingsw.LM45.view.controller.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -43,7 +43,7 @@ public class LobbyController {
 		
 		FXMLLoader loader = new FXMLLoader();
 		loader.setController(this);
-		loader.setLocation(InitializeViewController.class.getResource("../lobby/LobbyView.fxml"));
+		loader.setLocation(Main.class.getResource("../lobby/LobbyView.fxml"));
 		AnchorPane lobby = (AnchorPane) loader.load();
 		Scene scene = new Scene(lobby);
 		stage.setScene(scene);
@@ -89,6 +89,7 @@ public class LobbyController {
 		else {
 			try {
 				ClientLauncher.launch(playerNickname, serverIp.getText(), portNumber, rmi.isSelected(), gui.isSelected());
+				stage.close();
 			}
 			catch (IOException e) {
 				alert.setHeaderText("Unable to connect");

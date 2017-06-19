@@ -1,4 +1,4 @@
-package it.polimi.ingsw.LM45.view.gameboard;
+package it.polimi.ingsw.LM45.view.gui.gameboard;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -12,13 +12,14 @@ import com.sun.glass.ui.Screen;
 
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.CardType;
+import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.PlayerColor;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.ResourceType;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.serialization.FileManager;
-import it.polimi.ingsw.LM45.view.controller.InitializeViewController;
-import it.polimi.ingsw.LM45.view.personalBoard.PersonalBoardController;
+import it.polimi.ingsw.LM45.view.controller.Main;
+import it.polimi.ingsw.LM45.view.gui.personalBoard.PersonalBoardController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -130,6 +131,10 @@ public class GameBoardController {
 	private PersonalBoardController personalController3 = new PersonalBoardController();
 	
 	private Scene gameScene;
+	
+
+	FamiliarColor familiarColor = FamiliarColor.BONUS;
+	boolean familiarSelected = false;
 	
 	@FXML
 	public void initialize() {

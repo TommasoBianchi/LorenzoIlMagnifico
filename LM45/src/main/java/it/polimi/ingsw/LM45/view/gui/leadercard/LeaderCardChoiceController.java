@@ -1,4 +1,4 @@
-package it.polimi.ingsw.LM45.view.leadercard;
+package it.polimi.ingsw.LM45.view.gui.leadercard;
 
 import java.util.Arrays;
 

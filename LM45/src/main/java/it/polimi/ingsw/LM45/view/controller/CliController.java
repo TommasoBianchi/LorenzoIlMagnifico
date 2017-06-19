@@ -1,5 +1,7 @@
 package it.polimi.ingsw.LM45.view.controller;
 
+import it.polimi.ingsw.LM45.model.cards.Card;
+import it.polimi.ingsw.LM45.model.cards.Excommunication;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.PlayerColor;
@@ -16,19 +18,13 @@ public class CliController implements ViewInterface {
 	}
 
 	@Override
-	public int chooseLeaderCard(LeaderCard[] leaders) {
+	public int chooseLeaderCard(String[] leaders) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public void showGameBoardView(int numPlayers, PlayerColor playerColor, String[] playersUsername) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setUsername(String username) {
+	public void showGameBoardView(PlayerColor playerColor, String[] playersUsername) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -40,13 +36,25 @@ public class CliController implements ViewInterface {
 	}
 
 	@Override
-	public void pickCard(String Name) {
+	public void pickCard(Card card, String username) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void addCardsOnTower(String[] names, SlotType slotType) {
+	public void addCardsOnTower(Card[] cards, SlotType slotType) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setFamiliar(String username, FamiliarColor color, int value) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyError(String message) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -76,12 +84,6 @@ public class CliController implements ViewInterface {
 	}
 
 	@Override
-	public void setFamiliarValue(FamiliarColor familiarColor, int value, String username) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void myTurn() {
 		// TODO Auto-generated method stub
 		
@@ -92,5 +94,41 @@ public class CliController implements ViewInterface {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void setExcommunications(Excommunication[] excommunications) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setLeaderCards(String username, LeaderCard[] leaders) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void discardLeaderCard(String username, LeaderCard leader) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void playLeaderCard(String username, LeaderCard leader) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void activateLeaderCard(String username, LeaderCard leader) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	/* 4 personalboard new class to do on cli with all personalBoard components
+	 * Board
+	 * 
+	 */
+
 
 }

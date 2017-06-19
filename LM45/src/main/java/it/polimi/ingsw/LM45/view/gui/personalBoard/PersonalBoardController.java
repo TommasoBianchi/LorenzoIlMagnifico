@@ -1,4 +1,4 @@
-package it.polimi.ingsw.LM45.view.personalBoard;
+package it.polimi.ingsw.LM45.view.gui.personalBoard;
 
 import java.util.EnumMap;
 import java.util.Map;
