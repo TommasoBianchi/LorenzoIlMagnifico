@@ -148,8 +148,6 @@ public class GameBoardController {
 			try { Scene scene = new Scene(loader.load());
 					stages[i].setResizable(false);
 					stages[i].setScene(scene);
-					stages[i].setWidth(Screen.getPrimary().getVisualBounds().getWidth());
-					stages[i].setHeight(Screen.getPrimary().getVisualBounds().getWidth());
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -260,10 +258,6 @@ public class GameBoardController {
 		image.setScaleY(1);
 		image.setTranslateY(0);
 	}
-	
-	//TODO add servantsCost
-	
-	//TODO button to spend Servant
 	
 	public void showPersonalBoard(MouseEvent event) {
 		Button button = (Button)event.getSource();

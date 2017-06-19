@@ -32,7 +32,8 @@ import javafx.stage.StageStyle;
 import javafx.scene.control.ButtonType;
 
 public class GuiController implements ViewInterface {
-
+	
+	//da mettere tutti private quando finiscono i test
 	LobbyController lobbyController;
 	LeaderCardChoiceController leaderChoiceController;
 	GameBoardController gameBoardController;
@@ -102,7 +103,6 @@ public class GuiController implements ViewInterface {
 			controllerGameBoard.setUsernames(playersUsername);
 			controllerGameBoard.setMyUsername("JOH");
 			controllerGameBoard.setServantCost(1);
-			stage.getScene().setOnMouseClicked(null);
 		}
 		catch (IOException | NullPointerException e) { // TODO sistemare
 			e.printStackTrace();

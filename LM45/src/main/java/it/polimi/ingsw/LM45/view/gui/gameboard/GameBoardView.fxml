@@ -30,7 +30,7 @@
                <children>
                   <ImageView fitHeight="720.0" fitWidth="600.0" layoutX="117.0" layoutY="15.0" pickOnBounds="true" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="15.0">
                      <image>
-                        <Image url="file:Assets/Image/GameBoard/GameBoard.JPG" />
+                        <Image url="@../../../../../../../../../../Assets/Image/GameBoard/GameBoard.JPG" />
                      </image>
                   </ImageView>
                   <FlowPane id="TERRITORY3" layoutX="100.0" layoutY="44.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
