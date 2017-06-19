@@ -2,6 +2,7 @@ package it.polimi.ingsw.LM45.view.controller;
 
 import java.io.IOException;
 
+import it.polimi.ingsw.LM45.controller.ClientLauncher;
 import it.polimi.ingsw.LM45.view.lobby.LobbyController;
 
 import javafx.application.Application;
@@ -9,6 +10,8 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+	
+	private static final boolean FAST_TESTING = true;
 
 	private Stage primaryStage;
 
@@ -18,7 +21,10 @@ public class Main extends Application {
 		this.primaryStage.getIcons().add(new Image("file:Assets/Image/Cards/LEADER/LeaderCard Cover.jpg"));
 		
 		try {
-			new LobbyController(primaryStage);
+			if(FAST_TESTING)
+				ClientLauncher.launch("Tommy", "127.0.0.1", 7000, false, true);
+			else
+				new LobbyController(primaryStage);			
 		}
 		catch (IOException e) {
 			// TODO Auto-generated catch block

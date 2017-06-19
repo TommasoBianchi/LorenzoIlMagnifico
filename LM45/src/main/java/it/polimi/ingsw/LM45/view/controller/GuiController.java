@@ -147,10 +147,11 @@ public class GuiController implements ViewInterface {
 					button.setToggleGroup(group);
 					button.setText(alternatives[i]);
 					box.getChildren().add(button);
+					if(i == 0)
+						group.selectToggle(button);
 				}
 				root.add(box, 0, 0);
 				dialog.getDialogPane().setContent(root);
-				System.out.println("Showing dialog for chooseFrom");
 				dialog.showAndWait();
 				setChoice(group.getToggles().indexOf(group.getSelectedToggle()));
 			});
