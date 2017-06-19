@@ -1,5 +1,6 @@
 package it.polimi.ingsw.LM45.model.cards;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -9,7 +10,9 @@ import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.ResourceType;
 import it.polimi.ingsw.LM45.model.effects.ActionModifier;
 
-public class Cost {
+public class Cost implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
 	public static final Cost EMPTY = new Cost(new Resource[] {});
 

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.LM45.model.cards;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 import it.polimi.ingsw.LM45.exceptions.IllegalActionException;
@@ -8,7 +9,9 @@ import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.effects.CardEffect;
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
 
-public class LeaderCard {
+public class LeaderCard implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
 	private String name;
 	private CardEffect effect;

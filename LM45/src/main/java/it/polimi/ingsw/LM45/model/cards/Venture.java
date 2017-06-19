@@ -6,6 +6,8 @@ import it.polimi.ingsw.LM45.model.effects.CardEffect;
 
 public class Venture extends Card {
 	
+	private static final long serialVersionUID = 1L;
+	
 	private Cost alternativeCost;
 
 	/**

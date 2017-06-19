@@ -7,6 +7,8 @@ import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.effects.ActionModifier;
 
 public class CostWithPrerequisites extends Cost {
+	
+	private static final long serialVersionUID = 1L;
 
 	private Resource[] prerequisites;
 

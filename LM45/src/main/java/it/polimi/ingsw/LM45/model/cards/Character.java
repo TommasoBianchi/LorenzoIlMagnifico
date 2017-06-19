@@ -3,6 +3,8 @@ package it.polimi.ingsw.LM45.model.cards;
 import it.polimi.ingsw.LM45.model.effects.CardEffect;
 
 public class Character extends Card {
+	
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @param name name of the Card

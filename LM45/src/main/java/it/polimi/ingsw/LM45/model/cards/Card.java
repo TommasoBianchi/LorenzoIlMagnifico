@@ -1,12 +1,16 @@
 package it.polimi.ingsw.LM45.model.cards;
 
+import java.io.Serializable;
+
 import it.polimi.ingsw.LM45.model.core.Player;
 import it.polimi.ingsw.LM45.model.effects.ActionModifier;
 import it.polimi.ingsw.LM45.model.effects.CardEffect;
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
 
-public abstract class Card {
-
+public abstract class Card implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
 	protected String name;
 	private PeriodType periodType;
 	protected CardType cardType;

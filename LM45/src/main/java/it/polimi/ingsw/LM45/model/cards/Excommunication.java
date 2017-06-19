@@ -1,9 +1,13 @@
 package it.polimi.ingsw.LM45.model.cards;
 
+import java.io.Serializable;
+
 import it.polimi.ingsw.LM45.model.effects.CardEffect;
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
 
-public class Excommunication {
+public class Excommunication implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
 	private String name;
 	private PeriodType periodType;

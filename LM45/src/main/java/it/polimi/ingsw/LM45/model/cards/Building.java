@@ -5,6 +5,8 @@ import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
 
 public class Building extends Card {
 	
+	private static final long serialVersionUID = 1L;
+	
 	private int minDiceToProduce;
 
 	/**

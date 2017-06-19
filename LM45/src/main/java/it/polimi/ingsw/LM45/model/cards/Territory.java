@@ -4,6 +4,8 @@ import it.polimi.ingsw.LM45.model.effects.CardEffect;
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
 
 public class Territory extends Card {
+	
+	private static final long serialVersionUID = 1L;
 
 	private int minDiceToHarvest;
 	
