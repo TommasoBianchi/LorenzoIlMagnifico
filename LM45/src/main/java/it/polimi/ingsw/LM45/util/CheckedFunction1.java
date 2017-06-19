@@ -7,6 +7,6 @@ package it.polimi.ingsw.LM45.util;
  * @param <E> the checked exception this function may throw
  */
 @FunctionalInterface
-public interface CheckedFunction<T, E extends Exception> {
+public interface CheckedFunction1<T, E extends Exception> {
 	void apply(T t) throws E;
 }
