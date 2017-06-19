@@ -5,7 +5,7 @@
     "effects": [
       {
         "resource": {
-          "resourceType": "MILITARY",
+          "resourceType": "STONE",
           "amount": -1
         },
         "canModifyCardGain": true,
@@ -15,7 +15,7 @@
       },
       {
         "resource": {
-          "resourceType": "MILITARY",
+          "resourceType": "WOOD",
           "amount": -1
         },
         "canModifyCardGain": true,

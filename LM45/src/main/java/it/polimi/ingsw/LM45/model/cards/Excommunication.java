@@ -46,7 +46,7 @@ public class Excommunication implements Serializable {
 	
 	@Override
 	public String toString() {
-		return name + " (Excommunication - " + periodType + ")\n" + "Effect: "
+		return "(Excommunication - " + periodType + ")\n" + "Effect: "
 				+ effect.toString();
 	}
 	

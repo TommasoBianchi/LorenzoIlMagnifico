@@ -9,7 +9,7 @@
         "colors": [
           "BLACK",
           "ORANGE",
-          "ORANGE"
+          "WHITE"
         ],
         "servantBonusCostModifier": 1,
         "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.FamiliarEffect"

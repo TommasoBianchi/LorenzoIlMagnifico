@@ -853,15 +853,15 @@ public class FileManager {
 				new CardEffect(new GainModifierEffect(new Resource(ResourceType.SERVANTS, -1), true, true, false), true));
 		excommunications[3] = new Excommunication("1_4", PeriodType.I,
 				new CardEffect(new Effect[] {
-						new GainModifierEffect(new Resource(ResourceType.MILITARY, -1), true, true, false),
-						new GainModifierEffect(new Resource(ResourceType.MILITARY, -1), true, true, false)}, false, true));
+						new GainModifierEffect(new Resource(ResourceType.STONE, -1), true, true, false),
+						new GainModifierEffect(new Resource(ResourceType.WOOD, -1), true, true, false)}, false, true));
 		excommunications[4] = new Excommunication("1_5", PeriodType.I,
 				new CardEffect(new ActionEffect(SlotType.HARVEST, -3), true));
 		excommunications[5] = new Excommunication("1_6", PeriodType.I,
 				new CardEffect(new ActionEffect(SlotType.PRODUCTION, -3), true));
 		excommunications[6] = new Excommunication("1_7", PeriodType.I,
 				new CardEffect(new FamiliarEffect(-1, false, new FamiliarColor[]{FamiliarColor.BLACK, FamiliarColor.ORANGE,
-						FamiliarColor.ORANGE}, 1)));
+						FamiliarColor.WHITE}, 1)));
 		
 		//II Period
 		excommunications[7] = new Excommunication("2_1", PeriodType.II,

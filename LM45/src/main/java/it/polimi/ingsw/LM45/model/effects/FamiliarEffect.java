@@ -35,7 +35,7 @@ public class FamiliarEffect extends Effect {
 	@Override
 	public String toString() {
 		if(servantBonusCostModifier != 1)
-			return "Spend " + servantBonusCostModifier + " to increase familiars value of 1 point";
+			return "Spend " + servantBonusCostModifier + " servants to increase familiars value of 1 point";
 		else if(bonusIsToAdd)
 			return "+" + bonus + " bonus for familiars " +
 					Arrays.stream(colors).map(FamiliarColor -> FamiliarColor.toString()).reduce((a,b) -> a + " " + b).orElse("");
