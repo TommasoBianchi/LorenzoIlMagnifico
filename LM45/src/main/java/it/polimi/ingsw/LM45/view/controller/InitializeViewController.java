@@ -24,31 +24,16 @@ public class InitializeViewController extends Application {
 		this.primaryStage = stage;
 		this.primaryStage.setTitle("Lorenzo il Magnifico");
 		this.primaryStage.getIcons().add(new Image("file:Assets/Image/Cards/LEADER/LeaderCard Cover.jpg"));
-		showLobbyView();
-		//showLeaderCardChoice();
-		//showGameBoard(2, PlayerColor.RED, new String[]{"Pippo", "Cucu", "Lulu"});
-	}
-
-	public void showLobbyView() {
 		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(InitializeViewController.class.getResource("../lobby/LobbyView.fxml"));
-			AnchorPane lobby = (AnchorPane) loader.load();
-			Scene scene = new Scene(lobby);
-			primaryStage.setScene(scene);
-			primaryStage.setHeight(Screen.getMainScreen().getHeight());
-			double ratio = lobby.getPrefWidth() / lobby.getPrefHeight();
-			primaryStage.setWidth(ratio * Screen.getMainScreen().getHeight());
-			lobby.lookup("#grid").prefWidth(ratio * primaryStage.getHeight());
-			lobby.lookup("#grid").maxWidth(ratio * primaryStage.getHeight());
-			primaryStage.setResizable(false);
-			primaryStage.show();
-			LobbyController controller = loader.getController();
-			//guiController.setLobbyController(controller);
-			controller.setMain(this);
-		} catch (IOException e) { // TODO sistemare
+			new LobbyController(primaryStage);
+		}
+		catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		//showLobbyView();
+		//showLeaderCardChoice();
+		//showGameBoard(2, PlayerColor.RED, new String[]{"Pippo", "Cucu", "Lulu"});
 	}
 	
 	public void showLeaderCardChoice() {
