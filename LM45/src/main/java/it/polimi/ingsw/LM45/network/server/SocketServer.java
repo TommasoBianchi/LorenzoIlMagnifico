@@ -261,9 +261,8 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 	}
 
 	@Override
-	public void setLeaderCards(String username, LeaderCard[] leaders) throws IOException {
+	public void setLeaderCards(LeaderCard[] leaders) throws IOException {
 		outStream.writeObject(ClientMessages.SETUP_LEADERS);
-		outStream.writeObject(username);
 		outStream.writeObject(leaders);
 	}
 

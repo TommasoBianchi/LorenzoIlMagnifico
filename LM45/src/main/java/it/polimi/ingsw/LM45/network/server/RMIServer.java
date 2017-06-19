@@ -113,8 +113,8 @@ public class RMIServer implements RemoteServerInterface, ClientInterface {
 	}
 
 	@Override
-	public void setLeaderCards(String username, LeaderCard[] leaders) throws IOException {
-		remoteClient.setLeaderCards(username, leaders);
+	public void setLeaderCards(LeaderCard[] leaders) throws IOException {
+		remoteClient.setLeaderCards(leaders);
 	}
 
 	@Override

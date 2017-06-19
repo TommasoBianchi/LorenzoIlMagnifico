@@ -29,7 +29,7 @@ public interface ViewInterface {
 	public void myTurn();
 	public void playerTurn(String username);
 	public void setExcommunications(Excommunication[] excommunications);
-	public void setLeaderCards(String username, LeaderCard[] leaders);
+	public void setLeaderCards(LeaderCard[] leaders);
 	public void discardLeaderCard(String username, LeaderCard leader);
 	public void playLeaderCard(String username, LeaderCard leader);
 	public void activateLeaderCard(String username, LeaderCard leader);

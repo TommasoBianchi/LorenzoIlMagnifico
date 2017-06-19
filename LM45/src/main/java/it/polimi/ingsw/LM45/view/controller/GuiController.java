@@ -215,7 +215,7 @@ public class GuiController implements ViewInterface {
 	}
 
 	@Override
-	public void setLeaderCards(String username, LeaderCard[] leaders) {
+	public void setLeaderCards(LeaderCard[] leaders) {
 		// TODO Auto-generated method stub
 
 	}

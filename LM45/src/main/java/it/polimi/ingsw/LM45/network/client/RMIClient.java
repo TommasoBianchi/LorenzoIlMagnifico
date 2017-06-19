@@ -108,8 +108,8 @@ public class RMIClient implements RemoteClientInterface, ServerInterface {
 	}
 
 	@Override
-	public void setLeaderCards(String username, LeaderCard[] leaders) {
-		clientController.setLeaderCards(username, leaders);
+	public void setLeaderCards(LeaderCard[] leaders) {
+		clientController.setLeaderCards(leaders);
 	}
 
 	@Override

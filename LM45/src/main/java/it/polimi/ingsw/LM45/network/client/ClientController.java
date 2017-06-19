@@ -206,8 +206,8 @@ public class ClientController {
 		viewInterface.setExcommunications(excommunications);
 	}
 
-	public void setLeaderCards(String username, LeaderCard[] leaders) {
-		viewInterface.setLeaderCards(username, leaders);
+	public void setLeaderCards(LeaderCard[] leaders) {
+		viewInterface.setLeaderCards(leaders);
 	}
 
 	public void setFamiliar(String username, FamiliarColor color, int value) {

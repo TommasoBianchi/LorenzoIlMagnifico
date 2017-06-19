@@ -21,7 +21,7 @@ public interface ClientInterface {
 	public void addCardsOnTower(Card[] cards, SlotType slotType) throws IOException;
 	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor) throws IOException;
 	public void setExcommunications(Excommunication[] excommunications) throws IOException;
-	public void setLeaderCards(String username, LeaderCard[] leaders) throws IOException;
+	public void setLeaderCards(LeaderCard[] leaders) throws IOException;
 	public void setFamiliar(String username,FamiliarColor color, int value) throws IOException;
 	public void doBonusAction(SlotType slotType, int value) throws IOException;
 	public void setResources(Resource[] resources, String username) throws IOException;

@@ -116,9 +116,8 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 				performAsync(() -> setExcommunications(excommunications)); 
 				break;
 			case SETUP_LEADERS:
-				username = (String) inStream.readObject();
 				LeaderCard[] leaders = (LeaderCard[]) inStream.readObject();
-				performAsync(() -> setLeaderCards(username, leaders)); 
+				performAsync(() -> setLeaderCards(leaders)); 
 				break;
 			case SET_FAMILIAR:
 				username = (String) inStream.readObject();
@@ -243,8 +242,8 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 	}
 
 	@Override
-	public void setLeaderCards(String username, LeaderCard[] leaders) {
-		clientController.setLeaderCards(username, leaders);
+	public void setLeaderCards(LeaderCard[] leaders) {
+		clientController.setLeaderCards(leaders);
 	}
 
 	@Override
