@@ -3,7 +3,6 @@ package it.polimi.ingsw.LM45.view.gui.leadercard;
 import java.util.Arrays;
 
 import it.polimi.ingsw.LM45.view.controller.GuiController;
-import it.polimi.ingsw.LM45.view.controller.Main;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -23,11 +22,12 @@ public class LeaderCardChoiceController {
 	public void chooseLeader(String[] leadersName) {
 		String path = "file:Assets/Image/Cards/LEADER/";
 
-		System.out.println("LeaderCardChoiceController::chooseLeader");
+		System.out.println("LeaderCardChoiceController::chooseLeader -- " + leadersName.length + " leaders");
 
 		leaders.getChildren().clear();
 
 		for (String leader : leadersName) {
+			System.out.println(leader);
 			leaders.setHgap(20);
 			leaders.setAlignment(Pos.CENTER);
 			ImageView leaderView = new ImageView(new Image(path + leader + ".jpg"));
@@ -39,7 +39,7 @@ public class LeaderCardChoiceController {
 
 				@Override
 				public void handle(MouseEvent event) {
-					System.out.println(leader);
+					System.out.println(leader + " chosen");
 					leaders.getChildren().clear();
 					guiController.setChoice(Arrays.asList(leadersName).indexOf(leader));
 				}

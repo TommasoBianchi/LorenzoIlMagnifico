@@ -789,7 +789,7 @@ public class FileManager {
 				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 1),
 						new Resource(ResourceType.WOOD, 1), new Resource(ResourceType.STONE, 1) })),
 				new Resource[] { new Resource(ResourceType.MILITARY, 12) });
-		leaderCards[7] = new LeaderCard("Leonardo da Vincia", new CardEffect(new ActionEffect(SlotType.PRODUCTION, 0)),
+		leaderCards[7] = new LeaderCard("Leonardo da Vinci", new CardEffect(new ActionEffect(SlotType.PRODUCTION, 0)),
 				new Resource[] { new Resource(ResourceType.CHARACTER, 4), new Resource(ResourceType.TERRITORY, 2) });
 		leaderCards[8] = new LeaderCard("Sandro Botticelli", new CardEffect(new ResourceEffect(
 				new Resource[] { new Resource(ResourceType.MILITARY, 2), new Resource(ResourceType.VICTORY, 1) })),
