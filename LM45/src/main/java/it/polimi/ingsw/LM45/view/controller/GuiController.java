@@ -22,6 +22,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -58,7 +59,8 @@ public class GuiController implements ViewInterface {
 	public void setGameBoardController(GameBoardController gameBoardController) {
 		this.gameBoardController = gameBoardController;
 	}
-
+	
+	@Override
 	public void showLeaderCardChoiceView() {
 		try {
 			FXMLLoader loader2 = new FXMLLoader();
@@ -67,6 +69,7 @@ public class GuiController implements ViewInterface {
 			Scene scene = new Scene(leaderChoice);
 			stage.setScene(scene);
 			stage.setResizable(false);
+			stage.getIcons().add(new Image("file:Assets/Image/Cards/LEADER/LeaderCard Cover.jpg"));
 			stage.show();
 			LeaderCardChoiceController controller = loader2.getController();
 			leaderChoiceController = controller;
@@ -76,7 +79,8 @@ public class GuiController implements ViewInterface {
 			e.printStackTrace();
 		}
 	}
-
+	
+	@Override
 	public void showGameBoard(PlayerColor playerColor, String[] playersUsername) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -85,6 +89,7 @@ public class GuiController implements ViewInterface {
 			Scene scene = new Scene(gameBoard);
 			stage.setScene(scene);
 			stage.setResizable(false);
+			stage.getIcons().add(new Image("file:Assets/Image/Cards/LEADER/LeaderCard Cover.jpg"));
 			stage.show();
 			GameBoardController controllerGameBoard = loader.getController();
 			this.setGameBoardController(controllerGameBoard);
@@ -99,10 +104,6 @@ public class GuiController implements ViewInterface {
 		catch (IOException | NullPointerException e) { // TODO sistemare
 			e.printStackTrace();
 		}
-	}
-
-	public void showGameBoardView(PlayerColor[] playerColor, String[] playersUsername) {
-		// playerusername ha tutti gli username...myusername lo prendo dal client controller
 	}
 
 	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor) {
@@ -193,12 +194,6 @@ public class GuiController implements ViewInterface {
 	}
 
 	public void playerTurn(String username) {
-
-	}
-
-	@Override
-	public void showGameBoardView(PlayerColor playerColor, String[] playersUsername) {
-		// TODO Auto-generated method stub
 
 	}
 
