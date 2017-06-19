@@ -14,6 +14,7 @@ import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
+import it.polimi.ingsw.LM45.model.core.PersonalBonusTile;
 import it.polimi.ingsw.LM45.model.core.PlayerColor;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.SlotType;
@@ -135,6 +136,9 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 				username = (String) inStream.readObject();
 				performAsync(() -> setResources(resources, username)); 
 				break;
+			case SET_PERSONALTILE:
+				PersonalBonusTile personalBonusTile = (PersonalBonusTile) inStream.readObject();
+				performAsync(() -> setPersonalBonusTile(personalBonusTile)); 
 			default:
 				break;
 		}
@@ -259,6 +263,11 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 	@Override
 	public void setResources(Resource[] resources, String username) {
 		clientController.setResources(resources, username);
+	}
+
+	@Override
+	public void setPersonalBonusTile(PersonalBonusTile personalBonusTile) throws IOException {
+		clientController.setPersonalBonusTile(personalBonusTile);
 	}
 
 }

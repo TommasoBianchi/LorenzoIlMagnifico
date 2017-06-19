@@ -13,6 +13,7 @@ import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
+import it.polimi.ingsw.LM45.model.core.PersonalBonusTile;
 import it.polimi.ingsw.LM45.model.core.PlayerColor;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.SlotType;
@@ -286,6 +287,12 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 		outStream.writeObject(ClientMessages.SET_RESOURCES);
 		outStream.writeObject(resources);
 		outStream.writeObject(username);
+	}
+
+	@Override
+	public void setPersonalBonusTile(PersonalBonusTile personalBonusTile) throws IOException {
+		outStream.writeObject(ClientMessages.SET_PERSONALTILE);
+		outStream.writeObject(personalBonusTile);
 	}
 
 }

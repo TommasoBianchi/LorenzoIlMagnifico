@@ -7,6 +7,7 @@ import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
+import it.polimi.ingsw.LM45.model.core.PersonalBonusTile;
 import it.polimi.ingsw.LM45.model.core.PlayerColor;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.SlotType;
@@ -25,5 +26,6 @@ public interface ClientInterface {
 	public void setFamiliar(String username,FamiliarColor color, int value) throws IOException;
 	public void doBonusAction(SlotType slotType, int value) throws IOException;
 	public void setResources(Resource[] resources, String username) throws IOException;
+	public void setPersonalBonusTile(PersonalBonusTile personalBonusTile) throws IOException;
 	
 }

@@ -7,6 +7,7 @@ import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
+import it.polimi.ingsw.LM45.model.core.PersonalBonusTile;
 import it.polimi.ingsw.LM45.model.core.PlayerColor;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.SlotType;
@@ -130,6 +131,11 @@ public class RMIServer implements RemoteServerInterface, ClientInterface {
 	@Override
 	public void setResources(Resource[] resources, String username) throws IOException {
 		remoteClient.setResources(resources, username);
+	}
+
+	@Override
+	public void setPersonalBonusTile(PersonalBonusTile personalBonusTile) throws IOException {
+		remoteClient.setPersonalBonusTile(personalBonusTile);
 	}
 
 }

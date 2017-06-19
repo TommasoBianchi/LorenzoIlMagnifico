@@ -15,6 +15,7 @@ import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
+import it.polimi.ingsw.LM45.model.core.PersonalBonusTile;
 import it.polimi.ingsw.LM45.model.core.PlayerColor;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.SlotType;
@@ -220,6 +221,10 @@ public class ClientController {
 
 	public void setResources(Resource[] resources, String username) {
 		viewInterface.setResources(resources, username);
+	}
+	
+	public void setPersonalBonusTile(PersonalBonusTile personalBonusTile){
+		viewInterface.setPersonalBonusTile(personalBonusTile);
 	}
 
 	private void manageIOException(IOException e) {
