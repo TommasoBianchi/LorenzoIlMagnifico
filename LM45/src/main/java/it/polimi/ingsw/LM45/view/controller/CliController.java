@@ -4,6 +4,7 @@ import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
+import it.polimi.ingsw.LM45.model.core.PersonalBonusTile;
 import it.polimi.ingsw.LM45.model.core.PlayerColor;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.SlotType;
@@ -120,6 +121,12 @@ public class CliController implements ViewInterface {
 
 	@Override
 	public void activateLeaderCard(String username, LeaderCard leader) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setPersonalBonusTile(String username, PersonalBonusTile personalBonusTile) {
 		// TODO Auto-generated method stub
 		
 	}
