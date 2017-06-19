@@ -28,6 +28,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.scene.control.ButtonType;
 
 public class GuiController implements ViewInterface {
@@ -70,6 +71,7 @@ public class GuiController implements ViewInterface {
 			stage.setScene(scene);
 			stage.setResizable(false);
 			stage.getIcons().add(new Image("file:Assets/Image/Cards/LEADER/LeaderCard Cover.jpg"));
+			stage.initStyle(StageStyle.UNDECORATED);
 			stage.show();
 			LeaderCardChoiceController controller = loader2.getController();
 			leaderChoiceController = controller;
@@ -90,6 +92,7 @@ public class GuiController implements ViewInterface {
 			stage.setScene(scene);
 			stage.setResizable(false);
 			stage.getIcons().add(new Image("file:Assets/Image/Cards/LEADER/LeaderCard Cover.jpg"));
+			stage.initStyle(StageStyle.UNDECORATED);
 			stage.show();
 			GameBoardController controllerGameBoard = loader.getController();
 			this.setGameBoardController(controllerGameBoard);
@@ -149,6 +152,8 @@ public class GuiController implements ViewInterface {
 				}
 				root.add(box, 0, 0);
 				dialog.getDialogPane().setContent(root);
+				dialog.setTitle("Personal Bonus Tiles");
+				dialog.initStyle(StageStyle.UNDECORATED);
 				dialog.showAndWait();
 				setChoice(group.getToggles().indexOf(group.getSelectedToggle()));
 			});

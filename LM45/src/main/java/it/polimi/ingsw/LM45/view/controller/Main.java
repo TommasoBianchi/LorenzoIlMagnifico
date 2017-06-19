@@ -8,6 +8,7 @@ import it.polimi.ingsw.LM45.view.lobby.LobbyController;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class Main extends Application {
 	
@@ -19,6 +20,7 @@ public class Main extends Application {
 		this.primaryStage = stage;
 		this.primaryStage.setTitle("Lorenzo il Magnifico");
 		this.primaryStage.getIcons().add(new Image("file:Assets/Image/Cards/LEADER/LeaderCard Cover.jpg"));
+		this.primaryStage.initStyle(StageStyle.TRANSPARENT);
 		
 		try {
 			if(FAST_TESTING)
