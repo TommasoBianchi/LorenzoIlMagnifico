@@ -94,10 +94,10 @@ public class Game {
 	}
 
 	/**
-	 * Starts a turn by resetting bookkeeping indices, clearing slots, picking new cards for the towerSlots, taking the 
+	 * Starts a round by resetting bookkeeping indices, clearing slots, picking new cards for the towerSlots, taking the 
 	 * new turn's order from the councilSlot and rolling the dices for the familiars' values.
 	 */
-	public void startTurn() {
+	public void startRound() {
 		// Reset turn counters
 		currentPlayerIndex = 0;
 		currentRound = 0;

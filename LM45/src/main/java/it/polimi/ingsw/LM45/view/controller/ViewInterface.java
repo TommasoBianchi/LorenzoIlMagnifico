@@ -12,7 +12,6 @@ import it.polimi.ingsw.LM45.network.client.ClientController;
 public interface ViewInterface {
 
 	public void showLeaderCardChoiceView();
-	public int chooseLeaderCard(String[] leaders);
 	public void showGameBoardView(PlayerColor playerColor, String[] playersUsername);
 	// playerusername ha tutti gli username...myusername lo prendo dal client controller
 	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor);

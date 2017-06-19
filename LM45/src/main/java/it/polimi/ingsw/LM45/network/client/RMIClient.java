@@ -8,7 +8,12 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 import it.polimi.ingsw.LM45.exceptions.GameException;
+import it.polimi.ingsw.LM45.model.cards.Card;
+import it.polimi.ingsw.LM45.model.cards.Excommunication;
+import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
+import it.polimi.ingsw.LM45.model.core.PlayerColor;
+import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.network.server.RMIRemoteFactory;
 import it.polimi.ingsw.LM45.network.server.RemoteServerInterface;
@@ -80,6 +85,46 @@ public class RMIClient implements RemoteClientInterface, ServerInterface {
 	@Override
 	public int chooseFrom(String[] alternatives) throws IOException {
 		return clientController.chooseFrom(alternatives);
+	}
+
+	@Override
+	public void pickCard(Card card, String username) {
+		clientController.pickCard(card, username);
+	}
+
+	@Override
+	public void addCardsOnTower(Card[] cards, SlotType slotType) {
+		clientController.addCardsOnTower(cards, slotType);
+	}
+
+	@Override
+	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor) {
+		clientController.addFamiliar(slotType, position, familiarColor, playerColor);
+	}
+
+	@Override
+	public void setExcommunications(Excommunication[] excommunications) {
+		clientController.setExcommunications(excommunications);
+	}
+
+	@Override
+	public void setLeaderCards(String username, LeaderCard[] leaders) {
+		clientController.setLeaderCards(username, leaders);
+	}
+
+	@Override
+	public void setFamiliar(String username, FamiliarColor color, int value) {
+		clientController.setFamiliar(username, color, value);
+	}
+
+	@Override
+	public void doBonusAction(SlotType slotType, int value) {
+		clientController.doBonusAction(slotType, value);
+	}
+
+	@Override
+	public void setResources(Resource[] resources, String username) {
+		clientController.setResources(resources, username);
 	}
 	
 }

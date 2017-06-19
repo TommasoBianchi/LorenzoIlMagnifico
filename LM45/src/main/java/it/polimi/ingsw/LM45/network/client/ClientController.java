@@ -11,7 +11,12 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import com.sun.media.jfxmedia.events.NewFrameEvent;
 
 import it.polimi.ingsw.LM45.exceptions.GameException;
+import it.polimi.ingsw.LM45.model.cards.Card;
+import it.polimi.ingsw.LM45.model.cards.Excommunication;
+import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
+import it.polimi.ingsw.LM45.model.core.PlayerColor;
+import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.network.server.ServerInterface;
 import it.polimi.ingsw.LM45.view.controller.ViewInterface;
@@ -184,6 +189,38 @@ public class ClientController {
 		}
 	}
 	// TEST
+	
+	public void pickCard(Card card, String username) {
+		viewInterface.pickCard(card, username);
+	}
+
+	public void addCardsOnTower(Card[] cards, SlotType slotType) {
+		viewInterface.addCardsOnTower(cards, slotType);
+	}
+
+	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor) {
+		viewInterface.addFamiliar(slotType, position, familiarColor, playerColor);
+	}
+
+	public void setExcommunications(Excommunication[] excommunications) {
+		viewInterface.setExcommunications(excommunications);
+	}
+
+	public void setLeaderCards(String username, LeaderCard[] leaders) {
+		viewInterface.setLeaderCards(username, leaders);
+	}
+
+	public void setFamiliar(String username, FamiliarColor color, int value) {
+		viewInterface.setFamiliar(username, color, value);
+	}
+
+	public void doBonusAction(SlotType slotType, int value) {
+		viewInterface.doBonusAction(slotType, value);
+	}
+
+	public void setResources(Resource[] resources, String username) {
+		viewInterface.setResources(resources, username);
+	}
 
 	private void manageIOException(IOException e) {
 		// TODO: implement better

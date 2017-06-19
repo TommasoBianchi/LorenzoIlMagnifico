@@ -9,7 +9,12 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.locks.ReentrantLock;
 
 import it.polimi.ingsw.LM45.exceptions.GameException;
+import it.polimi.ingsw.LM45.model.cards.Card;
+import it.polimi.ingsw.LM45.model.cards.Excommunication;
+import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
+import it.polimi.ingsw.LM45.model.core.PlayerColor;
+import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.network.client.ClientInterface;
 import it.polimi.ingsw.LM45.network.client.ClientMessages;
@@ -224,6 +229,64 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 		}
 
 		return index;
+	}
+
+	@Override
+	public void pickCard(Card card, String username) throws IOException {
+		outStream.writeObject(ClientMessages.PICK_CARD);
+		outStream.writeObject(card);
+		outStream.writeObject(username);
+	}
+
+	@Override
+	public void addCardsOnTower(Card[] cards, SlotType slotType) throws IOException {
+		outStream.writeObject(ClientMessages.SETUP_TOWER);
+		outStream.writeObject(cards);
+		outStream.writeObject(slotType);
+	}
+
+	@Override
+	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor) throws IOException {
+		outStream.writeObject(ClientMessages.ADD_FAMILIAR);
+		outStream.writeObject(slotType);
+		outStream.writeObject(new Integer(position));
+		outStream.writeObject(familiarColor);
+		outStream.writeObject(playerColor);
+	}
+
+	@Override
+	public void setExcommunications(Excommunication[] excommunications) throws IOException {
+		outStream.writeObject(ClientMessages.SETUP_EXCOMMUNICATIONS);
+		outStream.writeObject(excommunications);
+	}
+
+	@Override
+	public void setLeaderCards(String username, LeaderCard[] leaders) throws IOException {
+		outStream.writeObject(ClientMessages.SETUP_LEADERS);
+		outStream.writeObject(username);
+		outStream.writeObject(leaders);
+	}
+
+	@Override
+	public void setFamiliar(String username, FamiliarColor color, int value) throws IOException {
+		outStream.writeObject(ClientMessages.SET_FAMILIAR);
+		outStream.writeObject(username);
+		outStream.writeObject(color);
+		outStream.writeObject(new Integer(value));
+	}
+
+	@Override
+	public void doBonusAction(SlotType slotType, int value) throws IOException {
+		outStream.writeObject(ClientMessages.BONUS_ACTION);
+		outStream.writeObject(slotType);
+		outStream.writeObject(new Integer(value));
+	}
+
+	@Override
+	public void setResources(Resource[] resources, String username) throws IOException {
+		outStream.writeObject(ClientMessages.SET_RESOURCES);
+		outStream.writeObject(resources);
+		outStream.writeObject(username);
 	}
 
 }

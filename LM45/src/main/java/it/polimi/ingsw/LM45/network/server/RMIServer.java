@@ -3,7 +3,12 @@ package it.polimi.ingsw.LM45.network.server;
 import java.io.IOException;
 
 import it.polimi.ingsw.LM45.exceptions.GameException;
+import it.polimi.ingsw.LM45.model.cards.Card;
+import it.polimi.ingsw.LM45.model.cards.Excommunication;
+import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
+import it.polimi.ingsw.LM45.model.core.PlayerColor;
+import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.network.client.ClientInterface;
 import it.polimi.ingsw.LM45.network.client.RemoteClientInterface;
@@ -85,6 +90,46 @@ public class RMIServer implements RemoteServerInterface, ClientInterface {
 	@Override
 	public int chooseFrom(String[] alternatives) throws IOException {
 		return remoteClient.chooseFrom(alternatives);
+	}
+
+	@Override
+	public void pickCard(Card card, String username) throws IOException {
+		remoteClient.pickCard(card, username);		
+	}
+
+	@Override
+	public void addCardsOnTower(Card[] cards, SlotType slotType) throws IOException {
+		remoteClient.addCardsOnTower(cards, slotType);		
+	}
+
+	@Override
+	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor) throws IOException {
+		remoteClient.addFamiliar(slotType, position, familiarColor, playerColor);
+	}
+
+	@Override
+	public void setExcommunications(Excommunication[] excommunications) throws IOException {
+		remoteClient.setExcommunications(excommunications);
+	}
+
+	@Override
+	public void setLeaderCards(String username, LeaderCard[] leaders) throws IOException {
+		remoteClient.setLeaderCards(username, leaders);
+	}
+
+	@Override
+	public void setFamiliar(String username, FamiliarColor color, int value) throws IOException {
+		remoteClient.setFamiliar(username, color, value);
+	}
+
+	@Override
+	public void doBonusAction(SlotType slotType, int value) throws IOException {
+		remoteClient.doBonusAction(slotType, value);
+	}
+
+	@Override
+	public void setResources(Resource[] resources, String username) throws IOException {
+		remoteClient.setResources(resources, username);
 	}
 
 }

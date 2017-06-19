@@ -17,7 +17,6 @@ public class CliController implements ViewInterface {
 		
 	}
 
-	@Override
 	public int chooseLeaderCard(String[] leaders) {
 		// TODO Auto-generated method stub
 		return 0;

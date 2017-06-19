@@ -10,11 +10,17 @@ import java.util.concurrent.Executors;
 import org.omg.CORBA.portable.IndirectionException;
 
 import it.polimi.ingsw.LM45.exceptions.GameException;
+import it.polimi.ingsw.LM45.model.cards.Card;
+import it.polimi.ingsw.LM45.model.cards.Excommunication;
+import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
+import it.polimi.ingsw.LM45.model.core.PlayerColor;
+import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.network.server.ServerInterface;
 import it.polimi.ingsw.LM45.network.server.ServerMessages;
 import it.polimi.ingsw.LM45.util.CheckedAction;
+import javafx.scene.layout.ConstraintsBase;
 
 public class SocketClient implements ClientInterface, ServerInterface, Runnable {
 
@@ -87,6 +93,48 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 					if(index >= 0 && index < alternatives.length)
 						outStream.writeObject(index);
 				});
+				break;
+			case PICK_CARD:
+				Card card = (Card) inStream.readObject();
+				username = (String) inStream.readObject();
+				performAsync(() -> pickCard(card, username)); 
+				break;
+			case SETUP_TOWER:
+				Card[] cards = (Card[]) inStream.readObject();
+				SlotType slotType = (SlotType) inStream.readObject();
+				performAsync(() -> addCardsOnTower(cards, slotType)); 
+				break;
+			case ADD_FAMILIAR:
+				slotType = (SlotType) inStream.readObject();
+				Integer position = (Integer) inStream.readObject();
+				FamiliarColor familiarColor = (FamiliarColor) inStream.readObject();
+				PlayerColor playerColor = (PlayerColor) inStream.readObject();				
+				performAsync(() -> addFamiliar(slotType, position, familiarColor, playerColor)); 
+				break;
+			case SETUP_EXCOMMUNICATIONS:
+				Excommunication[] excommunications = (Excommunication[]) inStream.readObject();
+				performAsync(() -> setExcommunications(excommunications)); 
+				break;
+			case SETUP_LEADERS:
+				username = (String) inStream.readObject();
+				LeaderCard[] leaders = (LeaderCard[]) inStream.readObject();
+				performAsync(() -> setLeaderCards(username, leaders)); 
+				break;
+			case SET_FAMILIAR:
+				username = (String) inStream.readObject();
+				FamiliarColor color = (FamiliarColor) inStream.readObject();
+				Integer value = (Integer) inStream.readObject();
+				performAsync(() -> setFamiliar(username, color, value)); 
+				break;
+			case BONUS_ACTION:
+				slotType = (SlotType) inStream.readObject();
+				value = (Integer) inStream.readObject();
+				performAsync(() -> doBonusAction(slotType, value)); 
+				break;
+			case SET_RESOURCES:
+				Resource[] resources = (Resource[]) inStream.readObject();
+				username = (String) inStream.readObject();
+				performAsync(() -> setResources(resources, username)); 
 				break;
 			default:
 				break;
@@ -172,6 +220,46 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 				e.printStackTrace();
 			}
 		});
+	}
+
+	@Override
+	public void pickCard(Card card, String username) {
+		clientController.pickCard(card, username);
+	}
+
+	@Override
+	public void addCardsOnTower(Card[] cards, SlotType slotType) {
+		clientController.addCardsOnTower(cards, slotType);
+	}
+
+	@Override
+	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor) {
+		clientController.addFamiliar(slotType, position, familiarColor, playerColor);
+	}
+
+	@Override
+	public void setExcommunications(Excommunication[] excommunications) {
+		clientController.setExcommunications(excommunications);
+	}
+
+	@Override
+	public void setLeaderCards(String username, LeaderCard[] leaders) {
+		clientController.setLeaderCards(username, leaders);
+	}
+
+	@Override
+	public void setFamiliar(String username, FamiliarColor color, int value) {
+		clientController.setFamiliar(username, color, value);
+	}
+
+	@Override
+	public void doBonusAction(SlotType slotType, int value) {
+		clientController.doBonusAction(slotType, value);
+	}
+
+	@Override
+	public void setResources(Resource[] resources, String username) {
+		clientController.setResources(resources, username);
 	}
 
 }

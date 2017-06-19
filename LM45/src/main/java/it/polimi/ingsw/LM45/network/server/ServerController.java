@@ -237,7 +237,7 @@ public class ServerController {
 			}
 			else {
 				System.out.println("Next turn!");
-				game.startTurn();
+				game.startRound();
 				nextPlayerRound();
 			}
 		}
@@ -256,7 +256,7 @@ public class ServerController {
 
 		// TODO: send players the starting state of the board
 
-		game.startTurn();
+		game.startRound();
 
 		// Make first player start his turn
 		nextPlayerRound();
