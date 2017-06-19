@@ -2,6 +2,7 @@ package it.polimi.ingsw.LM45.model.effects;
 
 import java.util.Arrays;
 
+import it.polimi.ingsw.LM45.model.core.Player;
 import it.polimi.ingsw.LM45.model.core.Resource;
 
 public class ResourceEffect extends Effect {
@@ -38,25 +39,28 @@ public class ResourceEffect extends Effect {
 			for (Resource resource : resourcesToGain) {
 				effectResolutor.addResources(resource);
 			}
-		} 
+		}
 		else {
-			int multiplier = effectResolutor.getResourceAmount(resourceToMultiply.getResourceType())
-					/ resourceToMultiply.getAmount();
+			int multiplier = effectResolutor.getResourceAmount(resourceToMultiply.getResourceType()) / resourceToMultiply.getAmount();
 			for (Resource resource : resourcesToGain) {
 				effectResolutor.addResources(resource.multiply(multiplier));
 			}
 		}
 	}
-	
+
 	@Override
 	public String toString() {
-		if(resourceToMultiply != null)
-			return Arrays.stream(resourcesToPay).map(resource -> resource.toString()).reduce("Pay ", (a,b) -> a + " " + b) + " " +
-				Arrays.stream(resourcesToGain).map(resource -> resource.toString()).reduce("Gain ", (a,b) -> a + " " + b) + " X " +
-				resourceToMultiply.toString() + "\n";
+		String toPay = "";
+		if (resourcesToPay.length > 0)
+			toPay = Arrays.stream(resourcesToPay).map(resource -> resource.toString()).reduce("Pay ", (a, b) -> a + " " + b);
+		String toGain = "";
+		if (resourcesToGain.length > 0)
+			toGain = Arrays.stream(resourcesToGain).map(resource -> resource.toString()).reduce("Gain ", (a, b) -> a + " " + b);
+
+		if (resourceToMultiply != null)
+			return toPay + " " + toGain + " X " + resourceToMultiply.toString();
 		else
-			return Arrays.stream(resourcesToPay).map(resource -> resource.toString()).reduce("Pay ", (a,b) -> a + " " + b) + " " +
-			Arrays.stream(resourcesToGain).map(resource -> resource.toString()).reduce("Gain ", (a,b) -> a + " " + b) + "\n";
+			return toPay + " " + toGain;
 	}
 
 }

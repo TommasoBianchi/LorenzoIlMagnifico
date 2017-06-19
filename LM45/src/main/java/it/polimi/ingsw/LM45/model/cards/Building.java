@@ -27,5 +27,10 @@ public class Building extends Card {
 		if(diceValue >= minDiceToProduce)
 			effect.resolveEffects(effectResolutor);
 	}
+	
+	@Override
+	public String toString(){
+		return super.toString() + "\n" + "Min dice to produce: " + minDiceToProduce;
+	}
 
 }

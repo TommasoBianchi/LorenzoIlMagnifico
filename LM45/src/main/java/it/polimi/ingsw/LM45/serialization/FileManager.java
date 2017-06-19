@@ -874,7 +874,7 @@ public class FileManager {
 				List<Card> shuffledByPeriodCards = it.polimi.ingsw.LM45.util.ShuffleHelper
 						.shuffleByPeriod(deck.get(cardType));
 				for (Card card : shuffledByPeriodCards)
-					System.out.println(card.getName() + " - Period " + card.getPeriodType());
+					System.out.println("\n" + card.toString() + "\n");
 				System.out.println("------------------");
 				System.out.println("");
 			}
@@ -882,7 +882,7 @@ public class FileManager {
 			System.out.println("Leader Cards:");
 			System.out.println("");
 			for(LeaderCard leaderCard : loadLeaderCards()){
-				System.out.println(leaderCard.getName());
+				System.out.println("\n" + leaderCard.toString() + "\n");
 			}
 
 		} catch (IOException e) {

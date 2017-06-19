@@ -93,4 +93,12 @@ public abstract class Card {
 	public void resolveEffect(EffectResolutor effectResolutor){
 		resolveEffect(effectResolutor, 0);
 	}
+	
+	@Override
+	public String toString(){
+		return name + " (" + cardType + " - " + periodType + ")\n" +
+				"Cost: " + cost.toString() + "\n" +
+				"Immediate Effect: " + immediateEffect.toString() + "\n" +
+				"Effect: " + effect.toString();
+	}
 }

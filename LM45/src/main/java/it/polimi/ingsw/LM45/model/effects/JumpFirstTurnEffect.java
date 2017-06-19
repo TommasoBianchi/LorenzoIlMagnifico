@@ -9,7 +9,7 @@ public class JumpFirstTurnEffect extends Effect {
 	
 	@Override
 	public String toString() {
-		return "Jump First Turn\n";
+		return "Skip the first turn of every round";
 	}
 
 }

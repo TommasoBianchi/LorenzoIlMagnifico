@@ -31,8 +31,9 @@ public class CostModifierEffect extends Effect {
 	
 	@Override
 	public String toString() {
-		//TODO: implement
-		return "";
+		String where = (canModifyCardCost && canModifyTowerCost) ? "cards and towers" : (canModifyCardCost) ? "cards" : "towers";
+		String sign = (isMultiplier) ? "x" : (resource.getAmount() > 0) ? "+" : "-";
+		return "Whenever you have to pay " + resource.getResourceType() + " on " + where + ", you pay " + sign + Math.abs(resource.getAmount());
 	}
 
 }

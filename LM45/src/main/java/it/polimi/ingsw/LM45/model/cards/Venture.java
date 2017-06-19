@@ -40,5 +40,13 @@ public class Venture extends Card {
 	public boolean canPick(Player player, ActionModifier actionModifier) {
 		return super.canPick(player, actionModifier) && alternativeCost.canPay(player, actionModifier);
 	}
+	
+	@Override
+	public String toString(){
+		String result = super.toString();
+		if(!alternativeCost.toString().equals(""))
+			result += "\nAlternative cost: " + alternativeCost.toString();
+		return result;
+	}
 
 }

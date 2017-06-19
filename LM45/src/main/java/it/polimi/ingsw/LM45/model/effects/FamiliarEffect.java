@@ -38,11 +38,11 @@ public class FamiliarEffect extends Effect {
 		if(servantBonusCostModifier != 1)
 			return "Spend " + servantBonusCostModifier + " to increase familiars value of 1 point";
 		else if(bonusIsToAdd)
-			return "+ " + bonus + " bonus for familiars " +
-					Arrays.stream(colors).map(FamiliarColor -> FamiliarColor.toString()).reduce("", (a,b) -> a + " " + b) + "\n";
+			return "+" + bonus + " bonus for familiars " +
+					Arrays.stream(colors).map(FamiliarColor -> FamiliarColor.toString()).reduce((a,b) -> a + " " + b).orElse("");
 		else
-			return "set value " + bonus + " to familiars " +
-			Arrays.stream(colors).map(FamiliarColor -> FamiliarColor.toString()).reduce("", (a,b) -> a + " " + b) + "\n";
+			return "Set value " + bonus + " for familiars " +
+			Arrays.stream(colors).map(FamiliarColor -> FamiliarColor.toString()).reduce((a,b) -> a + " " + b).orElse("");
 	}
 	
 }
