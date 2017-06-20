@@ -26,7 +26,6 @@ public class RMIServer implements RemoteServerInterface, ClientInterface {
 
 	@Override
 	public void login(String username) throws IOException {
-		this.username = username;
 		this.serverController = ServerControllerFactory.getServerControllerInstance(username);
 		serverController.login(username, this);
 	}
@@ -75,6 +74,7 @@ public class RMIServer implements RemoteServerInterface, ClientInterface {
 
 	@Override
 	public void setUsername(String username) throws IOException {
+		this.username = username;
 		remoteClient.setUsername(username);
 	}
 

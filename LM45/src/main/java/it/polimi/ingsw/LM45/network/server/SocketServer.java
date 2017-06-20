@@ -139,7 +139,6 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 
 	@Override
 	public void login(String username) {
-		this.username = username;
 		serverController = ServerControllerFactory.getServerControllerInstance(username);
 		serverController.login(username, this);
 	}
@@ -188,6 +187,7 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 
 	@Override
 	public void setUsername(String username) throws IOException {
+		this.username = username;
 		outStream.writeObject(ClientMessages.SET_USERNAME);
 		outStream.writeObject(username);
 	}
