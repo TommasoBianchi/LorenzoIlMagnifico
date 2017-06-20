@@ -56,8 +56,8 @@ public class ServerControllerFactory {
 			return new ServerController(++currentGameID, maxInstanceCount, gameStartTimerDelay, turnTimerDelay);
 		}
 		catch (JsonSyntaxException | JsonIOException | FileNotFoundException e) {
-			ServerMain.LOGGER.log(Level.SEVERE,
-					"ServerSocketFactory unable to instantiate a ServerController -- returning null (probably something will break)", e);
+			System.err.println("ServerSocketFactory unable to instantiate a ServerController -- returning null (probably something will break)");
+			e.printStackTrace();
 			return null;
 		}
 	}

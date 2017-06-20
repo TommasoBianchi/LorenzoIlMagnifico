@@ -36,7 +36,8 @@ public class SocketFactory implements Runnable {
 				SocketServer socketServer = new SocketServer(socket);
 				createdSockets.add(socketServer);
 			} catch (IOException e) {
-				ServerMain.LOGGER.log(Level.SEVERE, "SocketFactory failed while trying to accept an incoming connection", e);
+				System.err.println("SocketFactory failed while trying to accept an incoming connection");
+				e.printStackTrace();
 			}
 		}
 	}

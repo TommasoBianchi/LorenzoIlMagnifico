@@ -205,7 +205,8 @@ public class ServerController {
 			clientInterface.setUsername(username);
 		}
 		catch (IOException e) {
-			ServerMain.LOGGER.log(Level.SEVERE, "ServerController::setPlayerUsername -- user " + username + " is now unreachable. Disconnecting", e);
+			System.err.println("ServerController::setPlayerUsername -- user " + username + " is now unreachable. Disconnecting");
+			e.printStackTrace();
 			manageIOException(username, e);
 		}
 	}
@@ -304,7 +305,8 @@ public class ServerController {
 	}
 
 	private void manageIOException(String user, IOException e) {
-		ServerMain.LOGGER.log(Level.WARNING, "ServerController::manageIOException -- disconnecting user", e);
+		System.err.println("ServerController::manageIOException -- disconnecting user");
+		e.printStackTrace();
 		logInfo("Disconnecting" + user);
 		removeUser(user);
 	}
@@ -377,11 +379,10 @@ public class ServerController {
 			try {
 				executorService.awaitTermination(turnTimerDelay, TimeUnit.MILLISECONDS);
 			}
-			catch (InterruptedException e) {
-				ServerMain.LOGGER.log(Level.SEVERE,
-						"ServerController::chooseLeaderCards() -- an InterruptedException occurred while awaiting executorService to terminate."
-								+ "Forcing executorService shutdown and propagating interrupt.",
-						e);
+			catch (InterruptedException e) {				
+				System.err.println("ServerController::chooseLeaderCards() -- an InterruptedException occurred while awaiting executorService to terminate."
+								+ "Forcing executorService shutdown and propagating interrupt.");
+				e.printStackTrace();
 				executorService.shutdownNow();
 				Thread.currentThread().interrupt();
 			}
@@ -457,7 +458,7 @@ public class ServerController {
 	}
 
 	private void logInfo(String message) {
-		ServerMain.LOGGER.log(Level.FINE, () -> "Game " + gameID + ": " + message);
+		System.out.println("Game " + gameID + ": " + message);
 	}
 
 	/**

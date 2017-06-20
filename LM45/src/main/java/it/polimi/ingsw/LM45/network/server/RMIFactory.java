@@ -16,7 +16,8 @@ public class RMIFactory implements RMIRemoteFactory {
 		try {
 			registry.bind("RMIFactory", (RMIRemoteFactory)UnicastRemoteObject.exportObject(this, 0));
 		} catch (AlreadyBoundException e) {
-			ServerMain.LOGGER.log(Level.SEVERE, "RMIFactory unable to bind himself on the registry", e);
+			System.err.println("RMIFactory unable to bind himself on the registry");
+			e.printStackTrace();
 		}
 	}
 

@@ -15,23 +15,17 @@ import it.polimi.ingsw.LM45.serialization.FileManager;
 
 public class ServerMain {
 	
-	public static final Logger LOGGER = Logger.getLogger("Server");
-	
 	private static SocketFactory socketFactory;
 	private static RMIFactory rmiFactory;
 
-	public static void main(String[] args) {			
-		LOGGER.setLevel(Level.ALL);
-		ConsoleHandler consoleHandler = new ConsoleHandler();
-		consoleHandler.setLevel(Level.ALL);
-		LOGGER.addHandler(new ConsoleHandler());
-		
+	public static void main(String[] args) {					
 		ServerConfiguration serverConfiguration = new ServerConfiguration(4, 30000, 60000, 7000); // Defaults
 		try {
 			serverConfiguration = FileManager.loadConfiguration(ServerConfiguration.class);
 		}
 		catch (JsonSyntaxException | JsonIOException | FileNotFoundException e) {
-			LOGGER.log(Level.WARNING, "Couldn't load server configuration. Using the default one.", e);
+			System.err.println("Couldn't load server configuration. Using the default one.");
+			e.printStackTrace();
 		}
 
 		ServerControllerFactory.initialize(serverConfiguration.getMaxPlayersAmount(),
@@ -39,17 +33,19 @@ public class ServerMain {
 
 		try {
 			socketFactory = new SocketFactory(serverConfiguration.getServerSocketPort());
-			LOGGER.log(Level.CONFIG, "SocketFactory listening on port " + socketFactory.getPort());
+			System.out.println("SocketFactory listening on port " + socketFactory.getPort());
 		}
 		catch (IOException e) {
-			LOGGER.log(Level.WARNING, "Couldn't start sockets' infrastructure. Please connect using RMI.", e);
+			System.err.println("Couldn't start sockets' infrastructure. Please connect using RMI.");
+			e.printStackTrace();
 		}
 
 		try {
 			rmiFactory = new RMIFactory();
 		}
 		catch (RemoteException e) {
-			LOGGER.log(Level.WARNING, "Couldn't start RMI's infrastructure. Please connect using sockets.", e);
+			System.err.println("Couldn't start RMI's infrastructure. Please connect using sockets.");
+			e.printStackTrace();
 		}
 		
 		Runtime.getRuntime().addShutdownHook(new Thread() {			

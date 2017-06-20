@@ -68,12 +68,14 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 				}
 			}
 			catch (ClassNotFoundException e) {
-				ServerMain.LOGGER.log(Level.SEVERE, "Error in SocketServer::run -- terminating", e);
+				System.err.println("Error in SocketServer::run -- terminating");
+				e.printStackTrace();
 				this.close();
 			}
 			catch (IOException e) {
 				// here it means the socket has been closed
-				ServerMain.LOGGER.log(Level.WARNING, "IOException catch in SocketServer::run -- terminating", e);
+				System.err.println("IOException catch in SocketServer::run -- terminating");
+				e.printStackTrace();
 				close();
 			}
 		}
@@ -93,7 +95,8 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 				}
 			}
 			catch (IOException e) {
-				ServerMain.LOGGER.log(Level.SEVERE, "IOException catch in SocketServer::close -- doing nothing", e);
+				System.err.println("IOException catch in SocketServer::close -- doing nothing");
+				e.printStackTrace();
 			}
 		}
 	}
@@ -217,7 +220,8 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 				index = (Integer) inStream.readObject();
 			}
 			catch (ClassNotFoundException e) {
-				ServerMain.LOGGER.log(Level.SEVERE, "Error in SocketServer::chooseFrom -- doing nothing", e);
+				System.err.println("Error in SocketServer::chooseFrom -- doing nothing");
+				e.printStackTrace();
 			}
 			inputStreamLock.unlock();
 		}
@@ -228,9 +232,9 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 						inputQueue.wait();
 					}
 					catch (InterruptedException e) {
-						ServerMain.LOGGER.log(Level.SEVERE,
-								"SocketServer::chooseFrom() -- An InterruptedException occurred while waiting on inputQueue. Propagating interrupt and returning 0",
-								e);
+						System.err.println("SocketServer::chooseFrom() "
+								+ "-- An InterruptedException occurred while waiting on inputQueue. Propagating interrupt and returning 0");
+						e.printStackTrace();
 						Thread.currentThread().interrupt();
 						return 0;
 					}
