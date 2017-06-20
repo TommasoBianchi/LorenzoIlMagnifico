@@ -13,6 +13,7 @@ import java.util.TimerTask;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 import com.google.gson.JsonIOException;
@@ -50,6 +51,7 @@ import it.polimi.ingsw.LM45.util.ShuffleHelper;
 // This is designed to manage only one game (consider renaming it to GameController)
 public class ServerController {
 
+	private int gameID;
 	private Map<String, ClientInterface> users;
 	private Map<String, Player> players;
 	private Map<String, EffectResolutor> effectResolutors;
@@ -67,8 +69,9 @@ public class ServerController {
 	private Game game;
 	private Player currentPlayer;
 
-	public ServerController(int maxNumberOfPlayers, long gameStartTimerDelay, long turnTimerDelay)
+	public ServerController(int gameID, int maxNumberOfPlayers, long gameStartTimerDelay, long turnTimerDelay)
 			throws JsonSyntaxException, JsonIOException, FileNotFoundException {
+		this.gameID = gameID;
 		this.users = new HashMap<String, ClientInterface>();
 		this.players = new HashMap<String, Player>();
 		this.effectResolutors = new HashMap<String, EffectResolutor>();
@@ -88,7 +91,7 @@ public class ServerController {
 	public void login(String username, ClientInterface clientInterface) {
 		if (players.containsKey(username) && !users.containsKey(username)) {
 			// The player is reconnecting for some reason
-			System.out.println("Player " + username + " has been reconnected to this game");
+			logInfo("Player " + username + " has been reconnected to this game");
 			users.put(username, clientInterface);
 			setPlayerUsername(username, clientInterface);
 			return;
@@ -99,13 +102,12 @@ public class ServerController {
 		}
 		setPlayerUsername(username, clientInterface);
 
-		System.out.println(username + " logged in");
 		users.put(username, clientInterface);
 		PlayerColor randomColor = availableColors.remove(new Random().nextInt(availableColors.size()));
 		Player player = new Player(username, randomColor);
 		players.put(username, player);
 		effectResolutors.put(username, new EffectController(player, this));
-		System.out.println("Currently in the game: " + players.keySet().stream().reduce("", (a, b) -> a + b + " "));
+		logInfo(username + " logged in. Currently in this game: " + players.keySet().stream().reduce("", (a, b) -> a + b + " "));
 
 		if (players.size() == maxNumberOfPlayers) {
 			startGame();
@@ -116,7 +118,7 @@ public class ServerController {
 	}
 
 	public void removeUser(String username) {
-		System.out.println("Disconnecting " + username);
+		logInfo("Disconnecting " + username);
 		users.remove(username);
 		ServerControllerFactory.addDisconnectedUser(username, this);
 		// NOTE: what happens when all the players disconnect?
@@ -126,18 +128,19 @@ public class ServerController {
 
 	public void placeFamiliar(String player, FamiliarColor familiarColor, SlotType slotType, Integer slotID) {
 		if (playerCanDoActions(player)) {
-			System.out.println(player + " tried to place familiar " + familiarColor + " in slot " + slotID + " of type " + slotType);
 			try {
 				Slot slot = game.getSlot(slotType, slotID);
 				Familiar familiar = players.get(player).getFamiliarByColor(familiarColor);
 				ActionModifier actionModifier = ActionModifier.EMPTY; // FIXME: grab the right ActionModifier
 				if (slot.canAddFamiliar(familiar, actionModifier)) {
 					slot.addFamiliar(familiar, actionModifier, effectResolutors.get(player));
-					System.out.println(player + " successfully placed the familiar");
+					logInfo(player + " successfully placed the familiar");
 				}
-				else
+				else {
+					logInfo(player + " failed to place familiar " + familiarColor + " in slot " + slotID + " of type " + slotType);
 					throw new IllegalActionException(
 							"Cannot add a familiar of color " + familiarColor + " in slot " + slotID + " of type " + slotType);
+				}
 			}
 			catch (IllegalActionException e) {
 				manageGameExceptions(player, e);
@@ -147,14 +150,14 @@ public class ServerController {
 
 	public void increaseFamiliarValue(String player, FamiliarColor familiarColor) {
 		if (playerCanDoActions(player)) {
-			System.out.println(player + " increased value of familiar " + familiarColor);
+			logInfo(player + " increased value of familiar " + familiarColor);
 			players.get(player).increaseFamiliarValue(familiarColor);
 		}
 	}
 
 	public void playLeaderCard(String player, String leaderCardName) {
 		if (playerCanDoActions(player) && leaderCards.containsKey(leaderCardName)) {
-			System.out.println(player + " played leader card " + leaderCardName);
+			logInfo(player + " played leader card " + leaderCardName);
 			try {
 				players.get(player).playLeaderCard(leaderCards.get(leaderCardName));
 			}
@@ -166,7 +169,7 @@ public class ServerController {
 
 	public void activateLeaderCard(String player, String leaderCardName) {
 		if (playerCanDoActions(player) && leaderCards.containsKey(leaderCardName)) {
-			System.out.println(player + " activated leader card " + leaderCardName);
+			logInfo(player + " activated leader card " + leaderCardName);
 			try {
 				players.get(player).activateLeaderCard(leaderCards.get(leaderCardName), effectResolutors.get(player));
 			}
@@ -180,7 +183,7 @@ public class ServerController {
 		if (playerCanDoActions(player) && leaderCards.containsKey(leaderCardName)) {
 			try {
 				players.get(player).discardLeaderCard(leaderCards.get(leaderCardName));
-				System.out.println(player + " discarded leader card " + leaderCardName);
+				logInfo(player + " discarded leader card " + leaderCardName);
 				effectResolutors.get(player).addResources(new Resource(ResourceType.COUNCIL_PRIVILEGES, 1));
 			}
 			catch (IllegalActionException e) {
@@ -191,7 +194,7 @@ public class ServerController {
 
 	public void endPlayerRound(String player) {
 		if (currentPlayer.getUsername() == player) {
-			System.out.println(player + " ended his turn");
+			logInfo(player + " ended his turn");
 			turnTimer.cancel();
 			nextPlayerRound();
 		}
@@ -202,11 +205,8 @@ public class ServerController {
 			clientInterface.setUsername(username);
 		}
 		catch (IOException e) {
-			// TODO: check this code here and think about it. What has to happen
-			// if a client contacts me to ask for
-			// login but then I cannot call him back?
-			e.printStackTrace();
-			// manageIOException(player, e);
+			ServerMain.LOGGER.log(Level.SEVERE, "ServerController::setPlayerUsername -- user " + username + " is now unreachable. Disconnecting", e);
+			manageIOException(username, e);
 		}
 	}
 
@@ -233,15 +233,14 @@ public class ServerController {
 			// The turn has finished, so proceed with the next one and do church support phase if necessary
 			if (game.getCurrentTurn() % 2 == 0) {
 				// TODO: Do church support phase
-				System.out.println("Church support phase!");
+				logInfo("Church support phase!");
 			}
 
 			if (game.getCurrentTurn() == 6) {
 				// TODO: end the game!
-				System.out.println("Game ended!");
+				logInfo("Game ended!");
 			}
 			else {
-				System.out.println("Next turn!");
 				nextGameTurn();
 			}
 		}
@@ -249,7 +248,7 @@ public class ServerController {
 
 	private void startGame() {
 		gameStartTimer.cancel();
-		System.out.println("Game is starting!");
+		logInfo("Game is starting!");
 		game = new Game(new ArrayList<Player>(players.values()), boardConfiguration, deck, new ArrayList<LeaderCard>(leaderCards.values()),
 				excommunications);
 		game.start();
@@ -262,24 +261,24 @@ public class ServerController {
 		PlayerColor[] playerColors = players.values().stream().map(player -> player.getColor()).toArray(PlayerColor[]::new);
 		notifyPlayers(clientInterface -> clientInterface.initializeGameBoard(playersUsername, playerColors, game.getPlacedExcommunications()));
 
-		//nextGameTurn();
+		nextGameTurn();
 	}
 
 	private void nextGameTurn() {
-		System.out.println("Starting a new turn!");
+		logInfo("Starting a new turn!");
 		game.startTurn();
-		
+
 		// Notify players about the new cards on the towers
-		for(CardType cardType : new CardType[]{ CardType.TERRITORY, CardType.BUILDING, CardType.CHARACTER, CardType.VENTURE })
+		for (CardType cardType : new CardType[] { CardType.TERRITORY, CardType.BUILDING, CardType.CHARACTER, CardType.VENTURE })
 			notifyPlayers(clientInterface -> clientInterface.addCardsOnTower(game.getCardsOnTower(cardType), cardType.toSlotType()));
-		
+
 		// Notify players about the value of their familiars (which includes the new value of the dices rolled by the game)
 		notifyPlayers((username, clientInterface) -> {
 			Familiar[] familiars = players.get(username).getFamiliars();
-			for(Familiar familiar : familiars)
+			for (Familiar familiar : familiars)
 				clientInterface.setFamiliar(username, familiar.getFamiliarColor(), familiar.getValue());
 		});
-		
+
 		nextPlayerRound();
 	}
 
@@ -298,21 +297,22 @@ public class ServerController {
 		gameStartTimer.schedule(new TimerTask() {
 			@Override
 			public void run() {
-				System.out.println("Timer ended! Game is about to start!");
+				logInfo("Timer ended! Game is about to start!");
 				startGame();
 			}
 		}, gameStartTimerDelay);
 	}
 
 	private void manageIOException(String user, IOException e) {
-		System.err.println("IOexception!");
+		ServerMain.LOGGER.log(Level.WARNING, "ServerController::manageIOException -- disconnecting user", e);
+		logInfo("Disconnecting" + user);
 		removeUser(user);
-		// e.printStackTrace();
 	}
 
 	private void manageGameExceptions(String player, GameException gameException) {
 		try {
 			users.get(player).throwGameException(gameException);
+			logInfo(player + " raised a gameException saying " + gameException.getMessage());
 		}
 		catch (IOException e) {
 			manageIOException(player, e);
@@ -339,7 +339,7 @@ public class ServerController {
 
 	private void chooseLeaderCards() {
 		Map<String, LeaderCard[]> chosenLeaderCards = new HashMap<>();
-		
+
 		// Shuffle the leaderCards and take 4 of them for each of the players
 		List<LeaderCard> shuffledLeaderCards = ShuffleHelper.shuffle(leaderCards.values());
 		Map<String, List<LeaderCard>> leaderCardsToChoose = new HashMap<>();
@@ -365,7 +365,7 @@ public class ServerController {
 					int index = chooseFrom(playerUsername,
 							leaderCardsToChoose.get(playerUsername).stream().map(leaderCard -> leaderCard.toString()).toArray(String[]::new));
 					LeaderCard chosenLeaderCard = leaderCardsToChoose.get(playerUsername).get(index);
-					System.out.println(playerUsername + " has chosen " + chosenLeaderCard.getName());
+					logInfo(playerUsername + " has chosen leaderCard " + chosenLeaderCard.getName());
 					players.get(playerUsername).addLeaderCard(chosenLeaderCard);
 					chosenLeaderCards.get(playerUsername)[currentIndex] = chosenLeaderCard;
 					leaderCardsToChoose.get(playerUsername).remove(chosenLeaderCard);
@@ -379,10 +379,10 @@ public class ServerController {
 			}
 			catch (InterruptedException e) {
 				// TODO: think better about how should we manage this exception
-				System.err.println(
-						"ServerController::chooseLeaderCards() -- " + "An InterruptedException occurred while awaiting executorService to terminate."
-								+ "Forcing executorService shutdown and propagating interrupt.");
-				e.printStackTrace();
+				ServerMain.LOGGER.log(Level.SEVERE,
+						"ServerController::chooseLeaderCards() -- an InterruptedException occurred while awaiting executorService to terminate."
+								+ "Forcing executorService shutdown and propagating interrupt.",
+						e);
 				executorService.shutdownNow();
 				Thread.currentThread().interrupt();
 			}
@@ -392,7 +392,7 @@ public class ServerController {
 			players.keySet().forEach(playerUsername -> {
 				if (leaderCardsToChoose.get(playerUsername).size() > remainingLeaderCardsAtThisIteration) {
 					LeaderCard chosenLeaderCard = leaderCardsToChoose.get(playerUsername).get(0);
-					System.out.println("I have chosen for " + playerUsername + " " + chosenLeaderCard.getName());
+					logInfo("I have chosen for " + playerUsername + " leaderCard " + chosenLeaderCard.getName());
 					players.get(playerUsername).addLeaderCard(chosenLeaderCard);
 					leaderCardsToChoose.get(playerUsername).remove(chosenLeaderCard);
 					chosenLeaderCards.get(playerUsername)[currentIndex] = chosenLeaderCard;
@@ -413,7 +413,7 @@ public class ServerController {
 			player.addLeaderCard(leaderCard);
 			chosenLeaderCards.get(username)[3] = leaderCard;
 		});
-		
+
 		notifyPlayers((username, clientInterface) -> clientInterface.setLeaderCards(chosenLeaderCards.get(username)));
 	}
 
@@ -424,13 +424,12 @@ public class ServerController {
 		for (Player player : orderedPlayers) {
 			int chosenIndex = 0;
 			if (personalBonusTiles.size() > 1 && users.containsKey(player.getUsername())) {
-				System.out.println(player + " has to choose a personalBonusTile");
 				chosenIndex = chooseFrom(player.getUsername(),
 						personalBonusTiles.stream().map(personalBonusTile -> personalBonusTile.toString()).toArray(String[]::new));
 			}
 
 			PersonalBonusTile chosenPersonalBonusTile = personalBonusTiles.remove(chosenIndex);
-			System.out.println(player.getUsername() + " has chosen " + chosenPersonalBonusTile);
+			logInfo(player.getUsername() + " has chosen " + chosenPersonalBonusTile);
 			player.setPersonalBonusTile(chosenPersonalBonusTile);
 			notifyPlayers(clientInterface -> clientInterface.setPersonalBonusTile(player.getUsername(), chosenPersonalBonusTile));
 		}
@@ -458,20 +457,26 @@ public class ServerController {
 			notifyPlayers(clientInterface -> clientInterface.setResources(orderedPlayers[3].getAllResources(), orderedPlayers[3].getUsername()));
 		}
 	}
-	
+
+	private void logInfo(String message) {
+		ServerMain.LOGGER.log(Level.FINE, "Game " + gameID + ": " + message);
+	}
+
 	/**
 	 * Notify every connected client about something
 	 * 
-	 * @param c the function we want to call on every connected player (providing access to only the clientInterface) 
+	 * @param c
+	 *            the function we want to call on every connected player (providing access to only the clientInterface)
 	 */
 	private void notifyPlayers(CheckedFunction1<ClientInterface, IOException> c) {
-		notifyPlayers((username, clientInterface) -> c.apply(clientInterface)); 
+		notifyPlayers((username, clientInterface) -> c.apply(clientInterface));
 	}
-		
+
 	/**
 	 * Notify every connected client about something
 	 * 
-	 * @param c the function we want to call on every connected player (providing access to both the username and the clientInterface) 
+	 * @param c
+	 *            the function we want to call on every connected player (providing access to both the username and the clientInterface)
 	 */
 	private void notifyPlayers(CheckedFunction2<String, ClientInterface, IOException> c) {
 		List<Pair<String, IOException>> raisedIOException = new ArrayList<>();

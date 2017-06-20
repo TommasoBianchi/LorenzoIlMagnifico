@@ -7,6 +7,7 @@ import java.net.Socket;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.logging.Level;
 
 import it.polimi.ingsw.LM45.exceptions.GameException;
 import it.polimi.ingsw.LM45.model.cards.Card;
@@ -67,11 +68,12 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 				}
 			}
 			catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				ServerMain.LOGGER.log(Level.SEVERE, "Error in SocketServer::run -- terminating", e);
+				this.close();
 			}
 			catch (IOException e) {
 				// here it means the socket has been closed
+				ServerMain.LOGGER.log(Level.WARNING, "IOException catch in SocketServer::run -- terminating", e);
 				close();
 			}
 		}
@@ -90,9 +92,8 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 					inputQueue.notifyAll();
 				}
 			}
-			catch (IOException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
+			catch (IOException e) {
+				ServerMain.LOGGER.log(Level.SEVERE, "IOException catch in SocketServer::close -- doing nothing", e);
 			}
 		}
 	}
@@ -216,8 +217,7 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 				index = (Integer) inStream.readObject();
 			}
 			catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				ServerMain.LOGGER.log(Level.SEVERE, "Error in SocketServer::chooseFrom -- doing nothing", e);
 			}
 			inputStreamLock.unlock();
 		}
@@ -228,10 +228,9 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 						inputQueue.wait();
 					}
 					catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						System.err.println("SocketServer::chooseFrom() -- "
-								+ "An InterruptedException occurred while waiting on inputQueue. Propagating interrupt and returning 0");
-						e.printStackTrace();
+						ServerMain.LOGGER.log(Level.SEVERE,
+								"SocketServer::chooseFrom() -- An InterruptedException occurred while waiting on inputQueue. Propagating interrupt and returning 0",
+								e);
 						Thread.currentThread().interrupt();
 						return 0;
 					}

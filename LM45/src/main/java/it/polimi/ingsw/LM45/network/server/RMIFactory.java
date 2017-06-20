@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.logging.Level;
 
 import it.polimi.ingsw.LM45.network.client.RemoteClientInterface;
 
@@ -15,8 +16,7 @@ public class RMIFactory implements RMIRemoteFactory {
 		try {
 			registry.bind("RMIFactory", (RMIRemoteFactory)UnicastRemoteObject.exportObject(this, 0));
 		} catch (AlreadyBoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ServerMain.LOGGER.log(Level.SEVERE, "RMIFactory unable to bind himself on the registry", e);
 		}
 	}
 

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.ArrayList;
 
 public class SocketFactory implements Runnable {
@@ -35,8 +36,7 @@ public class SocketFactory implements Runnable {
 				SocketServer socketServer = new SocketServer(socket);
 				createdSockets.add(socketServer);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				ServerMain.LOGGER.log(Level.SEVERE, "SocketFactory failed while trying to accept an incoming connection", e);
 			}
 		}
 	}
