@@ -19,16 +19,16 @@
       <GridPane layoutX="-34.0" layoutY="29.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="652.0" minWidth="10.0" prefWidth="306.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="662.0" minWidth="10.0" prefWidth="601.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="670.0" minWidth="10.0" prefWidth="294.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="662.0" minWidth="10.0" prefWidth="589.6666259765625" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="670.0" minWidth="10.0" prefWidth="357.3333740234375" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <AnchorPane prefHeight="539.0" prefWidth="627.0" GridPane.columnIndex="1">
+            <AnchorPane maxHeight="720.0" minHeight="720.0" minWidth="600.0" prefHeight="720.0" prefWidth="600.0" GridPane.columnIndex="1">
                <children>
-                  <ImageView fitHeight="720.0" fitWidth="600.0" layoutX="117.0" layoutY="15.0" pickOnBounds="true" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="15.0">
+                  <ImageView fitHeight="720.0" fitWidth="600.0" layoutX="117.0" layoutY="15.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="0.0">
                      <image>
                         <Image url="file:Assets/Image/GameBoard/GameBoard.JPG" />
                      </image>
@@ -382,7 +382,7 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <GridPane style="-fx-border-color: #914f0e; -fx-border-width: 3; -fx-border-radius: 20; -fx-border-style: solid;">
+                                    <GridPane style="-fx-border-color: #914f0e; -fx-border-width: 3; -fx-border-radius: 30; -fx-border-style: solid;">
                                        <columnConstraints>
                                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                        </columnConstraints>
@@ -392,7 +392,7 @@
                                        <children>
                                           <ImageView id="FAMILIARUNCOLORED" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#familiarSelected" pickOnBounds="true" preserveRatio="true">
                                              <GridPane.margin>
-                                                <Insets bottom="30.0" left="22.0" />
+                                                <Insets bottom="30.0" left="40.0" />
                                              </GridPane.margin>
                                           </ImageView>
                                           <Label id="VALUEUNCOLORED" alignment="CENTER" text="0" textFill="WHITE">
@@ -400,7 +400,7 @@
                                                 <Font name="Bell MT Bold" size="28.0" />
                                              </font>
                                              <GridPane.margin>
-                                                <Insets left="40.0" top="70.0" />
+                                                <Insets left="55.0" top="70.0" />
                                              </GridPane.margin>
                                           </Label>
                                           <ImageView id="UNCOLORED" fitHeight="15.0" fitWidth="15.0" onMouseClicked="#spendServant" pickOnBounds="true" preserveRatio="true">
@@ -408,7 +408,7 @@
                                                 <Image url="file:Assets/Image/GameBoard/AddIcon.png" />
                                              </image>
                                              <GridPane.margin>
-                                                <Insets left="65.0" top="75.0" />
+                                                <Insets left="75.0" top="75.0" />
                                              </GridPane.margin>
                                           </ImageView>
                                        </children>
@@ -416,7 +416,7 @@
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </GridPane.margin>
                                     </GridPane>
-                                    <GridPane prefHeight="143.0" prefWidth="115.0" style="-fx-border-color: #914f0e; -fx-border-width: 3; -fx-border-radius: 20; -fx-border-style: solid;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <GridPane prefHeight="143.0" prefWidth="115.0" style="-fx-border-color: #914f0e; -fx-border-width: 3; -fx-border-radius: 30; -fx-border-style: solid;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                       <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                       </columnConstraints>
@@ -426,12 +426,12 @@
                                        <children>
                                           <ImageView id="FAMILIARBLACK" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#familiarSelected" pickOnBounds="true" preserveRatio="true">
                                              <GridPane.margin>
-                                                <Insets bottom="30.0" left="22.0" />
+                                                <Insets bottom="30.0" left="40.0" />
                                              </GridPane.margin>
                                           </ImageView>
                                           <Label id="VALUEBLACK" alignment="CENTER" text="0" textFill="WHITE">
                                              <GridPane.margin>
-                                                <Insets left="40.0" top="70.0" />
+                                                <Insets left="55.0" top="70.0" />
                                              </GridPane.margin>
                                              <font>
                                                 <Font name="Bell MT Bold" size="28.0" />
@@ -439,7 +439,7 @@
                                           </Label>
                                           <ImageView id="BLACK" fitHeight="15.0" fitWidth="15.0" onMouseClicked="#spendServant" pickOnBounds="true" preserveRatio="true">
                                              <GridPane.margin>
-                                                <Insets left="65.0" top="75.0" />
+                                                <Insets left="75.0" top="75.0" />
                                              </GridPane.margin>
                                              <image>
                                                 <Image url="file:Assets/Image/GameBoard/AddIcon.png" />
@@ -450,7 +450,7 @@
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </GridPane.margin>
                                     </GridPane>
-                                    <GridPane style="-fx-border-color: #914f0e; -fx-border-width: 3; -fx-border-radius: 20; -fx-border-style: solid;" GridPane.rowIndex="1">
+                                    <GridPane style="-fx-border-color: #914f0e; -fx-border-width: 3; -fx-border-radius: 30; -fx-border-style: solid;" GridPane.rowIndex="1">
                                       <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                       </columnConstraints>
@@ -460,7 +460,7 @@
                                        <children>
                                           <ImageView id="FAMILIARORANGE" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#familiarSelected" pickOnBounds="true" preserveRatio="true">
                                              <GridPane.margin>
-                                                <Insets bottom="30.0" left="22.0" />
+                                                <Insets bottom="30.0" left="40.0" />
                                              </GridPane.margin>
                                           </ImageView>
                                           <Label id="VALUEORANGE" alignment="CENTER" text="0" textFill="WHITE">
@@ -468,7 +468,7 @@
                                                 <Font name="Bell MT Bold" size="28.0" />
                                              </font>
                                              <GridPane.margin>
-                                                <Insets left="40.0" top="70.0" />
+                                                <Insets left="55.0" top="70.0" />
                                              </GridPane.margin>
                                           </Label>
                                           <ImageView id="ORANGE" fitHeight="15.0" fitWidth="15.0" onMouseClicked="#spendServant" pickOnBounds="true" preserveRatio="true">
@@ -476,7 +476,7 @@
                                                 <Image url="file:Assets/Image/GameBoard/AddIcon.png" />
                                              </image>
                                              <GridPane.margin>
-                                                <Insets left="65.0" top="75.0" />
+                                                <Insets left="75.0" top="75.0" />
                                              </GridPane.margin>
                                           </ImageView>
                                        </children>
@@ -484,7 +484,7 @@
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </GridPane.margin>
                                     </GridPane>
-                                    <GridPane prefHeight="143.0" prefWidth="115.0" style="-fx-border-color: #914f0e; -fx-border-width: 3; -fx-border-radius: 20; -fx-border-style: solid;" GridPane.columnIndex="1">
+                                    <GridPane prefHeight="143.0" prefWidth="115.0" style="-fx-border-color: #914f0e; -fx-border-width: 3; -fx-border-radius: 30; -fx-border-style: solid;" GridPane.columnIndex="1">
                                        <columnConstraints>
                                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                        </columnConstraints>
@@ -494,12 +494,12 @@
                                        <children>
                                           <ImageView id="FAMILIARWHITE" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#familiarSelected" pickOnBounds="true" preserveRatio="true">
                                              <GridPane.margin>
-                                                <Insets bottom="30.0" left="22.0" />
+                                                <Insets bottom="30.0" left="40.0" />
                                              </GridPane.margin>
                                           </ImageView>
                                           <Label id="VALUEWHITE" alignment="CENTER" text="0" textFill="WHITE">
                                              <GridPane.margin>
-                                                <Insets left="40.0" top="70.0" />
+                                                <Insets left="55.0" top="70.0" />
                                              </GridPane.margin>
                                              <font>
                                                 <Font name="Bell MT Bold" size="28.0" />
@@ -507,7 +507,7 @@
                                           </Label>
                                           <ImageView id="WHITE" fitHeight="15.0" fitWidth="15.0" onMouseClicked="#spendServant" pickOnBounds="true" preserveRatio="true">
                                              <GridPane.margin>
-                                                <Insets left="65.0" top="75.0" />
+                                                <Insets left="75.0" top="75.0" />
                                              </GridPane.margin>
                                              <image>
                                                 <Image url="file:Assets/Image/GameBoard/AddIcon.png" />
@@ -539,7 +539,7 @@
                                     <Font name="Bell MT Italic" size="29.0" />
                                  </font>
                               </Label>
-                              <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="153.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="128.0" AnchorPane.rightAnchor="86.0" AnchorPane.topAnchor="5.0">
+                              <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="153.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="157.0" AnchorPane.rightAnchor="86.0" AnchorPane.topAnchor="5.0">
                                  <image>
                                     <Image url="file:Assets/Image/Resources/SERVANTS.PNG" />
                                  </image>
@@ -548,12 +548,12 @@
                         </AnchorPane>
                         <AnchorPane prefHeight="388.0" prefWidth="294.0">
                            <children>
-                              <ImageView fitHeight="161.0" fitWidth="294.0" layoutX="-1.0" layoutY="43.0" pickOnBounds="true">
+                              <ImageView fitHeight="161.0" fitWidth="336.0" layoutX="15.0" layoutY="43.0" pickOnBounds="true">
                                  <image>
                                     <Image url="file:Assets/Image/Lobby/WoodPanel.PNG" />
                                  </image>
                               </ImageView>
-                              <Label fx:id="dialogBox" alignment="CENTER" contentDisplay="CENTER" layoutX="145.0" layoutY="71.0" prefHeight="96.0" prefWidth="194.0" text="Select Familiar" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true" AnchorPane.bottomAnchor="79.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="71.0">
+                              <Label fx:id="dialogBox" alignment="CENTER" contentDisplay="CENTER" layoutX="82.0" layoutY="71.0" prefHeight="81.0" prefWidth="205.0" text="Select Familiar" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true" AnchorPane.bottomAnchor="79.0" AnchorPane.leftAnchor="82.0" AnchorPane.rightAnchor="79.0" AnchorPane.topAnchor="71.0">
                                  <font>
                                     <Font name="Cordia New Bold Italic" size="20.0" />
                                  </font>
