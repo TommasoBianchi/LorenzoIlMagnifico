@@ -3,6 +3,7 @@ package it.polimi.ingsw.LM45.view.gui.gameboard;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -33,6 +34,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -45,6 +47,9 @@ public class GameBoardController {
 
 	@FXML
 	private Label dialogBox;
+
+	@FXML
+	private GridPane players;
 
 	@FXML
 	private Label username0;
@@ -104,20 +109,20 @@ public class GameBoardController {
 	private FlowPane coverableHarvestSlot;
 
 	private Stage stage;
-	private PersonalBoardController[] personalBoards;
 	private String myUsername;
 	private ClientController clientController;
+	private Map<String, PersonalBoardController> userPersonalBoard = new HashMap<String, PersonalBoardController>();
 
 	private FamiliarColor familiarColor = FamiliarColor.BONUS;
 	private boolean familiarSelected = false;
 
-	public GameBoardController(Stage stage, String[] playersUsername, PlayerColor[] playerColors, ClientController clientController,
-			Excommunication[] excommunications) {
-		
+	public GameBoardController(Stage stage, String[] playersUsername, PlayerColor[] playerColors,
+			ClientController clientController, Excommunication[] excommunications) {
+
 		this.stage = stage;
 		this.clientController = clientController;
 		myUsername = clientController.getUsername();
-		
+
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("../gui/gameboard/GameBoardView.fxml"));
@@ -136,10 +141,9 @@ public class GameBoardController {
 		} catch (IOException e) { // TODO sistemare
 			e.printStackTrace();
 		}
-		
-		personalBoards = new PersonalBoardController[playersUsername.length];
-		for(int i=0;i<personalBoards.length;i++){
-			personalBoards[i] = new PersonalBoardController(new Stage(), playersUsername[i]);
+
+		for (int i = 0; i < playersUsername.length; i++) {
+			userPersonalBoard.put(playersUsername[i], new PersonalBoardController(new Stage(), playersUsername[i]));
 		}
 	}
 
@@ -147,22 +151,24 @@ public class GameBoardController {
 		servantCost.setText(Integer.toString(cost));
 	}
 
-	public void setFamiliar(String username,FamiliarColor color, int value) {
+	public void setFamiliar(String username, FamiliarColor color, int value) {
 		String path = "file:Assets/Image/Familiars/" + color.toString() + "/";
-		
-		if(username == myUsername){
+
+		if (username == myUsername) {
 			stage.getScene().lookup("#" + color.toString());
 		}
-		
-		/*uncoloredFamiliar.setImage(new Image(path + "UNCOLORED.png"));
-		whiteFamiliar.setImage(new Image(path + "WHITE.png"));
-		orangeFamiliar.setImage(new Image(path + "ORANGE.png"));
-		blackFamiliar.setImage(new Image(path + "BLACK.png"));
 
-		uncoloredValue.setText(Integer.toString(values[0]));
-		whiteValue.setText(Integer.toString(values[1]));
-		orangeValue.setText(Integer.toString(values[2]));
-		blackValue.setText(Integer.toString(values[3]));*/
+		/*
+		 * uncoloredFamiliar.setImage(new Image(path + "UNCOLORED.png"));
+		 * whiteFamiliar.setImage(new Image(path + "WHITE.png"));
+		 * orangeFamiliar.setImage(new Image(path + "ORANGE.png"));
+		 * blackFamiliar.setImage(new Image(path + "BLACK.png"));
+		 * 
+		 * uncoloredValue.setText(Integer.toString(values[0]));
+		 * whiteValue.setText(Integer.toString(values[1]));
+		 * orangeValue.setText(Integer.toString(values[2]));
+		 * blackValue.setText(Integer.toString(values[3]));
+		 */
 	}
 
 	public void coverSlots(int numPlayers) {
@@ -199,12 +205,21 @@ public class GameBoardController {
 		personalBoard3.setId(usernames[3]);
 	}
 
-	public void slotAction(MouseEvent event) {
-		FlowPane slot = (FlowPane) event.getSource();
-		String slotType = new String(slot.getId().substring(0, slot.getId().length() - 1));
-		int position = Integer.parseInt(slot.getId().substring(slot.getId().length() - 1));
-		System.out.println(slotType + " " + position);
-		// TODO method to give to the server slotType and position
+	public void doAction(MouseEvent event) {
+		if (!familiarSelected)
+			dialogBox.setText("Familiar not selected yet !");
+		else {
+			FlowPane slot = (FlowPane) event.getSource();
+			SlotType slotType = SlotType.valueOf((slot.getId().substring(0, slot.getId().length() - 1)));
+			int position = Integer.parseInt(slot.getId().substring(slot.getId().length() - 1));
+			clientController.placeFamiliar(familiarColor, slotType, position);
+		}
+	}
+
+	public void familiarSelected(MouseEvent event) {
+		ImageView image = (ImageView) event.getSource();
+		familiarColor = FamiliarColor.valueOf(image.getId().substring(8));
+		familiarSelected = true;
 	}
 
 	public void slotModify(String slotType, Integer position) {
@@ -229,29 +244,24 @@ public class GameBoardController {
 
 	public void showPersonalBoard(MouseEvent event) {
 		Button button = (Button) event.getSource();
-		for(PersonalBoardController personalBoard : personalBoards)
-			if(personalBoard.getUsername() == button.getId())
-				personalBoard.getStage().show();
+		userPersonalBoard.get(button.getId()).getStage().show();
 	}
 
 	public void endTurn() {
-		// TODO call endTurn on ClientController
+		clientController.endTurn();
 	}
 
 	public void setDialog(String text) {
 		dialogBox.setText(text);
-		;
 	}
 
 	public void spendServant(MouseEvent event) {
 		ImageView addIcon = (ImageView) event.getSource();
-		// TODO ClientController.spendServant(addIcon.getId());
+		clientController.increaseFamiliarValue(FamiliarColor.valueOf(addIcon.getId()));
 	}
 
 	public void addCard(String username, Card card) {
-		for(PersonalBoardController personalBoard : personalBoards)
-			if(personalBoard.getUsername() == username)
-				personalBoard.addCard(card);
+		userPersonalBoard.get(username).addCard(card);
 	}
 
 	public void newPeriod(Map<CardType, List<Card>> towerCards, int[] familiarsValues) {

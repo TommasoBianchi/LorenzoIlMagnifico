@@ -33,31 +33,31 @@
                         <Image url="file:Assets/Image/GameBoard/GameBoard.JPG" />
                      </image>
                   </ImageView>
-                  <FlowPane id="TERRITORY3" layoutX="100.0" layoutY="44.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane id="TERRITORY2" layoutX="100.0" layoutY="146.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane id="TERRITORY1" layoutX="100.0" layoutY="247.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane id="TERRITORY0" layoutX="100.0" layoutY="348.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane id="CHARACTER3" layoutX="248.0" layoutY="44.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane id="BUILDING3" layoutX="395.0" layoutY="44.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane id="VENTURE3" layoutX="540.0" layoutY="44.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane id="CHARACTER2" layoutX="248.0" layoutY="146.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane id="BUILDING2" layoutX="395.0" layoutY="146.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane id="VENTURE2" layoutX="540.0" layoutY="146.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane id="CHARACTER1" layoutX="248.0" layoutY="247.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane id="CHARACTER0" layoutX="248.0" layoutY="348.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane id="BUILDING1" layoutX="395.0" layoutY="247.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane id="VENTURE1" layoutX="540.0" layoutY="247.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane id="BUILDING0" layoutX="395.0" layoutY="348.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane id="VENTURE0" layoutX="540.0" layoutY="348.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane id="COUNCIL0" alignment="CENTER_RIGHT" columnHalignment="RIGHT" layoutX="314.0" layoutY="422.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#slotAction" prefHeight="51.0" prefWidth="180.0" />
-                  <FlowPane id="PRODUCTION0" layoutX="14.0" layoutY="630.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane id="HARVEST0" layoutX="14.0" layoutY="696.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
-                  <FlowPane id="MARKET0" layoutX="371.0" layoutY="616.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="39.0" />
-                  <FlowPane id="MARKET2" fx:id="coverableMarketSlot2" layoutX="494.0" layoutY="622.0" onMouseClicked="#slotAction" prefHeight="51.0" prefWidth="57.0" />
-                  <FlowPane id="MARKET1" layoutX="439.0" layoutY="616.0" onMouseClicked="#slotAction" prefHeight="30.0" prefWidth="39.0" />
-                  <FlowPane id="MARKET3" fx:id="coverableMarketSlot3" layoutX="541.0" layoutY="661.0" onMouseClicked="#slotAction" prefHeight="51.0" prefWidth="57.0" />
-                  <FlowPane id="PRODUCTION1" fx:id="coverableProductionSlot" layoutX="84.0" layoutY="623.0" onMouseClicked="#slotAction" prefHeight="51.0" prefWidth="152.0" />
-                  <FlowPane id="HARVEST1" fx:id="coverableHarvestSlot" layoutX="84.0" layoutY="687.0" onMouseClicked="#slotAction" prefHeight="51.0" prefWidth="152.0" />
+                  <FlowPane id="TERRITORY3" layoutX="100.0" layoutY="44.0" onMouseClicked="#doAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="TERRITORY2" layoutX="100.0" layoutY="146.0" onMouseClicked="#doAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="TERRITORY1" layoutX="100.0" layoutY="247.0" onMouseClicked="#doAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="TERRITORY0" layoutX="100.0" layoutY="348.0" onMouseClicked="#doAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="CHARACTER3" layoutX="248.0" layoutY="44.0" onMouseClicked="#doAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="BUILDING3" layoutX="395.0" layoutY="44.0" onMouseClicked="#doAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="VENTURE3" layoutX="540.0" layoutY="44.0" onMouseClicked="#doAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="CHARACTER2" layoutX="248.0" layoutY="146.0" onMouseClicked="#doAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="BUILDING2" layoutX="395.0" layoutY="146.0" onMouseClicked="#doAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="VENTURE2" layoutX="540.0" layoutY="146.0" onMouseClicked="#doAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="CHARACTER1" layoutX="248.0" layoutY="247.0" onMouseClicked="#doAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="CHARACTER0" layoutX="248.0" layoutY="348.0" onMouseClicked="#doAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="BUILDING1" layoutX="395.0" layoutY="247.0" onMouseClicked="#doAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="VENTURE1" layoutX="540.0" layoutY="247.0" onMouseClicked="#doAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="BUILDING0" layoutX="395.0" layoutY="348.0" onMouseClicked="#doAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="VENTURE0" layoutX="540.0" layoutY="348.0" onMouseClicked="#doAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="COUNCIL0" alignment="CENTER_RIGHT" columnHalignment="RIGHT" layoutX="314.0" layoutY="422.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#doAction" prefHeight="51.0" prefWidth="180.0" />
+                  <FlowPane id="PRODUCTION0" layoutX="14.0" layoutY="630.0" onMouseClicked="#doAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="HARVEST0" layoutX="14.0" layoutY="696.0" onMouseClicked="#doAction" prefHeight="34.0" prefWidth="34.0" />
+                  <FlowPane id="MARKET0" layoutX="371.0" layoutY="616.0" onMouseClicked="#doAction" prefHeight="34.0" prefWidth="39.0" />
+                  <FlowPane id="MARKET2" fx:id="coverableMarketSlot2" layoutX="494.0" layoutY="622.0" onMouseClicked="#doAction" prefHeight="51.0" prefWidth="57.0" />
+                  <FlowPane id="MARKET1" layoutX="439.0" layoutY="616.0" onMouseClicked="#doAction" prefHeight="30.0" prefWidth="39.0" />
+                  <FlowPane id="MARKET3" fx:id="coverableMarketSlot3" layoutX="541.0" layoutY="661.0" onMouseClicked="#doAction" prefHeight="51.0" prefWidth="57.0" />
+                  <FlowPane id="PRODUCTION1" fx:id="coverableProductionSlot" layoutX="84.0" layoutY="623.0" onMouseClicked="#doAction" prefHeight="51.0" prefWidth="152.0" />
+                  <FlowPane id="HARVEST1" fx:id="coverableHarvestSlot" layoutX="84.0" layoutY="687.0" onMouseClicked="#doAction" prefHeight="51.0" prefWidth="152.0" />
                   <ImageView id="VIEWTERRITORY3" fitHeight="96.0" fitWidth="80.0" layoutX="8.0" layoutY="14.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" preserveRatio="true" />
                   <ImageView id="VIEWTERRITORY2" fitHeight="96.0" fitWidth="80.0" layoutX="8.0" layoutY="115.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" preserveRatio="true" />
                   <ImageView id="VIEWTERRITORY1" fitHeight="96.0" fitWidth="80.0" layoutX="8.0" layoutY="216.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" preserveRatio="true" />
@@ -208,7 +208,7 @@
                            </children></AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <GridPane alignment="CENTER" layoutX="21.0" layoutY="80.0" prefHeight="250.0" prefWidth="299.0" style="-fx-border-color: #914f0e; -fx-border-radius: 20; -fx-border-width: 4; -fx-border-style: dashed centered;" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="40.0">
+                              <GridPane fx:id="players" alignment="CENTER" layoutX="21.0" layoutY="80.0" prefHeight="250.0" prefWidth="299.0" style="-fx-border-color: #914f0e; -fx-border-radius: 20; -fx-border-width: 4; -fx-border-style: dashed centered;" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="40.0">
                                 <columnConstraints>
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -396,12 +396,12 @@
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                        <children>
-                                          <ImageView id="UNCOLOREDFAMILIAR" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView id="FAMILIARUNCOLORED" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#familiarSelected" pickOnBounds="true" preserveRatio="true">
                                              <GridPane.margin>
                                                 <Insets bottom="30.0" left="22.0" />
                                              </GridPane.margin>
                                           </ImageView>
-                                          <Label id="UNCOLOREDVALUE" alignment="CENTER" text="0" textFill="WHITE">
+                                          <Label id="VALUEUNCOLORED" alignment="CENTER" text="0" textFill="WHITE">
                                              <font>
                                                 <Font name="Bell MT Bold" size="28.0" />
                                              </font>
@@ -430,12 +430,12 @@
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                        <children>
-                                          <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView id="FAMILIARBLACK" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#familiarSelected" pickOnBounds="true" preserveRatio="true">
                                              <GridPane.margin>
                                                 <Insets bottom="30.0" left="22.0" />
                                              </GridPane.margin>
                                           </ImageView>
-                                          <Label alignment="CENTER" text="0" textFill="WHITE">
+                                          <Label id="VALUEBLACK" alignment="CENTER" text="0" textFill="WHITE">
                                              <GridPane.margin>
                                                 <Insets left="40.0" top="70.0" />
                                              </GridPane.margin>
@@ -464,12 +464,12 @@
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                        <children>
-                                          <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView id="FAMILIARORANGE" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#familiarSelected" pickOnBounds="true" preserveRatio="true">
                                              <GridPane.margin>
                                                 <Insets bottom="30.0" left="22.0" />
                                              </GridPane.margin>
                                           </ImageView>
-                                          <Label alignment="CENTER" text="0" textFill="WHITE">
+                                          <Label id="VALUEORANGE" alignment="CENTER" text="0" textFill="WHITE">
                                              <font>
                                                 <Font name="Bell MT Bold" size="28.0" />
                                              </font>
@@ -498,12 +498,12 @@
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                        <children>
-                                          <ImageView id="WHITEFAMILIAR" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView id="FAMILIARWHITE" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#familiarSelected" pickOnBounds="true" preserveRatio="true">
                                              <GridPane.margin>
                                                 <Insets bottom="30.0" left="22.0" />
                                              </GridPane.margin>
                                           </ImageView>
-                                          <Label id="WHITEVALUE" alignment="CENTER" text="0" textFill="WHITE">
+                                          <Label id="VALUEWHITE" alignment="CENTER" text="0" textFill="WHITE">
                                              <GridPane.margin>
                                                 <Insets left="40.0" top="70.0" />
                                              </GridPane.margin>
