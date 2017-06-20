@@ -3,9 +3,6 @@ package it.polimi.ingsw.LM45.network.server;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.rmi.RemoteException;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;

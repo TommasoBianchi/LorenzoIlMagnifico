@@ -3,7 +3,6 @@ package it.polimi.ingsw.LM45.network.server;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
 
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
