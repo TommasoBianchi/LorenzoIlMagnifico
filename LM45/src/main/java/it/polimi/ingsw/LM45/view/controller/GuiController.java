@@ -53,60 +53,16 @@ public class GuiController implements ViewInterface {
 	public void setLobbyController(LobbyController lobbyController) {
 		this.lobbyController = lobbyController;
 	}
-
-	public void setLeaderChoiceController(LeaderCardChoiceController leaderChoiceController) {
-		this.leaderChoiceController = leaderChoiceController;
-	}
-
-	public void setGameBoardController(GameBoardController gameBoardController) {
-		this.gameBoardController = gameBoardController;
-	}
 	
 	@Override
 	public void showLeaderCardChoiceView() {
-		try {
-			FXMLLoader loader2 = new FXMLLoader();
-			loader2.setLocation(Main.class.getResource("../gui/leadercard/LeaderCardChoiceView.fxml"));
-			AnchorPane leaderChoice = (AnchorPane) loader2.load();
-			Scene scene = new Scene(leaderChoice);
-			stage.setScene(scene);
-			stage.setResizable(false);
-			stage.getIcons().add(new Image("file:Assets/Image/Cards/LEADER/LeaderCard Cover.jpg"));
-			stage.initStyle(StageStyle.UNDECORATED);
-			stage.show();
-			LeaderCardChoiceController controller = loader2.getController();
-			leaderChoiceController = controller;
-			controller.setGuiController(this);
-		}
-		catch (IOException | NullPointerException e) { // TODO sistemare
-			e.printStackTrace();
-		}
+		leaderChoiceController = new LeaderCardChoiceController(stage);
+		leaderChoiceController.setGuiController(this);
 	}
 	
 	@Override
 	public void showGameBoard(PlayerColor playerColor, String[] playersUsername) {
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("../gui/gameboard/GameBoardView.fxml"));
-			AnchorPane gameBoard = (AnchorPane) loader.load();
-			Scene scene = new Scene(gameBoard);
-			stage.setScene(scene);
-			stage.setResizable(false);
-			stage.getIcons().add(new Image("file:Assets/Image/Cards/LEADER/LeaderCard Cover.jpg"));
-			stage.initStyle(StageStyle.UNDECORATED);
-			stage.show();
-			GameBoardController controllerGameBoard = loader.getController();
-			this.setGameBoardController(controllerGameBoard);
-			controllerGameBoard.setScene(scene);
-			controllerGameBoard.coverSlots(playersUsername.length);
-			controllerGameBoard.setFamiliars(playerColor, new int[] { 1, 2, 3, 4 });
-			controllerGameBoard.setUsernames(playersUsername);
-			controllerGameBoard.setMyUsername("JOH");
-			controllerGameBoard.setServantCost(1);
-		}
-		catch (IOException | NullPointerException e) { // TODO sistemare
-			e.printStackTrace();
-		}
+		gameBoardController = new GameBoardController(stage, playerColor, playersUsername);
 	}
 
 	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor) {

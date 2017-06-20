@@ -14,7 +14,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #421a03;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.LM45.view.gui.gameboard.GameBoardController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #421a03;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane layoutX="-34.0" layoutY="29.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -30,7 +30,7 @@
                <children>
                   <ImageView fitHeight="720.0" fitWidth="600.0" layoutX="117.0" layoutY="15.0" pickOnBounds="true" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="15.0">
                      <image>
-                        <Image url="@../../../../../../../../../../Assets/Image/GameBoard/GameBoard.JPG" />
+                        <Image url="file:Assets/Image/GameBoard/GameBoard.JPG" />
                      </image>
                   </ImageView>
                   <FlowPane id="TERRITORY3" layoutX="100.0" layoutY="44.0" onMouseClicked="#slotAction" prefHeight="34.0" prefWidth="34.0" />
@@ -220,7 +220,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Label fx:id="myUsername" alignment="CENTER" prefHeight="48.0" prefWidth="110.0" text="Me" textFill="#ffc000">
+                                    <Label fx:id="username0" alignment="CENTER" prefHeight="48.0" prefWidth="110.0" text="Username" textFill="#ffc000">
                                        <font>
                                           <Font name="System Italic" size="14.0" />
                                        </font>
@@ -240,9 +240,9 @@
                                           <Font name="System Italic" size="14.0" />
                                        </font>
                                     </Label>
-                                    <Button fx:id="myPersonalBoard" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#showPersonalBoard" text="MyPersonalBoard" GridPane.columnIndex="1">
+                                    <Button fx:id="personalBoard0" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#showPersonalBoard" text="PersonalBoard" GridPane.columnIndex="1">
                                        <GridPane.margin>
-                                          <Insets />
+                                          <Insets left="7.0" />
                                        </GridPane.margin>
                                     </Button>
                                     <Button fx:id="personalBoard1" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#showPersonalBoard" text="PersonalBoard" GridPane.columnIndex="1" GridPane.rowIndex="1">
