@@ -43,6 +43,8 @@ public class ActionEffect extends Effect {
 		if (discount.length > 0)
 			discountString = Arrays.stream(discount).map(resource -> resource.toString()).reduce(" and a discount of ", (a, b) -> a + " " + b);
 		return "You can do an action of type " + slotType.toString() + " with a value of " + diceNumber + discountString;
+		
+		//TODO fixme need boolean to distinguish doAction and BonusAction
 	}
 
 }

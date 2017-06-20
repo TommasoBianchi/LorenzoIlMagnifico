@@ -396,12 +396,12 @@
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                        <children>
-                                          <ImageView fx:id="uncoloredFamiliar" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView id="UNCOLOREDFAMILIAR" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                                              <GridPane.margin>
                                                 <Insets bottom="30.0" left="22.0" />
                                              </GridPane.margin>
                                           </ImageView>
-                                          <Label fx:id="uncoloredValue" alignment="CENTER" text="0" textFill="WHITE">
+                                          <Label id="UNCOLOREDVALUE" alignment="CENTER" text="0" textFill="WHITE">
                                              <font>
                                                 <Font name="Bell MT Bold" size="28.0" />
                                              </font>
@@ -430,12 +430,12 @@
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                        <children>
-                                          <ImageView fx:id="blackFamiliar" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                                              <GridPane.margin>
                                                 <Insets bottom="30.0" left="22.0" />
                                              </GridPane.margin>
                                           </ImageView>
-                                          <Label fx:id="blackValue" alignment="CENTER" text="0" textFill="WHITE">
+                                          <Label alignment="CENTER" text="0" textFill="WHITE">
                                              <GridPane.margin>
                                                 <Insets left="40.0" top="70.0" />
                                              </GridPane.margin>
@@ -464,12 +464,12 @@
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                        <children>
-                                          <ImageView fx:id="orangeFamiliar" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                                              <GridPane.margin>
                                                 <Insets bottom="30.0" left="22.0" />
                                              </GridPane.margin>
                                           </ImageView>
-                                          <Label fx:id="orangeValue" alignment="CENTER" text="0" textFill="WHITE">
+                                          <Label alignment="CENTER" text="0" textFill="WHITE">
                                              <font>
                                                 <Font name="Bell MT Bold" size="28.0" />
                                              </font>
@@ -498,12 +498,12 @@
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                        <children>
-                                          <ImageView fx:id="whiteFamiliar" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView id="WHITEFAMILIAR" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                                              <GridPane.margin>
                                                 <Insets bottom="30.0" left="22.0" />
                                              </GridPane.margin>
                                           </ImageView>
-                                          <Label fx:id="whiteValue" alignment="CENTER" text="0" textFill="WHITE">
+                                          <Label id="WHITEVALUE" alignment="CENTER" text="0" textFill="WHITE">
                                              <GridPane.margin>
                                                 <Insets left="40.0" top="70.0" />
                                              </GridPane.margin>

@@ -62,8 +62,8 @@ public class GuiController implements ViewInterface {
 	}
 	
 	@Override
-	public void showGameBoard(String[] playersUsername) {
-		gameBoardController = new GameBoardController(stage, playersUsername, clientController);
+	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications) {
+		gameBoardController = new GameBoardController(stage, playersUsername, playerColors, clientController, excommunications);
 	}
 	
 	@Override

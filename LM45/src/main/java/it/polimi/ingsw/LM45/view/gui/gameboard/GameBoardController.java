@@ -12,6 +12,7 @@ import com.google.gson.JsonSyntaxException;
 
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.CardType;
+import it.polimi.ingsw.LM45.model.cards.Excommunication;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.PersonalBoard;
 import it.polimi.ingsw.LM45.model.core.PlayerColor;
@@ -41,30 +42,6 @@ public class GameBoardController {
 
 	@FXML
 	private Label servantCost;
-
-	@FXML
-	private Label uncoloredValue;
-
-	@FXML
-	private Label whiteValue;
-
-	@FXML
-	private Label orangeValue;
-
-	@FXML
-	private Label blackValue;
-
-	@FXML
-	private ImageView uncoloredFamiliar;
-
-	@FXML
-	private ImageView whiteFamiliar;
-
-	@FXML
-	private ImageView orangeFamiliar;
-
-	@FXML
-	private ImageView blackFamiliar;
 
 	@FXML
 	private Label dialogBox;
@@ -134,7 +111,8 @@ public class GameBoardController {
 	private FamiliarColor familiarColor = FamiliarColor.BONUS;
 	private boolean familiarSelected = false;
 
-	public GameBoardController(Stage stage, String[] playersUsername, ClientController clientController) {
+	public GameBoardController(Stage stage, String[] playersUsername, PlayerColor[] playerColors, ClientController clientController,
+			Excommunication[] excommunications) {
 		
 		this.stage = stage;
 		this.clientController = clientController;
@@ -164,11 +142,6 @@ public class GameBoardController {
 			personalBoards[i] = new PersonalBoardController(new Stage(), playersUsername[i]);
 		}
 	}
-	
-	@FXML
-	public void initialize(){
-		
-	}
 
 	public void setServantCost(int cost) {
 		servantCost.setText(Integer.toString(cost));
@@ -177,7 +150,9 @@ public class GameBoardController {
 	public void setFamiliar(String username,FamiliarColor color, int value) {
 		String path = "file:Assets/Image/Familiars/" + color.toString() + "/";
 		
-		
+		if(username == myUsername){
+			stage.getScene().lookup("#" + color.toString());
+		}
 		
 		/*uncoloredFamiliar.setImage(new Image(path + "UNCOLORED.png"));
 		whiteFamiliar.setImage(new Image(path + "WHITE.png"));

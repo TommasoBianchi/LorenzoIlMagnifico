@@ -13,7 +13,7 @@ import it.polimi.ingsw.LM45.network.client.ClientController;
 public interface ViewInterface {
 
 	public void showLeaderCardChoiceView();
-	public void showGameBoard(String[] playersUsername);
+	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications);
 	// playerusername ha tutti gli username...myusername lo prendo dal client controller
 	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor);
 	// do also disableFamiliar() in the GameBoard

@@ -1,4 +1,4 @@
-package it.polimi.ingsw.LM45.view.controller;
+	package it.polimi.ingsw.LM45.view.controller;
 
 import java.io.IOException;
 
