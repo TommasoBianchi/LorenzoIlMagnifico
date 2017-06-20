@@ -10,11 +10,7 @@ import it.polimi.ingsw.LM45.network.client.RemoteClientInterface;
 
 public class RMIFactory implements RMIRemoteFactory {
 	
-private ServerControllerFactory serverControllerFactory;
-	
-	public RMIFactory(ServerControllerFactory serverControllerFactory) throws RemoteException {
-		this.serverControllerFactory = serverControllerFactory;
-
+	public RMIFactory() throws RemoteException {
 		Registry registry = LocateRegistry.createRegistry(1099);
 		try {
 			registry.bind("RMIFactory", (RMIRemoteFactory)UnicastRemoteObject.exportObject(this, 0));

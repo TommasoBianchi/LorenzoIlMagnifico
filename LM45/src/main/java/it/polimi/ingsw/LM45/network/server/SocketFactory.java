@@ -7,18 +7,16 @@ import java.net.Socket;
 public class SocketFactory implements Runnable {
 	
 	private ServerSocket serverSocket;
-	private ServerControllerFactory serverControllerFactory;
 	private boolean isRunning;
 
-	public SocketFactory(ServerControllerFactory serverControllerFactory, int port) throws IOException{
-		this.serverControllerFactory = serverControllerFactory;
+	public SocketFactory(int port) throws IOException{
 		this.serverSocket = new ServerSocket(port);
 		new Thread(this).start();
 		isRunning = true;
 	}
 	
-	public SocketFactory(ServerControllerFactory serverControllerFactory) throws IOException{
-		this(serverControllerFactory, 0);
+	public SocketFactory() throws IOException{
+		this(0);
 	}
 	
 	public int getPort(){
