@@ -37,6 +37,7 @@ public class GuiController implements ViewInterface {
 	LobbyController lobbyController;
 	LeaderCardChoiceController leaderChoiceController;
 	GameBoardController gameBoardController;
+	ClientController clientController;
 
 	Stage stage = new Stage();
 
@@ -62,29 +63,10 @@ public class GuiController implements ViewInterface {
 	
 	@Override
 	public void showGameBoard(PlayerColor playerColor, String[] playersUsername) {
-		gameBoardController = new GameBoardController(stage, playerColor, playersUsername);
+		gameBoardController = new GameBoardController(stage, playerColor, playersUsername, clientController);
 	}
-
-	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void pickCard(String cardName, String username) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void addCardsOnTower(String[] names, SlotType slotType) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void doBonusAction(SlotType slotType, int value) {
-		// TODO Auto-generated method stub
-
-	}
-
+	
+	@Override
 	public int chooseFrom(String[] alternatives) {
 		if (alternatives.length <= 0)
 			return -1;
@@ -135,86 +117,100 @@ public class GuiController implements ViewInterface {
 		}
 	}
 
-	public void setClientController(ClientController clientController) {
+	@Override
+	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor) {
 		// TODO Auto-generated method stub
-
-	}
-
-	public void setResources(Resource[] resources, String username) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void setFamiliarValue(FamiliarColor familiarColor, int value, String username) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void myTurn() {
-
-	}
-
-	public void playerTurn(String username) {
-
+		
 	}
 
 	@Override
 	public void pickCard(Card card, String username) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void addCardsOnTower(Card[] cards, SlotType slotType) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void setFamiliar(String username, FamiliarColor color, int value) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void notifyError(String message) {
 		// TODO Auto-generated method stub
+		
+	}
 
+	@Override
+	public void doBonusAction(SlotType slotType, int value) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setClientController(ClientController clientController) {
+		this.clientController = clientController;
+		
+	}
+
+	@Override
+	public void setResources(Resource[] resources, String username) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void myTurn() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void playerTurn(String username) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void setExcommunications(Excommunication[] excommunications) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void setLeaderCards(LeaderCard[] leaders) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void discardLeaderCard(String username, LeaderCard leader) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void playLeaderCard(String username, LeaderCard leader) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void activateLeaderCard(String username, LeaderCard leader) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void setPersonalBonusTile(String username, PersonalBonusTile personalBonusTile) {
 		// TODO Auto-generated method stub
-
+		
 	}
+
 }

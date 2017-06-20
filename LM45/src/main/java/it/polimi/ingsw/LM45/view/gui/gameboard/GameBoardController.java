@@ -17,6 +17,7 @@ import it.polimi.ingsw.LM45.model.core.PlayerColor;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.ResourceType;
 import it.polimi.ingsw.LM45.model.core.SlotType;
+import it.polimi.ingsw.LM45.network.client.ClientController;
 import it.polimi.ingsw.LM45.serialization.FileManager;
 import it.polimi.ingsw.LM45.view.controller.Main;
 import it.polimi.ingsw.LM45.view.gui.personalBoard.PersonalBoardController;
@@ -125,13 +126,17 @@ public class GameBoardController {
 
 	private Stage stage;
 	private PersonalBoardController[] personalBoards;
+	private String myusername;
+	private ClientController clientController;
 
 	private FamiliarColor familiarColor = FamiliarColor.BONUS;
 	private boolean familiarSelected = false;
 
-	public GameBoardController(Stage stage, PlayerColor playerColor, String[] playersUsername) {
+	public GameBoardController(Stage stage, PlayerColor playerColor, String[] playersUsername, ClientController clientController) {
 		
 		this.stage = stage;
+		this.clientController = clientController;
+		myusername = clientController.getUsername();
 		
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -163,7 +168,7 @@ public class GameBoardController {
 		servantCost.setText(Integer.toString(cost));
 	}
 
-	public void setFamiliars(PlayerColor color, int[] values) {
+	public void setFamiliars(String username,FamiliarColor color, int value) {
 		String path = "file:Assets/Image/Familiars/" + color.toString() + "/";
 		uncoloredFamiliar.setImage(new Image(path + "UNCOLORED.png"));
 		whiteFamiliar.setImage(new Image(path + "WHITE.png"));
