@@ -3,9 +3,8 @@ package it.polimi.ingsw.LM45.network.server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.List;
-import java.util.logging.Level;
 import java.util.ArrayList;
+import java.util.List;
 
 public class SocketFactory implements Runnable {
 	
