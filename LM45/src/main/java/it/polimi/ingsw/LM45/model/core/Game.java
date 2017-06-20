@@ -94,10 +94,10 @@ public class Game {
 	}
 
 	/**
-	 * Starts a round by resetting bookkeeping indices, clearing slots, picking new cards for the towerSlots, taking the 
+	 * Starts a turn by resetting bookkeeping indices, clearing slots, picking new cards for the towerSlots, taking the 
 	 * new turn's order from the councilSlot and rolling the dices for the familiars' values.
 	 */
-	public void startRound() {
+	public void startTurn() {
 		// Reset turn counters
 		currentPlayerIndex = 0;
 		currentRound = 0;
@@ -165,6 +165,13 @@ public class Game {
 	 */
 	public Card[] getCardsOnTower(CardType type){
 		return board.getCardsOnTower(type);
+	}
+	
+	/**
+	 * @return an array containing the excommunications actually on this game's board
+	 */
+	public Excommunication[] getPlacedExcommunications(){
+		return board.getPlacedExcommunications();
 	}
 
 }

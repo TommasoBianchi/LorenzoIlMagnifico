@@ -249,6 +249,13 @@ public class Player {
 				.orElseThrow(() -> new IllegalActionException("Familiar of color " + familiarColor + " does not exists or has already been used"));
 	}
 	
+	/**
+	 * @return an array containint all this player's familiars
+	 */
+	public Familiar[] getFamiliars(){
+		return familiars.clone();
+	}
+	
 
 	/**
 	 * @return true if this player must pay 3 COINS every time he places a familiar in a tower already occupied

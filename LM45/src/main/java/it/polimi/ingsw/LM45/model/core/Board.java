@@ -128,6 +128,13 @@ public class Board {
 	public void placeExcommunication(Excommunication excommunication) {
 		excommunications.put(excommunication.getPeriodType(), excommunication);
 	}
+	
+	/**
+	 * @return an array containing the excommunications actually on this board
+	 */
+	public Excommunication[] getPlacedExcommunications(){
+		return excommunications.values().stream().toArray(Excommunication[]::new);
+	}
 
 	/**
 	 * @param faithPoints

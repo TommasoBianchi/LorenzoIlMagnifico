@@ -14,7 +14,6 @@ public class ServerMain {
 	
 	private static SocketFactory socketFactory;
 	private static RMIFactory rmiFactory;
-	private static ServerControllerFactory serverControllerFactory;
 
 	public static void main(String[] args) {
 		ServerConfiguration serverConfiguration = new ServerConfiguration(4, 30000, 60000, 7000); // Defaults
@@ -31,7 +30,7 @@ public class ServerMain {
 				serverConfiguration.getGameStartTimerDelay(), serverConfiguration.getTurnTimerDelay());
 
 		try {
-			socketFactory = new SocketFactory(serverControllerFactory, serverConfiguration.getServerSocketPort());
+			socketFactory = new SocketFactory(serverConfiguration.getServerSocketPort());
 			System.out.println("SocketFactory listening on port " + socketFactory.getPort());
 		}
 		catch (IOException e) {
@@ -41,7 +40,7 @@ public class ServerMain {
 		}
 
 		try {
-			rmiFactory = new RMIFactory(serverControllerFactory);
+			rmiFactory = new RMIFactory();
 		}
 		catch (RemoteException e) {
 			// TODO Auto-generated catch block

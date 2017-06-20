@@ -55,7 +55,8 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 				try {
 					ServerMessages messageType = (ServerMessages) inputObject;
 					handleMessage(messageType);
-				} catch (ClassCastException e) {
+				}
+				catch (ClassCastException e) {
 					boolean queueWasEmpty = inputQueue.isEmpty();
 					inputQueue.add(inputObject);
 					if (queueWasEmpty) {
@@ -64,63 +65,72 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 						}
 					}
 				}
-			} catch (ClassNotFoundException e) {
+			}
+			catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (IOException e) {
+			}
+			catch (IOException e) {
 				// here it means the socket has been closed
-				try {
-					outStream.close();
-					inStream.close();
-					socket.close();
-					isRunning = false;
-					serverController.removeUser(username);
-					// Release resources that were waiting on the inputQueue
-					synchronized (inputQueue) {
-						inputQueue.notifyAll();
-					}
-				} catch (IOException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
+				close();
+			}
+		}
+	}
+
+	public synchronized void close() {
+		if (!isRunning) {
+			try {
+				outStream.close();
+				inStream.close();
+				socket.close();
+				isRunning = false;
+				serverController.removeUser(username);
+				// Release resources that were waiting on the inputQueue
+				synchronized (inputQueue) {
+					inputQueue.notifyAll();
 				}
+			}
+			catch (IOException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
 			}
 		}
 	}
 
 	private void handleMessage(ServerMessages messageType) throws ClassNotFoundException, IOException {
 		switch (messageType) {
-		case LOGIN:
-			String username = (String) inStream.readObject();
-			login(username);
-			break;
-		case PLACE_FAMILIAR:
-			FamiliarColor familiarColor = (FamiliarColor) inStream.readObject();
-			SlotType slotType = (SlotType) inStream.readObject();
-			Integer slotID = (Integer) inStream.readObject();
-			placeFamiliar(familiarColor, slotType, slotID);
-			break;
-		case INCREASE_FAMILIAR_VALUE:
-			familiarColor = (FamiliarColor) inStream.readObject();
-			increaseFamiliarValue(familiarColor);
-			break;
-		case PLAY_LEADER:
-			String leaderCardName = (String) inStream.readObject();
-			playLeaderCard(leaderCardName);
-			break;
-		case ACTIVATE_LEADER:
-			leaderCardName = (String) inStream.readObject();
-			activateLeaderCard(leaderCardName);
-			break;
-		case DISCARD_LEADER:
-			leaderCardName = (String) inStream.readObject();
-			discardLeaderCard(leaderCardName);
-			break;
-		case END_TURN:
-			endTurn();
-			break;
+			case LOGIN:
+				String username = (String) inStream.readObject();
+				login(username);
+				break;
+			case PLACE_FAMILIAR:
+				FamiliarColor familiarColor = (FamiliarColor) inStream.readObject();
+				SlotType slotType = (SlotType) inStream.readObject();
+				Integer slotID = (Integer) inStream.readObject();
+				placeFamiliar(familiarColor, slotType, slotID);
+				break;
+			case INCREASE_FAMILIAR_VALUE:
+				familiarColor = (FamiliarColor) inStream.readObject();
+				increaseFamiliarValue(familiarColor);
+				break;
+			case PLAY_LEADER:
+				String leaderCardName = (String) inStream.readObject();
+				playLeaderCard(leaderCardName);
+				break;
+			case ACTIVATE_LEADER:
+				leaderCardName = (String) inStream.readObject();
+				activateLeaderCard(leaderCardName);
+				break;
+			case DISCARD_LEADER:
+				leaderCardName = (String) inStream.readObject();
+				discardLeaderCard(leaderCardName);
+				break;
+			case END_TURN:
+				endTurn();
+				break;
 
-		default:
-			break;
+			default:
+				break;
 		}
 	}
 
@@ -204,20 +214,23 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 		if (inputStreamLock.tryLock()) {
 			try {
 				index = (Integer) inStream.readObject();
-			} catch (ClassNotFoundException e) {
+			}
+			catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			inputStreamLock.unlock();
-		} else {
+		}
+		else {
 			if (inputQueue.isEmpty()) {
 				synchronized (inputQueue) {
 					try {
 						inputQueue.wait();
-					} catch (InterruptedException e) {
+					}
+					catch (InterruptedException e) {
 						// TODO Auto-generated catch block
-						System.err.println("SocketServer::chooseFrom() -- " +
-								"An InterruptedException occurred while waiting on inputQueue. Propagating interrupt and returning 0");
+						System.err.println("SocketServer::chooseFrom() -- "
+								+ "An InterruptedException occurred while waiting on inputQueue. Propagating interrupt and returning 0");
 						e.printStackTrace();
 						Thread.currentThread().interrupt();
 						return 0;
@@ -225,7 +238,7 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 				}
 			}
 			index = (Integer) inputQueue.poll();
-			if(index == null)
+			if (index == null)
 				index = 0;
 		}
 
