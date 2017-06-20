@@ -82,7 +82,7 @@ public class ServerController {
 		this.excommunications = FileManager.loadExcommunications();
 		this.maxNumberOfPlayers = maxNumberOfPlayers;
 		this.gameStartTimerDelay = gameStartTimerDelay;
-		this.gameStartTimer = new Timer();
+		this.gameStartTimer = null;
 		this.turnTimerDelay = turnTimerDelay;
 	}
 
@@ -92,26 +92,25 @@ public class ServerController {
 			logInfo("Player " + username + " has been reconnected to this game");
 			users.put(username, clientInterface);
 			setPlayerUsername(username, clientInterface);
-			return;
+		}
+		else {
+			while (users.containsKey(username) || players.containsKey(username)) {
+				username += Integer.toString(new Random().nextInt(10));
+			}
+			setPlayerUsername(username, clientInterface);
+
+			users.put(username, clientInterface);
+			PlayerColor randomColor = availableColors.remove(new Random().nextInt(availableColors.size()));
+			Player player = new Player(username, randomColor);
+			players.put(username, player);
+			effectResolutors.put(username, new EffectController(player, this));
+			logInfo(username + " logged in. Currently in this game: " + users.keySet().stream().reduce("", (a, b) -> a + b + " "));
 		}
 
-		StringBuilder stringBuilder = new StringBuilder(username);
-		while (users.containsKey(username) || players.containsKey(username)) {
-			stringBuilder.append(Integer.toString(new Random().nextInt(10)));
-		}
-		setPlayerUsername(stringBuilder.toString(), clientInterface);
-
-		users.put(username, clientInterface);
-		PlayerColor randomColor = availableColors.remove(new Random().nextInt(availableColors.size()));
-		Player player = new Player(username, randomColor);
-		players.put(username, player);
-		effectResolutors.put(username, new EffectController(player, this));
-		logInfo(username + " logged in. Currently in this game: " + players.keySet().stream().reduce("", (a, b) -> a + b + " "));
-
-		if (players.size() == maxNumberOfPlayers) {
+		if (users.size() == maxNumberOfPlayers) {
 			startGame();
 		}
-		else if (players.size() > 1) {
+		else if (users.size() > 1) {
 			setGameStartTimer();
 		}
 	}
@@ -120,9 +119,17 @@ public class ServerController {
 		logInfo("Disconnecting " + username);
 		users.remove(username);
 		ServerControllerFactory.addDisconnectedUser(username, this);
+
 		// NOTE: what happens when all the players disconnect?
 		// We may want to stop and cancel this game?
 		// Maybe we prefer to stop it waiting for a player to log in again?
+
+		// If only one player is remaining stop the gameStartTimer (if present and only before the game starts)
+		if (game == null && users.size() == 1 && gameStartTimer != null) {
+			System.out.println("Only one player remaining. Resetting timer");
+			gameStartTimer.cancel();
+			gameStartTimer = null;
+		}
 	}
 
 	public void placeFamiliar(String player, FamiliarColor familiarColor, SlotType slotType, Integer slotID) {
@@ -294,13 +301,16 @@ public class ServerController {
 	}
 
 	private void setGameStartTimer() {
-		gameStartTimer.schedule(new TimerTask() {
-			@Override
-			public void run() {
-				logInfo("Timer ended! Game is about to start!");
-				startGame();
-			}
-		}, gameStartTimerDelay);
+		if (gameStartTimer == null) {
+			gameStartTimer = new Timer();
+			gameStartTimer.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					logInfo("Timer ended! Game is about to start!");
+					startGame();
+				}
+			}, gameStartTimerDelay);
+		}
 	}
 
 	private void manageIOException(String user, IOException e) {
@@ -361,25 +371,24 @@ public class ServerController {
 			ExecutorService executorService = Executors.newFixedThreadPool(4);
 			int currentIndex = i;
 			// Give each (connected) player the possibility to choose a leaderCard (in parallel)
-			users.keySet().forEach(playerUsername ->
-				executorService.submit(() -> {
-					int index = chooseFrom(playerUsername,
-							leaderCardsToChoose.get(playerUsername).stream().map(LeaderCard::toString).toArray(String[]::new));
-					LeaderCard chosenLeaderCard = leaderCardsToChoose.get(playerUsername).get(index);
-					logInfo(playerUsername + " has chosen leaderCard " + chosenLeaderCard.getName());
-					players.get(playerUsername).addLeaderCard(chosenLeaderCard);
-					chosenLeaderCards.get(playerUsername)[currentIndex] = chosenLeaderCard;
-					leaderCardsToChoose.get(playerUsername).remove(chosenLeaderCard);
-				})
-			);
+			users.keySet().forEach(playerUsername -> executorService.submit(() -> {
+				int index = chooseFrom(playerUsername,
+						leaderCardsToChoose.get(playerUsername).stream().map(LeaderCard::toString).toArray(String[]::new));
+				LeaderCard chosenLeaderCard = leaderCardsToChoose.get(playerUsername).get(index);
+				logInfo(playerUsername + " has chosen leaderCard " + chosenLeaderCard.getName());
+				players.get(playerUsername).addLeaderCard(chosenLeaderCard);
+				chosenLeaderCards.get(playerUsername)[currentIndex] = chosenLeaderCard;
+				leaderCardsToChoose.get(playerUsername).remove(chosenLeaderCard);
+			}));
 
 			// Wait their decision only for a fixed amount of time
 			executorService.shutdown();
 			try {
 				executorService.awaitTermination(turnTimerDelay, TimeUnit.MILLISECONDS);
 			}
-			catch (InterruptedException e) {				
-				System.err.println("ServerController::chooseLeaderCards() -- an InterruptedException occurred while awaiting executorService to terminate."
+			catch (InterruptedException e) {
+				System.err.println(
+						"ServerController::chooseLeaderCards() -- an InterruptedException occurred while awaiting executorService to terminate."
 								+ "Forcing executorService shutdown and propagating interrupt.");
 				e.printStackTrace();
 				executorService.shutdownNow();
