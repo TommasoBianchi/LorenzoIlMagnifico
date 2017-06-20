@@ -262,7 +262,7 @@ public class ServerController {
 		PlayerColor[] playerColors = players.values().stream().map(player -> player.getColor()).toArray(PlayerColor[]::new);
 		notifyPlayers(clientInterface -> clientInterface.initializeGameBoard(playersUsername, playerColors, game.getPlacedExcommunications()));
 
-		//nextGameTurn();
+		nextGameTurn();
 	}
 
 	private void nextGameTurn() {

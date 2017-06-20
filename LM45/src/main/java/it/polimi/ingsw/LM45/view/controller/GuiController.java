@@ -132,8 +132,7 @@ public class GuiController implements ViewInterface {
 
 	@Override
 	public void addCardsOnTower(Card[] cards, SlotType slotType) {
-		// TODO Auto-generated method stub
-		
+		Platform.runLater(() -> gameBoardController.addCardsOnTower(cards, slotType));
 	}
 
 	@Override
