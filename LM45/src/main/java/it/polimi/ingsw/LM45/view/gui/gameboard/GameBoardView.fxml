@@ -229,7 +229,7 @@
                                           <Font name="System Italic" size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label id="USERNAME2" alignment="CENTER" prefHeight="59.0" prefWidth="110.0" textFill="#ffc000" GridPane.rowIndex="3">
+                                    <Label id="USERNAME3" alignment="CENTER" prefHeight="59.0" prefWidth="110.0" textFill="#ffc000" GridPane.rowIndex="3">
                                        <font>
                                           <Font name="System Italic" size="14.0" />
                                        </font>

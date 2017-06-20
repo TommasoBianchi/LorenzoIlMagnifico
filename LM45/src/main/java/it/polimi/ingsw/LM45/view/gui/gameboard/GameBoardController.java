@@ -207,8 +207,6 @@ public class GameBoardController {
 	}
 	
 	public void setFamiliarValue(String username, FamiliarColor color, int value) {
-		String path = "file:Assets/Image/Familiars/" + color.toString() + "/";
-
 		if (username == myUsername) {
 			Label familiarValue = (Label)stage.getScene().lookup("#VALUE" + color.toString());
 			familiarValue.setText(Integer.toString(value));
