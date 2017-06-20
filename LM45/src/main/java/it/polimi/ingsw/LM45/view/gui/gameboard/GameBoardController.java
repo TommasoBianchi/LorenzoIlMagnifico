@@ -152,7 +152,7 @@ public class GameBoardController {
 	
 	private void setFamiliarsColors(String[] playersUsername, PlayerColor[] playerColors){
 		for(int i=0; i<playersUsername.length; i++){
-			if(playersUsername[i] == myUsername){
+			if(playersUsername[i].equals(myUsername)){
 				for(FamiliarColor familiarColor : new FamiliarColor[] {FamiliarColor.BLACK, FamiliarColor.ORANGE,
 						FamiliarColor.UNCOLORED, FamiliarColor.WHITE}){
 					ImageView familiarImage = (ImageView) stage.getScene().lookup("#FAMILIAR" + familiarColor);
@@ -191,7 +191,7 @@ public class GameBoardController {
 	private void setUsernames(String[] usernames) {
 		for (int i = 0; i < usernames.length; i++) {
 			Label userText = (Label) stage.getScene().lookup("#USERNAME" + i);
-			if(usernames[i] == myUsername)
+			if(usernames[i].equals(myUsername))
 				userText.setText(usernames[i] + " (Me)");
 			else
 				userText.setText(usernames[i]);
