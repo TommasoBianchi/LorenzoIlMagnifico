@@ -137,7 +137,7 @@ public class GuiController implements ViewInterface {
 
 	@Override
 	public void setFamiliar(String username, FamiliarColor color, int value) {
-		gameBoardController.setFamiliar(username, color, value);
+		gameBoardController.setFamiliarValue(username, color, value);
 		
 	}
 

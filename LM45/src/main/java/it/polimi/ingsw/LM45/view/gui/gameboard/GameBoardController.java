@@ -111,7 +111,7 @@ public class GameBoardController {
 	private Stage stage;
 	private String myUsername;
 	private ClientController clientController;
-	private Map<String, PersonalBoardController> userPersonalBoard = new HashMap<String, PersonalBoardController>();
+	private Map<String, PersonalBoardController> usersPersonalBoards = new HashMap<String, PersonalBoardController>();
 
 	private FamiliarColor familiarColor = FamiliarColor.BONUS;
 	private boolean familiarSelected = false;
@@ -123,6 +123,10 @@ public class GameBoardController {
 		this.clientController = clientController;
 		myUsername = clientController.getUsername();
 		System.out.println("HEY!");
+		
+		for (int i = 0; i < playersUsername.length; i++) {
+			usersPersonalBoards.put(playersUsername[i], new PersonalBoardController(new Stage(), playersUsername[i], playerColors[i]));
+		}
 
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -139,40 +143,29 @@ public class GameBoardController {
 			this.coverSlots(playersUsername.length);
 			this.setUsernames(playersUsername);
 			this.setServantCost(1);
+			this.setFamiliarsColors(playersUsername, playerColors);
 		} catch (IOException e) { // TODO sistemare
 			e.printStackTrace();
 		}
-
-		for (int i = 0; i < playersUsername.length; i++) {
-			userPersonalBoard.put(playersUsername[i], new PersonalBoardController(new Stage(), playersUsername[i]));
+		
+	}
+	
+	private void setFamiliarsColors(String[] playersUsername, PlayerColor[] playerColors){
+		for(int i=0; i<playersUsername.length; i++){
+			if(playersUsername[i] == myUsername){
+				for(FamiliarColor familiarColor : new FamiliarColor[] {FamiliarColor.BLACK, FamiliarColor.ORANGE,
+						FamiliarColor.UNCOLORED, FamiliarColor.WHITE}){
+					ImageView familiarImage = (ImageView) stage.getScene().lookup("#FAMILIAR" + familiarColor);
+					familiarImage.setImage(new Image("file:Assets/Image/Familiars/" + playerColors[i] + "/" +
+					familiarColor + ".png"));
+				}
+			}
+			System.out.println(usersPersonalBoards.containsKey(playersUsername[i]));
+			usersPersonalBoards.get(playersUsername[i]).setFamiliarsColors(playerColors[i]);
 		}
 	}
 
-	public void setServantCost(int cost) {
-		servantCost.setText(Integer.toString(cost));
-	}
-
-	public void setFamiliar(String username, FamiliarColor color, int value) {
-		String path = "file:Assets/Image/Familiars/" + color.toString() + "/";
-
-		if (username == myUsername) {
-			stage.getScene().lookup("#" + color.toString());
-		}
-
-		/*
-		 * uncoloredFamiliar.setImage(new Image(path + "UNCOLORED.png"));
-		 * whiteFamiliar.setImage(new Image(path + "WHITE.png"));
-		 * orangeFamiliar.setImage(new Image(path + "ORANGE.png"));
-		 * blackFamiliar.setImage(new Image(path + "BLACK.png"));
-		 * 
-		 * uncoloredValue.setText(Integer.toString(values[0]));
-		 * whiteValue.setText(Integer.toString(values[1]));
-		 * orangeValue.setText(Integer.toString(values[2]));
-		 * blackValue.setText(Integer.toString(values[3]));
-		 */
-	}
-
-	public void coverSlots(int numPlayers) {
+	private void coverSlots(int numPlayers) {
 		if (numPlayers < 4) {
 			coverableMarketSlot2
 					.setStyle("-fx-background-image : url(file:Assets/Image/GameBoard/CoverMarketSlot2.png);"
@@ -195,15 +188,32 @@ public class GameBoardController {
 		}
 	}
 
-	public void setUsernames(String[] usernames) {
+	private void setUsernames(String[] usernames) {
 		for (int i = 0; i < usernames.length; i++) {
 			Label userText = (Label) stage.getScene().lookup("#USERNAME" + i);
-			userText.setText(usernames[i]);
+			if(usernames[i] == myUsername)
+				userText.setText(usernames[i] + " (Me)");
+			else
+				userText.setText(usernames[i]);
 			Button personalButton = (Button) stage.getScene().lookup("#BUTTONPERSONAL" + i);
 			personalButton.setId(usernames[i]);
 			personalButton.setOpacity(1);
 			personalButton.setDisable(false);
 		}
+	}
+	
+	public void setServantCost(int cost) {
+		servantCost.setText(Integer.toString(cost));
+	}
+	
+	public void setFamiliarValue(String username, FamiliarColor color, int value) {
+		String path = "file:Assets/Image/Familiars/" + color.toString() + "/";
+
+		if (username == myUsername) {
+			Label familiarValue = (Label)stage.getScene().lookup("#VALUE" + color.toString());
+			familiarValue.setText(Integer.toString(value));
+		}
+		usersPersonalBoards.get(username).setFamiliarValue(color, value);
 	}
 
 	public void doAction(MouseEvent event) {
@@ -247,7 +257,7 @@ public class GameBoardController {
 
 	public void showPersonalBoard(MouseEvent event) {
 		Button button = (Button) event.getSource();
-		userPersonalBoard.get(button.getId()).getStage().show();
+		usersPersonalBoards.get(button.getId()).getStage().show();
 	}
 
 	public void endTurn() {
@@ -264,7 +274,7 @@ public class GameBoardController {
 	}
 
 	public void addCard(String username, Card card) {
-		userPersonalBoard.get(username).addCard(card);
+		usersPersonalBoards.get(username).addCard(card);
 	}
 
 	public void addCardsOnTower(Card[] cards, SlotType slotType) {
