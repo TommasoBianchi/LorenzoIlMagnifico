@@ -132,12 +132,6 @@ public class ClientController {
 		}
 	}
 
-	// TEST
-	private Queue<String> inQueue = new ConcurrentLinkedQueue<>();
-	private Integer threadCounter = 0;
-	private Object threadCounterLockToken = new Object();
-	// TEST
-
 	public int chooseFrom(String[] alternatives) {
 		// TODO: implement in a sensible way
 		// maybe with a call to the view interface
@@ -152,6 +146,9 @@ public class ClientController {
 	}
 	
 	// TEST: this function mimic the work of the view interface (in particular of the CLI)
+	/*private Queue<String> inQueue = new ConcurrentLinkedQueue<>();
+	private Integer threadCounter = 0;
+	private Object threadCounterLockToken = new Object();s
 	private int viewChooseFrom(String[] alternatives){
 		// See big explanation below
 		int oldThreadCounter = 0;
@@ -192,7 +189,7 @@ public class ClientController {
 				return -1;
 			}
 		}
-	}
+	}*/
 	// TEST
 	
 	public void pickCard(Card card, String username) {
