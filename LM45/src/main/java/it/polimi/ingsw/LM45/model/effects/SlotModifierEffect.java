@@ -4,6 +4,8 @@ import it.polimi.ingsw.LM45.model.core.SlotType;
 
 public class SlotModifierEffect extends Effect {
 
+	private static final long serialVersionUID = 1L;
+
 	private SlotType slotType;
 	private boolean canPlaceFamiliars;
 	private boolean canPlaceMultipleFamiliars;

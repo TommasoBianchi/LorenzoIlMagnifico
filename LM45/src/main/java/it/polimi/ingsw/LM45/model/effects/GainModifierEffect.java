@@ -4,6 +4,8 @@ import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 
 public class GainModifierEffect extends Effect {
+
+	private static final long serialVersionUID = 1L;
 	
 	private Resource resource;
 	private boolean canModifyCardGain;

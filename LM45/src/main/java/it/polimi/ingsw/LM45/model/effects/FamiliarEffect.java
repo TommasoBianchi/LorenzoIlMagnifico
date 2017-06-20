@@ -5,6 +5,8 @@ import java.util.Arrays;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 
 public class FamiliarEffect extends Effect {
+
+	private static final long serialVersionUID = 1L;
 	
 	private int bonus;
 	private boolean bonusIsToAdd;

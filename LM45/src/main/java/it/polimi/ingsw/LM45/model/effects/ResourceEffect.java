@@ -2,10 +2,11 @@ package it.polimi.ingsw.LM45.model.effects;
 
 import java.util.Arrays;
 
-import it.polimi.ingsw.LM45.model.core.Player;
 import it.polimi.ingsw.LM45.model.core.Resource;
 
 public class ResourceEffect extends Effect {
+
+	private static final long serialVersionUID = 1L;
 
 	private Resource[] resourcesToPay;
 	private Resource resourceToMultiply;

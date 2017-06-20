@@ -5,6 +5,8 @@ import it.polimi.ingsw.LM45.model.core.Resource;
 
 public class VictoryPointsFromCardsEffect extends Effect {
 
+	private static final long serialVersionUID = 1L;
+
 	private CardType cardType;
 	
 	public VictoryPointsFromCardsEffect(CardType cardType) {

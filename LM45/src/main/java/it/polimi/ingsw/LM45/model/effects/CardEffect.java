@@ -1,11 +1,14 @@
 package it.polimi.ingsw.LM45.model.effects;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
 import it.polimi.ingsw.LM45.model.core.SlotType;
 
-public class CardEffect {
+public class CardEffect implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	
 	public static final CardEffect EMPTY = new CardEffect(new Effect[]{}, false);
 	
