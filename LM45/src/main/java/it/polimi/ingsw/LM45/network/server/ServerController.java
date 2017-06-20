@@ -214,7 +214,7 @@ public class ServerController {
 		if (game.hasNextPlayer()) {
 			currentPlayer = game.getNextPlayer();
 
-			// Make disconnected players skip their rounds
+			// Make disconnected players skip their turns
 			if (!users.containsKey(currentPlayer.getUsername())) {
 				endPlayerRound(currentPlayer.getUsername());
 				return;
@@ -242,8 +242,7 @@ public class ServerController {
 			}
 			else {
 				System.out.println("Next turn!");
-				game.startRound();
-				nextPlayerRound();
+				nextGameTurn();
 			}
 		}
 	}
@@ -259,11 +258,28 @@ public class ServerController {
 		choosePersonalBonusTiles();
 		chooseLeaderCards();
 
-		// TODO: send players the starting state of the board
+		String[] playersUsername = players.values().stream().map(player -> player.getUsername()).toArray(String[]::new);
+		PlayerColor[] playerColors = players.values().stream().map(player -> player.getColor()).toArray(PlayerColor[]::new);
+		notifyPlayers(clientInterface -> clientInterface.initializeGameBoard(playersUsername, playerColors, game.getPlacedExcommunications()));
 
-		game.startRound();
+		nextGameTurn();
+	}
 
-		// Make first player start his turn
+	private void nextGameTurn() {
+		System.out.println("Starting a new turn!");
+		game.startTurn();
+		
+		// Notify players about the new cards on the towers
+		for(CardType cardType : new CardType[]{ CardType.TERRITORY, CardType.BUILDING, CardType.CHARACTER, CardType.VENTURE })
+			notifyPlayers(clientInterface -> clientInterface.addCardsOnTower(game.getCardsOnTower(cardType), cardType.toSlotType()));
+		
+		// Notify players about the value of their familiars (which includes the new value of the dices rolled by the game)
+		notifyPlayers((username, clientInterface) -> {
+			Familiar[] familiars = players.get(username).getFamiliars();
+			for(Familiar familiar : familiars)
+				clientInterface.setFamiliar(username, familiar.getFamiliarColor(), familiar.getValue());
+		});
+		
 		nextPlayerRound();
 	}
 
@@ -461,7 +477,6 @@ public class ServerController {
 		List<Pair<String, IOException>> raisedIOException = new ArrayList<>();
 
 		users.entrySet().stream().parallel().forEach(entry -> {
-			System.out.println("Notify " + entry.getKey() + " of something");
 			try {
 				c.apply(entry.getKey(), entry.getValue());
 			}
