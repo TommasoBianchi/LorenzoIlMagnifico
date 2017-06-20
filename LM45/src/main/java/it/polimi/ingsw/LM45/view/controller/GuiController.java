@@ -107,7 +107,7 @@ public class GuiController implements ViewInterface {
 					choiceLockToken.wait();
 				}
 				catch (InterruptedException e) {
-					// TODO Auto-generated catch block
+					Thread.currentThread().interrupt();
 					e.printStackTrace();
 				}
 
