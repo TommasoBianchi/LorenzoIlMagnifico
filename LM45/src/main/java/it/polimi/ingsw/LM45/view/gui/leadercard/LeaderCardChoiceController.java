@@ -1,16 +1,23 @@
 package it.polimi.ingsw.LM45.view.gui.leadercard;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 import it.polimi.ingsw.LM45.view.controller.GuiController;
+import it.polimi.ingsw.LM45.view.controller.Main;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class LeaderCardChoiceController {
 
@@ -18,6 +25,28 @@ public class LeaderCardChoiceController {
 	private FlowPane leaders;
 
 	private GuiController guiController;
+	private Stage stage;
+	
+	public LeaderCardChoiceController(Stage stage) {
+		this.stage = stage;
+		
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("../gui/leadercard/LeaderCardChoiceView.fxml"));
+			loader.setController(this);
+			AnchorPane leaderChoice = (AnchorPane) loader.load();
+			Scene scene = new Scene(leaderChoice);
+			stage.setScene(scene);
+			stage.setResizable(false);
+			stage.getIcons().add(new Image("file:Assets/Image/Cards/LEADER/LeaderCard Cover.jpg"));
+			stage.initStyle(StageStyle.UNDECORATED);
+			stage.setTitle("Lorenzo il Magnifico");
+			stage.show();
+		}
+		catch (IOException | NullPointerException e) { // TODO sistemare
+			e.printStackTrace();
+		}
+	}
 
 	public void chooseLeader(String[] leadersName) {
 		String path = "file:Assets/Image/Cards/LEADER/";
