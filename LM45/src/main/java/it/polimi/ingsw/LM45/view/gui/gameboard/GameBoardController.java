@@ -2,6 +2,7 @@ package it.polimi.ingsw.LM45.view.gui.gameboard;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -31,6 +32,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -126,17 +128,17 @@ public class GameBoardController {
 
 	private Stage stage;
 	private PersonalBoardController[] personalBoards;
-	private String myusername;
+	private String myUsername;
 	private ClientController clientController;
 
 	private FamiliarColor familiarColor = FamiliarColor.BONUS;
 	private boolean familiarSelected = false;
 
-	public GameBoardController(Stage stage, PlayerColor playerColor, String[] playersUsername, ClientController clientController) {
+	public GameBoardController(Stage stage, String[] playersUsername, ClientController clientController) {
 		
 		this.stage = stage;
 		this.clientController = clientController;
-		myusername = clientController.getUsername();
+		myUsername = clientController.getUsername();
 		
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -151,7 +153,6 @@ public class GameBoardController {
 			stage.setTitle("Lorenzo il Magnifico");
 			stage.show();
 			this.coverSlots(playersUsername.length);
-			this.setFamiliars(playerColor, new int[] { 1, 2, 3, 4 });
 			this.setUsernames(playersUsername);
 			this.setServantCost(1);
 		} catch (IOException e) { // TODO sistemare
@@ -163,14 +164,22 @@ public class GameBoardController {
 			personalBoards[i] = new PersonalBoardController(new Stage(), playersUsername[i]);
 		}
 	}
+	
+	@FXML
+	public void initialize(){
+		
+	}
 
 	public void setServantCost(int cost) {
 		servantCost.setText(Integer.toString(cost));
 	}
 
-	public void setFamiliars(String username,FamiliarColor color, int value) {
+	public void setFamiliar(String username,FamiliarColor color, int value) {
 		String path = "file:Assets/Image/Familiars/" + color.toString() + "/";
-		uncoloredFamiliar.setImage(new Image(path + "UNCOLORED.png"));
+		
+		
+		
+		/*uncoloredFamiliar.setImage(new Image(path + "UNCOLORED.png"));
 		whiteFamiliar.setImage(new Image(path + "WHITE.png"));
 		orangeFamiliar.setImage(new Image(path + "ORANGE.png"));
 		blackFamiliar.setImage(new Image(path + "BLACK.png"));
@@ -178,7 +187,7 @@ public class GameBoardController {
 		uncoloredValue.setText(Integer.toString(values[0]));
 		whiteValue.setText(Integer.toString(values[1]));
 		orangeValue.setText(Integer.toString(values[2]));
-		blackValue.setText(Integer.toString(values[3]));
+		blackValue.setText(Integer.toString(values[3]));*/
 	}
 
 	public void coverSlots(int numPlayers) {

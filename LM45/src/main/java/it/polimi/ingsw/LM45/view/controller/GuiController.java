@@ -62,8 +62,8 @@ public class GuiController implements ViewInterface {
 	}
 	
 	@Override
-	public void showGameBoard(PlayerColor playerColor, String[] playersUsername) {
-		gameBoardController = new GameBoardController(stage, playerColor, playersUsername, clientController);
+	public void showGameBoard(String[] playersUsername) {
+		gameBoardController = new GameBoardController(stage, playersUsername, clientController);
 	}
 	
 	@Override
@@ -137,7 +137,7 @@ public class GuiController implements ViewInterface {
 
 	@Override
 	public void setFamiliar(String username, FamiliarColor color, int value) {
-		// TODO Auto-generated method stub
+		gameBoardController.setFamiliar(username, color, value);
 		
 	}
 

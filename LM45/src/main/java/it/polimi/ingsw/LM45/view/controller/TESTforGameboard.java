@@ -11,7 +11,7 @@ public class TESTforGameboard extends Application {
 	
 	public void start(Stage stage) {
 		GuiController controller = new GuiController();
-		controller.showGameBoard(PlayerColor.RED, new String[]{"BUBU", "LULU", "KUKU", "SUSU"});
+		controller.showGameBoard(new String[]{"BUBU", "LULU", "KUKU", "SUSU"});
 		controller.gameBoardController.slotModify("BUILDING", 0);
 		controller.gameBoardController.slotModify("TERRITORY", 0);
 		controller.gameBoardController.slotModify("VENTURE", 0);
