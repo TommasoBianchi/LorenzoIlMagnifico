@@ -100,7 +100,7 @@ public class Board {
 	 *            the card we want to place on this board
 	 */
 	public void placeCard(Card card) {
-		Arrays.stream(towerSlots.get(card.getCardType().toSlotType())).filter(towerSlot -> towerSlot.hasCard()).findFirst()
+		Arrays.stream(towerSlots.get(card.getCardType().toSlotType())).filter(towerSlot -> !towerSlot.hasCard()).findFirst()
 				.ifPresent(towerSlot -> towerSlot.placeCard(card));
 	}
 
