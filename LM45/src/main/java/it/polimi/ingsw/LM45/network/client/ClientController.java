@@ -138,6 +138,9 @@ public class ClientController {
 
 		// TEST		
 		//int chosenNumber = viewChooseFrom(alternatives);		
+
+		boolean fastTest = false;
+		if(fastTest) return 0;
 		// TEST
 		
 		int chosenNumber = viewInterface.chooseFrom(alternatives);
@@ -225,6 +228,7 @@ public class ClientController {
 	}
 	
 	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications){
+		System.out.println("ClientController::initializeGameBoard");
 		viewInterface.initializeGameBoard(playersUsername, playerColors, excommunications);
 	}
 

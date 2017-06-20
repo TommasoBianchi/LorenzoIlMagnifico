@@ -39,8 +39,6 @@ public class GuiController implements ViewInterface {
 	GameBoardController gameBoardController;
 	ClientController clientController;
 
-	Stage stage = new Stage();
-
 	private int choice = -1;
 	private Object choiceLockToken = new Object();
 
@@ -57,13 +55,16 @@ public class GuiController implements ViewInterface {
 	
 	@Override
 	public void showLeaderCardChoiceView() {
-		leaderChoiceController = new LeaderCardChoiceController(stage);
+		leaderChoiceController = new LeaderCardChoiceController();
 		leaderChoiceController.setGuiController(this);
 	}
 	
 	@Override
 	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications) {
-		gameBoardController = new GameBoardController(stage, playersUsername, playerColors, clientController, excommunications);
+		Platform.runLater(() -> {
+			gameBoardController = new GameBoardController(playersUsername, playerColors, clientController, excommunications);
+			leaderChoiceController.close();
+		});
 	}
 	
 	@Override

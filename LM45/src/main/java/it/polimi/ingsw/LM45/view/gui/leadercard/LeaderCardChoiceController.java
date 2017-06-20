@@ -27,8 +27,8 @@ public class LeaderCardChoiceController {
 	private GuiController guiController;
 	private Stage stage;
 	
-	public LeaderCardChoiceController(Stage stage) {
-		this.stage = stage;
+	public LeaderCardChoiceController() {
+		this.stage = new Stage();
 		
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -78,5 +78,9 @@ public class LeaderCardChoiceController {
 
 	public void setGuiController(GuiController guiController) {
 		this.guiController = guiController;
+	}
+	
+	public void close(){
+		stage.close();
 	}
 }

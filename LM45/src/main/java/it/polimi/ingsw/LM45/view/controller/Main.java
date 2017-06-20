@@ -6,13 +6,11 @@ import it.polimi.ingsw.LM45.controller.ClientLauncher;
 import it.polimi.ingsw.LM45.view.lobby.LobbyController;
 
 import javafx.application.Application;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class Main extends Application {
 	
-	private static final boolean FAST_TESTING = false;
+	private static final boolean FAST_TESTING = true;
 
 	private Stage primaryStage;
 

@@ -116,12 +116,13 @@ public class GameBoardController {
 	private FamiliarColor familiarColor = FamiliarColor.BONUS;
 	private boolean familiarSelected = false;
 
-	public GameBoardController(Stage stage, String[] playersUsername, PlayerColor[] playerColors,
+	public GameBoardController(String[] playersUsername, PlayerColor[] playerColors,
 			ClientController clientController, Excommunication[] excommunications) {
 
-		this.stage = stage;
+		this.stage = new Stage();
 		this.clientController = clientController;
 		myUsername = clientController.getUsername();
+		System.out.println("HEY!");
 
 		try {
 			FXMLLoader loader = new FXMLLoader();
