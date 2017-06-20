@@ -104,11 +104,6 @@ public class RMIClient implements RemoteClientInterface, ServerInterface {
 	}
 
 	@Override
-	public void setExcommunications(Excommunication[] excommunications) {
-		clientController.setExcommunications(excommunications);
-	}
-
-	@Override
 	public void setLeaderCards(LeaderCard[] leaders) {
 		clientController.setLeaderCards(leaders);
 	}
@@ -131,6 +126,11 @@ public class RMIClient implements RemoteClientInterface, ServerInterface {
 	@Override
 	public void setPersonalBonusTile(String username, PersonalBonusTile personalBonusTile) throws IOException {
 		clientController.setPersonalBonusTile(username, personalBonusTile);
+	}
+
+	@Override
+	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications) throws IOException {
+		clientController.initializeGameBoard(playersUsername, playerColors, excommunications);
 	}
 	
 }

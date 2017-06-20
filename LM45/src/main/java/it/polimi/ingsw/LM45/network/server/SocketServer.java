@@ -256,12 +256,6 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 	}
 
 	@Override
-	public void setExcommunications(Excommunication[] excommunications) throws IOException {
-		outStream.writeObject(ClientMessages.SETUP_EXCOMMUNICATIONS);
-		outStream.writeObject(excommunications);
-	}
-
-	@Override
 	public void setLeaderCards(LeaderCard[] leaders) throws IOException {
 		outStream.writeObject(ClientMessages.SETUP_LEADERS);
 		outStream.writeObject(leaders);
@@ -294,6 +288,14 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 		outStream.writeObject(ClientMessages.SET_PERSONALTILE);
 		outStream.writeObject(personalBonusTile);
 		outStream.writeObject(username);
+	}
+
+	@Override
+	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications) throws IOException {
+		outStream.writeObject(ClientMessages.INIT_GAMEBOARD);
+		outStream.writeObject(playersUsername);
+		outStream.writeObject(playerColors);
+		outStream.writeObject(excommunications);
 	}
 
 }

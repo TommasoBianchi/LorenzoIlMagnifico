@@ -178,12 +178,6 @@ public class GuiController implements ViewInterface {
 	}
 
 	@Override
-	public void setExcommunications(Excommunication[] excommunications) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void setLeaderCards(LeaderCard[] leaders) {
 		// TODO Auto-generated method stub
 		

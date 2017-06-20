@@ -204,10 +204,6 @@ public class ClientController {
 		viewInterface.addFamiliar(slotType, position, familiarColor, playerColor);
 	}
 
-	public void setExcommunications(Excommunication[] excommunications) {
-		viewInterface.setExcommunications(excommunications);
-	}
-
 	public void setLeaderCards(LeaderCard[] leaders) {
 		viewInterface.setLeaderCards(leaders);
 	}
@@ -226,6 +222,10 @@ public class ClientController {
 	
 	public void setPersonalBonusTile(String username, PersonalBonusTile personalBonusTile){
 		viewInterface.setPersonalBonusTile(username, personalBonusTile);
+	}
+	
+	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications){
+		viewInterface.initializeGameBoard(playersUsername, playerColors, excommunications);
 	}
 
 	private void manageIOException(IOException e) {

@@ -112,10 +112,6 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 				PlayerColor playerColor = (PlayerColor) inStream.readObject();				
 				performAsync(() -> addFamiliar(slotType, position, familiarColor, playerColor)); 
 				break;
-			case SETUP_EXCOMMUNICATIONS:
-				Excommunication[] excommunications = (Excommunication[]) inStream.readObject();
-				performAsync(() -> setExcommunications(excommunications)); 
-				break;
 			case SETUP_LEADERS:
 				LeaderCard[] leaders = (LeaderCard[]) inStream.readObject();
 				performAsync(() -> setLeaderCards(leaders)); 
@@ -140,6 +136,12 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 				PersonalBonusTile personalBonusTile = (PersonalBonusTile) inStream.readObject();
 				username = (String) inStream.readObject();
 				performAsync(() -> setPersonalBonusTile(username, personalBonusTile)); 
+				break;
+			case INIT_GAMEBOARD:
+				String[] playersUsername = (String[]) inStream.readObject();
+				PlayerColor[] playerColors = (PlayerColor[]) inStream.readObject();
+				Excommunication[] excommunications = (Excommunication[]) inStream.readObject();
+				performAsync(() -> initializeGameBoard(playersUsername, playerColors, excommunications));
 			default:
 				break;
 		}
@@ -242,11 +244,6 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 	}
 
 	@Override
-	public void setExcommunications(Excommunication[] excommunications) {
-		clientController.setExcommunications(excommunications);
-	}
-
-	@Override
 	public void setLeaderCards(LeaderCard[] leaders) {
 		clientController.setLeaderCards(leaders);
 	}
@@ -269,6 +266,11 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 	@Override
 	public void setPersonalBonusTile(String username, PersonalBonusTile personalBonusTile) throws IOException {
 		clientController.setPersonalBonusTile(username, personalBonusTile);
+	}
+
+	@Override
+	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications) throws IOException {
+		clientController.initializeGameBoard(playersUsername, playerColors, excommunications);
 	}
 
 }

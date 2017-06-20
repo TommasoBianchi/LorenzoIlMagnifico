@@ -29,7 +29,6 @@ public interface ViewInterface {
 	public void setResources(Resource[] resources, String username);
 	public void myTurn();
 	public void playerTurn(String username);
-	public void setExcommunications(Excommunication[] excommunications);
 	public void setLeaderCards(LeaderCard[] leaders);
 	public void discardLeaderCard(String username, LeaderCard leader);
 	public void playLeaderCard(String username, LeaderCard leader);
