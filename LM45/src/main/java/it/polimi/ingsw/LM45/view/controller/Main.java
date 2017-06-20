@@ -18,9 +18,6 @@ public class Main extends Application {
 
 	public void start(Stage stage) {
 		this.primaryStage = stage;
-		this.primaryStage.setTitle("Lorenzo il Magnifico");
-		this.primaryStage.getIcons().add(new Image("file:Assets/Image/Cards/LEADER/LeaderCard Cover.jpg"));
-		this.primaryStage.initStyle(StageStyle.TRANSPARENT);
 		
 		try {
 			if(FAST_TESTING)

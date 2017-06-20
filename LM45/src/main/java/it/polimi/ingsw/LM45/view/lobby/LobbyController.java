@@ -9,12 +9,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class LobbyController {
 
@@ -46,6 +48,9 @@ public class LobbyController {
 		loader.setLocation(Main.class.getResource("../lobby/LobbyView.fxml"));
 		AnchorPane lobby = (AnchorPane) loader.load();
 		Scene scene = new Scene(lobby);
+		stage.setTitle("Lorenzo il Magnifico");
+		stage.getIcons().add(new Image("file:Assets/Image/Cards/LEADER/LeaderCard Cover.jpg"));
+		stage.initStyle(StageStyle.TRANSPARENT);
 		stage.setScene(scene);
 		stage.setResizable(false);
 		stage.show();
