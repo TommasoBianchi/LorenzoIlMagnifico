@@ -13,6 +13,8 @@ import com.google.gson.JsonSyntaxException;
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.CardType;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
+import it.polimi.ingsw.LM45.model.core.FamiliarColor;
+import it.polimi.ingsw.LM45.model.core.PlayerColor;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.ResourceType;
 import it.polimi.ingsw.LM45.serialization.FileManager;
@@ -20,6 +22,7 @@ import it.polimi.ingsw.LM45.view.gui.gameboard.GameBoardController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
@@ -69,14 +72,17 @@ public class PersonalBoardController {
 
 	private Stage stage;
 	private String username;
-
+	private String playerColor;
+	
+	private String familiarPath = "file:Assets/Image/Familiars/" + playerColor + "/";
 	private Map<CardType, FlowPane> cardFlowPanes = new EnumMap<CardType, FlowPane>(CardType.class);
 	private Map<ResourceType, Text> resourceTexts = new EnumMap<ResourceType, Text>(ResourceType.class);
 	private boolean isLocalPlayer;
 
-	public PersonalBoardController(Stage stage, String username) {
+	public PersonalBoardController(Stage stage, String username, PlayerColor playerColor) {
 		this.stage = stage;
 		this.username = username;
+		this.playerColor = playerColor.toString();
 
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(PersonalBoardController.class.getResource("PersonalBoardScene.fxml"));
@@ -159,6 +165,20 @@ public class PersonalBoardController {
 		imageView.setFitHeight(150);
 		leaderCardsInHand.getChildren().add(imageView);
 		System.out.println(leaderCardsInHand.getChildren().size());
+	}
+	
+	public void setFamiliarValue(FamiliarColor color, int value){
+		Label familiarValue = (Label)stage.getScene().lookup("#VALUE" + color.toString());
+		familiarValue.setText(Integer.toString(value));
+	}
+	
+	public void setFamiliarsColors(PlayerColor playerColor){
+		for(FamiliarColor familiarColor : new FamiliarColor[] {FamiliarColor.BLACK, FamiliarColor.ORANGE,
+				FamiliarColor.UNCOLORED, FamiliarColor.WHITE}){
+			ImageView familiarImage = (ImageView) stage.getScene().lookup("#FAMILIAR" + familiarColor);
+			familiarImage.setImage(new Image("file:Assets/Image/Familiars/" + playerColor + "/" +
+			familiarColor + ".png"));
+		}
 	}
 	
 	public Stage getStage(){
