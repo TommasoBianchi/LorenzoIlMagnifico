@@ -116,8 +116,8 @@ public class GameBoardController {
 	private FamiliarColor familiarColor = FamiliarColor.BONUS;
 	private boolean familiarSelected = false;
 
-	public GameBoardController(String[] playersUsername, PlayerColor[] playerColors,
-			ClientController clientController, Excommunication[] excommunications) {
+	public GameBoardController(String[] playersUsername, PlayerColor[] playerColors, ClientController clientController,
+			Excommunication[] excommunications) {
 
 		this.stage = new Stage();
 		this.clientController = clientController;
@@ -196,14 +196,14 @@ public class GameBoardController {
 	}
 
 	public void setUsernames(String[] usernames) {
-		username0.setText(usernames[0]);
-		username1.setText(usernames[1]);
-		username2.setText(usernames[2]);
-		username3.setText(usernames[3]);
-		personalBoard0.setId(usernames[0]);
-		personalBoard1.setId(usernames[1]);
-		personalBoard2.setId(usernames[2]);
-		personalBoard3.setId(usernames[3]);
+		for (int i = 0; i < usernames.length; i++) {
+			Label userText = (Label) stage.getScene().lookup("#USERNAME" + i);
+			userText.setText(usernames[i]);
+			Button personalButton = (Button) stage.getScene().lookup("#BUTTONPERSONAL" + i);
+			personalButton.setId(usernames[i]);
+			personalButton.setOpacity(1);
+			personalButton.setDisable(false);
+		}
 	}
 
 	public void doAction(MouseEvent event) {
@@ -214,6 +214,7 @@ public class GameBoardController {
 			SlotType slotType = SlotType.valueOf((slot.getId().substring(0, slot.getId().length() - 1)));
 			int position = Integer.parseInt(slot.getId().substring(slot.getId().length() - 1));
 			clientController.placeFamiliar(familiarColor, slotType, position);
+			dialogBox.setText(slotType + " slot " + position);
 		}
 	}
 
@@ -221,6 +222,7 @@ public class GameBoardController {
 		ImageView image = (ImageView) event.getSource();
 		familiarColor = FamiliarColor.valueOf(image.getId().substring(8));
 		familiarSelected = true;
+		dialogBox.setText(familiarColor + " familiar selected !");
 	}
 
 	public void slotModify(String slotType, Integer position) {
@@ -265,18 +267,18 @@ public class GameBoardController {
 		userPersonalBoard.get(username).addCard(card);
 	}
 
-	public void newPeriod(Map<CardType, List<Card>> towerCards, int[] familiarsValues) {
-
+	public void addCardsOnTower(Card[] cards, SlotType slotType) {
 		// Add new towers cards of the new Period
-		for (CardType cardType : new CardType[] { CardType.BUILDING, CardType.CHARACTER, CardType.TERRITORY,
-				CardType.VENTURE }) {
-			for (int i = 0; i < 4; i++) {
-				Card card = towerCards.get(cardType).get(i);
-				ImageView image = (ImageView) stage.getScene().lookup("#VIEW" + cardType + i);
-				image.setImage(new Image("file:Assets/Image/Cards/" + cardType + "/" + card.getName() + ".jpg"));
-			}
+		for (int i = 0; i < 4; i++) {
+			ImageView image = (ImageView) stage.getScene().lookup("#VIEW" + slotType + i);
+			System.out.println(cards[i] == null);
+			System.out.println(cards[i].getName());
+			System.out.println("file:Assets/Image/Cards/" + slotType + "/" + cards[i].getName() + ".png");
+			image.setImage(new Image("file:Assets/Image/Cards/" + slotType + "/" + cards[i].getName() + ".png"));
 		}
+	}
 
+	public void clearSlots() {
 		// Remove all familiars from slots
 		for (SlotType slotType : new SlotType[] { SlotType.BUILDING, SlotType.CHARACTER, SlotType.COUNCIL,
 				SlotType.HARVEST, SlotType.MARKET, SlotType.PRODUCTION, SlotType.TERRITORY, SlotType.VENTURE }) {
@@ -285,8 +287,6 @@ public class GameBoardController {
 				slot.getChildren().clear();
 			}
 		}
-
-		// TODO setFamiliars(familiarValues)
 	}
 
 }

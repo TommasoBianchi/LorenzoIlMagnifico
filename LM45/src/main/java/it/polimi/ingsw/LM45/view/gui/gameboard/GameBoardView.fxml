@@ -67,16 +67,10 @@
                   <ImageView id="VIEWCHARACTER1" fitHeight="96.0" fitWidth="80.0" layoutX="156.0" layoutY="216.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" preserveRatio="true" />
                   <ImageView id="VIEWCHARACTER0" fitHeight="96.0" fitWidth="80.0" layoutX="156.0" layoutY="317.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" preserveRatio="true" />
                   <ImageView id="VIEWBUILDING3" fitHeight="96.0" fitWidth="80.0" layoutX="301.0" layoutY="14.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView id="VIEWVENTURE3" fitHeight="96.0" fitWidth="80.0" layoutX="446.0" layoutY="12.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true">
-                     <image>
-                        <Image url="file:Assets/Image/Cards/VENTURE/Building%20the%20Towers.png" />
-                     </image></ImageView>
+                  <ImageView id="VIEWVENTURE3" fitHeight="96.0" fitWidth="80.0" layoutX="446.0" layoutY="12.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" />
                   <ImageView id="VIEWVENTURE2" fitHeight="96.0" fitWidth="80.0" layoutX="446.0" layoutY="115.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" preserveRatio="true" />
                   <ImageView id="VIEWVENTURE1" fitHeight="96.0" fitWidth="80.0" layoutX="446.0" layoutY="216.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView id="VIEWVENTURE0" fitHeight="96.0" fitWidth="80.0" layoutX="446.0" layoutY="317.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true">
-                     <image>
-                        <Image url="file:Assets/Image/Cards/VENTURE/Hiring%20Mercenaries.png" />
-                     </image></ImageView>
+                  <ImageView id="VIEWVENTURE0" fitHeight="96.0" fitWidth="80.0" layoutX="446.0" layoutY="317.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" />
                   <ImageView id="VIEWBUILDING2" fitHeight="96.0" fitWidth="80.0" layoutX="301.0" layoutY="115.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" preserveRatio="true" />
                   <ImageView id="VIEWBUILDING1" fitHeight="96.0" fitWidth="80.0" layoutX="301.0" layoutY="216.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" preserveRatio="true" />
                   <ImageView id="VIEWBUILDING0" fitHeight="96.0" fitWidth="80.0" layoutX="301.0" layoutY="317.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" preserveRatio="true" />
@@ -220,42 +214,42 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Label fx:id="username0" alignment="CENTER" prefHeight="48.0" prefWidth="110.0" text="Username" textFill="#ffc000">
+                                    <Label id="USERNAME0" alignment="CENTER" prefHeight="48.0" prefWidth="110.0" textFill="#ffc000">
                                        <font>
                                           <Font name="System Italic" size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="username1" alignment="CENTER" prefHeight="83.0" prefWidth="110.0" text="Username" textFill="#ffc000" GridPane.rowIndex="1">
+                                    <Label id="USERNAME1" alignment="CENTER" prefHeight="83.0" prefWidth="110.0" textFill="#ffc000" GridPane.rowIndex="1">
                                        <font>
                                           <Font name="System Italic" size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="username2" alignment="CENTER" prefHeight="86.0" prefWidth="110.0" text="Username" textFill="#ffc000" GridPane.rowIndex="2">
+                                    <Label id="USERNAME2" alignment="CENTER" prefHeight="86.0" prefWidth="110.0" textFill="#ffc000" GridPane.rowIndex="2">
                                        <font>
                                           <Font name="System Italic" size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="username3" alignment="CENTER" prefHeight="59.0" prefWidth="110.0" text="Username" textFill="#ffc000" GridPane.rowIndex="3">
+                                    <Label id="USERNAME2" alignment="CENTER" prefHeight="59.0" prefWidth="110.0" textFill="#ffc000" GridPane.rowIndex="3">
                                        <font>
                                           <Font name="System Italic" size="14.0" />
                                        </font>
                                     </Label>
-                                    <Button fx:id="personalBoard0" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#showPersonalBoard" text="PersonalBoard" GridPane.columnIndex="1">
+                                    <Button id="BUTTONPERSONAL0" alignment="CENTER" contentDisplay="CENTER" disable="true" mnemonicParsing="false" onMouseClicked="#showPersonalBoard" opacity="0.0" text="PersonalBoard" GridPane.columnIndex="1">
                                        <GridPane.margin>
                                           <Insets left="7.0" />
                                        </GridPane.margin>
                                     </Button>
-                                    <Button fx:id="personalBoard1" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#showPersonalBoard" text="PersonalBoard" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <Button id="BUTTONPERSONAL1" alignment="CENTER" contentDisplay="CENTER" disable="true" mnemonicParsing="false" onMouseClicked="#showPersonalBoard" opacity="0.0" text="PersonalBoard" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                        <GridPane.margin>
                                           <Insets left="7.0" />
                                        </GridPane.margin>
                                     </Button>
-                                    <Button fx:id="personalBoard2" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#showPersonalBoard" text="PersonalBoard" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                    <Button id="BUTTONPERSONAL2" alignment="CENTER" contentDisplay="CENTER" disable="true" mnemonicParsing="false" onMouseClicked="#showPersonalBoard" opacity="0.0" text="PersonalBoard" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                        <GridPane.margin>
                                           <Insets left="7.0" />
                                        </GridPane.margin>
                                     </Button>
-                                    <Button fx:id="personalBoard3" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#showPersonalBoard" text="PersonalBoard" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                    <Button id="BUTTONPERSONAL3" alignment="CENTER" contentDisplay="CENTER" disable="true" mnemonicParsing="false" onMouseClicked="#showPersonalBoard" opacity="0.0" text="PersonalBoard" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                        <GridPane.margin>
                                           <Insets left="7.0" />
                                        </GridPane.margin>
