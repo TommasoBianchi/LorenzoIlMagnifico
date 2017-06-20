@@ -12,7 +12,7 @@ public class ViewInterfaceFactory {
 				return new GuiController();
 			
 			case CLI:
-				return new CliController();
+				//return new CliController();
 				
 			default:
 				return new GuiController();
