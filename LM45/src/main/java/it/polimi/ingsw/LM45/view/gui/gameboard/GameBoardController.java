@@ -1,27 +1,14 @@
 package it.polimi.ingsw.LM45.view.gui.gameboard;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.EnumMap;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Random;
-
-import com.google.gson.JsonIOException;
-import com.google.gson.JsonSyntaxException;
-
 import it.polimi.ingsw.LM45.model.cards.Card;
-import it.polimi.ingsw.LM45.model.cards.CardType;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
-import it.polimi.ingsw.LM45.model.core.PersonalBoard;
 import it.polimi.ingsw.LM45.model.core.PlayerColor;
-import it.polimi.ingsw.LM45.model.core.Resource;
-import it.polimi.ingsw.LM45.model.core.ResourceType;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.network.client.ClientController;
-import it.polimi.ingsw.LM45.serialization.FileManager;
 import it.polimi.ingsw.LM45.view.controller.Main;
 import it.polimi.ingsw.LM45.view.gui.personalBoard.PersonalBoardController;
 import javafx.fxml.FXML;
@@ -34,9 +21,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -47,54 +31,6 @@ public class GameBoardController {
 
 	@FXML
 	private Label dialogBox;
-
-	@FXML
-	private GridPane players;
-
-	@FXML
-	private Label username0;
-
-	@FXML
-	private Label username1;
-
-	@FXML
-	private Label username2;
-
-	@FXML
-	private Label username3;
-
-	@FXML
-	private Button personalBoard0;
-
-	@FXML
-	private Button personalBoard1;
-
-	@FXML
-	private Button personalBoard2;
-
-	@FXML
-	private Button personalBoard3;
-
-	@FXML
-	private Label coins;
-
-	@FXML
-	private Label stone;
-
-	@FXML
-	private Label wood;
-
-	@FXML
-	private Label servants;
-
-	@FXML
-	private Label victory;
-
-	@FXML
-	private Label military;
-
-	@FXML
-	private Label faith;
 
 	@FXML
 	private FlowPane coverableMarketSlot2;
@@ -139,6 +75,7 @@ public class GameBoardController {
 			stage.getIcons().add(new Image("file:Assets/Image/Cards/LEADER/LeaderCard Cover.jpg"));
 			stage.initStyle(StageStyle.UNDECORATED);
 			stage.setTitle("Lorenzo il Magnifico");
+			//stage.getScene().getRoot().setDisable(true);
 			stage.show();
 			this.coverSlots(playersUsername.length);
 			this.setUsernames(playersUsername);
@@ -223,6 +160,7 @@ public class GameBoardController {
 			int position = Integer.parseInt(slot.getId().substring(slot.getId().length() - 1));
 			clientController.placeFamiliar(familiarColor, slotType, position);
 			dialogBox.setText(slotType + " slot " + position);
+			familiarSelected = false;
 		}
 	}
 
@@ -244,6 +182,8 @@ public class GameBoardController {
 		image.setScaleX(2);
 		image.setScaleY(2);
 		image.setTranslateY(50);
+		image.setTranslateZ(-2);
+		image.toFront();
 	}
 
 	public void resetZoomImage(MouseEvent event) {
