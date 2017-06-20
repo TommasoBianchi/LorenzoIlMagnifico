@@ -42,7 +42,7 @@ public class SocketFactory implements Runnable {
 	}
 
 	public void shutdown(){
-		createdSockets.forEach(socketServer -> socketServer.close());
+		createdSockets.forEach(SocketServer::close);
 	}
 	
 }

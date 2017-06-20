@@ -72,14 +72,13 @@ public class ServerController {
 	public ServerController(int gameID, int maxNumberOfPlayers, long gameStartTimerDelay, long turnTimerDelay)
 			throws JsonSyntaxException, JsonIOException, FileNotFoundException {
 		this.gameID = gameID;
-		this.users = new HashMap<String, ClientInterface>();
-		this.players = new HashMap<String, Player>();
-		this.effectResolutors = new HashMap<String, EffectResolutor>();
-		this.availableColors = new ArrayList<PlayerColor>(Arrays.asList(PlayerColor.values()));
+		this.users = new HashMap<>();
+		this.players = new HashMap<>();
+		this.effectResolutors = new HashMap<>();
+		this.availableColors = new ArrayList<>(Arrays.asList(PlayerColor.values()));
 		this.boardConfiguration = FileManager.loadConfiguration(BoardConfiguration.class);
 		this.personalBonusTilesConfiguration = FileManager.loadConfiguration(PersonalBonusTilesConfiguration.class);
-		this.leaderCards = FileManager.loadLeaderCards().stream()
-				.collect(Collectors.toMap(leaderCard -> leaderCard.getName(), leaderCard -> leaderCard));
+		this.leaderCards = FileManager.loadLeaderCards().stream().collect(Collectors.toMap(LeaderCard::getName, leaderCard -> leaderCard));
 		this.deck = FileManager.loadCards();
 		this.excommunications = FileManager.loadExcommunications();
 		this.maxNumberOfPlayers = maxNumberOfPlayers;
@@ -97,10 +96,11 @@ public class ServerController {
 			return;
 		}
 
+		StringBuilder stringBuilder = new StringBuilder(username);
 		while (users.containsKey(username) || players.containsKey(username)) {
-			username += new Random().nextInt(10);
+			stringBuilder.append(Integer.toString(new Random().nextInt(10)));
 		}
-		setPlayerUsername(username, clientInterface);
+		setPlayerUsername(stringBuilder.toString(), clientInterface);
 
 		users.put(username, clientInterface);
 		PlayerColor randomColor = availableColors.remove(new Random().nextInt(availableColors.size()));
@@ -257,8 +257,8 @@ public class ServerController {
 		choosePersonalBonusTiles();
 		chooseLeaderCards();
 
-		String[] playersUsername = players.values().stream().map(player -> player.getUsername()).toArray(String[]::new);
-		PlayerColor[] playerColors = players.values().stream().map(player -> player.getColor()).toArray(PlayerColor[]::new);
+		String[] playersUsername = players.values().stream().map(Player::getUsername).toArray(String[]::new);
+		PlayerColor[] playerColors = players.values().stream().map(Player::getColor).toArray(PlayerColor[]::new);
 		notifyPlayers(clientInterface -> clientInterface.initializeGameBoard(playersUsername, playerColors, game.getPlacedExcommunications()));
 
 		nextGameTurn();
@@ -360,17 +360,17 @@ public class ServerController {
 			ExecutorService executorService = Executors.newFixedThreadPool(4);
 			int currentIndex = i;
 			// Give each (connected) player the possibility to choose a leaderCard (in parallel)
-			users.keySet().forEach(playerUsername -> {
+			users.keySet().forEach(playerUsername ->
 				executorService.submit(() -> {
 					int index = chooseFrom(playerUsername,
-							leaderCardsToChoose.get(playerUsername).stream().map(leaderCard -> leaderCard.toString()).toArray(String[]::new));
+							leaderCardsToChoose.get(playerUsername).stream().map(LeaderCard::toString).toArray(String[]::new));
 					LeaderCard chosenLeaderCard = leaderCardsToChoose.get(playerUsername).get(index);
 					logInfo(playerUsername + " has chosen leaderCard " + chosenLeaderCard.getName());
 					players.get(playerUsername).addLeaderCard(chosenLeaderCard);
 					chosenLeaderCards.get(playerUsername)[currentIndex] = chosenLeaderCard;
 					leaderCardsToChoose.get(playerUsername).remove(chosenLeaderCard);
-				});
-			});
+				})
+			);
 
 			// Wait their decision only for a fixed amount of time
 			executorService.shutdown();
@@ -378,7 +378,6 @@ public class ServerController {
 				executorService.awaitTermination(turnTimerDelay, TimeUnit.MILLISECONDS);
 			}
 			catch (InterruptedException e) {
-				// TODO: think better about how should we manage this exception
 				ServerMain.LOGGER.log(Level.SEVERE,
 						"ServerController::chooseLeaderCards() -- an InterruptedException occurred while awaiting executorService to terminate."
 								+ "Forcing executorService shutdown and propagating interrupt.",
@@ -424,8 +423,7 @@ public class ServerController {
 		for (Player player : orderedPlayers) {
 			int chosenIndex = 0;
 			if (personalBonusTiles.size() > 1 && users.containsKey(player.getUsername())) {
-				chosenIndex = chooseFrom(player.getUsername(),
-						personalBonusTiles.stream().map(personalBonusTile -> personalBonusTile.toString()).toArray(String[]::new));
+				chosenIndex = chooseFrom(player.getUsername(), personalBonusTiles.stream().map(PersonalBonusTile::toString).toArray(String[]::new));
 			}
 
 			PersonalBonusTile chosenPersonalBonusTile = personalBonusTiles.remove(chosenIndex);
@@ -459,7 +457,7 @@ public class ServerController {
 	}
 
 	private void logInfo(String message) {
-		ServerMain.LOGGER.log(Level.FINE, "Game " + gameID + ": " + message);
+		ServerMain.LOGGER.log(Level.FINE, () -> "Game " + gameID + ": " + message);
 	}
 
 	/**

@@ -101,8 +101,8 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 	private void handleMessage(ServerMessages messageType) throws ClassNotFoundException, IOException {
 		switch (messageType) {
 			case LOGIN:
-				String username = (String) inStream.readObject();
-				login(username);
+				String playerUsername = (String) inStream.readObject();
+				login(playerUsername);
 				break;
 			case PLACE_FAMILIAR:
 				FamiliarColor familiarColor = (FamiliarColor) inStream.readObject();
@@ -222,7 +222,7 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 			inputStreamLock.unlock();
 		}
 		else {
-			if (inputQueue.isEmpty()) {
+			while (inputQueue.isEmpty()) {
 				synchronized (inputQueue) {
 					try {
 						inputQueue.wait();
@@ -262,7 +262,7 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor) throws IOException {
 		outStream.writeObject(ClientMessages.ADD_FAMILIAR);
 		outStream.writeObject(slotType);
-		outStream.writeObject(new Integer(position));
+		outStream.writeObject(Integer.valueOf(position));
 		outStream.writeObject(familiarColor);
 		outStream.writeObject(playerColor);
 	}
@@ -278,14 +278,14 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 		outStream.writeObject(ClientMessages.SET_FAMILIAR);
 		outStream.writeObject(username);
 		outStream.writeObject(color);
-		outStream.writeObject(new Integer(value));
+		outStream.writeObject(Integer.valueOf(value));
 	}
 
 	@Override
 	public void doBonusAction(SlotType slotType, int value) throws IOException {
 		outStream.writeObject(ClientMessages.BONUS_ACTION);
 		outStream.writeObject(slotType);
-		outStream.writeObject(new Integer(value));
+		outStream.writeObject(Integer.valueOf(value));
 	}
 
 	@Override

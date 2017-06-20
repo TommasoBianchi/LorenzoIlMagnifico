@@ -36,7 +36,7 @@ public class ServerControllerFactory {
 
 		if (currentServerController == null || instanceCount >= maxInstanceCount) {
 			instanceCount = 0;
-			currentServerController = createServerControllerInstance(username);
+			currentServerController = createServerControllerInstance();
 		}
 
 		instanceCount++;
@@ -51,7 +51,7 @@ public class ServerControllerFactory {
 		// TODO: implement
 	}
 
-	private static ServerController createServerControllerInstance(String username) {
+	private static ServerController createServerControllerInstance() {
 		try {
 			return new ServerController(++currentGameID, maxInstanceCount, gameStartTimerDelay, turnTimerDelay);
 		}
