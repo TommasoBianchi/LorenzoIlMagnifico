@@ -3,14 +3,18 @@ package it.polimi.ingsw.LM45.network.server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.List;
+import java.util.ArrayList;
 
 public class SocketFactory implements Runnable {
 	
 	private ServerSocket serverSocket;
 	private boolean isRunning;
+	private List<SocketServer> createdSockets;
 
 	public SocketFactory(int port) throws IOException{
 		this.serverSocket = new ServerSocket(port);
+		this.createdSockets = new ArrayList<>();
 		new Thread(this).start();
 		isRunning = true;
 	}
@@ -29,6 +33,7 @@ public class SocketFactory implements Runnable {
 			try {
 				Socket socket = serverSocket.accept();
 				SocketServer socketServer = new SocketServer(socket);
+				createdSockets.add(socketServer);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -37,7 +42,7 @@ public class SocketFactory implements Runnable {
 	}
 
 	public void shutdown(){
-		// TODO: implement
+		createdSockets.forEach(socketServer -> socketServer.close());
 	}
 	
 }
