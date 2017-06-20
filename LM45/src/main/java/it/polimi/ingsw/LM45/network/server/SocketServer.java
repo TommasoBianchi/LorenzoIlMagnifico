@@ -81,7 +81,7 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 	}
 
 	public synchronized void close() {
-		if (!isRunning) {
+		if (isRunning) {
 			try {
 				outStream.close();
 				inStream.close();
