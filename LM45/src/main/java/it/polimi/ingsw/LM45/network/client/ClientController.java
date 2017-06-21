@@ -2,17 +2,9 @@ package it.polimi.ingsw.LM45.network.client;
 
 import java.io.IOException;
 import java.rmi.NotBoundException;
-import java.util.Arrays;
-import java.util.Queue;
-import java.util.Random;
-import java.util.Scanner;
-import java.util.concurrent.ConcurrentLinkedQueue;
-
-import com.sun.media.jfxmedia.events.NewFrameEvent;
 
 import it.polimi.ingsw.LM45.exceptions.GameException;
 import it.polimi.ingsw.LM45.model.cards.Card;
-import it.polimi.ingsw.LM45.model.cards.CardType;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.cards.PeriodType;
@@ -198,8 +190,8 @@ public class ClientController {
 	}*/
 	// TEST
 	
-	public void pickCard(CardType cardType, int position, String username) {
-		viewInterface.pickCard(cardType, position, username);
+	public void pickCard(Card card, String username) {
+		viewInterface.pickCard(card, username);
 	}
 
 	public void addCardsOnTower(Card[] cards, SlotType slotType) {

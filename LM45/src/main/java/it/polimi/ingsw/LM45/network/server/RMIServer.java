@@ -96,8 +96,8 @@ public class RMIServer implements RemoteServerInterface, ClientInterface {
 	}
 
 	@Override
-	public void pickCard(CardType cardType, int position, String username) throws IOException {
-		remoteClient.pickCard(cardType, position, username);		
+	public void pickCard(Card card, String username) throws IOException {
+		remoteClient.pickCard(card, username);		
 	}
 
 	@Override

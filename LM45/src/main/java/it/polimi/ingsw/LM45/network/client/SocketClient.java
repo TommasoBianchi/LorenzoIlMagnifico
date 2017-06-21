@@ -7,11 +7,8 @@ import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import org.omg.CORBA.portable.IndirectionException;
-
 import it.polimi.ingsw.LM45.exceptions.GameException;
 import it.polimi.ingsw.LM45.model.cards.Card;
-import it.polimi.ingsw.LM45.model.cards.CardType;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.cards.PeriodType;
@@ -23,7 +20,6 @@ import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.network.server.ServerInterface;
 import it.polimi.ingsw.LM45.network.server.ServerMessages;
 import it.polimi.ingsw.LM45.util.CheckedAction;
-import javafx.scene.layout.ConstraintsBase;
 
 public class SocketClient implements ClientInterface, ServerInterface, Runnable {
 
@@ -98,10 +94,9 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 				});
 				break;
 			case PICK_CARD:
-				CardType cardType = (CardType) inStream.readObject();
-				Integer position = (Integer) inStream.readObject();
+				Card card = (Card) inStream.readObject();
 				username = (String) inStream.readObject();
-				performAsync(() -> pickCard(cardType, position, username)); 
+				performAsync(() -> pickCard(card, username)); 
 				break;
 			case SETUP_TOWER:
 				Card[] cards = (Card[]) inStream.readObject();
@@ -110,7 +105,7 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 				break;
 			case ADD_FAMILIAR:
 				slotType = (SlotType) inStream.readObject();
-				position = (Integer) inStream.readObject();
+				Integer position = (Integer) inStream.readObject();
 				FamiliarColor familiarColor = (FamiliarColor) inStream.readObject();
 				PlayerColor playerColor = (PlayerColor) inStream.readObject();				
 				performAsync(() -> addFamiliar(slotType, position, familiarColor, playerColor)); 
@@ -238,8 +233,8 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 	}
 
 	@Override
-	public void pickCard(CardType cardType, int position, String username) {
-		clientController.pickCard(cardType, position, username);
+	public void pickCard(Card card, String username) {
+		clientController.pickCard(card, username);
 	}
 
 	@Override

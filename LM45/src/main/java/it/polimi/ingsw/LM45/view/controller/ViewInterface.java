@@ -19,7 +19,7 @@ public interface ViewInterface {
 	// playerusername ha tutti gli username...myusername lo prendo dal client controller
 	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor);
 	// do also disableFamiliar() in the GameBoard
-	public void pickCard(CardType cardType, int position, String username);
+	public void pickCard(Card card, String username);
 	public void addCardsOnTower(Card[] cards, SlotType slotType);
 	//cancel existing cards and sostituisci
 	public void setFamiliar(String username,FamiliarColor color, int value);
