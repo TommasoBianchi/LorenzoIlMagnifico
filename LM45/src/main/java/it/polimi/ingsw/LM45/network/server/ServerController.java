@@ -5,9 +5,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ExecutorService;
@@ -136,9 +138,9 @@ public class ServerController {
 	public void placeFamiliar(String player, FamiliarColor familiarColor, SlotType slotType, Integer slotID) {
 		if (playerCanDoActions(player)) {
 			try {
-				if(familiarColor != FamiliarColor.BONUS && currentPlayerAlreadyPlacedFamiliar)
+				if (familiarColor != FamiliarColor.BONUS && currentPlayerAlreadyPlacedFamiliar)
 					throw new IllegalActionException("You have already placed a familiar this turn!");
-				
+
 				Slot slot = game.getSlot(slotType, slotID);
 				Familiar familiar = players.get(player).getFamiliarByColor(familiarColor);
 				ActionModifier actionModifier = ActionModifier.EMPTY; // FIXME: grab the right ActionModifier
@@ -164,7 +166,8 @@ public class ServerController {
 		if (playerCanDoActions(player)) {
 			try {
 				players.get(player).increaseFamiliarValue(familiarColor);
-				notifyPlayers(clientInterface -> clientInterface.setFamiliar(player, familiarColor, players.get(player).getFamiliarValue(familiarColor)));
+				notifyPlayers(
+						clientInterface -> clientInterface.setFamiliar(player, familiarColor, players.get(player).getFamiliarValue(familiarColor)));
 				logInfo(player + " increased value of familiar " + familiarColor);
 			}
 			catch (IllegalActionException e) {
@@ -215,13 +218,13 @@ public class ServerController {
 		if (currentPlayer.getUsername() == player) {
 			logInfo(player + " ended his turn");
 			turnTimer.cancel();
-			
+
 			// Reset servants bonus on each familiar
 			Arrays.stream(players.get(player).getFamiliars()).forEach(familiar -> {
 				familiar.clearServantsBonus();
 				notifyPlayers(clientInterface -> clientInterface.setFamiliar(player, familiar.getFamiliarColor(), familiar.getValue()));
 			});
-			
+
 			nextPlayerRound();
 		}
 	}
@@ -261,8 +264,8 @@ public class ServerController {
 		else {
 			// The turn has finished, so proceed with the next one and do church support phase if necessary
 			if (game.getCurrentTurn() % 2 == 0) {
-				// TODO: Do church support phase
 				logInfo("Church support phase!");
+				churchSupportPhase();
 			}
 
 			if (game.getCurrentTurn() == 6) {
@@ -276,20 +279,21 @@ public class ServerController {
 	}
 
 	private void startGame() {
-		if(gameStartTimer != null)
+		if (gameStartTimer != null)
 			gameStartTimer.cancel();
 		logInfo("Game is starting!");
 		game = new Game(new ArrayList<Player>(players.values()), boardConfiguration, deck, new ArrayList<LeaderCard>(leaderCards.values()),
 				excommunications);
 		game.start();
-
-		giveBaseResources();
+		
 		choosePersonalBonusTiles();
 		chooseLeaderCards();
 
 		String[] playersUsername = players.values().stream().map(Player::getUsername).toArray(String[]::new);
 		PlayerColor[] playerColors = players.values().stream().map(Player::getColor).toArray(PlayerColor[]::new);
 		notifyPlayers(clientInterface -> clientInterface.initializeGameBoard(playersUsername, playerColors, game.getPlacedExcommunications()));
+
+		giveBaseResources();
 
 		nextGameTurn();
 	}
@@ -486,6 +490,48 @@ public class ServerController {
 			orderedPlayers[3].addResources(new Resource(ResourceType.COINS, 8));
 			notifyPlayers(clientInterface -> clientInterface.setResources(orderedPlayers[3].getAllResources(), orderedPlayers[3].getUsername()));
 		}
+	}
+
+	private void churchSupportPhase() {
+		players.forEach((username, player) -> {
+			int faithPointsRequired = PeriodType.I.ordinal() + 3;
+			boolean playerCanSupportChurch = player.hasResources(new Resource(ResourceType.FAITH, faithPointsRequired));
+			boolean playerWantsToSupportChurch = true;
+
+			if (users.containsKey(username) && playerCanSupportChurch) {
+				playerWantsToSupportChurch = chooseFrom(username, new String[] { "Support Church", "Do not support Church" }) == 0;
+			}
+
+			if (playerCanSupportChurch && playerWantsToSupportChurch) {
+				// Support Church
+
+				Set<ResourceType> changedResourcesTypes = new HashSet<>();
+
+				player.addResources(new Resource(ResourceType.VICTORY, -player.getResourceAmount(ResourceType.VICTORY)));
+				changedResourcesTypes.add(ResourceType.VICTORY);
+
+				Arrays.stream(game.getChurchSupportResources(player.getResourceAmount(ResourceType.FAITH))).forEach(resource -> {
+					player.addResources(resource);
+					changedResourcesTypes.add(resource.getResourceType());
+				});
+				Arrays.stream(player.getChurchSupportBonuses()).forEach(resource -> {
+					player.addResources(resource);
+					changedResourcesTypes.add(resource.getResourceType());
+				});
+
+				// Notify all players only of the resources that have changed
+				changedResourcesTypes.forEach(resourceType -> notifyPlayers(clientInterface -> clientInterface
+						.setResources(new Resource[] { new Resource(resourceType, player.getResourceAmount(resourceType)) }, username)));
+			}
+			else {
+				// Do not support Church
+
+				Excommunication excommunication = game.getPlacedExcommunications()[game.getCurrentTurn() / 2 - 1]; // 2 -> 0, 4 -> 1, 6 -> 2
+				// NOTE: not sure if this is going to work
+				excommunication.resolveEffect(effectResolutors.get(username));
+				notifyPlayers(clientInterface -> clientInterface.placeExcommunicationToken(player.getColor(), excommunication.getPeriodType()));
+			}
+		});
 	}
 
 	private void logInfo(String message) {

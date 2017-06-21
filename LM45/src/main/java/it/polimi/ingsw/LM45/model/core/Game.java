@@ -174,4 +174,13 @@ public class Game {
 		return board.getPlacedExcommunications();
 	}
 
+	/**
+	 * @param faithPoints
+	 *            how many faith points a player has
+	 * @return the resources he'd gain by supporting the Church
+	 */
+	public Resource[] getChurchSupportResources(int faithPoints) {
+		return board.getChurchSupportResources(faithPoints);
+	}
+
 }

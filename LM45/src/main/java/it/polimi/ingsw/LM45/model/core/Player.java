@@ -315,5 +315,12 @@ public class Player {
 	public void setPersonalBonusTile(PersonalBonusTile personalBonusTile) {
 		this.personalBonusTile = personalBonusTile;
 	}
+	
+	/**
+	 * @return an array of resources containing all the additional resources gained upon church support
+	 */
+	public Resource[] getChurchSupportBonuses(){
+		return churchSupportBonuses.stream().toArray(Resource[]::new);
+	}
 
 }
