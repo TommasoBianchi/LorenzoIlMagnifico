@@ -162,8 +162,15 @@ public class ServerController {
 
 	public void increaseFamiliarValue(String player, FamiliarColor familiarColor) {
 		if (playerCanDoActions(player)) {
-			logInfo(player + " increased value of familiar " + familiarColor);
-			players.get(player).increaseFamiliarValue(familiarColor);
+			try {
+				players.get(player).increaseFamiliarValue(familiarColor);
+				notifyPlayers(clientInterface -> clientInterface.setFamiliar(player, familiarColor, players.get(player).getFamiliarValue(familiarColor)));
+				logInfo(player + " increased value of familiar " + familiarColor);
+			}
+			catch (IllegalActionException e) {
+				manageGameExceptions(player, e);
+				logInfo(player + " faled increasing value of familiar " + familiarColor);
+			}
 		}
 	}
 
@@ -208,6 +215,13 @@ public class ServerController {
 		if (currentPlayer.getUsername() == player) {
 			logInfo(player + " ended his turn");
 			turnTimer.cancel();
+			
+			// Reset servants bonus on each familiar
+			Arrays.stream(players.get(player).getFamiliars()).forEach(familiar -> {
+				familiar.clearServantsBonus();
+				notifyPlayers(clientInterface -> clientInterface.setFamiliar(player, familiar.getFamiliarColor(), familiar.getValue()));
+			});
+			
 			nextPlayerRound();
 		}
 	}
