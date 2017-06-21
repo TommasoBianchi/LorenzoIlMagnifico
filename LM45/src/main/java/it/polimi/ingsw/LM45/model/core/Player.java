@@ -32,13 +32,13 @@ public class Player {
 	public Player(String username, PlayerColor playerColor) {
 		this.username = username;
 		this.playerColor = playerColor;
-		this.leaderCards = new ArrayList<LeaderCard>();
+		this.leaderCards = new ArrayList<>();
 		this.personalBoard = new PersonalBoard();
 		this.familiars = new Familiar[] { new Familiar(this, FamiliarColor.BLACK), new Familiar(this, FamiliarColor.ORANGE),
 				new Familiar(this, FamiliarColor.WHITE), new Familiar(this, FamiliarColor.UNCOLORED) };
 		this.personalBonusTile = null; // This needs to be chosen later on by the player
 		this.payIfTowerIsOccupied = true;
-		this.churchSupportBonuses = new ArrayList<Resource>();
+		this.churchSupportBonuses = new ArrayList<>();
 		this.hasToSkipFirstTurn = false;
 	}
 
@@ -59,7 +59,6 @@ public class Player {
 	 */
 	public void addCard(Card card, ActionModifier actionModifier) {
 		personalBoard.addCard(card);
-		card.payCost(this, actionModifier);
 	}
 
 	/**
@@ -67,8 +66,6 @@ public class Player {
 	 *            the leaderCard we want to add
 	 */
 	public void addLeaderCard(LeaderCard leaderCard) {
-		if (leaderCards == null)
-			leaderCards = new ArrayList<LeaderCard>();
 		leaderCards.add(leaderCard);
 	}
 

@@ -50,7 +50,7 @@ public class PersonalBonusTile implements Serializable {
 	@Override
 	public String toString() {
 		return "Personal Bonuses\nProduction: "
-				+ Arrays.stream(productionBonuses).map(resource -> resource.toString()).reduce("", (a, b) -> a + " " + b) + "\nHarvest: "
-				+ Arrays.stream(harvestBonuses).map(resource -> resource.toString()).reduce("", (a, b) -> a + " " + b);
+				+ Arrays.stream(productionBonuses).map(Resource::toString).reduce("", (a, b) -> a + " " + b) + "\nHarvest: "
+				+ Arrays.stream(harvestBonuses).map(Resource::toString).reduce("", (a, b) -> a + " " + b);
 	}
 }

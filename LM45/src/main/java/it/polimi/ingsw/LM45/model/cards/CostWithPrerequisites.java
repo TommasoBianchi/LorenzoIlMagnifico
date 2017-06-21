@@ -33,7 +33,7 @@ public class CostWithPrerequisites extends Cost {
 	@Override
 	public String toString() {
 		String prerequisitesString = "(to pay this cost need the following requisites: "
-				+ Arrays.stream(prerequisites).map(resource -> resource.toString()).reduce((a, b) -> a + " " + b).orElse("") + ")";
+				+ Arrays.stream(prerequisites).map(Resource::toString).reduce((a, b) -> a + " " + b).orElse("") + ")";
 		return super.toString() + ((prerequisites.length > 0) ? prerequisitesString : "");
 	}
 }

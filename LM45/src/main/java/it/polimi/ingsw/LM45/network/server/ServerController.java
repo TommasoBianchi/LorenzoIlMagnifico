@@ -522,8 +522,11 @@ public class ServerController {
 				});
 
 				// Notify all players only of the resources that have changed
-				changedResourcesTypes.forEach(resourceType -> notifyPlayers(clientInterface -> clientInterface
-						.setResources(new Resource[] { new Resource(resourceType, player.getResourceAmount(resourceType)) }, username)));
+				Resource[] changedResources = changedResourcesTypes.stream()
+						.map(resourceType -> new Resource(resourceType, player.getResourceAmount(resourceType))).toArray(Resource[]::new);
+				notifyPlayers(clientInterface -> clientInterface.setResources(changedResources, username));
+				
+				logInfo(username + " has supported the Church!");
 			}
 			else {
 				// Do not support Church
@@ -532,6 +535,8 @@ public class ServerController {
 				// NOTE: not sure if this is going to work
 				excommunication.resolveEffect(effectResolutors.get(username));
 				notifyPlayers(clientInterface -> clientInterface.placeExcommunicationToken(player.getColor(), excommunication.getPeriodType()));
+
+				logInfo(username + " has not supported the Church!");
 			}
 		});
 	}

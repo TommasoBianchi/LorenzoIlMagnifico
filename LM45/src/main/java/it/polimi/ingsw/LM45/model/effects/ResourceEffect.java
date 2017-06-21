@@ -33,7 +33,7 @@ public class ResourceEffect extends Effect {
 	@Override
 	public void resolveEffect(EffectResolutor effectResolutor) {
 		for (Resource resource : resourcesToPay) {
-			effectResolutor.addResources(resource);
+			effectResolutor.addResources(resource.multiply(-1)); // Pay a negative amount of resources
 		}
 
 		if (resourceToMultiply == null) {
@@ -53,10 +53,10 @@ public class ResourceEffect extends Effect {
 	public String toString() {
 		String toPay = "";
 		if (resourcesToPay.length > 0)
-			toPay = Arrays.stream(resourcesToPay).map(resource -> resource.toString()).reduce("Pay ", (a, b) -> a + " " + b);
+			toPay = Arrays.stream(resourcesToPay).map(Resource::toString).reduce("Pay ", (a, b) -> a + " " + b);
 		String toGain = "";
 		if (resourcesToGain.length > 0)
-			toGain = Arrays.stream(resourcesToGain).map(resource -> resource.toString()).reduce("Gain ", (a, b) -> a + " " + b);
+			toGain = Arrays.stream(resourcesToGain).map(Resource::toString).reduce("Gain ", (a, b) -> a + " " + b);
 
 		if (resourceToMultiply != null)
 			return toPay + " " + toGain + " X " + resourceToMultiply.toString();

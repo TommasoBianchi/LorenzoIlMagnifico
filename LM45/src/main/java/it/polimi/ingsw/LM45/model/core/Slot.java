@@ -28,7 +28,7 @@ public class Slot {
 	public Slot(Resource[] immediateBonus, int minDice, SlotType type, boolean multipleFamiliars, boolean multipleFamiliarsOfSamePlayer){
 		this.immediateBonus = immediateBonus;
 		this.minDice = minDice;
-		this.familiars = new ArrayList<Familiar>();
+		this.familiars = new ArrayList<>();
 		this.multipleFamiliars = multipleFamiliars;
 		this.multipleFamiliarsOfSamePlayer = multipleFamiliarsOfSamePlayer;
 		this.type = type;
@@ -96,7 +96,7 @@ public class Slot {
 	 * @return all the players that currently have a familiar standing on this slot
 	 */
 	public Player[] getPlayersInSlot(){
-		return familiars.stream().map(familiar -> familiar.getPlayer()).toArray(Player[]::new);
+		return familiars.stream().map(Familiar::getPlayer).toArray(Player[]::new);
 	}
 	
 	/**

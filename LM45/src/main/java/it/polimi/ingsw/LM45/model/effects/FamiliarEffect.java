@@ -40,10 +40,10 @@ public class FamiliarEffect extends Effect {
 			return "Spend " + servantBonusCostModifier + " servants to increase familiars value of 1 point";
 		else if(bonusIsToAdd)
 			return "+" + bonus + " bonus for familiars " +
-					Arrays.stream(colors).map(FamiliarColor -> FamiliarColor.toString()).reduce((a,b) -> a + " " + b).orElse("");
+					Arrays.stream(colors).map(FamiliarColor::toString).reduce((a,b) -> a + " " + b).orElse("");
 		else
 			return "Set value " + bonus + " for familiars " +
-			Arrays.stream(colors).map(FamiliarColor -> FamiliarColor.toString()).reduce((a,b) -> a + " " + b).orElse("");
+			Arrays.stream(colors).map(FamiliarColor::toString).reduce((a,b) -> a + " " + b).orElse("");
 	}
 	
 }

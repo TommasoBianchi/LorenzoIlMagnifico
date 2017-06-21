@@ -24,9 +24,9 @@ public class Board {
 	 * Initializes a new Board by instantiating the collections needed to hold slots and excommunications plus the resources you receive when you support the Church.
 	 */
 	public Board(BoardConfiguration boardConfiguration) {
-		this.slots = new EnumMap<SlotType, Slot[]>(SlotType.class);
-		this.towerSlots = new EnumMap<SlotType, TowerSlot[]>(SlotType.class);
-		this.excommunications = new EnumMap<PeriodType, Excommunication>(PeriodType.class);
+		this.slots = new EnumMap<>(SlotType.class);
+		this.towerSlots = new EnumMap<>(SlotType.class);
+		this.excommunications = new EnumMap<>(PeriodType.class);
 		this.churchSupportResources = boardConfiguration.getChurchSupportResources();
 
 		// Create the four towers
@@ -90,9 +90,9 @@ public class Board {
 	 * Clears all the slots on this board, i.e. removes cards and familiars present on them
 	 */
 	public void clearSlots() {
-		towerSlots.values().stream().flatMap(slotsOfThisType -> Arrays.stream(slotsOfThisType)).forEach(towerSlot -> towerSlot.clearSlot());
+		towerSlots.values().stream().flatMap(Arrays::stream).forEach(TowerSlot::clearSlot);
 
-		slots.values().stream().flatMap(slotsOfThisType -> Arrays.stream(slotsOfThisType)).forEach(slot -> slot.clearSlot());
+		slots.values().stream().flatMap(Arrays::stream).forEach(Slot::clearSlot);
 	}
 
 	/**
@@ -109,11 +109,11 @@ public class Board {
 	 */
 	public List<Player> getCouncilOrder() {
 		if (!slots.containsKey(SlotType.COUNCIL) || slots.get(SlotType.COUNCIL).length == 0)
-			return new ArrayList<Player>();
+			return new ArrayList<>();
 
 		Slot councilSlot = slots.get(SlotType.COUNCIL)[0];
 		Player[] playersInCouncilSlot = councilSlot.getPlayersInSlot();
-		List<Player> orderedPlayers = new ArrayList<Player>();
+		List<Player> orderedPlayers = new ArrayList<>();
 		for (Player player : playersInCouncilSlot)
 			// This is not the most efficient way, but it is not so bad considering we never have orderedPlayers.size() > 4
 			if (!orderedPlayers.contains(player))
@@ -153,6 +153,6 @@ public class Board {
 	 * @return the cards present in the requested tower
 	 */
 	public Card[] getCardsOnTower(CardType type) {
-		return Arrays.stream(towerSlots.get(type.toSlotType())).map(towerSlot -> towerSlot.getCard()).toArray(Card[]::new);
+		return Arrays.stream(towerSlots.get(type.toSlotType())).map(TowerSlot::getCard).toArray(Card[]::new);
 	}
 }

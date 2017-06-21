@@ -108,13 +108,13 @@ public class FileManager {
 	}
 
 	public static Map<CardType, List<Card>> loadCards() throws JsonSyntaxException, JsonIOException, FileNotFoundException {
-		Map<CardType, List<Card>> deck = new EnumMap<CardType, List<Card>>(CardType.class);
+		Map<CardType, List<Card>> deck = new EnumMap<>(CardType.class);
 		File folder = new File(BASE_PATH + "/Cards/");
 
 		for (File dir : folder.listFiles()) {
 			if (dir.isDirectory()) {
 				CardType cardType = CardType.valueOf(dir.getName());
-				List<Card> cards = new ArrayList<Card>();
+				List<Card> cards = new ArrayList<>();
 
 				for (File file : dir.listFiles()) {
 					if (file.isFile()) {
@@ -131,7 +131,7 @@ public class FileManager {
 	}
 
 	public static List<LeaderCard> loadLeaderCards() throws JsonSyntaxException, JsonIOException, FileNotFoundException {
-		List<LeaderCard> leaderCards = new ArrayList<LeaderCard>();
+		List<LeaderCard> leaderCards = new ArrayList<>();
 		File folder = new File(BASE_PATH + "/LeaderCards/");
 
 		for (File file : folder.listFiles()) {
@@ -145,13 +145,13 @@ public class FileManager {
 	}
 	
 	public static Map<PeriodType, List<Excommunication>> loadExcommunications() throws JsonSyntaxException, JsonIOException, FileNotFoundException {
-		Map<PeriodType, List<Excommunication>> deck = new EnumMap<PeriodType, List<Excommunication>>(PeriodType.class);
+		Map<PeriodType, List<Excommunication>> deck = new EnumMap<>(PeriodType.class);
 		File folder = new File(BASE_PATH + "/Excommunications/");
 
 		for (File dir : folder.listFiles()) {
 			if (dir.isDirectory()) {
 				PeriodType periodType = PeriodType.valueOf(dir.getName());
-				List<Excommunication> excommunications = new ArrayList<Excommunication>();
+				List<Excommunication> excommunications = new ArrayList<>();
 
 				for (File file : dir.listFiles()) {
 					if (file.isFile()) {

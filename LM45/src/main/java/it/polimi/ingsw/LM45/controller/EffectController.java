@@ -36,7 +36,7 @@ public class EffectController implements EffectResolutor {
 			for (int i = 0; i < resource.getAmount(); i++) {
 				int chosenIndex = serverController.chooseFrom(player.getUsername(),
 						Arrays.stream(resourcesToChooseFrom)
-								.map(resources -> Arrays.stream(resources).map(res -> res.toString()).reduce("", (a, b) -> a + " " + b))
+								.map(resources -> Arrays.stream(resources).map(Resource::toString).reduce("", (a, b) -> a + " " + b))
 								.toArray(String[]::new));
 				Resource[] choosenResources = resourcesToChooseFrom[chosenIndex];
 				Arrays.stream(choosenResources).forEach(res -> {
@@ -49,12 +49,13 @@ public class EffectController implements EffectResolutor {
 
 			// Notify all players only of the resources that have changed (because the player chosed to take them in
 			// exchange of a COUNCIL_PRIVILEGE)
-			chosenResourcesTypes.forEach(resourceType -> serverController.notifyPlayers(clientInterface -> clientInterface
-					.setResources(new Resource[] { new Resource(resourceType, player.getResourceAmount(resourceType)) }, player.getUsername())));
+			Resource[] changedResources = chosenResourcesTypes.stream()
+					.map(resourceType -> new Resource(resourceType, player.getResourceAmount(resourceType))).toArray(Resource[]::new);
+			serverController.notifyPlayers(clientInterface -> clientInterface.setResources(changedResources, player.getUsername()));
 		}
 		else {
 			player.addResources(resource);
-			
+
 			// Notify all players only of the resource that has changed
 			serverController.notifyPlayers(clientInterface -> clientInterface.setResources(
 					new Resource[] { new Resource(resource.getResourceType(), player.getResourceAmount(resource.getResourceType())) },
@@ -119,7 +120,7 @@ public class EffectController implements EffectResolutor {
 	}
 
 	public <T> T chooseFrom(T[] alternatives) {
-		int index = serverController.chooseFrom(player.getUsername(), Arrays.stream(alternatives).map(t -> t.toString()).toArray(String[]::new));
+		int index = serverController.chooseFrom(player.getUsername(), Arrays.stream(alternatives).map(Object::toString).toArray(String[]::new));
 		return alternatives[index];
 	}
 

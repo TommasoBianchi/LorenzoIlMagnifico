@@ -10,8 +10,8 @@ public class ActionModifier {
 
 	public static final ActionModifier EMPTY = new ActionModifier(0);
 
-	private Map<ResourceType, Integer> costModifiers = new EnumMap<ResourceType, Integer>(ResourceType.class);
-	private Map<ResourceType, Integer> gainModifiers = new EnumMap<ResourceType, Integer>(ResourceType.class);
+	private Map<ResourceType, Integer> costModifiers = new EnumMap<>(ResourceType.class);
+	private Map<ResourceType, Integer> gainModifiers = new EnumMap<>(ResourceType.class);
 	private int diceBonus;
 	private boolean blockImmediateResources;
 	private boolean canPlaceMultipleFamiliars;

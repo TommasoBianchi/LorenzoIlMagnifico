@@ -74,7 +74,7 @@ public class LeaderCard implements Serializable {
 	@Override
 	public String toString() {
 		return name + " (LeaderCard)\n" + "Requisites: "
-				+ Arrays.stream(requisites).map(resource -> resource.toString()).reduce("", (a, b) -> a + " " + b) + "\n" + "Effect: "
+				+ Arrays.stream(requisites).map(Resource::toString).reduce("", (a, b) -> a + " " + b) + "\n" + "Effect: "
 				+ effect.toString();
 	}
 

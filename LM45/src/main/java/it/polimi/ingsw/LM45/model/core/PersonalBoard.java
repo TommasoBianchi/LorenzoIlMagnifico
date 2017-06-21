@@ -25,9 +25,9 @@ public class PersonalBoard {
 	 * In addition initializes the requisites for acquiring territory cards
 	 */
 	public PersonalBoard() {
-		this.cards = new EnumMap<CardType, List<Card>>(CardType.class);
-		this.resources = new EnumMap<ResourceType, Integer>(ResourceType.class);
-		this.permanentEffects = new ArrayList<CardEffect>();
+		this.cards = new EnumMap<>(CardType.class);
+		this.resources = new EnumMap<>(ResourceType.class);
+		this.permanentEffects = new ArrayList<>();
 		this.territoryRequisites = new Resource[] { new Resource(ResourceType.MILITARY, 0),
 				new Resource(ResourceType.MILITARY, 0), new Resource(ResourceType.MILITARY, 3),
 				new Resource(ResourceType.MILITARY, 7), new Resource(ResourceType.MILITARY, 12),
