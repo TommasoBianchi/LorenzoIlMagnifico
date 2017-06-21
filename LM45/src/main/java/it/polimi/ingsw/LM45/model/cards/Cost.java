@@ -52,6 +52,6 @@ public class Cost implements Serializable {
 	
 	@Override
 	public String toString(){
-		return Arrays.stream(costResources).map(resource -> resource.toString()).reduce((a, b) -> a + " " + b).orElse("");
+		return Arrays.stream(costResources).map(Resource::toString).reduce((a, b) -> a + " " + b).orElse("");
 	}
 }

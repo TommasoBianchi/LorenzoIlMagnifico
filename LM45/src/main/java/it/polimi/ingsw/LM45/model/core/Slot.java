@@ -96,7 +96,7 @@ public class Slot {
 	 * @return all the players that currently have a familiar standing on this slot
 	 */
 	public Player[] getPlayersInSlot(){
-		return familiars.stream().map(familiar -> familiar.getPlayer()).toArray(Player[]::new);
+		return familiars.stream().map(Familiar::getPlayer).toArray(Player[]::new);
 	}
 	
 	/**

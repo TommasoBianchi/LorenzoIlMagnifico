@@ -36,7 +36,7 @@ public class EffectController implements EffectResolutor {
 			for (int i = 0; i < resource.getAmount(); i++) {
 				int chosenIndex = serverController.chooseFrom(player.getUsername(),
 						Arrays.stream(resourcesToChooseFrom)
-								.map(resources -> Arrays.stream(resources).map(res -> res.toString()).reduce("", (a, b) -> a + " " + b))
+								.map(resources -> Arrays.stream(resources).map(Resource::toString).reduce("", (a, b) -> a + " " + b))
 								.toArray(String[]::new));
 				Resource[] choosenResources = resourcesToChooseFrom[chosenIndex];
 				Arrays.stream(choosenResources).forEach(res -> {
@@ -120,7 +120,7 @@ public class EffectController implements EffectResolutor {
 	}
 
 	public <T> T chooseFrom(T[] alternatives) {
-		int index = serverController.chooseFrom(player.getUsername(), Arrays.stream(alternatives).map(t -> t.toString()).toArray(String[]::new));
+		int index = serverController.chooseFrom(player.getUsername(), Arrays.stream(alternatives).map(Object::toString).toArray(String[]::new));
 		return alternatives[index];
 	}
 

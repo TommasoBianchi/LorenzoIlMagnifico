@@ -90,9 +90,9 @@ public class Board {
 	 * Clears all the slots on this board, i.e. removes cards and familiars present on them
 	 */
 	public void clearSlots() {
-		towerSlots.values().stream().flatMap(slotsOfThisType -> Arrays.stream(slotsOfThisType)).forEach(towerSlot -> towerSlot.clearSlot());
+		towerSlots.values().stream().flatMap(Arrays::stream).forEach(TowerSlot::clearSlot);
 
-		slots.values().stream().flatMap(slotsOfThisType -> Arrays.stream(slotsOfThisType)).forEach(slot -> slot.clearSlot());
+		slots.values().stream().flatMap(Arrays::stream).forEach(Slot::clearSlot);
 	}
 
 	/**
@@ -153,6 +153,6 @@ public class Board {
 	 * @return the cards present in the requested tower
 	 */
 	public Card[] getCardsOnTower(CardType type) {
-		return Arrays.stream(towerSlots.get(type.toSlotType())).map(towerSlot -> towerSlot.getCard()).toArray(Card[]::new);
+		return Arrays.stream(towerSlots.get(type.toSlotType())).map(TowerSlot::getCard).toArray(Card[]::new);
 	}
 }
