@@ -2,6 +2,7 @@ package it.polimi.ingsw.LM45.model.core;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Random;
 
 import it.polimi.ingsw.LM45.config.BoardConfiguration;
@@ -53,8 +54,8 @@ public class Game {
 	public void start() {
 		shuffleDecks();
 
-		for (PeriodType periodType : excommunicationDeck.keySet())
-			board.placeExcommunication(excommunicationDeck.get(periodType).get(0)); // Pick the first because they have been already shuffled
+		// Pick the first because they have been already shuffled
+		excommunicationDeck.values().forEach(excommunicationList -> board.placeExcommunication(excommunicationList.get(0)));
 
 		players = ShuffleHelper.shuffle(players); // Randomize first turn order
 	}
@@ -143,13 +144,13 @@ public class Game {
 	}
 
 	private void shuffleDecks() {
-		for (CardType cardType : deck.keySet())
-			deck.put(cardType, ShuffleHelper.shuffleByPeriod(deck.get(cardType)));
+		for (Entry<CardType, List<Card>> entry : deck.entrySet())
+			deck.put(entry.getKey(), ShuffleHelper.shuffleByPeriod(entry.getValue()));
 
 		leaderCards = ShuffleHelper.shuffle(leaderCards);
 
-		for (PeriodType periodType : excommunicationDeck.keySet())
-			excommunicationDeck.put(periodType, ShuffleHelper.shuffle(excommunicationDeck.get(periodType)));
+		for (Entry<PeriodType, List<Excommunication>> entry : excommunicationDeck.entrySet())
+			excommunicationDeck.put(entry.getKey(), ShuffleHelper.shuffle(entry.getValue()));
 	}
 	
 	/**
