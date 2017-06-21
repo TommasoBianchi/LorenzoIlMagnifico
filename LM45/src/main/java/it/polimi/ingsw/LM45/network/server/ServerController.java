@@ -262,7 +262,8 @@ public class ServerController {
 	}
 
 	private void startGame() {
-		gameStartTimer.cancel();
+		if(gameStartTimer != null)
+			gameStartTimer.cancel();
 		logInfo("Game is starting!");
 		game = new Game(new ArrayList<Player>(players.values()), boardConfiguration, deck, new ArrayList<LeaderCard>(leaderCards.values()),
 				excommunications);
