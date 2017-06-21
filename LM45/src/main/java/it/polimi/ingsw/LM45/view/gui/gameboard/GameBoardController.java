@@ -369,7 +369,7 @@ public class GameBoardController {
 			for (int i = 0; i < 4; i++) {
 				String slotID = "#" + slotType + i;
 				Node slot = stage.getScene().lookup(slotID);
-				if (slot != null && !coveredSlotsIDs.contains(slotID))
+				if (slot != null && !coveredSlotsIDs.contains(slotID.substring(1)))
 					nodes.add((FlowPane) slot);
 			}
 		}
