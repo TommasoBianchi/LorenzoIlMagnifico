@@ -119,8 +119,8 @@ public class GuiController implements ViewInterface {
 	}
 
 	@Override
-	public void pickCard(CardType cardType, int position, String username) {
-		Platform.runLater(() -> gameBoardController.pickCard(cardType, position, username));
+	public void pickCard(Card card, String username) {
+		Platform.runLater(() -> gameBoardController.pickCard(card, username));
 	}
 
 	@Override

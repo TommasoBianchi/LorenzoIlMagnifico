@@ -209,11 +209,11 @@ public class GameBoardController {
 		}
 	}
 	
-	public void pickCard(CardType cardType, int position, String username){
-		ImageView cardView = (ImageView) stage.getScene().lookup("#VIEW" + cardType + position);
+	public void pickCard(Card card, String username){
+		/*ImageView cardView = (ImageView) stage.getScene().lookup("#VIEW" + cardType + position);
 		Image card = cardView.getImage();
 		usersPersonalBoards.get(username).addCard(card, cardType);
-		cardView.setImage(null);
+		cardView.setImage(null);*/
 	}
 
 	public void familiarSelected(MouseEvent event) {
