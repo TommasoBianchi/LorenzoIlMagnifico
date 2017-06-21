@@ -172,7 +172,8 @@ public class GuiController implements ViewInterface {
 
 	@Override
 	public void playerTurn(String username) {
-		gameBoardController.writeInDialogBox("It's " + username + "'s turn!");		
+		gameBoardController.writeInDialogBox("It's " + username + "'s turn!");
+		gameBoardController.disableGameBoard();
 	}
 
 	@Override
