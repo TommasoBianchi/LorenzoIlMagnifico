@@ -1,6 +1,5 @@
 package it.polimi.ingsw.LM45.view.controller;
 
-import java.io.IOException;
 import java.util.Arrays;
 
 import it.polimi.ingsw.LM45.model.cards.Card;
@@ -15,25 +14,18 @@ import it.polimi.ingsw.LM45.network.client.ClientController;
 import it.polimi.ingsw.LM45.view.gui.gameboard.GameBoardController;
 import it.polimi.ingsw.LM45.view.gui.leadercard.LeaderCardChoiceController;
 import it.polimi.ingsw.LM45.view.lobby.LobbyController;
-
 import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.stage.Screen;
-import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.scene.control.ButtonType;
 
 public class GuiController implements ViewInterface {
-	
-	//da mettere tutti private quando finiscono i test
+
+	// da mettere tutti private quando finiscono i test
 	LobbyController lobbyController;
 	LeaderCardChoiceController leaderChoiceController;
 	GameBoardController gameBoardController;
@@ -52,13 +44,13 @@ public class GuiController implements ViewInterface {
 	public void setLobbyController(LobbyController lobbyController) {
 		this.lobbyController = lobbyController;
 	}
-	
+
 	@Override
 	public void showLeaderCardChoiceView() {
 		leaderChoiceController = new LeaderCardChoiceController();
 		leaderChoiceController.setGuiController(this);
 	}
-	
+
 	@Override
 	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications) {
 		Platform.runLater(() -> {
@@ -66,7 +58,7 @@ public class GuiController implements ViewInterface {
 			leaderChoiceController.close();
 		});
 	}
-	
+
 	@Override
 	public int chooseFrom(String[] alternatives) {
 		if (alternatives.length <= 0)
@@ -86,7 +78,7 @@ public class GuiController implements ViewInterface {
 					button.setToggleGroup(group);
 					button.setText(alternatives[i]);
 					box.getChildren().add(button);
-					if(i == 0)
+					if (i == 0)
 						group.selectToggle(button);
 				}
 				root.add(box, 0, 0);
@@ -121,13 +113,13 @@ public class GuiController implements ViewInterface {
 	@Override
 	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void pickCard(Card card, String username) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -137,72 +129,73 @@ public class GuiController implements ViewInterface {
 
 	@Override
 	public void setFamiliar(String username, FamiliarColor color, int value) {
-		gameBoardController.setFamiliarValue(username, color, value);
-		
+		Platform.runLater(() -> gameBoardController.setFamiliarValue(username, color, value));
 	}
 
 	@Override
 	public void notifyError(String message) {
-		gameBoardController.writeInDialogBox("ERROR -- " + message);
+		Platform.runLater(() -> gameBoardController.writeInDialogBox("ERROR -- " + message));
 	}
 
 	@Override
 	public void doBonusAction(SlotType slotType, int value) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void setClientController(ClientController clientController) {
 		this.clientController = clientController;
-		
+
 	}
 
 	@Override
 	public void setResources(Resource[] resources, String username) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void myTurn() {
-		gameBoardController.myTurn();		
+		Platform.runLater(() -> gameBoardController.myTurn());
 	}
 
 	@Override
 	public void playerTurn(String username) {
-		gameBoardController.writeInDialogBox("It's " + username + "'s turn!");
-		gameBoardController.disableGameBoard();
+		Platform.runLater(() -> {
+			gameBoardController.writeInDialogBox("It's " + username + "'s turn!");
+			gameBoardController.disableGameBoard();
+		});
 	}
 
 	@Override
 	public void setLeaderCards(LeaderCard[] leaders) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void discardLeaderCard(String username, LeaderCard leader) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void playLeaderCard(String username, LeaderCard leader) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void activateLeaderCard(String username, LeaderCard leader) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void setPersonalBonusTile(String username, PersonalBonusTile personalBonusTile) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
