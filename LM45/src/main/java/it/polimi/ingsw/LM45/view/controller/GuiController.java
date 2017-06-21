@@ -5,6 +5,7 @@ import java.util.Arrays;
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
+import it.polimi.ingsw.LM45.model.cards.PeriodType;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.PersonalBonusTile;
 import it.polimi.ingsw.LM45.model.core.PlayerColor;
@@ -196,6 +197,11 @@ public class GuiController implements ViewInterface {
 	public void setPersonalBonusTile(String username, PersonalBonusTile personalBonusTile) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	@Override
+	public void placeExcommunicationToken(PlayerColor playerColor, PeriodType periodType){
+		gameBoardController.placeExcommunicationToken(playerColor, periodType);
 	}
 
 }
