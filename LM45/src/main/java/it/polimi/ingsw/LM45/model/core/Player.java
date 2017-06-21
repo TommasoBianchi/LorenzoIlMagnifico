@@ -250,6 +250,14 @@ public class Player {
 	}
 	
 	/**
+	 * @param familiarColor the familiarColor of the familiar we want to retrieve
+	 * @return the value of the requested familiar
+	 */
+	public int getFamiliarValue(FamiliarColor familiarColor){
+		return Arrays.stream(familiars).filter(familiar -> familiar.getFamiliarColor() == familiarColor).findFirst().get().getValue();
+	}
+	
+	/**
 	 * @return an array containint all this player's familiars
 	 */
 	public Familiar[] getFamiliars(){

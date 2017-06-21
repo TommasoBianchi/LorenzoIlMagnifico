@@ -67,6 +67,7 @@ public class ServerController {
 	private Timer turnTimer;
 	private Game game;
 	private Player currentPlayer;
+	private boolean currentPlayerAlreadyPlacedFamiliar;
 
 	public ServerController(int gameID, int maxNumberOfPlayers, long gameStartTimerDelay, long turnTimerDelay)
 			throws JsonSyntaxException, JsonIOException, FileNotFoundException {
@@ -135,11 +136,16 @@ public class ServerController {
 	public void placeFamiliar(String player, FamiliarColor familiarColor, SlotType slotType, Integer slotID) {
 		if (playerCanDoActions(player)) {
 			try {
+				if(familiarColor != FamiliarColor.BONUS && currentPlayerAlreadyPlacedFamiliar)
+					throw new IllegalActionException("You have already placed a familiar this turn!");
+				
 				Slot slot = game.getSlot(slotType, slotID);
 				Familiar familiar = players.get(player).getFamiliarByColor(familiarColor);
 				ActionModifier actionModifier = ActionModifier.EMPTY; // FIXME: grab the right ActionModifier
 				if (slot.canAddFamiliar(familiar, actionModifier)) {
 					slot.addFamiliar(familiar, actionModifier, effectResolutors.get(player));
+					notifyPlayers(clientInterface -> clientInterface.addFamiliar(slotType, slotID, familiarColor, players.get(player).getColor()));
+					currentPlayerAlreadyPlacedFamiliar = familiarColor != FamiliarColor.BONUS;
 					logInfo(player + " successfully placed the familiar");
 				}
 				else {
@@ -220,6 +226,8 @@ public class ServerController {
 	private void nextPlayerRound() {
 		if (game.hasNextPlayer()) {
 			currentPlayer = game.getNextPlayer();
+			currentPlayerAlreadyPlacedFamiliar = false;
+			logInfo("Next Round! It's " + currentPlayer.getUsername() + "'s time to play!");
 
 			// Make disconnected players skip their turns
 			if (!users.containsKey(currentPlayer.getUsername())) {
@@ -475,7 +483,7 @@ public class ServerController {
 	 * @param c
 	 *            the function we want to call on every connected player (providing access to only the clientInterface)
 	 */
-	private void notifyPlayers(CheckedFunction1<ClientInterface, IOException> c) {
+	public void notifyPlayers(CheckedFunction1<ClientInterface, IOException> c) {
 		notifyPlayers((username, clientInterface) -> c.apply(clientInterface));
 	}
 
