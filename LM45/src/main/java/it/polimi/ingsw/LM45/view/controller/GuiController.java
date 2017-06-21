@@ -143,8 +143,7 @@ public class GuiController implements ViewInterface {
 
 	@Override
 	public void notifyError(String message) {
-		// TODO Auto-generated method stub
-		
+		gameBoardController.writeInDialogBox("ERROR -- " + message);
 	}
 
 	@Override
