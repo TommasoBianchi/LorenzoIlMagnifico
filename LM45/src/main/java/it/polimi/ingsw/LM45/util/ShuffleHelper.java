@@ -27,7 +27,7 @@ public class ShuffleHelper {
 	}
 	
 	public static List<Card> shuffleByPeriod(List<Card> cards){
-		List<Card> result = new ArrayList<Card>();
+		List<Card> result = new ArrayList<>();
 		for(PeriodType periodType : PeriodType.values()){
 			List<Card> cardsOfThisPeriod = cards.stream().filter(c -> c.getPeriodType() == periodType).collect(Collectors.toList());
 			result.addAll(shuffle(cardsOfThisPeriod));	

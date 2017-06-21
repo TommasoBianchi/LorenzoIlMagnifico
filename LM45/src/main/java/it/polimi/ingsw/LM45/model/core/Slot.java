@@ -28,7 +28,7 @@ public class Slot {
 	public Slot(Resource[] immediateBonus, int minDice, SlotType type, boolean multipleFamiliars, boolean multipleFamiliarsOfSamePlayer){
 		this.immediateBonus = immediateBonus;
 		this.minDice = minDice;
-		this.familiars = new ArrayList<Familiar>();
+		this.familiars = new ArrayList<>();
 		this.multipleFamiliars = multipleFamiliars;
 		this.multipleFamiliarsOfSamePlayer = multipleFamiliarsOfSamePlayer;
 		this.type = type;

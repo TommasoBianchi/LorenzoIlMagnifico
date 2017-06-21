@@ -24,9 +24,9 @@ public class Board {
 	 * Initializes a new Board by instantiating the collections needed to hold slots and excommunications plus the resources you receive when you support the Church.
 	 */
 	public Board(BoardConfiguration boardConfiguration) {
-		this.slots = new EnumMap<SlotType, Slot[]>(SlotType.class);
-		this.towerSlots = new EnumMap<SlotType, TowerSlot[]>(SlotType.class);
-		this.excommunications = new EnumMap<PeriodType, Excommunication>(PeriodType.class);
+		this.slots = new EnumMap<>(SlotType.class);
+		this.towerSlots = new EnumMap<>(SlotType.class);
+		this.excommunications = new EnumMap<>(PeriodType.class);
 		this.churchSupportResources = boardConfiguration.getChurchSupportResources();
 
 		// Create the four towers
@@ -109,11 +109,11 @@ public class Board {
 	 */
 	public List<Player> getCouncilOrder() {
 		if (!slots.containsKey(SlotType.COUNCIL) || slots.get(SlotType.COUNCIL).length == 0)
-			return new ArrayList<Player>();
+			return new ArrayList<>();
 
 		Slot councilSlot = slots.get(SlotType.COUNCIL)[0];
 		Player[] playersInCouncilSlot = councilSlot.getPlayersInSlot();
-		List<Player> orderedPlayers = new ArrayList<Player>();
+		List<Player> orderedPlayers = new ArrayList<>();
 		for (Player player : playersInCouncilSlot)
 			// This is not the most efficient way, but it is not so bad considering we never have orderedPlayers.size() > 4
 			if (!orderedPlayers.contains(player))
