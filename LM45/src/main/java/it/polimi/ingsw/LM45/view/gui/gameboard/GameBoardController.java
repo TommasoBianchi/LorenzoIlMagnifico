@@ -1,8 +1,13 @@
 package it.polimi.ingsw.LM45.view.gui.gameboard;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
@@ -13,6 +18,7 @@ import it.polimi.ingsw.LM45.view.controller.Main;
 import it.polimi.ingsw.LM45.view.gui.personalBoard.PersonalBoardController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -53,6 +59,7 @@ public class GameBoardController {
 	private String myUsername;
 	private ClientController clientController;
 	private Map<String, PersonalBoardController> usersPersonalBoards = new HashMap<String, PersonalBoardController>();
+	private Set<String> coveredSlotsIDs;
 
 	private FamiliarColor familiarColor = FamiliarColor.BONUS;
 	private boolean familiarSelected = false;
@@ -109,24 +116,30 @@ public class GameBoardController {
 	}
 
 	private void coverSlots(int numPlayers) {
+		coveredSlotsIDs = new HashSet<>();
+		
 		if (numPlayers < 4) {
 			coverableMarketSlot2
 					.setStyle("-fx-background-image : url(file:Assets/Image/GameBoard/CoverMarketSlot2.png);"
 							+ "-fx-background-size : cover;");
 			coverableMarketSlot2.setDisable(true);
+			coveredSlotsIDs.add(coverableMarketSlot2.getId());
 			coverableMarketSlot3
 					.setStyle("-fx-background-image : url(file:Assets/Image/GameBoard/CoverMarketSlot3.png);"
 							+ "-fx-background-size : cover;");
 			coverableMarketSlot3.setDisable(true);
+			coveredSlotsIDs.add(coverableMarketSlot3.getId());
 			if (numPlayers < 3) {
 				coverableProductionSlot
 						.setStyle("-fx-background-image : url(file:Assets/Image/GameBoard/CoverProduce.png);"
 								+ "-fx-background-size : cover;");
 				coverableProductionSlot.setDisable(true);
+				coveredSlotsIDs.add(coverableProductionSlot.getId());
 				coverableHarvestSlot
 						.setStyle("-fx-background-image : url(file:Assets/Image/GameBoard/CoverHarvest.png);"
 								+ "-fx-background-size : cover;");
 				coverableHarvestSlot.setDisable(true);
+				coveredSlotsIDs.add(coverableHarvestSlot.getId());
 			}
 		}
 	}
@@ -212,25 +225,13 @@ public class GameBoardController {
 	public void disableGameBoard() {
 		rightGrid.setDisable(true);
 		dialogBox.setDisable(false);
-		for (SlotType slotType : new SlotType[] { SlotType.BUILDING, SlotType.CHARACTER, SlotType.COUNCIL,
-				SlotType.HARVEST, SlotType.MARKET, SlotType.PRODUCTION, SlotType.TERRITORY, SlotType.VENTURE }) {
-			for (int i = 0; i < 4; i++) {
-				FlowPane slot = (FlowPane) stage.getScene().lookup("#" + slotType + i);
-				slot.setDisable(true);
-			}
-		}
+		setSlotsDisabled(true);
 	}
 	
 	public void myTurn() {
 		writeInDialogBox("It's my turn!");
 		rightGrid.setDisable(false);
-		for (SlotType slotType : new SlotType[] { SlotType.BUILDING, SlotType.CHARACTER, SlotType.COUNCIL,
-				SlotType.HARVEST, SlotType.MARKET, SlotType.PRODUCTION, SlotType.TERRITORY, SlotType.VENTURE }) {
-			for (int i = 0; i < 4; i++) {
-				FlowPane slot = (FlowPane) stage.getScene().lookup("#" + slotType + i);
-				slot.setDisable(false);
-			}
-		}
+		setSlotsDisabled(false);
 	}
 
 	public void spendServant(MouseEvent event) {
@@ -265,9 +266,40 @@ public class GameBoardController {
 	}
 	
 	public void writeInDialogBox(String message){
-		dialogBox.appendText("\n> " + message);
+		if(dialogBox.getText().equals(""))
+			dialogBox.appendText("> " + message);
+		else
+			dialogBox.appendText("\n> " + message);
 		// Scroll to bottom
 		dialogBox.setScrollTop(Double.MAX_VALUE);
+	}
+	
+	private void setSlotsDisabled(boolean enabled) {
+		for(Node slot : getSlots()){
+			slot.setDisable(enabled);
+		}
+	}
+	
+	// Cache slots to avoid a lot of slow calls to scene::lookup
+	private Node[] slots;
+	
+	private Node[] getSlots(){
+		if(slots != null)
+			return slots;
+		
+		List<Node> nodes = new ArrayList<>();
+		for (SlotType slotType : new SlotType[] { SlotType.BUILDING, SlotType.CHARACTER, SlotType.COUNCIL,
+				SlotType.HARVEST, SlotType.MARKET, SlotType.PRODUCTION, SlotType.TERRITORY, SlotType.VENTURE }) {
+			for (int i = 0; i < 4; i++) {
+				String slotID = "#" + slotType + i;
+				Node slot = stage.getScene().lookup(slotID); 
+				if(slot != null && !coveredSlotsIDs.contains(slotID))
+					nodes.add(slot);
+			}
+		}
+		
+		slots = nodes.stream().toArray(Node[]::new);
+		return slots;
 	}
 
 }
