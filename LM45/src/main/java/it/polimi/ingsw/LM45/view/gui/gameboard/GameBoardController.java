@@ -226,7 +226,7 @@ public class GameBoardController {
 
 	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor) {
 		FlowPane slot = (FlowPane) stage.getScene().lookup("#" + slotType + position);
-		String pathFamiliar = "file:Assets/Image/Familiars/" + playerColor + "/" + familiarColor;
+		String pathFamiliar = "file:Assets/Image/Familiars/" + playerColor + "/" + familiarColor + ".png";
 		ImageView familiar = new ImageView(new Image(pathFamiliar));
 		familiar.setFitHeight(25);
 		familiar.setFitWidth(25);
