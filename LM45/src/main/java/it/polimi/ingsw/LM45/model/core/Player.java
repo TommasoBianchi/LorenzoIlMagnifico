@@ -121,7 +121,7 @@ public class Player {
 		if (resource.getAmount() > 0)
 			personalBoard.addResources(resource);
 		else
-			personalBoard.removeResources(resource);
+			personalBoard.removeResources(resource.multiply(-1)); // To add a negative amount, remove its inverse
 	}
 
 	/**
