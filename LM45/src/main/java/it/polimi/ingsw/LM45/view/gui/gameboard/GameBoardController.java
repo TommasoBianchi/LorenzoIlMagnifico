@@ -2,6 +2,7 @@ package it.polimi.ingsw.LM45.view.gui.gameboard;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -15,6 +16,7 @@ import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.PlayerColor;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.network.client.ClientController;
+import it.polimi.ingsw.LM45.util.Pair;
 import it.polimi.ingsw.LM45.view.controller.Main;
 import it.polimi.ingsw.LM45.view.gui.personalBoard.PersonalBoardController;
 import javafx.fxml.FXML;
@@ -52,15 +54,16 @@ public class GameBoardController {
 
 	@FXML
 	private FlowPane coverableHarvestSlot;
-	
+
 	@FXML
 	private GridPane rightGrid;
 
 	private Stage stage;
 	private String myUsername;
 	private ClientController clientController;
-	private Map<String, PersonalBoardController> usersPersonalBoards = new HashMap<String, PersonalBoardController>();
+	private Map<String, PersonalBoardController> usersPersonalBoards = new HashMap<>();
 	private Set<String> coveredSlotsIDs;
+	private Map<PlayerColor, Pair<Integer, Integer>> playerExcommunicationPosition = new EnumMap<>(PlayerColor.class);
 
 	private FamiliarColor familiarColor = FamiliarColor.BONUS;
 	private boolean familiarSelected = false;
@@ -72,10 +75,16 @@ public class GameBoardController {
 		this.clientController = clientController;
 		myUsername = clientController.getUsername();
 		System.out.println("HEY!");
-		
+
 		for (int i = 0; i < playersUsername.length; i++) {
-			usersPersonalBoards.put(playersUsername[i], new PersonalBoardController(new Stage(), playersUsername[i], playerColors[i]));
+			usersPersonalBoards.put(playersUsername[i],
+					new PersonalBoardController(new Stage(), playersUsername[i], playerColors[i]));
 		}
+		
+		for(int i=0, l=0; i<2; i++)
+			for(int j=0; j<2; j++,l++)
+				if(playerColors[l] != null)
+					playerExcommunicationPosition.put(playerColors[l], new Pair<Integer, Integer>(i, j));
 
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -88,27 +97,28 @@ public class GameBoardController {
 			stage.getIcons().add(new Image("file:Assets/Image/Cards/LEADER/LeaderCard Cover.jpg"));
 			stage.initStyle(StageStyle.UNDECORATED);
 			stage.setTitle("Lorenzo il Magnifico");
-			//stage.getScene().getRoot().setDisable(true);
+			// stage.getScene().getRoot().setDisable(true);
 			stage.show();
 			this.coverSlots(playersUsername.length);
 			this.setUsernames(playersUsername);
 			this.setServantCost(1);
 			this.setFamiliarsColors(playersUsername, playerColors);
 			this.disableGameBoard();
+			this.placeExcommunications(excommunications);
 		} catch (IOException e) { // TODO sistemare
 			e.printStackTrace();
 		}
-		
+
 	}
-	
-	private void setFamiliarsColors(String[] playersUsername, PlayerColor[] playerColors){
-		for(int i=0; i<playersUsername.length; i++){
-			if(playersUsername[i].equals(myUsername)){
-				for(FamiliarColor familiarColor : new FamiliarColor[] {FamiliarColor.BLACK, FamiliarColor.ORANGE,
-						FamiliarColor.UNCOLORED, FamiliarColor.WHITE}){
+
+	private void setFamiliarsColors(String[] playersUsername, PlayerColor[] playerColors) {
+		for (int i = 0; i < playersUsername.length; i++) {
+			if (playersUsername[i].equals(myUsername)) {
+				for (FamiliarColor familiarColor : new FamiliarColor[] { FamiliarColor.BLACK, FamiliarColor.ORANGE,
+						FamiliarColor.UNCOLORED, FamiliarColor.WHITE }) {
 					ImageView familiarImage = (ImageView) stage.getScene().lookup("#FAMILIAR" + familiarColor);
-					familiarImage.setImage(new Image("file:Assets/Image/Familiars/" + playerColors[i] + "/" +
-					familiarColor + ".png"));
+					familiarImage.setImage(
+							new Image("file:Assets/Image/Familiars/" + playerColors[i] + "/" + familiarColor + ".png"));
 				}
 			}
 			System.out.println(usersPersonalBoards.containsKey(playersUsername[i]));
@@ -118,7 +128,7 @@ public class GameBoardController {
 
 	private void coverSlots(int numPlayers) {
 		coveredSlotsIDs = new HashSet<>();
-		
+
 		if (numPlayers < 4) {
 			coverableMarketSlot2
 					.setStyle("-fx-background-image : url(file:Assets/Image/GameBoard/CoverMarketSlot2.png);"
@@ -148,7 +158,7 @@ public class GameBoardController {
 	private void setUsernames(String[] usernames) {
 		for (int i = 0; i < usernames.length; i++) {
 			Label userText = (Label) stage.getScene().lookup("#USERNAME" + i);
-			if(usernames[i].equals(myUsername))
+			if (usernames[i].equals(myUsername))
 				userText.setText(usernames[i] + " (Me)");
 			else
 				userText.setText(usernames[i]);
@@ -158,14 +168,14 @@ public class GameBoardController {
 			personalButton.setDisable(false);
 		}
 	}
-	
+
 	public void setServantCost(int cost) {
 		servantCost.setText(Integer.toString(cost));
 	}
-	
+
 	public void setFamiliarValue(String username, FamiliarColor color, int value) {
 		if (username == myUsername) {
-			Label familiarValue = (Label)stage.getScene().lookup("#VALUE" + color.toString());
+			Label familiarValue = (Label) stage.getScene().lookup("#VALUE" + color.toString());
 			familiarValue.setText(Integer.toString(value));
 		}
 		usersPersonalBoards.get(username).setFamiliarValue(color, value);
@@ -222,13 +232,13 @@ public class GameBoardController {
 		clientController.endTurn();
 		this.disableGameBoard();
 	}
-	
+
 	public void disableGameBoard() {
 		rightGrid.setDisable(true);
 		dialogBox.setDisable(false);
 		setSlotsDisabled(true);
 	}
-	
+
 	public void myTurn() {
 		writeInDialogBox("It's my turn!");
 		rightGrid.setDisable(false);
@@ -265,51 +275,61 @@ public class GameBoardController {
 			}
 		}
 	}
-	
-	public void writeInDialogBox(String message){
-		if(dialogBox.getText().equals(""))
+
+	public void writeInDialogBox(String message) {
+		if (dialogBox.getText().equals(""))
 			dialogBox.appendText("> " + message);
 		else
 			dialogBox.appendText("\n> " + message);
 		// Scroll to bottom
 		dialogBox.setScrollTop(Double.MAX_VALUE);
 	}
-	
+
 	private void setSlotsDisabled(boolean enabled) {
-		for(Node slot : getSlots()){
+		for (Node slot : getSlots()) {
 			slot.setDisable(enabled);
 		}
 	}
-	
+
 	// Cache slots to avoid a lot of slow calls to scene::lookup
 	private Node[] slots;
-	
-	private Node[] getSlots(){
-		if(slots != null)
+
+	private Node[] getSlots() {
+		if (slots != null)
 			return slots;
-		
+
 		List<Node> nodes = new ArrayList<>();
 		for (SlotType slotType : new SlotType[] { SlotType.BUILDING, SlotType.CHARACTER, SlotType.COUNCIL,
 				SlotType.HARVEST, SlotType.MARKET, SlotType.PRODUCTION, SlotType.TERRITORY, SlotType.VENTURE }) {
 			for (int i = 0; i < 4; i++) {
 				String slotID = "#" + slotType + i;
-				Node slot = stage.getScene().lookup(slotID); 
-				if(slot != null && !coveredSlotsIDs.contains(slotID))
+				Node slot = stage.getScene().lookup(slotID);
+				if (slot != null && !coveredSlotsIDs.contains(slotID))
 					nodes.add(slot);
 			}
 		}
-		
+
 		slots = nodes.stream().toArray(Node[]::new);
 		return slots;
 	}
-	
-	public void placeExcommunicationToken(PlayerColor playerColor, PeriodType periodType){
+
+	private void placeExcommunications(Excommunication[] excommunications) {
+		String path = "file:Assets/Image/Excommunication/";
+		for (Excommunication excom : excommunications) {
+			ImageView excommunication = (ImageView) stage.getScene()
+					.lookup("#VIEWEXCOMMUNICATION" + excom.getPeriodType().name());
+			excommunication.setImage(new Image(path + excom.getName() + ".png"));
+		}
+	}
+
+	public void placeExcommunicationToken(PlayerColor playerColor, PeriodType periodType) {
 		GridPane excommunication = (GridPane) stage.getScene().lookup("#EXCOMMUNICATION" + periodType.name());
 		String tokenPath = "file:Assets/Image/ExcommunicationToken/";
 		ImageView token = new ImageView(new Image(tokenPath + "/" + playerColor + ".png"));
-		token.setFitHeight(17);
-		token.setFitWidth(17);
-		excommunication.getChildren().add(token);
+		token.setFitHeight(15);
+		token.setFitWidth(15);
+		Pair<Integer, Integer> pair = playerExcommunicationPosition.get(playerColor);
+		excommunication.add(token, pair._1(), pair._2());
 	}
 
 }
