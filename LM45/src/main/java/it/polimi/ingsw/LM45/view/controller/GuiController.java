@@ -172,8 +172,7 @@ public class GuiController implements ViewInterface {
 
 	@Override
 	public void playerTurn(String username) {
-		// TODO Auto-generated method stub
-		
+		gameBoardController.writeInDialogBox("It's " + username + "'s turn!");		
 	}
 
 	@Override

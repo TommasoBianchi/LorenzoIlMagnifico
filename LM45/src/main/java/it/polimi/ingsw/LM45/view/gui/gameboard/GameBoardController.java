@@ -1,6 +1,5 @@
 package it.polimi.ingsw.LM45.view.gui.gameboard;
 
-import java.awt.TextArea;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -158,13 +158,13 @@ public class GameBoardController {
 
 	public void doAction(MouseEvent event) {
 		if (!familiarSelected)
-			dialogBox.setText("Familiar not selected yet !");
+			writeInDialogBox("Familiar not selected yet !");
 		else {
 			FlowPane slot = (FlowPane) event.getSource();
 			SlotType slotType = SlotType.valueOf((slot.getId().substring(0, slot.getId().length() - 1)));
 			int position = Integer.parseInt(slot.getId().substring(slot.getId().length() - 1));
 			clientController.placeFamiliar(familiarColor, slotType, position);
-			dialogBox.setText(slotType + " slot " + position);
+			writeInDialogBox(slotType + " slot " + position);
 			familiarSelected = false;
 		}
 	}
@@ -173,7 +173,7 @@ public class GameBoardController {
 		ImageView image = (ImageView) event.getSource();
 		familiarColor = FamiliarColor.valueOf(image.getId().substring(8));
 		familiarSelected = true;
-		dialogBox.setText(familiarColor + " familiar selected !");
+		writeInDialogBox(familiarColor + " familiar selected !");
 	}
 
 	public void slotModify(String slotType, Integer position) {
@@ -216,6 +216,7 @@ public class GameBoardController {
 	}
 	
 	public void myTurn() {
+		writeInDialogBox("It's my turn!");
 		rightGrid.setDisable(false);
 		for (SlotType slotType : new SlotType[] { SlotType.BUILDING, SlotType.CHARACTER, SlotType.COUNCIL,
 				SlotType.HARVEST, SlotType.MARKET, SlotType.PRODUCTION, SlotType.TERRITORY, SlotType.VENTURE }) {
@@ -224,10 +225,6 @@ public class GameBoardController {
 				slot.setDisable(false);
 			}
 		}
-	}
-
-	public void setDialog(String text) {
-		dialogBox.setText(text);
 	}
 
 	public void spendServant(MouseEvent event) {
@@ -259,6 +256,12 @@ public class GameBoardController {
 				slot.getChildren().clear();
 			}
 		}
+	}
+	
+	public void writeInDialogBox(String message){
+		dialogBox.appendText("> " + message);
+		// Scroll to bottom
+		dialogBox.setScrollTop(Double.MAX_VALUE);
 	}
 
 }
