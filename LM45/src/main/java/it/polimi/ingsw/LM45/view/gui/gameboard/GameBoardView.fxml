@@ -4,6 +4,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -650,14 +651,14 @@
                            <children>
                               <ImageView fitHeight="161.0" fitWidth="336.0" layoutX="15.0" layoutY="43.0" pickOnBounds="true">
                                  <image>
-                                    <Image url="file:Assets/Image/Lobby/WoodPanel.PNG" />
+                                    <Image url="@../../../../../../../../../../Assets/Image/Lobby/WoodPanel.PNG" />
                                  </image>
                               </ImageView>
-                              <Label fx:id="dialogBox" alignment="CENTER" contentDisplay="CENTER" layoutX="82.0" layoutY="71.0" prefHeight="81.0" prefWidth="205.0" text="Select Familiar" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true" AnchorPane.bottomAnchor="79.0" AnchorPane.leftAnchor="82.0" AnchorPane.rightAnchor="79.0" AnchorPane.topAnchor="71.0">
+                              <TextArea layoutX="67.0" layoutY="65.0" prefHeight="102.0" prefWidth="235.0" stylesheets="@gameboard.css" text="kfdjgnkjfdgnkjd dskjfndsnfkjds jdnfkjsd kjdbfkj jkdsbfkj kjdsfn kdnsfkj ksdf kjdsfn kdnsfkj ksdfkfdjgnkjfdgnkjd dskjfndsnfkjds jdnfkjsd kjdbfkj jkdsbfkj kjdsfn kdnsfkj ksdf kjdsfn kdnsfkj ksdfkfdjgnkjfdgnkjd dskjfndsnfkjds jdnfkjsd kjdbfkj jkdsbfkj kjdsfn kdnsfkj ksdf kjdsfn kdnsfkj ksdfkfdjgnkjfdgnkjd dskjfndsnfkjds jdnfkjsd kjdbfkj jkdsbfkj kjdsfn kdnsfkj ksdf kjdsfn kdnsfkj ksdfkfdjgnkjfdgnkjd dskjfndsnfkjds jdnfkjsd kjdbfkj jkdsbfkj kjdsfn kdnsfkj ksdf kjdsfn kdnsfkj ksdfkfdjgnkjfdgnkjd dskjfndsnfkjds jdnfkjsd kjdbfkj jkdsbfkj kjdsfn kdnsfkj ksdf kjdsfn kdnsfkj ksdfkfdjgnkjfdgnkjd dskjfndsnfkjds jdnfkjsd kjdbfkj jkdsbfkj kjdsfn kdnsfkj ksdf kjdsfn kdnsfkj ksdf" wrapText="true">
                                  <font>
-                                    <Font name="Cordia New Bold Italic" size="20.0" />
+                                    <Font name="Bell MT Italic" size="14.0" />
                                  </font>
-                              </Label>
+                              </TextArea>
                            </children>
                         </AnchorPane>
                      </children>

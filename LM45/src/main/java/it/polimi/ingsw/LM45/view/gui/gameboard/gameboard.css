@@ -1,0 +1,32 @@
+.text-area {
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-pane .viewport{
+    -fx-background-color: transparent;
+}
+
+
+.text-area .scroll-pane .content{
+    -fx-background-color: transparent;
+}
+
+.text-area   {
+    -fx-text-fill: #ffffff;
+}
+
+.text-area .scroll-bar{
+	-fx-background-color: transparent;
+}
+
+.text-area .scroll-bar .increment-button{
+	-fx-background-color: transparent;
+}
+
+.text-area .scroll-bar .decrement-button{
+	-fx-background-color: transparent;
+}
