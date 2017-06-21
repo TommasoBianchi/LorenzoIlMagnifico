@@ -24,15 +24,18 @@ public class Player {
 	private boolean hasToSkipFirstTurn;
 
 	/**
-	 * @param username the username of this player
-	 * @param color the color of this player (i.e. of his pawns)
+	 * @param username
+	 *            the username of this player
+	 * @param color
+	 *            the color of this player (i.e. of his pawns)
 	 */
 	public Player(String username, PlayerColor playerColor) {
 		this.username = username;
 		this.playerColor = playerColor;
 		this.leaderCards = new ArrayList<LeaderCard>();
 		this.personalBoard = new PersonalBoard();
-		this.familiars = Arrays.stream(FamiliarColor.values()).map(familiarColor -> new Familiar(this, familiarColor)).toArray(Familiar[]::new);
+		this.familiars = new Familiar[] { new Familiar(this, FamiliarColor.BLACK), new Familiar(this, FamiliarColor.ORANGE),
+				new Familiar(this, FamiliarColor.WHITE), new Familiar(this, FamiliarColor.UNCOLORED) };
 		this.personalBonusTile = null; // This needs to be chosen later on by the player
 		this.payIfTowerIsOccupied = true;
 		this.churchSupportBonuses = new ArrayList<Resource>();
@@ -40,8 +43,10 @@ public class Player {
 	}
 
 	/**
-	 * @param card the card to check
-	 * @param actionModifier the actionModifier for the action the player is trying to do (in this case, picking a card of a specific cardType)
+	 * @param card
+	 *            the card to check
+	 * @param actionModifier
+	 *            the actionModifier for the action the player is trying to do (in this case, picking a card of a specific cardType)
 	 * @return true if we can add that card to this player's personalBoard (including check about territoryRequisites and about card's cost)
 	 */
 	public boolean canAddCard(Card card, ActionModifier actionModifier) {
@@ -49,7 +54,8 @@ public class Player {
 	}
 
 	/**
-	 * @param card the card we want to add to this player's personalBoard
+	 * @param card
+	 *            the card we want to add to this player's personalBoard
 	 */
 	public void addCard(Card card, ActionModifier actionModifier) {
 		personalBoard.addCard(card);
@@ -57,7 +63,8 @@ public class Player {
 	}
 
 	/**
-	 * @param leaderCard the leaderCard we want to add
+	 * @param leaderCard
+	 *            the leaderCard we want to add
 	 */
 	public void addLeaderCard(LeaderCard leaderCard) {
 		if (leaderCards == null)
@@ -66,9 +73,10 @@ public class Player {
 	}
 
 	/**
-	 * @param leaderCard the leaderCard we want to play
-	 * @throws IllegalActionException if the player does not have the requisites for the leaderCard or if it does not have
-	 * the leaderCard itself
+	 * @param leaderCard
+	 *            the leaderCard we want to play
+	 * @throws IllegalActionException
+	 *             if the player does not have the requisites for the leaderCard or if it does not have the leaderCard itself
 	 */
 	public void playLeaderCard(LeaderCard leaderCard) throws IllegalActionException {
 		if (leaderCards.contains(leaderCard)) {
@@ -80,18 +88,21 @@ public class Player {
 	}
 
 	/**
-	 * @param leaderCard the leaderCard we want to discard
-	 * @throws IllegalActionException if the player does not have the leaderCard itself
+	 * @param leaderCard
+	 *            the leaderCard we want to discard
+	 * @throws IllegalActionException
+	 *             if the player does not have the leaderCard itself
 	 */
 	public void discardLeaderCard(LeaderCard leaderCard) throws IllegalActionException {
 		if (!leaderCards.remove(leaderCard))
 			throw new IllegalActionException("You cannot discard LeaderCard " + leaderCard.getName() + " because you do not have it");
 	}
-	
+
 	/**
-	 * @param leaderCard the leaderCard we want to activate
-	 * @throws IllegalActionException if the player does not have played yet the leaderCard or if it does not have
-	 * the leaderCard itself
+	 * @param leaderCard
+	 *            the leaderCard we want to activate
+	 * @throws IllegalActionException
+	 *             if the player does not have played yet the leaderCard or if it does not have the leaderCard itself
 	 */
 	public void activateLeaderCard(LeaderCard leaderCard, EffectResolutor effectResolutor) throws IllegalActionException {
 		if (leaderCards.contains(leaderCard)) {
@@ -103,7 +114,8 @@ public class Player {
 	}
 
 	/**
-	 * @param resource the resource we want to add (or remove if amount < 0)
+	 * @param resource
+	 *            the resource we want to add (or remove if amount < 0)
 	 */
 	public void addResources(Resource resource) {
 		if (resource.getAmount() > 0)
@@ -113,32 +125,35 @@ public class Player {
 	}
 
 	/**
-	 * @param resourceType the type of resource to count
+	 * @param resourceType
+	 *            the type of resource to count
 	 * @return the amount of resources of the given ResourceType
 	 */
 	public int getResourceAmount(ResourceType resourceType) {
 		return personalBoard.getResourceAmount(resourceType);
 	}
-	
+
 	/**
 	 * @return an array containing all the resources this player has
 	 */
-	public Resource[] getAllResources(){
+	public Resource[] getAllResources() {
 		return personalBoard.getAllResources();
 	}
 
 	/**
-	 * @param resource the type of resource to check
-	 * @return true if the amount of resource of the same type of the parameter resource
-	 * is at least the same as the amount of the parameter resource
+	 * @param resource
+	 *            the type of resource to check
+	 * @return true if the amount of resource of the same type of the parameter resource is at least the same as the amount of the parameter resource
 	 */
 	public boolean hasResources(Resource resource) {
 		return personalBoard.hasResources(resource);
 	}
 
 	/**
-	 * @param color the familiarColor of the familiar to add the bonus to
-	 * @param bonus the bonus to add (not including servants bonus)
+	 * @param color
+	 *            the familiarColor of the familiar to add the bonus to
+	 * @param bonus
+	 *            the bonus to add (not including servants bonus)
 	 */
 	public void addFamiliarBonus(FamiliarColor color, int bonus) {
 		for (Familiar familiar : familiars) {
@@ -148,8 +163,10 @@ public class Player {
 	}
 
 	/**
-	 * @param color the familiarColor of the familiar we want to set the value
-	 * @param value the value to set
+	 * @param color
+	 *            the familiarColor of the familiar we want to set the value
+	 * @param value
+	 *            the value to set
 	 */
 	public void setFamiliarValue(FamiliarColor color, int value) {
 		for (Familiar familiar : familiars) {
@@ -159,9 +176,11 @@ public class Player {
 	}
 
 	/**
-	 * @param color the familiarColor of the familiar we want to increase the value by paying servants
+	 * @param color
+	 *            the familiarColor of the familiar we want to increase the value by paying servants
+	 * @throws IllegalActionException
 	 */
-	public void increaseFamiliarValue(FamiliarColor color) {
+	public void increaseFamiliarValue(FamiliarColor color) throws IllegalActionException {
 		for (Familiar familiar : familiars) {
 			if (familiar.getFamiliarColor() == color)
 				familiar.addServantsBonus();
@@ -169,7 +188,8 @@ public class Player {
 	}
 
 	/**
-	 * @param cost the cost (in servants) of increasing by one the value of this player's familiars 
+	 * @param cost
+	 *            the cost (in servants) of increasing by one the value of this player's familiars
 	 */
 	public void modifyServantCost(int cost) {
 		for (Familiar familiar : familiars) {
@@ -185,7 +205,8 @@ public class Player {
 	}
 
 	/**
-	 * @param resource the resource gained when supporting the church
+	 * @param resource
+	 *            the resource gained when supporting the church
 	 */
 	public void addChurchSupportBonus(Resource resource) {
 		churchSupportBonuses.add(resource);
@@ -213,17 +234,20 @@ public class Player {
 	}
 
 	/**
-	 * This method can be used for both setting the permanentEffect of a card
-	 * and setting the permanentEffect of an excommunication
-	 * @param permanentEffect the CardEffect to add as a permanent effects
+	 * This method can be used for both setting the permanentEffect of a card and setting the permanentEffect of an excommunication
+	 * 
+	 * @param permanentEffect
+	 *            the CardEffect to add as a permanent effects
 	 */
 	public void addPermanentEffect(CardEffect permanentEffect) {
 		personalBoard.addPermanentEffect(permanentEffect);
 	}
 
 	/**
-	 * @param effectResolutor the effectResolutor we need in order to resolve the harvest effects
-	 * @param value the value of the harvest action
+	 * @param effectResolutor
+	 *            the effectResolutor we need in order to resolve the harvest effects
+	 * @param value
+	 *            the value of the harvest action
 	 */
 	public void harvest(EffectResolutor effectResolutor, int value) {
 		personalBonusTile.harvest(effectResolutor, value);
@@ -231,8 +255,10 @@ public class Player {
 	}
 
 	/**
-	 * @param effectResolutor the effectResolutor we need in order to resolve the production effects
-	 * @param value the value of the production action
+	 * @param effectResolutor
+	 *            the effectResolutor we need in order to resolve the production effects
+	 * @param value
+	 *            the value of the production action
 	 */
 	public void produce(EffectResolutor effectResolutor, int value) {
 		personalBonusTile.produce(effectResolutor, value);
@@ -240,50 +266,53 @@ public class Player {
 	}
 
 	/**
-	 * @param familiarColor the familiarColor of the familiar we want to retrieve
+	 * @param familiarColor
+	 *            the familiarColor of the familiar we want to retrieve
 	 * @return a familiar of the given familiarColor (it should be unique, but this method does nothing about that)
-	 * @throws IllegalActionException if no familiar of the given familiarColor is found
+	 * @throws IllegalActionException
+	 *             if no familiar of the given familiarColor is found
 	 */
 	public Familiar getFamiliarByColor(FamiliarColor familiarColor) throws IllegalActionException {
 		return Arrays.stream(familiars).filter(familiar -> !familiar.getIsPlaced() && familiar.getFamiliarColor() == familiarColor).findFirst()
 				.orElseThrow(() -> new IllegalActionException("Familiar of color " + familiarColor + " does not exists or has already been used"));
 	}
-	
+
 	/**
-	 * @param familiarColor the familiarColor of the familiar we want to retrieve
+	 * @param familiarColor
+	 *            the familiarColor of the familiar we want to retrieve
 	 * @return the value of the requested familiar (-1 if the familiar is not present -- should never happen)
 	 */
-	public int getFamiliarValue(FamiliarColor familiarColor){
-		return Arrays.stream(familiars).filter(familiar -> familiar.getFamiliarColor() == familiarColor).map(Familiar::getValue).findFirst().orElse(-1);
+	public int getFamiliarValue(FamiliarColor familiarColor) {
+		return Arrays.stream(familiars).filter(familiar -> familiar.getFamiliarColor() == familiarColor).map(Familiar::getValue).findFirst()
+				.orElse(-1);
 	}
-	
+
 	/**
 	 * @return an array containint all this player's familiars
 	 */
-	public Familiar[] getFamiliars(){
+	public Familiar[] getFamiliars() {
 		return familiars.clone();
 	}
-	
 
 	/**
-	 * @return true if this player must pay 3 COINS every time he places a familiar in a tower already occupied
-	 * by another player
+	 * @return true if this player must pay 3 COINS every time he places a familiar in a tower already occupied by another player
 	 */
 	public boolean getPayIfTowerIsOccupied() {
 		return payIfTowerIsOccupied;
 	}
-	
+
 	/**
 	 * @return the color this player has on the board
 	 */
-	public PlayerColor getColor(){
+	public PlayerColor getColor() {
 		return playerColor;
 	}
-	
+
 	/**
-	 * @param personalBonusTile the personalBonusTile you want to set to this player
+	 * @param personalBonusTile
+	 *            the personalBonusTile you want to set to this player
 	 */
-	public void setPersonalBonusTile(PersonalBonusTile personalBonusTile){
+	public void setPersonalBonusTile(PersonalBonusTile personalBonusTile) {
 		this.personalBonusTile = personalBonusTile;
 	}
 
