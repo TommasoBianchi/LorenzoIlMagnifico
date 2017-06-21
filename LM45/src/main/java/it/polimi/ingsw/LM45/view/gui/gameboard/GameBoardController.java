@@ -232,9 +232,10 @@ public class GameBoardController {
 		familiar.setFitWidth(25);
 		slot.getChildren().add(familiar);
 		usersPersonalBoards.get(playerColorName.get(playerColor)).familiarUsed(familiarColor);
-		if (playerColorName.get(playerColor) == myUsername)
+		if (playerColorName.get(playerColor) == myUsername){
 			this.familiarUsed(familiarColor);
-		endTurnButton.setDisable(false);
+			endTurnButton.setDisable(false);
+		}
 	}
 
 	public void familiarSelected(MouseEvent event) {

@@ -480,21 +480,33 @@
                                        <GridPane.margin>
                                           <Insets left="7.0" />
                                        </GridPane.margin>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </Button>
                                     <Button id="BUTTONPERSONAL1" alignment="CENTER" contentDisplay="CENTER" disable="true" mnemonicParsing="false" onMouseClicked="#showPersonalBoard" opacity="0.0" text="PersonalBoard" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                        <GridPane.margin>
                                           <Insets left="7.0" />
                                        </GridPane.margin>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </Button>
                                     <Button id="BUTTONPERSONAL2" alignment="CENTER" contentDisplay="CENTER" disable="true" mnemonicParsing="false" onMouseClicked="#showPersonalBoard" opacity="0.0" text="PersonalBoard" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                        <GridPane.margin>
                                           <Insets left="7.0" />
                                        </GridPane.margin>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </Button>
                                     <Button id="BUTTONPERSONAL3" alignment="CENTER" contentDisplay="CENTER" disable="true" mnemonicParsing="false" onMouseClicked="#showPersonalBoard" opacity="0.0" text="PersonalBoard" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                        <GridPane.margin>
                                           <Insets left="7.0" />
                                        </GridPane.margin>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </Button>
                                  </children>
                                  <padding>
@@ -789,7 +801,10 @@
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
                               </GridPane>
-                              <Button fx:id="endTurnButton" alignment="CENTER" contentDisplay="CENTER" layoutX="116.0" layoutY="431.0" mnemonicParsing="false" onAction="#endTurn" prefHeight="35.0" prefWidth="114.0" text="END TURN" AnchorPane.bottomAnchor="38.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="431.0" />
+                              <Button fx:id="endTurnButton" alignment="CENTER" contentDisplay="CENTER" layoutX="116.0" layoutY="431.0" mnemonicParsing="false" onAction="#endTurn" prefHeight="35.0" prefWidth="114.0" text="END TURN" AnchorPane.bottomAnchor="38.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="431.0">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></Button>
                               <Label alignment="CENTER" contentDisplay="CENTER" layoutX="38.0" layoutY="-3.0" prefHeight="39.0" prefWidth="218.0" text="To increase Familiar value" textAlignment="CENTER" textFill="#ffc000" wrapText="true" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="38.0" AnchorPane.topAnchor="-30.0">
                                  <font>
                                     <Font name="Bell MT Italic" size="16.0" />
