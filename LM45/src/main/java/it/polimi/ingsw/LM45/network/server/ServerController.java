@@ -168,6 +168,8 @@ public class ServerController {
 				players.get(player).increaseFamiliarValue(familiarColor);
 				notifyPlayers(
 						clientInterface -> clientInterface.setFamiliar(player, familiarColor, players.get(player).getFamiliarValue(familiarColor)));
+				notifyPlayers(clientInterface -> clientInterface
+						.setResources(new Resource(ResourceType.SERVANTS, players.get(player).getResourceAmount(ResourceType.SERVANTS)), player));
 				logInfo(player + " increased value of familiar " + familiarColor);
 			}
 			catch (IllegalActionException e) {
@@ -285,7 +287,7 @@ public class ServerController {
 		game = new Game(new ArrayList<Player>(players.values()), boardConfiguration, deck, new ArrayList<LeaderCard>(leaderCards.values()),
 				excommunications);
 		game.start();
-		
+
 		choosePersonalBonusTiles();
 		chooseLeaderCards();
 
@@ -535,7 +537,7 @@ public class ServerController {
 	}
 
 	private void logInfo(String message) {
-		System.out.println("Game " + gameID + ": " + message);
+		System.out.println("> Game " + gameID + ": " + message);
 	}
 
 	/**
