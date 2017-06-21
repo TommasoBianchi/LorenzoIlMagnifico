@@ -49,12 +49,13 @@ public class EffectController implements EffectResolutor {
 
 			// Notify all players only of the resources that have changed (because the player chosed to take them in
 			// exchange of a COUNCIL_PRIVILEGE)
-			chosenResourcesTypes.forEach(resourceType -> serverController.notifyPlayers(clientInterface -> clientInterface
-					.setResources(new Resource[] { new Resource(resourceType, player.getResourceAmount(resourceType)) }, player.getUsername())));
+			Resource[] changedResources = chosenResourcesTypes.stream()
+					.map(resourceType -> new Resource(resourceType, player.getResourceAmount(resourceType))).toArray(Resource[]::new);
+			serverController.notifyPlayers(clientInterface -> clientInterface.setResources(changedResources, player.getUsername()));
 		}
 		else {
 			player.addResources(resource);
-			
+
 			// Notify all players only of the resource that has changed
 			serverController.notifyPlayers(clientInterface -> clientInterface.setResources(
 					new Resource[] { new Resource(resource.getResourceType(), player.getResourceAmount(resource.getResourceType())) },
