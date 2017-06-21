@@ -41,6 +41,8 @@ public class TowerSlot extends Slot {
 		super.addFamiliar(familiar, actionModifier, effectResolutor);
 		if(hasToPayTower(familiar.getPlayer()))
 			actionModifier.merge(new ActionModifier(new Resource[]{ new Resource(ResourceType.COINS, 3) }));
+		card.payCost(effectResolutor, actionModifier);
+		card.resolveImmediateEffect(effectResolutor);
 		effectResolutor.addCard(card, actionModifier);
 		this.hasCard = false;
 	}

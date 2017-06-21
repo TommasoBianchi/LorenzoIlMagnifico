@@ -59,7 +59,6 @@ public class Player {
 	 */
 	public void addCard(Card card, ActionModifier actionModifier) {
 		personalBoard.addCard(card);
-		card.payCost(this, actionModifier);
 	}
 
 	/**

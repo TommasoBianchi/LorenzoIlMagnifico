@@ -43,11 +43,11 @@ public abstract class Card implements Serializable {
 	}
 	
 	/**
-	 * @param player player that what to pay the cost's resources
+	 * @param effectResolutor the effectResolutor of player that wants to pay the cost's resources
 	 * @param actionModifier the actionModifier for the action the player is trying to do
 	 */
-	public void payCost(Player player, ActionModifier actionModifier){
-		cost.pay(player, actionModifier);
+	public void payCost(EffectResolutor effectResolutor, ActionModifier actionModifier){
+		cost.pay(effectResolutor, actionModifier);
 	}
 	
 	/**

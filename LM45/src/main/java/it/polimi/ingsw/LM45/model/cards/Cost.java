@@ -9,6 +9,7 @@ import it.polimi.ingsw.LM45.model.core.Player;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.ResourceType;
 import it.polimi.ingsw.LM45.model.effects.ActionModifier;
+import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
 
 public class Cost implements Serializable {
 	
@@ -38,15 +39,15 @@ public class Cost implements Serializable {
 	}
 
 	/**
-	 * @param player the player which has to pay this cost
+	 * @param effectResolutor the effectResolutor of the player which has to pay this cost
 	 * @param actionModifier the actionModifier for the action the player is trying to do
 	 */
-	public void pay(Player player, ActionModifier actionModifier) {
+	public void pay(EffectResolutor effectResolutor, ActionModifier actionModifier) {
 		Map<ResourceType, Integer> costModifiers = actionModifier.getCostModifiers();
 		Stream<Resource> resourcesToPay = Arrays.stream(costResources)
 				.map(resource -> resource.getAmount() > 0 ? resource.multiply(-1) : resource) // To make sure to subtract resources
 				.map(resource -> resource.increment(costModifiers.getOrDefault(resource.getResourceType(), 0)));
-		resourcesToPay.forEach(resource -> player.addResources(resource));
+		resourcesToPay.forEach(resource -> effectResolutor.addResources(resource));
 	}
 	
 	@Override
