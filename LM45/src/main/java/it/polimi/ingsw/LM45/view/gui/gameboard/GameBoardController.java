@@ -14,6 +14,7 @@ import it.polimi.ingsw.LM45.model.cards.Excommunication;
 import it.polimi.ingsw.LM45.model.cards.PeriodType;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.PlayerColor;
+import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.network.client.ClientController;
 import it.polimi.ingsw.LM45.util.Pair;
@@ -80,10 +81,10 @@ public class GameBoardController {
 			usersPersonalBoards.put(playersUsername[i],
 					new PersonalBoardController(new Stage(), playersUsername[i], playerColors[i]));
 		}
-		
-		for(int i=0, l=0; i<2; i++)
-			for(int j=0; j<2; j++,l++)
-				if(playerColors[l] != null)
+
+		for (int i = 0, l = 0; i < 2; i++)
+			for (int j = 0; j < 2; j++, l++)
+				if (l < playerColors.length)
 					playerExcommunicationPosition.put(playerColors[l], new Pair<Integer, Integer>(i, j));
 
 		try {
@@ -179,6 +180,19 @@ public class GameBoardController {
 			familiarValue.setText(Integer.toString(value));
 		}
 		usersPersonalBoards.get(username).setFamiliarValue(color, value);
+	}
+
+	public void setResources(Resource[] resources, String username) {
+		if (username == myUsername)
+			for (Resource resource : resources)
+				this.setResourceGameboard(resource);
+		for (Resource resource : resources)
+			usersPersonalBoards.get(username).setResource(resource);
+	}
+
+	private void setResourceGameboard(Resource resource) {
+		Label value = (Label) stage.getScene().lookup("#" + resource.getResourceType());
+		value.setText(Integer.toString(resource.getAmount()));
 	}
 
 	public void doAction(MouseEvent event) {

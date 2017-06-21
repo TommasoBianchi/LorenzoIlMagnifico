@@ -152,8 +152,8 @@ public class GuiController implements ViewInterface {
 
 	@Override
 	public void setResources(Resource[] resources, String username) {
-		// TODO Auto-generated method stub
-
+		System.out.println("adding resources");
+		Platform.runLater(() -> gameBoardController.setResources(resources, username));
 	}
 
 	@Override

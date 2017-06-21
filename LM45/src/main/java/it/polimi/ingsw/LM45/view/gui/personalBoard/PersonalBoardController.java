@@ -108,9 +108,6 @@ public class PersonalBoardController {
 				this.addCard(card);
 			}
 
-			for (ResourceType resourceType : ResourceType.values()) {
-				this.setResource(new Resource(resourceType, new Random().nextInt(20)));
-			}
 			this.addLeaderCard(null);
 		} catch (JsonSyntaxException | JsonIOException | FileNotFoundException e) {
 			// TODO Auto-generated catch block
