@@ -21,6 +21,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -43,6 +44,9 @@ public class GameBoardController {
 
 	@FXML
 	private FlowPane coverableHarvestSlot;
+	
+	@FXML
+	private GridPane rightGrid;
 
 	private Stage stage;
 	private String myUsername;
@@ -200,6 +204,25 @@ public class GameBoardController {
 
 	public void endTurn() {
 		clientController.endTurn();
+		rightGrid.setDisable(true);
+		for (SlotType slotType : new SlotType[] { SlotType.BUILDING, SlotType.CHARACTER, SlotType.COUNCIL,
+				SlotType.HARVEST, SlotType.MARKET, SlotType.PRODUCTION, SlotType.TERRITORY, SlotType.VENTURE }) {
+			for (int i = 0; i < 4; i++) {
+				FlowPane slot = (FlowPane) stage.getScene().lookup("#" + slotType + i);
+				slot.setDisable(true);
+			}
+		}
+	}
+	
+	public void myTurn() {
+		rightGrid.setDisable(false);
+		for (SlotType slotType : new SlotType[] { SlotType.BUILDING, SlotType.CHARACTER, SlotType.COUNCIL,
+				SlotType.HARVEST, SlotType.MARKET, SlotType.PRODUCTION, SlotType.TERRITORY, SlotType.VENTURE }) {
+			for (int i = 0; i < 4; i++) {
+				FlowPane slot = (FlowPane) stage.getScene().lookup("#" + slotType + i);
+				slot.setDisable(false);
+			}
+		}
 	}
 
 	public void setDialog(String text) {

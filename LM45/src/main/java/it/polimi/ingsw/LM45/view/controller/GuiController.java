@@ -167,8 +167,7 @@ public class GuiController implements ViewInterface {
 
 	@Override
 	public void myTurn() {
-		// TODO Auto-generated method stub
-		
+		gameBoardController.myTurn();		
 	}
 
 	@Override
