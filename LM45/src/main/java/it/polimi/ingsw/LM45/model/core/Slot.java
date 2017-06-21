@@ -60,7 +60,7 @@ public class Slot {
 	 * @return true if it is legal to place the familiar in this slots with regards to the given actionModifier
 	 */
 	public boolean canAddFamiliar(Familiar familiar, ActionModifier actionModifier) {
-		return !isOccupied(familiar) || actionModifier.getCanPlaceMultipleFamiliars()
+		return (!isOccupied(familiar) || actionModifier.getCanPlaceMultipleFamiliars())
 				&& isFamiliarValueOK(familiar, actionModifier);
 	}
 
