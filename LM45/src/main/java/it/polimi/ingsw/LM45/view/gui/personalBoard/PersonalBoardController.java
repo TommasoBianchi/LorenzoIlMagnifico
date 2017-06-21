@@ -168,9 +168,6 @@ public class PersonalBoardController {
 			familiarView.setDisable(false);
 			Label familiarValue = (Label) stage.getScene().lookup("#VALUE" + familiarColor);
 			familiarValue.setOpacity(1);
-			ImageView servantView = (ImageView) stage.getScene().lookup("#" + familiarColor);
-			servantView.setOpacity(1);
-			servantView.setDisable(false);
 		}
 	}
 
