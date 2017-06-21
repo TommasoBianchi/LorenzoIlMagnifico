@@ -67,6 +67,7 @@ public class ClientController {
 	public void throwGameException(GameException gameException) {
 		System.err.println("-- Server sent an exception --");
 		System.err.println(gameException.getMessage());
+		viewInterface.notifyError(gameException.getMessage());
 	}
 
 	public void login(String username) {
