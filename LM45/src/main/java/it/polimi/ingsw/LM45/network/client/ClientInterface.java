@@ -6,6 +6,7 @@ import it.polimi.ingsw.LM45.exceptions.GameException;
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
+import it.polimi.ingsw.LM45.model.cards.PeriodType;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.PersonalBonusTile;
 import it.polimi.ingsw.LM45.model.core.PlayerColor;
@@ -27,5 +28,6 @@ public interface ClientInterface {
 	public void setResources(Resource[] resources, String username) throws IOException;
 	public void setPersonalBonusTile(String username, PersonalBonusTile personalBonusTile) throws IOException;
 	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications) throws IOException;
+	public void placeExcommunicationToken(PlayerColor playerColor, PeriodType periodType) throws IOException;
 	
 }

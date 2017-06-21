@@ -11,6 +11,7 @@ import it.polimi.ingsw.LM45.exceptions.GameException;
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
+import it.polimi.ingsw.LM45.model.cards.PeriodType;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.PersonalBonusTile;
 import it.polimi.ingsw.LM45.model.core.PlayerColor;
@@ -131,6 +132,11 @@ public class RMIClient implements RemoteClientInterface, ServerInterface {
 	@Override
 	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications) throws IOException {
 		clientController.initializeGameBoard(playersUsername, playerColors, excommunications);
+	}
+
+	@Override
+	public void placeExcommunicationToken(PlayerColor playerColor, PeriodType periodType) throws IOException {
+		clientController.placeExcommunicationToken(playerColor, periodType);
 	}
 	
 }

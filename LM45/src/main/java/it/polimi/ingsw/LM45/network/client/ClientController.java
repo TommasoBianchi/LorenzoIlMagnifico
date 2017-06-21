@@ -14,6 +14,7 @@ import it.polimi.ingsw.LM45.exceptions.GameException;
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
+import it.polimi.ingsw.LM45.model.cards.PeriodType;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.PersonalBonusTile;
 import it.polimi.ingsw.LM45.model.core.PlayerColor;
@@ -229,8 +230,11 @@ public class ClientController {
 	}
 	
 	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications){
-		System.out.println("ClientController::initializeGameBoard");
 		viewInterface.initializeGameBoard(playersUsername, playerColors, excommunications);
+	}
+	
+	public void placeExcommunicationToken(PlayerColor playerColor, PeriodType periodType){
+		viewInterface.placeExcommunicationToken(playerColor, periodType);
 	}
 
 	private void manageIOException(IOException e) {
