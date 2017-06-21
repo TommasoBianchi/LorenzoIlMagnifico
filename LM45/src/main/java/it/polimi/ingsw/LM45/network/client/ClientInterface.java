@@ -26,6 +26,9 @@ public interface ClientInterface {
 	public void setFamiliar(String username,FamiliarColor color, int value) throws IOException;
 	public void doBonusAction(SlotType slotType, int value) throws IOException;
 	public void setResources(Resource[] resources, String username) throws IOException;
+	public default void setResources(Resource resource, String username) throws IOException{
+		setResources(new Resource[]{ resource }, username);
+	}
 	public void setPersonalBonusTile(String username, PersonalBonusTile personalBonusTile) throws IOException;
 	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications) throws IOException;
 	public void placeExcommunicationToken(PlayerColor playerColor, PeriodType periodType) throws IOException;
