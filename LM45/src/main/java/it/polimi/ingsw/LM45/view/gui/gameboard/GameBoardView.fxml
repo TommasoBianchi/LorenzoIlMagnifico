@@ -651,10 +651,10 @@
                            <children>
                               <ImageView fitHeight="161.0" fitWidth="336.0" layoutX="15.0" layoutY="43.0" pickOnBounds="true">
                                  <image>
-                                    <Image url="@../../../../../../../../../../Assets/Image/Lobby/WoodPanel.PNG" />
+                                    <Image url="file:Assets/Image/Lobby/WoodPanel.PNG" />
                                  </image>
                               </ImageView>
-                              <TextArea layoutX="67.0" layoutY="65.0" prefHeight="102.0" prefWidth="235.0" stylesheets="@gameboard.css" text="kfdjgnkjfdgnkjd dskjfndsnfkjds jdnfkjsd kjdbfkj jkdsbfkj kjdsfn kdnsfkj ksdf kjdsfn kdnsfkj ksdfkfdjgnkjfdgnkjd dskjfndsnfkjds jdnfkjsd kjdbfkj jkdsbfkj kjdsfn kdnsfkj ksdf kjdsfn kdnsfkj ksdfkfdjgnkjfdgnkjd dskjfndsnfkjds jdnfkjsd kjdbfkj jkdsbfkj kjdsfn kdnsfkj ksdf kjdsfn kdnsfkj ksdfkfdjgnkjfdgnkjd dskjfndsnfkjds jdnfkjsd kjdbfkj jkdsbfkj kjdsfn kdnsfkj ksdf kjdsfn kdnsfkj ksdfkfdjgnkjfdgnkjd dskjfndsnfkjds jdnfkjsd kjdbfkj jkdsbfkj kjdsfn kdnsfkj ksdf kjdsfn kdnsfkj ksdfkfdjgnkjfdgnkjd dskjfndsnfkjds jdnfkjsd kjdbfkj jkdsbfkj kjdsfn kdnsfkj ksdf kjdsfn kdnsfkj ksdfkfdjgnkjfdgnkjd dskjfndsnfkjds jdnfkjsd kjdbfkj jkdsbfkj kjdsfn kdnsfkj ksdf kjdsfn kdnsfkj ksdf" wrapText="true">
+                              <TextArea fx:id="dialogBox" layoutX="67.0" layoutY="65.0" prefHeight="102.0" prefWidth="235.0" stylesheets="@gameboard.css" wrapText="true">
                                  <font>
                                     <Font name="Bell MT Italic" size="14.0" />
                                  </font>

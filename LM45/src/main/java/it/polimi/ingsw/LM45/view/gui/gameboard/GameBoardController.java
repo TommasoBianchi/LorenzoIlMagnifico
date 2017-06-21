@@ -205,7 +205,12 @@ public class GameBoardController {
 
 	public void endTurn() {
 		clientController.endTurn();
+		this.disableGameBoard();
+	}
+	
+	public void disableGameBoard() {
 		rightGrid.setDisable(true);
+		dialogBox.setDisable(false);
 		for (SlotType slotType : new SlotType[] { SlotType.BUILDING, SlotType.CHARACTER, SlotType.COUNCIL,
 				SlotType.HARVEST, SlotType.MARKET, SlotType.PRODUCTION, SlotType.TERRITORY, SlotType.VENTURE }) {
 			for (int i = 0; i < 4; i++) {
