@@ -10,7 +10,6 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import it.polimi.ingsw.LM45.exceptions.GameException;
 import it.polimi.ingsw.LM45.model.cards.Card;
-import it.polimi.ingsw.LM45.model.cards.CardType;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.cards.PeriodType;

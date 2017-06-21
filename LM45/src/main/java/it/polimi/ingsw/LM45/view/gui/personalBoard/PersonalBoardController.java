@@ -1,25 +1,16 @@
 package it.polimi.ingsw.LM45.view.gui.personalBoard;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.EnumMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
-import com.google.gson.JsonIOException;
-import com.google.gson.JsonSyntaxException;
-
-import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.CardType;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.PlayerColor;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.ResourceType;
-import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.network.client.ClientController;
-import it.polimi.ingsw.LM45.serialization.FileManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

@@ -1,7 +1,6 @@
 package it.polimi.ingsw.LM45.model.cards;
 
 import java.io.Serializable;
-import java.util.Arrays;
 
 import it.polimi.ingsw.LM45.model.effects.CardEffect;
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;

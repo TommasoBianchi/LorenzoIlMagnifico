@@ -1,7 +1,6 @@
 package it.polimi.ingsw.LM45.view.controller;
 
 import it.polimi.ingsw.LM45.model.cards.Card;
-import it.polimi.ingsw.LM45.model.cards.CardType;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.cards.PeriodType;

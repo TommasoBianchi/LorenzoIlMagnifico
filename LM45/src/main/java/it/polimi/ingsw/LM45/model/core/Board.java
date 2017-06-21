@@ -1,9 +1,9 @@
 package it.polimi.ingsw.LM45.model.core;
 
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 
 import it.polimi.ingsw.LM45.config.BoardConfiguration;

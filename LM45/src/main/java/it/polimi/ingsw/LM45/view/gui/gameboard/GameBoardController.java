@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.Set;
 
 import it.polimi.ingsw.LM45.model.cards.Card;
-import it.polimi.ingsw.LM45.model.cards.CardType;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
 import it.polimi.ingsw.LM45.model.cards.PeriodType;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
