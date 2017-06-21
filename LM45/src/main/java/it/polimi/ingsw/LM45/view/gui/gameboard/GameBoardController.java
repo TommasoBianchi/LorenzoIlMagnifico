@@ -57,7 +57,7 @@ public class GameBoardController {
 	private FlowPane coverableHarvestSlot;
 
 	@FXML
-	private GridPane rightGrid;
+	private AnchorPane rightPane;
 
 	private Stage stage;
 	private String myUsername;
@@ -79,7 +79,7 @@ public class GameBoardController {
 
 		for (int i = 0; i < playersUsername.length; i++) {
 			usersPersonalBoards.put(playersUsername[i],
-					new PersonalBoardController(new Stage(), playersUsername[i], playerColors[i]));
+					new PersonalBoardController(new Stage(), playersUsername[i], playerColors[i], clientController));
 		}
 
 		for (int i = 0, l = 0; i < 2; i++)
@@ -248,14 +248,13 @@ public class GameBoardController {
 	}
 
 	public void disableGameBoard() {
-		rightGrid.setDisable(true);
-		dialogBox.setDisable(false);
+		rightPane.setDisable(true);
 		setSlotsDisabled(true);
 	}
 
 	public void myTurn() {
 		writeInDialogBox("It's my turn!");
-		rightGrid.setDisable(false);
+		rightPane.setDisable(false);
 		setSlotsDisabled(false);
 	}
 
