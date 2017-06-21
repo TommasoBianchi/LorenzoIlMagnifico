@@ -251,10 +251,10 @@ public class Player {
 	
 	/**
 	 * @param familiarColor the familiarColor of the familiar we want to retrieve
-	 * @return the value of the requested familiar
+	 * @return the value of the requested familiar (-1 if the familiar is not present -- should never happen)
 	 */
 	public int getFamiliarValue(FamiliarColor familiarColor){
-		return Arrays.stream(familiars).filter(familiar -> familiar.getFamiliarColor() == familiarColor).findFirst().get().getValue();
+		return Arrays.stream(familiars).filter(familiar -> familiar.getFamiliarColor() == familiarColor).map(Familiar::getValue).findFirst().orElse(-1);
 	}
 	
 	/**
