@@ -66,6 +66,9 @@ public class GameBoardController {
 	private Map<String, PersonalBoardController> usersPersonalBoards = new HashMap<>();
 	private Set<String> coveredSlotsIDs;
 	private Map<PlayerColor, Pair<Integer, Integer>> playerExcommunicationPosition = new EnumMap<>(PlayerColor.class);
+	
+	//Map<String cardName, String towerslotID>
+	private Map<String, String> cardPosition = new HashMap<>();
 
 	private FamiliarColor familiarColor = FamiliarColor.BONUS;
 	private boolean familiarSelected = false;
@@ -99,7 +102,6 @@ public class GameBoardController {
 			stage.getIcons().add(new Image("file:Assets/Image/Cards/LEADER/LeaderCard Cover.jpg"));
 			stage.initStyle(StageStyle.UNDECORATED);
 			stage.setTitle("Lorenzo il Magnifico");
-			// stage.getScene().getRoot().setDisable(true);
 			stage.show();
 			this.coverSlots(playersUsername.length);
 			this.setUsernames(playersUsername);
@@ -210,10 +212,11 @@ public class GameBoardController {
 	}
 	
 	public void pickCard(Card card, String username){
-		/*ImageView cardView = (ImageView) stage.getScene().lookup("#VIEW" + cardType + position);
-		Image card = cardView.getImage();
-		usersPersonalBoards.get(username).addCard(card, cardType);
-		cardView.setImage(null);*/
+		String position = cardPosition.get(card);
+		ImageView cardView = (ImageView) stage.getScene().lookup(position);
+		Image cardImage = cardView.getImage();
+		usersPersonalBoards.get(username).addCard(cardImage, card.getCardType());
+		cardView.setImage(null);
 	}
 
 	public void familiarSelected(MouseEvent event) {
@@ -279,6 +282,7 @@ public class GameBoardController {
 			System.out.println(cards[i].getName());
 			System.out.println("file:Assets/Image/Cards/" + slotType + "/" + cards[i].getName() + ".png");
 			image.setImage(new Image("file:Assets/Image/Cards/" + slotType + "/" + cards[i].getName() + ".png"));
+			cardPosition.put(cards[i].getName(), "#VIEW" + slotType + i);
 		}
 	}
 
