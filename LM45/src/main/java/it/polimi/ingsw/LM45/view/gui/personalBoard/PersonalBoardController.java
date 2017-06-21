@@ -11,12 +11,15 @@ import it.polimi.ingsw.LM45.model.core.PlayerColor;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.ResourceType;
 import it.polimi.ingsw.LM45.network.client.ClientController;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -114,11 +117,47 @@ public class PersonalBoardController {
 	public void addCard(Image card, CardType cardType) {
 		ImageView imageView = new ImageView();
 		imageView.setImage(card);
-		imageView.setFitWidth(200);
-		imageView.setFitHeight(130);
+		imageView.setFitWidth(130);
+		imageView.setFitHeight(90);
+		imageView.setCursor(Cursor.HAND);
+		imageView.setOnMousePressed(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				zoomImage(event);
+			}
+		});
+		imageView.setOnMouseReleased(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				resetZoomImage(event);
+			}
+		});
 		if (cardFlowPanes.containsKey(cardType)) {
 			cardFlowPanes.get(cardType).getChildren().add(imageView);
 		}
+	}
+
+	public void zoomImage(MouseEvent event) {
+		ImageView image = (ImageView) event.getSource();
+		if (cardFlowPanes.get(CardType.TERRITORY).getChildren().contains(image)
+				|| cardFlowPanes.get(CardType.BUILDING).getChildren().contains(image)) {
+			image.setTranslateX(45);
+		}
+		else {
+			image.setTranslateX(-45);
+		}
+		image.toFront();
+		image.setScaleX(2);
+		image.setScaleY(2);
+	}
+
+	public void resetZoomImage(MouseEvent event) {
+		ImageView image = (ImageView) event.getSource();
+		image.setScaleX(1);
+		image.setScaleY(1);
+		image.setTranslateX(0);
 	}
 
 	public void setResource(Resource resource) {

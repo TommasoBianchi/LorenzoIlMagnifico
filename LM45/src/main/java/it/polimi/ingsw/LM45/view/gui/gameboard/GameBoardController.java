@@ -268,7 +268,6 @@ public class GameBoardController {
 		image.setScaleX(2);
 		image.setScaleY(2);
 		image.setTranslateY(50);
-		image.setTranslateZ(-2);
 		image.toFront();
 	}
 
