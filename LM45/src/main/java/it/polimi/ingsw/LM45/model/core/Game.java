@@ -119,7 +119,7 @@ public class Game {
 		
 		// Roll dices for familiars' values
 		Random random = new Random();
-		for (FamiliarColor familiarColor : FamiliarColor.values()) {
+		for (FamiliarColor familiarColor : new FamiliarColor[]{ FamiliarColor.BLACK, FamiliarColor.WHITE, FamiliarColor.ORANGE }) {
 			int diceValue = random.nextInt(6) + 1; // A random number between 1 (inclusive) and 6 (inclusive)
 			players.stream().forEach(player -> player.setFamiliarValue(familiarColor, diceValue));
 		}
