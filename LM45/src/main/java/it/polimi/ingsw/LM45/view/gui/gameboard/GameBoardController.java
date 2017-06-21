@@ -259,7 +259,7 @@ public class GameBoardController {
 	}
 	
 	public void writeInDialogBox(String message){
-		dialogBox.appendText("> " + message);
+		dialogBox.appendText("\n> " + message);
 		// Scroll to bottom
 		dialogBox.setScrollTop(Double.MAX_VALUE);
 	}
