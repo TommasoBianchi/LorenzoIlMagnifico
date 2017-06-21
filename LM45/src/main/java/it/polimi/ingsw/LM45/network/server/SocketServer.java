@@ -249,9 +249,10 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 	}
 
 	@Override
-	public void pickCard(Card card, String username) throws IOException {
+	public void pickCard(SlotType slotType, int position, String username) throws IOException {
 		outStream.writeObject(ClientMessages.PICK_CARD);
-		outStream.writeObject(card);
+		outStream.writeObject(slotType);
+		outStream.writeObject(Integer.valueOf(position));
 		outStream.writeObject(username);
 	}
 

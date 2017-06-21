@@ -197,8 +197,8 @@ public class ClientController {
 	}*/
 	// TEST
 	
-	public void pickCard(Card card, String username) {
-		viewInterface.pickCard(card, username);
+	public void pickCard(SlotType slotType, int position, String username) {
+		viewInterface.pickCard(slotType, position, username);
 	}
 
 	public void addCardsOnTower(Card[] cards, SlotType slotType) {

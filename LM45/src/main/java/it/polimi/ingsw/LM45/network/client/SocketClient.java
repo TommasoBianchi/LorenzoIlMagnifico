@@ -97,18 +97,19 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 				});
 				break;
 			case PICK_CARD:
-				Card card = (Card) inStream.readObject();
+				SlotType slotType = (SlotType) inStream.readObject();
+				Integer position = (Integer) inStream.readObject();
 				username = (String) inStream.readObject();
-				performAsync(() -> pickCard(card, username)); 
+				performAsync(() -> pickCard(slotType, position, username)); 
 				break;
 			case SETUP_TOWER:
 				Card[] cards = (Card[]) inStream.readObject();
-				SlotType slotType = (SlotType) inStream.readObject();
+				slotType = (SlotType) inStream.readObject();
 				performAsync(() -> addCardsOnTower(cards, slotType)); 
 				break;
 			case ADD_FAMILIAR:
 				slotType = (SlotType) inStream.readObject();
-				Integer position = (Integer) inStream.readObject();
+				position = (Integer) inStream.readObject();
 				FamiliarColor familiarColor = (FamiliarColor) inStream.readObject();
 				PlayerColor playerColor = (PlayerColor) inStream.readObject();				
 				performAsync(() -> addFamiliar(slotType, position, familiarColor, playerColor)); 
@@ -236,8 +237,8 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 	}
 
 	@Override
-	public void pickCard(Card card, String username) {
-		clientController.pickCard(card, username);
+	public void pickCard(SlotType slotType, int position, String username) {
+		clientController.pickCard(slotType, position, username);
 	}
 
 	@Override

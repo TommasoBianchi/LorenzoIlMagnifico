@@ -90,8 +90,8 @@ public class RMIClient implements RemoteClientInterface, ServerInterface {
 	}
 
 	@Override
-	public void pickCard(Card card, String username) {
-		clientController.pickCard(card, username);
+	public void pickCard(SlotType slotType, int position, String username) {
+		clientController.pickCard(slotType, position, username);
 	}
 
 	@Override

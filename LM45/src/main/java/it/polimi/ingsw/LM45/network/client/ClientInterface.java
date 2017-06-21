@@ -19,7 +19,7 @@ public interface ClientInterface {
 	public void notifyPlayerTurn(String player) throws IOException;
 	public void throwGameException(GameException gameException) throws IOException;
 	public int chooseFrom(String[] alternatives) throws IOException;
-	public void pickCard(Card card, String username) throws IOException;
+	public void pickCard(SlotType slotType, int position, String username) throws IOException;
 	public void addCardsOnTower(Card[] cards, SlotType slotType) throws IOException;
 	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor) throws IOException;
 	public void setLeaderCards(LeaderCard[] leaders) throws IOException;
