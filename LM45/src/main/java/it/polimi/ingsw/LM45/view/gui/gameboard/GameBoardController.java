@@ -312,13 +312,8 @@ public class GameBoardController {
 
 	private void clearSlots() {
 		// Remove all familiars from slots
-		for (SlotType slotType : new SlotType[] { SlotType.BUILDING, SlotType.CHARACTER, SlotType.COUNCIL,
-				SlotType.HARVEST, SlotType.MARKET, SlotType.PRODUCTION, SlotType.TERRITORY, SlotType.VENTURE }) {
-			for (int i = 0; i < 4; i++) {
-				FlowPane slot = (FlowPane) stage.getScene().lookup("#" + slotType + i);
-				slot.getChildren().clear();
-			}
-		}
+		for(FlowPane slot : getSlots())
+			slot.getChildren().clear();
 	}
 
 	private void showFamiliars() {
@@ -353,24 +348,24 @@ public class GameBoardController {
 	}
 
 	// Cache slots to avoid a lot of slow calls to scene::lookup
-	private Node[] slots;
+	private FlowPane[] slots;
 
-	private Node[] getSlots() {
+	private FlowPane[] getSlots() {
 		if (slots != null)
 			return slots;
 
-		List<Node> nodes = new ArrayList<>();
+		List<FlowPane> nodes = new ArrayList<>();
 		for (SlotType slotType : new SlotType[] { SlotType.BUILDING, SlotType.CHARACTER, SlotType.COUNCIL,
 				SlotType.HARVEST, SlotType.MARKET, SlotType.PRODUCTION, SlotType.TERRITORY, SlotType.VENTURE }) {
 			for (int i = 0; i < 4; i++) {
 				String slotID = "#" + slotType + i;
 				Node slot = stage.getScene().lookup(slotID);
 				if (slot != null && !coveredSlotsIDs.contains(slotID))
-					nodes.add(slot);
+					nodes.add((FlowPane)slot);
 			}
 		}
 
-		slots = nodes.stream().toArray(Node[]::new);
+		slots = nodes.stream().toArray(FlowPane[]::new);
 		return slots;
 	}
 
