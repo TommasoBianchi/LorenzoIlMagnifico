@@ -57,7 +57,10 @@ public class GameBoardController {
 	private FlowPane coverableHarvestSlot;
 
 	@FXML
-	private AnchorPane rightPane;
+	private GridPane familiarPane;
+	
+	@FXML
+	private Button endTurnButton;
 
 	private Stage stage;
 	private String myUsername;
@@ -231,6 +234,7 @@ public class GameBoardController {
 		usersPersonalBoards.get(playerColorName.get(playerColor)).familiarUsed(familiarColor);
 		if (playerColorName.get(playerColor) == myUsername)
 			this.familiarUsed(familiarColor);
+		endTurnButton.setDisable(false);
 	}
 
 	public void familiarSelected(MouseEvent event) {
@@ -278,13 +282,14 @@ public class GameBoardController {
 	}
 
 	public void disableGameBoard() {
-		rightPane.setDisable(true);
+		familiarPane.setDisable(true);
 		setSlotsDisabled(true);
+		endTurnButton.setDisable(true);
 	}
 
 	public void myTurn() {
 		writeInDialogBox("It's my turn!");
-		rightPane.setDisable(false);
+		familiarPane.setDisable(false);
 		setSlotsDisabled(false);
 	}
 
