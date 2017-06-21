@@ -33,7 +33,7 @@ public class ResourceEffect extends Effect {
 	@Override
 	public void resolveEffect(EffectResolutor effectResolutor) {
 		for (Resource resource : resourcesToPay) {
-			effectResolutor.addResources(resource);
+			effectResolutor.addResources(resource.multiply(-1)); // Pay a negative amount of resources
 		}
 
 		if (resourceToMultiply == null) {
