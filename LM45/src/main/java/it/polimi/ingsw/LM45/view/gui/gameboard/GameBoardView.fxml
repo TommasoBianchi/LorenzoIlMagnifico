@@ -483,7 +483,7 @@
             </AnchorPane>
             <AnchorPane prefHeight="750.0" prefWidth="162.0" GridPane.columnIndex="2">
                <children>
-                  <GridPane fx:id="rightGrid" layoutX="79.0" layoutY="155.0" prefHeight="750.0" prefWidth="128.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <GridPane layoutX="79.0" layoutY="155.0" prefHeight="750.0" prefWidth="128.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -492,7 +492,7 @@
                       <RowConstraints maxHeight="504.0" minHeight="10.0" prefHeight="504.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                        <AnchorPane fx:id="rightPane" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                            <children>
                               <GridPane alignment="CENTER" layoutY="100.0" prefHeight="280.0" prefWidth="264.0" AnchorPane.bottomAnchor="104.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="70.0">
                                 <columnConstraints>
