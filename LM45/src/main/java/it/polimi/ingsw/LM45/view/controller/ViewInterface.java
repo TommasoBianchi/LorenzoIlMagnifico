@@ -3,6 +3,7 @@ package it.polimi.ingsw.LM45.view.controller;
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
+import it.polimi.ingsw.LM45.model.cards.PeriodType;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.PersonalBonusTile;
 import it.polimi.ingsw.LM45.model.core.PlayerColor;
@@ -34,5 +35,6 @@ public interface ViewInterface {
 	public void playLeaderCard(String username, LeaderCard leader);
 	public void activateLeaderCard(String username, LeaderCard leader);
 	public void setPersonalBonusTile(String username, PersonalBonusTile personalBonusTile);
+	public void placeExcommunicationToken(PlayerColor playerColor, PeriodType periodType);
 	
 }

@@ -10,6 +10,7 @@ import java.util.Set;
 
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
+import it.polimi.ingsw.LM45.model.cards.PeriodType;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.PlayerColor;
 import it.polimi.ingsw.LM45.model.core.SlotType;
@@ -300,6 +301,15 @@ public class GameBoardController {
 		
 		slots = nodes.stream().toArray(Node[]::new);
 		return slots;
+	}
+	
+	public void placeExcommunicationToken(PlayerColor playerColor, PeriodType periodType){
+		GridPane excommunication = (GridPane) stage.getScene().lookup("#EXCOMMUNICATION" + periodType.name());
+		String tokenPath = "file:Assets/Image/ExcommunicationToken/";
+		ImageView token = new ImageView(new Image(tokenPath + "/" + playerColor + ".png"));
+		token.setFitHeight(17);
+		token.setFitWidth(17);
+		excommunication.getChildren().add(token);
 	}
 
 }
