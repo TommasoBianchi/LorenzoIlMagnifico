@@ -58,7 +58,7 @@ public class GameBoardController {
 
 	@FXML
 	private GridPane familiarPane;
-	
+
 	@FXML
 	private Button endTurnButton;
 
@@ -107,12 +107,12 @@ public class GameBoardController {
 			stage.initStyle(StageStyle.UNDECORATED);
 			stage.setTitle("Lorenzo il Magnifico");
 			stage.show();
-			this.coverSlots(playersUsername.length);
-			this.setUsernames(playersUsername);
-			this.setServantCost(1);
-			this.setFamiliarsColors(playersUsername, playerColors);
-			this.disableGameBoard();
-			this.placeExcommunications(excommunications);
+			coverSlots(playersUsername.length);
+			setUsernames(playersUsername);
+			setServantCost(1);
+			setFamiliarsColors(playersUsername, playerColors);
+			disableGameBoard();
+			placeExcommunications(excommunications);
 		} catch (IOException e) { // TODO sistemare
 			e.printStackTrace();
 		}
@@ -192,7 +192,7 @@ public class GameBoardController {
 	public void setResources(Resource[] resources, String username) {
 		if (username == myUsername)
 			for (Resource resource : resources)
-				this.setResourceGameboard(resource);
+				setResourceGameboard(resource);
 		for (Resource resource : resources)
 			usersPersonalBoards.get(username).setResource(resource);
 	}
@@ -211,8 +211,14 @@ public class GameBoardController {
 			int position = Integer.parseInt(slot.getId().substring(slot.getId().length() - 1));
 			clientController.placeFamiliar(familiarColor, slotType, position);
 			writeInDialogBox(slotType + " slot " + position);
-			familiarSelected = false;
 		}
+	}
+
+	public void doBonusAction(SlotType slotType, int value) {
+		writeInDialogBox("Do Bonus Action: " + slotType + " of value " + value);
+		familiarColor = FamiliarColor.BONUS;
+		
+		//TODO add value and + icon to increase action value
 	}
 
 	public void pickCard(Card card, String username) {
@@ -232,9 +238,10 @@ public class GameBoardController {
 		familiar.setFitWidth(25);
 		slot.getChildren().add(familiar);
 		usersPersonalBoards.get(playerColorName.get(playerColor)).familiarUsed(familiarColor);
-		if (playerColorName.get(playerColor) == myUsername){
-			this.familiarUsed(familiarColor);
+		if (playerColorName.get(playerColor) == myUsername) {
+			familiarUsed(familiarColor);
 			endTurnButton.setDisable(false);
+			familiarPane.setDisable(true);
 		}
 	}
 
@@ -278,8 +285,9 @@ public class GameBoardController {
 	}
 
 	public void endTurn() {
+		familiarSelected = false;
 		clientController.endTurn();
-		this.disableGameBoard();
+		disableGameBoard();
 	}
 
 	public void disableGameBoard() {
@@ -307,13 +315,13 @@ public class GameBoardController {
 			image.setImage(new Image("file:Assets/Image/Cards/" + slotType + "/" + cards[i].getName() + ".png"));
 			cardPosition.put(cards[i].getName(), "#VIEW" + slotType + i);
 		}
-		this.clearSlots();
-		this.showFamiliars();
+		clearSlots();
+		showFamiliars();
 	}
 
 	private void clearSlots() {
 		// Remove all familiars from slots
-		for(FlowPane slot : getSlots())
+		for (FlowPane slot : getSlots())
 			slot.getChildren().clear();
 	}
 
@@ -362,7 +370,7 @@ public class GameBoardController {
 				String slotID = "#" + slotType + i;
 				Node slot = stage.getScene().lookup(slotID);
 				if (slot != null && !coveredSlotsIDs.contains(slotID))
-					nodes.add((FlowPane)slot);
+					nodes.add((FlowPane) slot);
 			}
 		}
 
