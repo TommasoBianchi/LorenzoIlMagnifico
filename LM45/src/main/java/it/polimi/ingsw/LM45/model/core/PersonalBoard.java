@@ -117,9 +117,10 @@ public class PersonalBoard {
 	 * @param value the value of the harvest action
 	 */
 	public void harvest(EffectResolutor effectResolutor, int value){
-		for(Card card : cards.get(CardType.TERRITORY)){
-			card.resolveEffect(effectResolutor, value);
-		}
+		if(cards.get(CardType.BUILDING) != null)
+			for(Card card : cards.get(CardType.TERRITORY)){
+				card.resolveEffect(effectResolutor, value);
+			}
 	}
 
 	/**
@@ -127,8 +128,9 @@ public class PersonalBoard {
 	 * @param value the value of the production action
 	 */
 	public void produce(EffectResolutor effectResolutor, int value){
-		for(Card card : cards.get(CardType.BUILDING)){
-			card.resolveEffect(effectResolutor, value);
-		}
+		if(cards.get(CardType.BUILDING) != null)
+			for(Card card : cards.get(CardType.BUILDING)){
+				card.resolveEffect(effectResolutor, value);
+			}
 	}
 }
