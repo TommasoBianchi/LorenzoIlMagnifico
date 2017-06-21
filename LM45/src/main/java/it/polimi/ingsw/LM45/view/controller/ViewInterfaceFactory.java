@@ -7,16 +7,20 @@ public class ViewInterfaceFactory {
 
 	public static ViewInterface create(ViewType viewType) {
 	
-		switch (viewType) {
+		return new GuiController();
+		
+		// TODO: implement
+		
+		/*switch (viewType) {
 			case GUI:
 				return new GuiController();
 			
 			case CLI:
-				//return new CliController();
+				return new CliController();
 				
 			default:
 				return new GuiController();
-		}
+		}*/
 	}
 
 }
