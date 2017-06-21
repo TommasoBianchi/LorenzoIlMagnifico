@@ -212,7 +212,7 @@ public class GameBoardController {
 	}
 	
 	public void pickCard(Card card, String username){
-		String position = cardPosition.get(card);
+		String position = cardPosition.get(card.getName());
 		ImageView cardView = (ImageView) stage.getScene().lookup(position);
 		Image cardImage = cardView.getImage();
 		usersPersonalBoards.get(username).addCard(cardImage, card.getCardType());
