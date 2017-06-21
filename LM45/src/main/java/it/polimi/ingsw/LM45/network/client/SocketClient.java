@@ -11,6 +11,7 @@ import org.omg.CORBA.portable.IndirectionException;
 
 import it.polimi.ingsw.LM45.exceptions.GameException;
 import it.polimi.ingsw.LM45.model.cards.Card;
+import it.polimi.ingsw.LM45.model.cards.CardType;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.cards.PeriodType;
@@ -97,14 +98,14 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 				});
 				break;
 			case PICK_CARD:
-				SlotType slotType = (SlotType) inStream.readObject();
+				CardType cardType = (CardType) inStream.readObject();
 				Integer position = (Integer) inStream.readObject();
 				username = (String) inStream.readObject();
-				performAsync(() -> pickCard(slotType, position, username)); 
+				performAsync(() -> pickCard(cardType, position, username)); 
 				break;
 			case SETUP_TOWER:
 				Card[] cards = (Card[]) inStream.readObject();
-				slotType = (SlotType) inStream.readObject();
+				SlotType slotType = (SlotType) inStream.readObject();
 				performAsync(() -> addCardsOnTower(cards, slotType)); 
 				break;
 			case ADD_FAMILIAR:
@@ -237,8 +238,8 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 	}
 
 	@Override
-	public void pickCard(SlotType slotType, int position, String username) {
-		clientController.pickCard(slotType, position, username);
+	public void pickCard(CardType cardType, int position, String username) {
+		clientController.pickCard(cardType, position, username);
 	}
 
 	@Override

@@ -10,6 +10,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import it.polimi.ingsw.LM45.exceptions.GameException;
 import it.polimi.ingsw.LM45.model.cards.Card;
+import it.polimi.ingsw.LM45.model.cards.CardType;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.cards.PeriodType;
@@ -249,9 +250,9 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 	}
 
 	@Override
-	public void pickCard(SlotType slotType, int position, String username) throws IOException {
+	public void pickCard(CardType cardType, int position, String username) throws IOException {
 		outStream.writeObject(ClientMessages.PICK_CARD);
-		outStream.writeObject(slotType);
+		outStream.writeObject(cardType);
 		outStream.writeObject(Integer.valueOf(position));
 		outStream.writeObject(username);
 	}

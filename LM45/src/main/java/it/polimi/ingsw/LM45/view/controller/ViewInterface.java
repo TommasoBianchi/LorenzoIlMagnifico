@@ -1,6 +1,7 @@
 package it.polimi.ingsw.LM45.view.controller;
 
 import it.polimi.ingsw.LM45.model.cards.Card;
+import it.polimi.ingsw.LM45.model.cards.CardType;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.cards.PeriodType;
@@ -18,7 +19,7 @@ public interface ViewInterface {
 	// playerusername ha tutti gli username...myusername lo prendo dal client controller
 	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor);
 	// do also disableFamiliar() in the GameBoard
-	public void pickCard(SlotType slotType, int position, String username);
+	public void pickCard(CardType cardType, int position, String username);
 	public void addCardsOnTower(Card[] cards, SlotType slotType);
 	//cancel existing cards and sostituisci
 	public void setFamiliar(String username,FamiliarColor color, int value);

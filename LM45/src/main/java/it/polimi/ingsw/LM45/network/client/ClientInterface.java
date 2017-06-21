@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import it.polimi.ingsw.LM45.exceptions.GameException;
 import it.polimi.ingsw.LM45.model.cards.Card;
+import it.polimi.ingsw.LM45.model.cards.CardType;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.cards.PeriodType;
@@ -19,7 +20,7 @@ public interface ClientInterface {
 	public void notifyPlayerTurn(String player) throws IOException;
 	public void throwGameException(GameException gameException) throws IOException;
 	public int chooseFrom(String[] alternatives) throws IOException;
-	public void pickCard(SlotType slotType, int position, String username) throws IOException;
+	public void pickCard(CardType cardType, int position, String username) throws IOException;
 	public void addCardsOnTower(Card[] cards, SlotType slotType) throws IOException;
 	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor) throws IOException;
 	public void setLeaderCards(LeaderCard[] leaders) throws IOException;

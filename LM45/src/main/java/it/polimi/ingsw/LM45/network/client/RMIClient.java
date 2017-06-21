@@ -9,6 +9,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 import it.polimi.ingsw.LM45.exceptions.GameException;
 import it.polimi.ingsw.LM45.model.cards.Card;
+import it.polimi.ingsw.LM45.model.cards.CardType;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.cards.PeriodType;
@@ -90,8 +91,8 @@ public class RMIClient implements RemoteClientInterface, ServerInterface {
 	}
 
 	@Override
-	public void pickCard(SlotType slotType, int position, String username) {
-		clientController.pickCard(slotType, position, username);
+	public void pickCard(CardType cardType, int position, String username) {
+		clientController.pickCard(cardType, position, username);
 	}
 
 	@Override
