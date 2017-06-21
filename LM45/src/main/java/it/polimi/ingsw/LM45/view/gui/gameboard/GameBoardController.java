@@ -86,6 +86,7 @@ public class GameBoardController {
 			this.setUsernames(playersUsername);
 			this.setServantCost(1);
 			this.setFamiliarsColors(playersUsername, playerColors);
+			this.disableGameBoard();
 		} catch (IOException e) { // TODO sistemare
 			e.printStackTrace();
 		}
