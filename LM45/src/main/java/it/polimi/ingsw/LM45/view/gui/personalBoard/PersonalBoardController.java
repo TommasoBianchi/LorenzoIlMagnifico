@@ -17,6 +17,7 @@ import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.PlayerColor;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.ResourceType;
+import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.network.client.ClientController;
 import it.polimi.ingsw.LM45.serialization.FileManager;
 import javafx.fxml.FXML;
@@ -99,23 +100,6 @@ public class PersonalBoardController {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-
-		// TEST
-		try {
-			Map<CardType, List<Card>> deck = FileManager.loadCards();
-
-			for (int j = 0; j < 12; j++) {
-				CardType cardType = CardType.values()[(new Random()).nextInt(CardType.values().length - 1)];
-				Card card = deck.get(cardType).get(0);
-				this.addCard(card);
-			}
-
-			this.addLeaderCard(null);
-		} catch (JsonSyntaxException | JsonIOException | FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		// TEST
 	}
 
 	@FXML
@@ -136,15 +120,13 @@ public class PersonalBoardController {
 		leaderCardsInHand.getChildren().clear();
 	}
 
-	public void addCard(Card card) {
-		String path = "file:Assets/Image/Cards/" + card.getCardType() + "/" + card.getName() + ".png";
-		ImageView imageView = new ImageView(new Image(path));
-		imageView.setPreserveRatio(true);
+	public void addCard(Image card, CardType cardType) {
+		ImageView imageView = new ImageView();
+		imageView.setImage(card);
 		imageView.setFitWidth(200);
 		imageView.setFitHeight(130);
-		if (cardFlowPanes.containsKey(card.getCardType())) {
-			System.out.println("New " + card.getCardType());
-			cardFlowPanes.get(card.getCardType()).getChildren().add(imageView);
+		if (cardFlowPanes.containsKey(cardType)) {
+			cardFlowPanes.get(cardType).getChildren().add(imageView);
 		}
 	}
 

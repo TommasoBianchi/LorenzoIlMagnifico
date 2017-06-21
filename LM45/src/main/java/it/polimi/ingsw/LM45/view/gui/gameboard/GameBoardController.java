@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 
 import it.polimi.ingsw.LM45.model.cards.Card;
+import it.polimi.ingsw.LM45.model.cards.CardType;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
 import it.polimi.ingsw.LM45.model.cards.PeriodType;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
@@ -207,6 +208,13 @@ public class GameBoardController {
 			familiarSelected = false;
 		}
 	}
+	
+	public void pickCard(CardType cardType, int position, String username){
+		ImageView cardView = (ImageView) stage.getScene().lookup("#VIEW" + cardType + position);
+		Image card = cardView.getImage();
+		usersPersonalBoards.get(username).addCard(card, cardType);
+		cardView.setImage(null);
+	}
 
 	public void familiarSelected(MouseEvent event) {
 		ImageView image = (ImageView) event.getSource();
@@ -261,10 +269,6 @@ public class GameBoardController {
 	public void spendServant(MouseEvent event) {
 		ImageView addIcon = (ImageView) event.getSource();
 		clientController.increaseFamiliarValue(FamiliarColor.valueOf(addIcon.getId()));
-	}
-
-	public void addCard(String username, Card card) {
-		usersPersonalBoards.get(username).addCard(card);
 	}
 
 	public void addCardsOnTower(Card[] cards, SlotType slotType) {

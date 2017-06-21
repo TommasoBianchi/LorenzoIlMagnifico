@@ -3,6 +3,7 @@ package it.polimi.ingsw.LM45.view.controller;
 import java.util.Arrays;
 
 import it.polimi.ingsw.LM45.model.cards.Card;
+import it.polimi.ingsw.LM45.model.cards.CardType;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.cards.PeriodType;
@@ -118,9 +119,8 @@ public class GuiController implements ViewInterface {
 	}
 
 	@Override
-	public void pickCard(Card card, String username) {
-		// TODO Auto-generated method stub
-
+	public void pickCard(CardType cardType, int position, String username) {
+		Platform.runLater(() -> gameBoardController.pickCard(cardType, position, username));
 	}
 
 	@Override
