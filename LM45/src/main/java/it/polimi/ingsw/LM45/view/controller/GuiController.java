@@ -114,8 +114,7 @@ public class GuiController implements ViewInterface {
 
 	@Override
 	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor) {
-		// TODO Auto-generated method stub
-
+		Platform.runLater(() -> gameBoardController.addFamiliar(slotType, position, familiarColor, playerColor));
 	}
 
 	@Override

@@ -38,119 +38,239 @@
                   <FlowPane id="TERRITORY3" layoutX="96.0" layoutY="38.0" onMouseClicked="#doAction" prefHeight="40.0" prefWidth="44.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></FlowPane>
+                     </cursor>
+                     <padding>
+                        <Insets left="10.0" top="8.0" />
+                     </padding></FlowPane>
                   <FlowPane id="TERRITORY2" layoutX="96.0" layoutY="136.0" onMouseClicked="#doAction" prefHeight="40.0" prefWidth="44.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></FlowPane>
+                     </cursor>
+                     <padding>
+                        <Insets left="10.0" top="8.0" />
+                     </padding></FlowPane>
                   <FlowPane id="TERRITORY1" layoutX="96.0" layoutY="235.0" onMouseClicked="#doAction" prefHeight="40.0" prefWidth="44.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></FlowPane>
+                     </cursor>
+                     <padding>
+                        <Insets left="10.0" top="8.0" />
+                     </padding></FlowPane>
                   <FlowPane id="TERRITORY0" layoutX="95.0" layoutY="332.0" onMouseClicked="#doAction" prefHeight="40.0" prefWidth="44.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></FlowPane>
+                     </cursor>
+                     <padding>
+                        <Insets left="10.0" top="8.0" />
+                     </padding></FlowPane>
                   <FlowPane id="CHARACTER3" layoutX="242.0" layoutY="36.0" onMouseClicked="#doAction" prefHeight="40.0" prefWidth="44.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></FlowPane>
+                     </cursor>
+                     <padding>
+                        <Insets left="10.0" top="8.0" />
+                     </padding></FlowPane>
                   <FlowPane id="BUILDING3" layoutX="391.0" layoutY="37.0" onMouseClicked="#doAction" prefHeight="40.0" prefWidth="44.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></FlowPane>
+                     </cursor>
+                     <padding>
+                        <Insets left="10.0" top="8.0" />
+                     </padding></FlowPane>
                   <FlowPane id="VENTURE3" layoutX="534.0" layoutY="36.0" onMouseClicked="#doAction" prefHeight="40.0" prefWidth="44.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></FlowPane>
+                     </cursor>
+                     <padding>
+                        <Insets left="10.0" top="8.0" />
+                     </padding></FlowPane>
                   <FlowPane id="CHARACTER2" layoutX="242.0" layoutY="137.0" onMouseClicked="#doAction" prefHeight="40.0" prefWidth="44.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></FlowPane>
+                     </cursor>
+                     <padding>
+                        <Insets left="10.0" top="8.0" />
+                     </padding></FlowPane>
                   <FlowPane id="BUILDING2" layoutX="390.0" layoutY="136.0" onMouseClicked="#doAction" prefHeight="40.0" prefWidth="44.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></FlowPane>
+                     </cursor>
+                     <padding>
+                        <Insets left="10.0" top="8.0" />
+                     </padding></FlowPane>
                   <FlowPane id="VENTURE2" layoutX="535.0" layoutY="134.0" onMouseClicked="#doAction" prefHeight="40.0" prefWidth="44.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></FlowPane>
+                     </cursor>
+                     <padding>
+                        <Insets left="10.0" top="8.0" />
+                     </padding></FlowPane>
                   <FlowPane id="CHARACTER1" layoutX="243.0" layoutY="234.0" onMouseClicked="#doAction" prefHeight="40.0" prefWidth="44.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></FlowPane>
+                     </cursor>
+                     <padding>
+                        <Insets left="10.0" top="8.0" />
+                     </padding></FlowPane>
                   <FlowPane id="CHARACTER0" layoutX="242.0" layoutY="331.0" onMouseClicked="#doAction" prefHeight="40.0" prefWidth="44.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></FlowPane>
+                     </cursor>
+                     <padding>
+                        <Insets left="10.0" top="8.0" />
+                     </padding></FlowPane>
                   <FlowPane id="BUILDING1" layoutX="388.0" layoutY="234.0" onMouseClicked="#doAction" prefHeight="40.0" prefWidth="44.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></FlowPane>
+                     </cursor>
+                     <padding>
+                        <Insets left="10.0" top="8.0" />
+                     </padding></FlowPane>
                   <FlowPane id="VENTURE1" layoutX="535.0" layoutY="234.0" onMouseClicked="#doAction" prefHeight="40.0" prefWidth="44.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></FlowPane>
+                     </cursor>
+                     <padding>
+                        <Insets left="10.0" top="8.0" />
+                     </padding></FlowPane>
                   <FlowPane id="BUILDING0" layoutX="389.0" layoutY="329.0" onMouseClicked="#doAction" prefHeight="40.0" prefWidth="44.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></FlowPane>
+                     </cursor>
+                     <padding>
+                        <Insets left="10.0" top="8.0" />
+                     </padding></FlowPane>
                   <FlowPane id="VENTURE0" layoutX="536.0" layoutY="330.0" onMouseClicked="#doAction" prefHeight="40.0" prefWidth="44.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></FlowPane>
-                  <FlowPane id="COUNCIL0" alignment="CENTER_RIGHT" columnHalignment="RIGHT" layoutX="311.0" layoutY="403.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#doAction" prefHeight="51.0" prefWidth="183.0">
+                     </cursor>
+                     <padding>
+                        <Insets left="10.0" top="8.0" />
+                     </padding></FlowPane>
+                  <FlowPane id="COUNCIL0" alignment="CENTER_RIGHT" columnHalignment="RIGHT" layoutX="360.0" layoutY="403.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#doAction" prefHeight="51.0" prefWidth="129.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></FlowPane>
                   <FlowPane id="PRODUCTION0" layoutX="7.0" layoutY="602.0" onMouseClicked="#doAction" prefHeight="40.0" prefWidth="48.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></FlowPane>
+                     </cursor>
+                     <padding>
+                        <Insets left="12.0" top="8.0" />
+                     </padding></FlowPane>
                   <FlowPane id="HARVEST0" layoutX="8.0" layoutY="668.0" onMouseClicked="#doAction" prefHeight="40.0" prefWidth="48.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></FlowPane>
+                     </cursor>
+                     <padding>
+                        <Insets left="12.0" top="8.0" />
+                     </padding></FlowPane>
                   <FlowPane id="MARKET0" layoutX="368.0" layoutY="589.0" onMouseClicked="#doAction" prefHeight="38.0" prefWidth="44.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></FlowPane>
+                     </cursor>
+                     <padding>
+                        <Insets left="10.0" top="8.0" />
+                     </padding></FlowPane>
                   <FlowPane id="MARKET2" fx:id="coverableMarketSlot2" layoutX="492.0" layoutY="596.0" onMouseClicked="#doAction" prefHeight="51.0" prefWidth="57.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></FlowPane>
+                     </cursor>
+                     <padding>
+                        <Insets left="17.0" top="13.0" />
+                     </padding></FlowPane>
                   <FlowPane id="MARKET1" layoutX="436.0" layoutY="588.0" onMouseClicked="#doAction" prefHeight="38.0" prefWidth="44.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></FlowPane>
+                     </cursor>
+                     <padding>
+                        <Insets left="10.0" top="8.0" />
+                     </padding></FlowPane>
                   <FlowPane id="MARKET3" fx:id="coverableMarketSlot3" layoutX="541.0" layoutY="634.0" onMouseClicked="#doAction" prefHeight="51.0" prefWidth="57.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></FlowPane>
-                  <FlowPane id="PRODUCTION1" fx:id="coverableProductionSlot" layoutX="83.0" layoutY="597.0" onMouseClicked="#doAction" prefHeight="51.0" prefWidth="152.0">
+                     </cursor>
+                     <padding>
+                        <Insets left="17.0" top="13.0" />
+                     </padding></FlowPane>
+                  <FlowPane id="PRODUCTION1" fx:id="coverableProductionSlot" layoutX="82.0" layoutY="597.0" onMouseClicked="#doAction" prefHeight="51.0" prefWidth="153.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></FlowPane>
-                  <FlowPane id="HARVEST1" fx:id="coverableHarvestSlot" layoutX="83.0" layoutY="659.0" onMouseClicked="#doAction" prefHeight="51.0" prefWidth="152.0">
+                     </cursor>
+                     <padding>
+                        <Insets left="45.0" right="7.0" top="10.0" />
+                     </padding></FlowPane>
+                  <FlowPane id="HARVEST1" fx:id="coverableHarvestSlot" layoutX="82.0" layoutY="659.0" onMouseClicked="#doAction" prefHeight="51.0" prefWidth="153.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></FlowPane>
-                  <ImageView id="VIEWTERRITORY3" fitHeight="94.0" fitWidth="80.0" layoutX="8.0" layoutY="12.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" />
-                  <ImageView id="VIEWTERRITORY2" fitHeight="94.0" fitWidth="80.0" layoutX="8.0" layoutY="109.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" />
-                  <ImageView id="VIEWTERRITORY1" fitHeight="94.0" fitWidth="80.0" layoutX="7.0" layoutY="207.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" />
-                  <ImageView id="VIEWTERRITORY0" fitHeight="94.0" fitWidth="80.0" layoutX="8.0" layoutY="304.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" />
-                  <ImageView id="VIEWCHARACTER3" fitHeight="94.0" fitWidth="81.0" layoutX="155.0" layoutY="13.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" />
-                  <ImageView id="VIEWCHARACTER2" fitHeight="94.0" fitWidth="80.0" layoutX="156.0" layoutY="109.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" />
-                  <ImageView id="VIEWCHARACTER1" fitHeight="94.0" fitWidth="80.0" layoutX="156.0" layoutY="207.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" />
-                  <ImageView id="VIEWCHARACTER0" fitHeight="94.0" fitWidth="80.0" layoutX="156.0" layoutY="304.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" />
-                  <ImageView id="VIEWBUILDING3" fitHeight="94.0" fitWidth="80.0" layoutX="301.0" layoutY="13.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" />
-                  <ImageView id="VIEWVENTURE3" fitHeight="94.0" fitWidth="80.0" layoutX="446.0" layoutY="11.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" />
-                  <ImageView id="VIEWVENTURE2" fitHeight="94.0" fitWidth="80.0" layoutX="446.0" layoutY="109.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" />
-                  <ImageView id="VIEWVENTURE1" fitHeight="94.0" fitWidth="80.0" layoutX="446.0" layoutY="208.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" />
-                  <ImageView id="VIEWVENTURE0" fitHeight="94.0" fitWidth="80.0" layoutX="446.0" layoutY="304.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" />
-                  <ImageView id="VIEWBUILDING2" fitHeight="94.0" fitWidth="80.0" layoutX="301.0" layoutY="109.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" />
-                  <ImageView id="VIEWBUILDING1" fitHeight="94.0" fitWidth="80.0" layoutX="301.0" layoutY="208.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" />
-                  <ImageView id="VIEWBUILDING0" fitHeight="94.0" fitWidth="80.0" layoutX="301.0" layoutY="304.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" />
+                     </cursor>
+                     <padding>
+                        <Insets left="45.0" right="7.0" top="10.0" />
+                     </padding></FlowPane>
+                  <ImageView id="VIEWTERRITORY3" fitHeight="94.0" fitWidth="80.0" layoutX="8.0" layoutY="12.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></ImageView>
+                  <ImageView id="VIEWTERRITORY2" fitHeight="94.0" fitWidth="80.0" layoutX="8.0" layoutY="109.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></ImageView>
+                  <ImageView id="VIEWTERRITORY1" fitHeight="94.0" fitWidth="80.0" layoutX="7.0" layoutY="207.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></ImageView>
+                  <ImageView id="VIEWTERRITORY0" fitHeight="94.0" fitWidth="80.0" layoutX="8.0" layoutY="304.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></ImageView>
+                  <ImageView id="VIEWCHARACTER3" fitHeight="94.0" fitWidth="81.0" layoutX="155.0" layoutY="13.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></ImageView>
+                  <ImageView id="VIEWCHARACTER2" fitHeight="94.0" fitWidth="80.0" layoutX="156.0" layoutY="109.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></ImageView>
+                  <ImageView id="VIEWCHARACTER1" fitHeight="94.0" fitWidth="80.0" layoutX="156.0" layoutY="207.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></ImageView>
+                  <ImageView id="VIEWCHARACTER0" fitHeight="94.0" fitWidth="80.0" layoutX="156.0" layoutY="304.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></ImageView>
+                  <ImageView id="VIEWBUILDING3" fitHeight="94.0" fitWidth="80.0" layoutX="301.0" layoutY="13.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></ImageView>
+                  <ImageView id="VIEWVENTURE3" fitHeight="94.0" fitWidth="80.0" layoutX="446.0" layoutY="11.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></ImageView>
+                  <ImageView id="VIEWVENTURE2" fitHeight="94.0" fitWidth="80.0" layoutX="446.0" layoutY="109.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></ImageView>
+                  <ImageView id="VIEWVENTURE1" fitHeight="94.0" fitWidth="80.0" layoutX="446.0" layoutY="208.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></ImageView>
+                  <ImageView id="VIEWVENTURE0" fitHeight="94.0" fitWidth="80.0" layoutX="446.0" layoutY="304.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></ImageView>
+                  <ImageView id="VIEWBUILDING2" fitHeight="94.0" fitWidth="80.0" layoutX="301.0" layoutY="109.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></ImageView>
+                  <ImageView id="VIEWBUILDING1" fitHeight="94.0" fitWidth="80.0" layoutX="301.0" layoutY="208.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></ImageView>
+                  <ImageView id="VIEWBUILDING0" fitHeight="94.0" fitWidth="80.0" layoutX="301.0" layoutY="304.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></ImageView>
                   <ImageView id="VIEWEXCOMMUNICATIONI" fitHeight="78.0" fitWidth="56.0" layoutX="100.0" layoutY="439.0" pickOnBounds="true" />
                   <ImageView id="VIEWEXCOMMUNICATIONII" fitHeight="76.0" fitWidth="59.0" layoutX="155.0" layoutY="446.0" pickOnBounds="true" />
                   <GridPane id="EXCOMMUNICATIONII" alignment="CENTER" layoutX="167.0" layoutY="449.0" prefHeight="35.0" prefWidth="35.0">
@@ -699,7 +819,7 @@
                                     <Image url="file:Assets/Image/Lobby/WoodPanel.PNG" />
                                  </image>
                               </ImageView>
-                              <TextArea fx:id="dialogBox" layoutX="67.0" layoutY="65.0" prefHeight="102.0" prefWidth="235.0" stylesheets="@gameboard.css" wrapText="true">
+                              <TextArea fx:id="dialogBox" editable="false" layoutX="67.0" layoutY="65.0" prefHeight="102.0" prefWidth="235.0" stylesheets="@gameboard.css" wrapText="true">
                                  <font>
                                     <Font name="Bell MT Italic" size="14.0" />
                                  </font>

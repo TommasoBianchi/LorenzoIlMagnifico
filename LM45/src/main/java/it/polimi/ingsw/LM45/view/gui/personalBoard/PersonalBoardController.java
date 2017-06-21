@@ -76,8 +76,8 @@ public class PersonalBoardController {
 	private String playerColor;
 	private ClientController clientController;
 
-	private Map<CardType, FlowPane> cardFlowPanes = new EnumMap<CardType, FlowPane>(CardType.class);
-	private Map<ResourceType, Text> resourceTexts = new EnumMap<ResourceType, Text>(ResourceType.class);
+	private Map<CardType, FlowPane> cardFlowPanes = new EnumMap<>(CardType.class);
+	private Map<ResourceType, Text> resourceTexts = new EnumMap<>(ResourceType.class);
 	private boolean isLocalPlayer;
 
 	public PersonalBoardController(Stage stage, String username, PlayerColor playerColor,
@@ -159,6 +159,27 @@ public class PersonalBoardController {
 			ImageView familiarImage = (ImageView) stage.getScene().lookup("#FAMILIAR" + familiarColor);
 			familiarImage
 					.setImage(new Image("file:Assets/Image/Familiars/" + playerColor + "/" + familiarColor + ".png"));
+		}
+	}
+
+	public void familiarUsed(FamiliarColor familiarColor) {
+		ImageView familiarView = (ImageView) stage.getScene().lookup("#FAMILIAR" + familiarColor);
+		familiarView.setOpacity(0);
+		Label familiarValue = (Label) stage.getScene().lookup("#VALUE" + familiarColor);
+		familiarValue.setOpacity(0);
+	}
+
+	public void showFamiliars() {
+		for (FamiliarColor familiarColor : new FamiliarColor[] { FamiliarColor.BLACK, FamiliarColor.ORANGE,
+				FamiliarColor.UNCOLORED, FamiliarColor.WHITE }) {
+			ImageView familiarView = (ImageView) stage.getScene().lookup("#FAMILIAR" + familiarColor);
+			familiarView.setOpacity(1);
+			familiarView.setDisable(false);
+			Label familiarValue = (Label) stage.getScene().lookup("#VALUE" + familiarColor);
+			familiarValue.setOpacity(1);
+			ImageView servantView = (ImageView) stage.getScene().lookup("#" + familiarColor);
+			servantView.setOpacity(1);
+			servantView.setDisable(false);
 		}
 	}
 

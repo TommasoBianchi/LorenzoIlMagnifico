@@ -66,8 +66,9 @@ public class GameBoardController {
 	private Map<String, PersonalBoardController> usersPersonalBoards = new HashMap<>();
 	private Set<String> coveredSlotsIDs;
 	private Map<PlayerColor, Pair<Integer, Integer>> playerExcommunicationPosition = new EnumMap<>(PlayerColor.class);
-	
-	//Map<String cardName, String towerslotID>
+	// Map<PlayerColor, String PlayerName
+	private Map<PlayerColor, String> playerColorName = new HashMap<>();
+	// Map<String cardName, String towerslotID>
 	private Map<String, String> cardPosition = new HashMap<>();
 
 	private FamiliarColor familiarColor = FamiliarColor.BONUS;
@@ -84,6 +85,7 @@ public class GameBoardController {
 		for (int i = 0; i < playersUsername.length; i++) {
 			usersPersonalBoards.put(playersUsername[i],
 					new PersonalBoardController(new Stage(), playersUsername[i], playerColors[i], clientController));
+			playerColorName.put(playerColors[i], playersUsername[i]);
 		}
 
 		for (int i = 0, l = 0; i < 2; i++)
@@ -210,13 +212,26 @@ public class GameBoardController {
 			familiarSelected = false;
 		}
 	}
-	
-	public void pickCard(Card card, String username){
+
+	public void pickCard(Card card, String username) {
 		String position = cardPosition.get(card.getName());
 		ImageView cardView = (ImageView) stage.getScene().lookup(position);
 		Image cardImage = cardView.getImage();
 		usersPersonalBoards.get(username).addCard(cardImage, card.getCardType());
 		cardView.setImage(null);
+		cardView.setDisable(true);
+	}
+
+	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor) {
+		FlowPane slot = (FlowPane) stage.getScene().lookup("#" + slotType + position);
+		String pathFamiliar = "file:Assets/Image/Familiars/" + playerColor + "/" + familiarColor;
+		ImageView familiar = new ImageView(new Image(pathFamiliar));
+		familiar.setFitHeight(25);
+		familiar.setFitWidth(25);
+		slot.getChildren().add(familiar);
+		usersPersonalBoards.get(playerColorName.get(playerColor)).familiarUsed(familiarColor);
+		if (playerColorName.get(playerColor) == myUsername)
+			this.familiarUsed(familiarColor);
 	}
 
 	public void familiarSelected(MouseEvent event) {
@@ -226,10 +241,15 @@ public class GameBoardController {
 		writeInDialogBox(familiarColor + " familiar selected !");
 	}
 
-	public void slotModify(String slotType, Integer position) {
-		FlowPane slot = (FlowPane) stage.getScene().lookup("#" + slotType + position);
-		slot.setStyle("-fx-background-color: black;");
-		// TODO method to addFamiliar
+	private void familiarUsed(FamiliarColor familiarColor) {
+		ImageView familiarView = (ImageView) stage.getScene().lookup("#FAMILIAR" + familiarColor);
+		familiarView.setOpacity(0);
+		familiarView.setDisable(true);
+		Label familiarValue = (Label) stage.getScene().lookup("#VALUE" + familiarColor);
+		familiarValue.setOpacity(0);
+		ImageView servantView = (ImageView) stage.getScene().lookup("#" + familiarColor);
+		servantView.setOpacity(0);
+		servantView.setDisable(true);
 	}
 
 	public void zoomImage(MouseEvent event) {
@@ -278,15 +298,15 @@ public class GameBoardController {
 		// Add new towers cards of the new Period
 		for (int i = 0; i < 4; i++) {
 			ImageView image = (ImageView) stage.getScene().lookup("#VIEW" + slotType + i);
-			System.out.println(cards[i] == null);
-			System.out.println(cards[i].getName());
-			System.out.println("file:Assets/Image/Cards/" + slotType + "/" + cards[i].getName() + ".png");
+			image.setDisable(false);
 			image.setImage(new Image("file:Assets/Image/Cards/" + slotType + "/" + cards[i].getName() + ".png"));
 			cardPosition.put(cards[i].getName(), "#VIEW" + slotType + i);
 		}
+		this.clearSlots();
+		this.showFamiliars();
 	}
 
-	public void clearSlots() {
+	private void clearSlots() {
 		// Remove all familiars from slots
 		for (SlotType slotType : new SlotType[] { SlotType.BUILDING, SlotType.CHARACTER, SlotType.COUNCIL,
 				SlotType.HARVEST, SlotType.MARKET, SlotType.PRODUCTION, SlotType.TERRITORY, SlotType.VENTURE }) {
@@ -295,6 +315,22 @@ public class GameBoardController {
 				slot.getChildren().clear();
 			}
 		}
+	}
+
+	private void showFamiliars() {
+		for (FamiliarColor familiarColor : new FamiliarColor[] { FamiliarColor.BLACK, FamiliarColor.ORANGE,
+				FamiliarColor.UNCOLORED, FamiliarColor.WHITE }) {
+			ImageView familiarView = (ImageView) stage.getScene().lookup("#FAMILIAR" + familiarColor);
+			familiarView.setOpacity(1);
+			familiarView.setDisable(false);
+			Label familiarValue = (Label) stage.getScene().lookup("#VALUE" + familiarColor);
+			familiarValue.setOpacity(1);
+			ImageView servantView = (ImageView) stage.getScene().lookup("#" + familiarColor);
+			servantView.setOpacity(1);
+			servantView.setDisable(false);
+		}
+		for (PersonalBoardController personalController : usersPersonalBoards.values())
+			personalController.showFamiliars();
 	}
 
 	public void writeInDialogBox(String message) {
