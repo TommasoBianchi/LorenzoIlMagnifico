@@ -143,10 +143,12 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 				PlayerColor[] playerColors = (PlayerColor[]) inStream.readObject();
 				Excommunication[] excommunications = (Excommunication[]) inStream.readObject();
 				performAsync(() -> initializeGameBoard(playersUsername, playerColors, excommunications));
+				break;
 			case PLACE_EXCOM:
 				playerColor = (PlayerColor) inStream.readObject();
 				PeriodType periodType = (PeriodType) inStream.readObject();
 				performAsync(() -> placeExcommunicationToken(playerColor, periodType));
+				break;
 			default:
 				break;
 		}
