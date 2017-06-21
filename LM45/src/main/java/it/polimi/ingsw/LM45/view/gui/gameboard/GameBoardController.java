@@ -1,5 +1,6 @@
 package it.polimi.ingsw.LM45.view.gui.gameboard;
 
+import java.awt.TextArea;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +32,7 @@ public class GameBoardController {
 	private Label servantCost;
 
 	@FXML
-	private Label dialogBox;
+	private TextArea dialogBox;
 
 	@FXML
 	private FlowPane coverableMarketSlot2;
