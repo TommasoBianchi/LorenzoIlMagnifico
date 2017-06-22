@@ -65,12 +65,6 @@ public class PersonalBoardController {
 	@FXML
 	private Text faithPointsText;
 
-	@FXML
-	private GridPane leaderCardsInHand;
-
-	@FXML
-	private FlowPane activeLeaderCards;
-
 	private Stage stage;
 	private ClientController clientController;
 
@@ -111,8 +105,6 @@ public class PersonalBoardController {
 		resourceTexts.put(ResourceType.VICTORY, victoryPointsText);
 		resourceTexts.put(ResourceType.MILITARY, militaryPointsText);
 		resourceTexts.put(ResourceType.FAITH, faithPointsText);
-
-		leaderCardsInHand.getChildren().clear();
 	}
 
 	public void addCard(Image cardView, CardType cardType) {
@@ -226,7 +218,31 @@ public class PersonalBoardController {
 	public void discardLeaderCard(LeaderCard leader) {
 		if(stage.getScene().lookup("#" + leader.getName()) != null) {
 			ImageView leaderView = (ImageView) stage.getScene().lookup("#" + leader.getName());
-			leaderCardsInHand.getChildren().remove(leaderView);
+			leaderView.setImage(null);
+			leaderView.setId(null);
+			leaderView.setDisable(true);
+			Button play = (Button) stage.getScene().lookup("#PLAY" + leader.getName());
+			play.setDisable(true);
+			play.setOpacity(0);
+			Button discard = (Button) stage.getScene().lookup("#DISCARD" + leader.getName());
+			discard.setDisable(true);
+			discard.setOpacity(0);
+		} else {
+			for(int i=0; i<4 ; i++){
+				if(stage.getScene().lookup("#HAND" + i) != null) {
+					ImageView cover = (ImageView) stage.getScene().lookup("#HAND" + i);
+					cover.setDisable(true);
+					cover.setImage(null);
+					cover.setId(null);
+					return;
+				}
+			}
+		}
+	}
+	
+	public void playLeaderCard(LeaderCard leader) {
+		if(stage.getScene().lookup("#" + leader.getName()) != null) {
+			ImageView leaderView = (ImageView) stage.getScene().lookup("#" + leader.getName());
 		} else {
 			for(int i=0; i<4 ; i++){
 				if(stage.getScene().lookup("#HAND" + i) != null) {
@@ -237,13 +253,6 @@ public class PersonalBoardController {
 				}
 			}
 		}
-	}
-	
-	public void playLeaderCard(LeaderCard leader) {
-		if(stage.getScene().lookup(leader.getName()) != null) {
-		}
-		
-		//TODO
 	}
 
 	public void activateLeaderCard(LeaderCard leader) {

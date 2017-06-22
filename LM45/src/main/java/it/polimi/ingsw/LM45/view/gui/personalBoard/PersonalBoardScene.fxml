@@ -334,7 +334,7 @@
                   <Insets />
                </GridPane.margin>
             </GridPane>
-            <GridPane fx:id="leaderCardsInHand" nodeOrientation="RIGHT_TO_LEFT" prefHeight="108.0" prefWidth="432.0">
+            <GridPane nodeOrientation="RIGHT_TO_LEFT" prefHeight="108.0" prefWidth="432.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="108.0" minWidth="10.0" prefWidth="108.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="108.0" minWidth="10.0" prefWidth="108.0" />
@@ -447,7 +447,7 @@
                   </ImageView>
                </children>
             </GridPane>
-            <GridPane fx:id="leaderCardsInHand1" alignment="TOP_RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="108.0" prefWidth="432.0" GridPane.columnIndex="2">
+            <GridPane alignment="TOP_RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="108.0" prefWidth="432.0" GridPane.columnIndex="2">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="108.0" minWidth="10.0" prefWidth="108.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="108.0" minWidth="10.0" prefWidth="108.0" />
