@@ -223,20 +223,27 @@ public class PersonalBoardController {
 		clientController.discardLeaderCard(leaderName);
 	}
 	
+	public void discardLeaderCard(LeaderCard leader) {
+		if(stage.getScene().lookup("#" + leader.getName()) != null) {
+			ImageView leaderView = (ImageView) stage.getScene().lookup("#" + leader.getName());
+			leaderCardsInHand.getChildren().remove(leaderView);
+		} else {
+			for(int i=0; i<4 ; i++){
+				if(stage.getScene().lookup("#HAND" + i) != null) {
+					ImageView cover = (ImageView) stage.getScene().lookup("#HAND" + i);
+					cover.setDisable(true);
+					cover.setOpacity(0);
+					return;
+				}
+			}
+		}
+	}
+	
 	public void playLeaderCard(LeaderCard leader) {
 		if(stage.getScene().lookup(leader.getName()) != null) {
 		}
 		
 		//TODO
-	}
-	
-	public void discardLeaderCard(LeaderCard leader) {
-		if(stage.getScene().lookup(leader.getName()) != null) {
-			ImageView leaderView = (ImageView) stage.getScene().lookup(leader.getName());
-			leaderCardsInHand.getChildren().remove(leaderView);
-		} else {
-			//TODO
-		}
 	}
 
 	public void activateLeaderCard(LeaderCard leader) {
