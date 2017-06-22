@@ -173,20 +173,17 @@ public class GuiController implements ViewInterface {
 
 	@Override
 	public void discardLeaderCard(String username, LeaderCard leader) {
-		// TODO Auto-generated method stub
-
+		gameBoardController.discardLeaderCard(username, leader);
 	}
 
 	@Override
 	public void playLeaderCard(String username, LeaderCard leader) {
-		// TODO Auto-generated method stub
-
+		gameBoardController.playLeaderCard(username, leader);
 	}
 
 	@Override
 	public void activateLeaderCard(String username, LeaderCard leader) {
-		// TODO Auto-generated method stub
-
+		gameBoardController.activateLeaderCard(username, leader);
 	}
 
 	@Override
