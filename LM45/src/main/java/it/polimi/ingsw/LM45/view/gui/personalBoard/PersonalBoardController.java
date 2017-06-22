@@ -225,10 +225,9 @@ public class PersonalBoardController {
 	
 	public void playLeaderCard(LeaderCard leader) {
 		if(stage.getScene().lookup(leader.getName()) != null) {
-			ImageView leaderView = (ImageView) stage.getScene().lookup(leader.getName());
-			leaderCardsInHand.getChildren().remove(leaderView);
-			activeLeaderCards.getChildren().add(leaderView);
 		}
+		
+		//TODO
 	}
 	
 	public void discardLeaderCard(LeaderCard leader) {
@@ -236,13 +235,12 @@ public class PersonalBoardController {
 			ImageView leaderView = (ImageView) stage.getScene().lookup(leader.getName());
 			leaderCardsInHand.getChildren().remove(leaderView);
 		} else {
-			
+			//TODO
 		}
 	}
 
 	public void activateLeaderCard(LeaderCard leader) {
 		// TODO Auto-generated method stub
-
 	}
 	
 	public void setPersonalBonusTile(PersonalBonusTile personalBonusTile) {

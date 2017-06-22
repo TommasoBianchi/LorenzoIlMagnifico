@@ -421,6 +421,7 @@ public class GameBoardController {
 	
 	public void setPersonalBonusTile(String username, PersonalBonusTile personalBonusTile) {
 		usersPersonalBoards.get(username).setPersonalBonusTile(personalBonusTile);
+		//TODO insert myPersonalBonusTiles in GameBoard
 	}
 
 }
