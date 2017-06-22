@@ -24,6 +24,20 @@ public class PersonalBonusTile implements Serializable {
 		this.productionBonuses = productionBonuses;
 		this.harvestBonuses = harvestBonuses;
 	}
+	
+	/**
+	 * @return the bonus resources when player produce
+	 */
+	public Resource[] getProductionBonuses() {
+		return productionBonuses;
+	}
+	
+	/**
+	 * @return the bonus resources when player harvest
+	 */
+	public Resource[] getHarvestBonuses() {
+		return harvestBonuses;
+	}
 
 	/**
 	 * @param effectResolutor

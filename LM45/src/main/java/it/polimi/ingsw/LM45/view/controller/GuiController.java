@@ -191,8 +191,7 @@ public class GuiController implements ViewInterface {
 
 	@Override
 	public void setPersonalBonusTile(String username, PersonalBonusTile personalBonusTile) {
-		// TODO Auto-generated method stub
-
+		gameBoardController.setPersonalBonusTile(username, personalBonusTile);
 	}
 	
 	@Override

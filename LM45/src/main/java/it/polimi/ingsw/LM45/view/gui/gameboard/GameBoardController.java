@@ -14,6 +14,7 @@ import it.polimi.ingsw.LM45.model.cards.Excommunication;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.cards.PeriodType;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
+import it.polimi.ingsw.LM45.model.core.PersonalBonusTile;
 import it.polimi.ingsw.LM45.model.core.PlayerColor;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.SlotType;
@@ -416,6 +417,10 @@ public class GameBoardController {
 
 	public void activateLeaderCard(String username, LeaderCard leader) {
 		usersPersonalBoards.get(username).activateLeaderCard(leader);
+	}
+	
+	public void setPersonalBonusTile(String username, PersonalBonusTile personalBonusTile) {
+		usersPersonalBoards.get(username).setPersonalBonusTile(personalBonusTile);
 	}
 
 }
