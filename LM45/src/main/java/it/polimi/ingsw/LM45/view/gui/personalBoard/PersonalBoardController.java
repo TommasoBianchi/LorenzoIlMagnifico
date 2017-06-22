@@ -11,6 +11,7 @@ import it.polimi.ingsw.LM45.model.core.PlayerColor;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.ResourceType;
 import it.polimi.ingsw.LM45.network.client.ClientController;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -73,7 +74,6 @@ public class PersonalBoardController {
 
 	private Map<CardType, FlowPane> cardFlowPanes = new EnumMap<>(CardType.class);
 	private Map<ResourceType, Text> resourceTexts = new EnumMap<>(ResourceType.class);
-	private boolean isLocalPlayer;
 
 	public PersonalBoardController(Stage stage, String username, PlayerColor playerColor,
 			ClientController clienteController) {
@@ -146,6 +146,7 @@ public class PersonalBoardController {
 		image.setScaleY(2);
 		image.getParent().getParent().toFront();
 		image.setTranslateX(-45);
+		image.setTranslateY(-50);
 	}
 
 	public void resetZoomImage(MouseEvent event) {
@@ -153,24 +154,13 @@ public class PersonalBoardController {
 		image.setScaleX(1);
 		image.setScaleY(1);
 		image.setTranslateX(0);
+		image.setTranslateY(0);
 	}
 
 	public void setResource(Resource resource) {
 		if (resourceTexts.containsKey(resource.getResourceType())) {
 			resourceTexts.get(resource.getResourceType()).setText(resource.getAmount() + "");
 		}
-	}
-
-	public void addLeaderCard(LeaderCard leaderCard) {
-		String coverImageFileName = "LeaderCard Cover";
-		String path = "/Image/Cards/LEADER/" + (isLocalPlayer ? "leader.getName()" : coverImageFileName)
-				+ ".jpg";
-		ImageView imageView = new ImageView(new Image(path));
-		imageView.setPreserveRatio(true);
-		imageView.setFitWidth(100);
-		imageView.setFitHeight(150);
-		leaderCardsInHand.getChildren().add(imageView);
-		System.out.println(leaderCardsInHand.getChildren().size());
 	}
 
 	public void setFamiliarValue(FamiliarColor color, int value) {
@@ -182,8 +172,7 @@ public class PersonalBoardController {
 		for (FamiliarColor familiarColor : new FamiliarColor[] { FamiliarColor.BLACK, FamiliarColor.ORANGE,
 				FamiliarColor.UNCOLORED, FamiliarColor.WHITE }) {
 			ImageView familiarImage = (ImageView) stage.getScene().lookup("#FAMILIAR" + familiarColor);
-			familiarImage
-					.setImage(new Image("/Image/Familiars/" + playerColor + "/" + familiarColor + ".png"));
+			familiarImage.setImage(new Image("/Image/Familiars/" + playerColor + "/" + familiarColor + ".png"));
 		}
 	}
 
@@ -203,6 +192,36 @@ public class PersonalBoardController {
 			Label familiarValue = (Label) stage.getScene().lookup("#VALUE" + familiarColor);
 			familiarValue.setOpacity(1);
 		}
+	}
+
+	public void setLeaderCards(LeaderCard[] leaderCard) {
+		String path = "/Image/Cards/LEADER/";
+		for (LeaderCard leader : leaderCard) {
+			ImageView imageView = new ImageView(new Image(path + leader.getName() + ".jpg"));
+			imageView.setPreserveRatio(false);
+			imageView.setFitWidth(100);
+			imageView.setFitHeight(130);
+			leaderCardsInHand.getChildren().add(imageView);
+		}
+	}
+
+	public void setLeaderCards(String coverFileName) {
+		String path = "/Image/Cards/LEADER/" + coverFileName + ".jpg";
+		for (int i = 0; i < 4; i++) {
+			ImageView imageView = new ImageView(new Image(path));
+			imageView.setPreserveRatio(false);
+			imageView.setFitWidth(100);
+			imageView.setFitHeight(130);
+			leaderCardsInHand.getChildren().add(imageView);
+		}
+	}
+
+	public void playLeaderCard(ActionEvent event) {
+		// TODO
+	}
+
+	public void discardLeaderCard(MouseEvent event) {
+		// TODO
 	}
 
 	public Stage getStage() {

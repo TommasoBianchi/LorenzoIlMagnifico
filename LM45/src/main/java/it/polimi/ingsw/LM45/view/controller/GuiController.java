@@ -138,7 +138,7 @@ public class GuiController implements ViewInterface {
 
 	@Override
 	public void doBonusAction(SlotType slotType, int value) {
-		gameBoardController.doBonusAction(slotType, value);
+		Platform.runLater(() -> gameBoardController.doBonusAction(slotType, value));
 	}
 
 	@Override
@@ -168,8 +168,7 @@ public class GuiController implements ViewInterface {
 
 	@Override
 	public void setLeaderCards(LeaderCard[] leaders) {
-		// TODO Auto-generated method stub
-
+		gameBoardController.setLeaderCards(leaders);
 	}
 
 	@Override

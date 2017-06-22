@@ -11,6 +11,7 @@ import java.util.Set;
 
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
+import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.cards.PeriodType;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.PlayerColor;
@@ -399,6 +400,15 @@ public class GameBoardController {
 		token.setFitWidth(15);
 		Pair<Integer, Integer> pair = playerExcommunicationPosition.get(playerColor);
 		excommunication.add(token, pair._1(), pair._2());
+	}
+
+	public void setLeaderCards(LeaderCard[] leaders) {
+		for(PersonalBoardController personalBoard : usersPersonalBoards.values()){
+			if(personalBoard == usersPersonalBoards.get(myUsername))
+				personalBoard.setLeaderCards(leaders);
+			else
+				personalBoard.setLeaderCards("LeaderCard Cover");
+		}
 	}
 
 }
