@@ -491,22 +491,22 @@
                         <Insets left="15.0" top="20.0" />
                      </GridPane.margin>
                   </Button>
-                  <ImageView id="HAND3" fitHeight="130.0" fitWidth="100.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" GridPane.rowIndex="1">
+                  <ImageView id="FIELD0" fitHeight="130.0" fitWidth="100.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" GridPane.rowIndex="1">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <ImageView id="HAND2" fitHeight="130.0" fitWidth="100.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" translateX="-0.0" translateY="-0.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <ImageView id="FIELD1" fitHeight="130.0" fitWidth="100.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" translateX="-0.0" translateY="-0.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <ImageView id="HAND1" fitHeight="130.0" fitWidth="100.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <ImageView id="FIELD2" fitHeight="130.0" fitWidth="100.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <ImageView id="HAND0" fitHeight="130.0" fitWidth="100.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" translateX="-0.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                  <ImageView id="FIELD3" fitHeight="130.0" fitWidth="100.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" translateX="-0.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
