@@ -2,6 +2,7 @@ package it.polimi.ingsw.LM45.view.gui.personalBoard;
 
 import java.io.IOException;
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.Map;
 
 import it.polimi.ingsw.LM45.model.cards.CardType;
@@ -18,11 +19,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.NodeOrientation;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -62,24 +65,20 @@ public class PersonalBoardController {
 	private Text faithPointsText;
 
 	@FXML
-	private FlowPane leaderCardsInHand;
+	private GridPane leaderCardsInHand;
 
 	@FXML
 	private FlowPane activeLeaderCards;
 
 	private Stage stage;
-	private String username;
-	private String playerColor;
 	private ClientController clientController;
 
 	private Map<CardType, FlowPane> cardFlowPanes = new EnumMap<>(CardType.class);
 	private Map<ResourceType, Text> resourceTexts = new EnumMap<>(ResourceType.class);
+	private Map<String, Integer> leaderPositonHand = new HashMap<>();
 
-	public PersonalBoardController(Stage stage, String username, PlayerColor playerColor,
-			ClientController clienteController) {
+	public PersonalBoardController(Stage stage, String username, ClientController clienteController) {
 		this.stage = stage;
-		this.username = username;
-		this.playerColor = playerColor.toString();
 		this.clientController = clienteController;
 
 		FXMLLoader loader = new FXMLLoader();
@@ -196,32 +195,53 @@ public class PersonalBoardController {
 
 	public void setLeaderCards(LeaderCard[] leaderCard) {
 		String path = "/Image/Cards/LEADER/";
-		for (LeaderCard leader : leaderCard) {
-			ImageView imageView = new ImageView(new Image(path + leader.getName() + ".jpg"));
-			imageView.setPreserveRatio(false);
-			imageView.setFitWidth(100);
-			imageView.setFitHeight(130);
-			leaderCardsInHand.getChildren().add(imageView);
+		for (int i=0; i<4; i++) {
+			ImageView leaderView = (ImageView) stage.getScene().lookup("#HAND" + i);
+			leaderView.setImage(new Image(path + leaderCard[i].getName() +".jpg"));
+			leaderView.setId("VIEW" + leaderCard[i].getName());
+			Button play = (Button) stage.getScene().lookup("#PLAY" + i);
+			play.setId("PLAY" + leaderCard[i].getName());
+			play.setDisable(false);
+			play.setOpacity(1);
+			Button discard = (Button) stage.getScene().lookup("#DISCARD" + i);
+			discard.setId("DISCARD" + leaderCard[i].getName());
+			discard.setDisable(false);
+			discard.setOpacity(1);
 		}
 	}
 
-	public void setLeaderCards(String coverFileName) {
-		String path = "/Image/Cards/LEADER/" + coverFileName + ".jpg";
-		for (int i = 0; i < 4; i++) {
-			ImageView imageView = new ImageView(new Image(path));
-			imageView.setPreserveRatio(false);
-			imageView.setFitWidth(100);
-			imageView.setFitHeight(130);
-			leaderCardsInHand.getChildren().add(imageView);
+	public void playLeader(ActionEvent event) {
+		Button button = (Button)event.getSource();
+		String leaderName = button.getId().substring(5);
+		clientController.playLeaderCard(leaderName);
+	}
+
+	public void discardLeader(MouseEvent event) {
+		Button button = (Button)event.getSource();
+		String leaderName = button.getId().substring(8);
+		clientController.discardLeaderCard(leaderName);
+	}
+	
+	public void playLeaderCard(LeaderCard leader) {
+		if(stage.getScene().lookup(leader.getName()) != null) {
+			ImageView leaderView = (ImageView) stage.getScene().lookup(leader.getName());
+			leaderCardsInHand.getChildren().remove(leaderView);
+			activeLeaderCards.getChildren().add(leaderView);
+		}
+	}
+	
+	public void discardLeaderCard(LeaderCard leader) {
+		if(stage.getScene().lookup(leader.getName()) != null) {
+			ImageView leaderView = (ImageView) stage.getScene().lookup(leader.getName());
+			leaderCardsInHand.getChildren().remove(leaderView);
+		} else {
+			
 		}
 	}
 
-	public void playLeaderCard(ActionEvent event) {
-		// TODO
-	}
+	public void activateLeaderCard(String username, LeaderCard leader) {
+		// TODO Auto-generated method stub
 
-	public void discardLeaderCard(MouseEvent event) {
-		// TODO
 	}
 
 	public Stage getStage() {

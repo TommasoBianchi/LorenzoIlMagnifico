@@ -89,7 +89,7 @@ public class GameBoardController {
 
 		for (int i = 0; i < playersUsername.length; i++) {
 			usersPersonalBoards.put(playersUsername[i],
-					new PersonalBoardController(new Stage(), playersUsername[i], playerColors[i], clientController));
+					new PersonalBoardController(new Stage(), playersUsername[i], clientController));
 			playerColorName.put(playerColors[i], playersUsername[i]);
 		}
 
@@ -403,12 +403,21 @@ public class GameBoardController {
 	}
 
 	public void setLeaderCards(LeaderCard[] leaders) {
-		for(PersonalBoardController personalBoard : usersPersonalBoards.values()){
-			if(personalBoard == usersPersonalBoards.get(myUsername))
-				personalBoard.setLeaderCards(leaders);
-			else
-				personalBoard.setLeaderCards("LeaderCard Cover");
-		}
+		usersPersonalBoards.get(myUsername).setLeaderCards(leaders);
+	}
+
+	public void discardLeaderCard(String username, LeaderCard leader) {
+		usersPersonalBoards.get(username).discardLeaderCard(leader);
+	}
+
+	public void playLeaderCard(String username, LeaderCard leader) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void activateLeaderCard(String username, LeaderCard leader) {
+		// TODO Auto-generated method stub
+
 	}
 
 }
