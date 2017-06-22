@@ -199,7 +199,7 @@ public class PersonalBoardController {
 		for (int i=0; i<4; i++) {
 			ImageView leaderView = (ImageView) stage.getScene().lookup("#HAND" + i);
 			leaderView.setImage(new Image(path + leaderCard[i].getName() +".jpg"));
-			leaderView.setId("VIEW" + leaderCard[i].getName());
+			leaderView.setId(leaderCard[i].getName());
 			Button play = (Button) stage.getScene().lookup("#PLAY" + i);
 			play.setId("PLAY" + leaderCard[i].getName());
 			play.setDisable(false);
