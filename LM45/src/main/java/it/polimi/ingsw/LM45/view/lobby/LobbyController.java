@@ -44,11 +44,11 @@ public class LobbyController {
 		
 		FXMLLoader loader = new FXMLLoader();
 		loader.setController(this);
-		loader.setLocation(Main.class.getResource("../lobby/LobbyView.fxml"));
+		loader.setLocation(LobbyController.class.getResource("LobbyView.fxml"));
 		AnchorPane lobby = (AnchorPane) loader.load();
 		Scene scene = new Scene(lobby);
 		stage.setTitle("Lorenzo il Magnifico");
-		stage.getIcons().add(new Image("file:Assets/Image/Cards/LEADER/LeaderCard Cover.jpg"));
+		stage.getIcons().add(new Image("/Image/Cards/LEADER/LeaderCard Cover.jpg"));
 		stage.initStyle(StageStyle.TRANSPARENT);
 		stage.setScene(scene);
 		stage.setResizable(false);

@@ -17,7 +17,7 @@
    <children>
       <ImageView fitHeight="731.0" fitWidth="531.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-11.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-11.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="file:Assets/Image/Lobby/Cover.jpg" />
+            <Image url="/Image/Lobby/Cover.jpg" />
          </image>
       </ImageView>
       <GridPane fx:id="grid" alignment="CENTER" prefHeight="1140.0" prefWidth="818.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -60,7 +60,7 @@
                   </TextField>
                   <ImageView fitHeight="127.0" fitWidth="273.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <image>
-                        <Image url="file:Assets/Image/Lobby/WoodPanel.PNG" />
+                        <Image url="/Image/Lobby/WoodPanel.PNG" />
                      </image>
                      <GridPane.margin>
                         <Insets left="10.0" />

@@ -88,7 +88,7 @@ public class PersonalBoardController {
 			Scene scene = new Scene(loader.load());
 			stage.setResizable(false);
 			stage.setScene(scene);
-			stage.getIcons().add(new Image("file:Assets/Image/Cards/LEADER/LeaderCard Cover.jpg"));
+			stage.getIcons().add(new Image("/Image/Cards/LEADER/LeaderCard Cover.jpg"));
 			stage.setTitle(username + " - Personal Board");
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
@@ -166,7 +166,7 @@ public class PersonalBoardController {
 
 	public void addLeaderCard(LeaderCard leaderCard) {
 		String coverImageFileName = "LeaderCard Cover";
-		String path = "file:Assets/Image/Cards/LEADER/" + (isLocalPlayer ? "leader.getName()" : coverImageFileName)
+		String path = "/Image/Cards/LEADER/" + (isLocalPlayer ? "leader.getName()" : coverImageFileName)
 				+ ".jpg";
 		ImageView imageView = new ImageView(new Image(path));
 		imageView.setPreserveRatio(true);
@@ -186,7 +186,7 @@ public class PersonalBoardController {
 				FamiliarColor.UNCOLORED, FamiliarColor.WHITE }) {
 			ImageView familiarImage = (ImageView) stage.getScene().lookup("#FAMILIAR" + familiarColor);
 			familiarImage
-					.setImage(new Image("file:Assets/Image/Familiars/" + playerColor + "/" + familiarColor + ".png"));
+					.setImage(new Image("/Image/Familiars/" + playerColor + "/" + familiarColor + ".png"));
 		}
 	}
 

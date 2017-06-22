@@ -97,13 +97,13 @@ public class GameBoardController {
 
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("../gui/gameboard/GameBoardView.fxml"));
+			loader.setLocation(GameBoardController.class.getResource("GameBoardView.fxml"));
 			loader.setController(this);
 			AnchorPane gameBoard = (AnchorPane) loader.load();
 			Scene scene = new Scene(gameBoard);
 			stage.setScene(scene);
 			stage.setResizable(false);
-			stage.getIcons().add(new Image("file:Assets/Image/Cards/LEADER/LeaderCard Cover.jpg"));
+			stage.getIcons().add(new Image("/Image/Cards/LEADER/LeaderCard Cover.jpg"));
 			stage.initStyle(StageStyle.UNDECORATED);
 			stage.setTitle("Lorenzo il Magnifico");
 			stage.show();
@@ -126,7 +126,7 @@ public class GameBoardController {
 						FamiliarColor.UNCOLORED, FamiliarColor.WHITE }) {
 					ImageView familiarImage = (ImageView) stage.getScene().lookup("#FAMILIAR" + familiarColor);
 					familiarImage.setImage(
-							new Image("file:Assets/Image/Familiars/" + playerColors[i] + "/" + familiarColor + ".png"));
+							new Image("/Image/Familiars/" + playerColors[i] + "/" + familiarColor + ".png"));
 				}
 			}
 			System.out.println(usersPersonalBoards.containsKey(playersUsername[i]));
@@ -139,23 +139,23 @@ public class GameBoardController {
 
 		if (numPlayers < 4) {
 			coverableMarketSlot2
-					.setStyle("-fx-background-image : url(file:Assets/Image/GameBoard/CoverMarketSlot2.png);"
+					.setStyle("-fx-background-image : url(/Image/GameBoard/CoverMarketSlot2.png);"
 							+ "-fx-background-size : cover;");
 			coverableMarketSlot2.setDisable(true);
 			coveredSlotsIDs.add(coverableMarketSlot2.getId());
 			coverableMarketSlot3
-					.setStyle("-fx-background-image : url(file:Assets/Image/GameBoard/CoverMarketSlot3.png);"
+					.setStyle("-fx-background-image : url(/Image/GameBoard/CoverMarketSlot3.png);"
 							+ "-fx-background-size : cover;");
 			coverableMarketSlot3.setDisable(true);
 			coveredSlotsIDs.add(coverableMarketSlot3.getId());
 			if (numPlayers < 3) {
 				coverableProductionSlot
-						.setStyle("-fx-background-image : url(file:Assets/Image/GameBoard/CoverProduce.png);"
+						.setStyle("-fx-background-image : url(/Image/GameBoard/CoverProduce.png);"
 								+ "-fx-background-size : cover;");
 				coverableProductionSlot.setDisable(true);
 				coveredSlotsIDs.add(coverableProductionSlot.getId());
 				coverableHarvestSlot
-						.setStyle("-fx-background-image : url(file:Assets/Image/GameBoard/CoverHarvest.png);"
+						.setStyle("-fx-background-image : url(/Image/GameBoard/CoverHarvest.png);"
 								+ "-fx-background-size : cover;");
 				coverableHarvestSlot.setDisable(true);
 				coveredSlotsIDs.add(coverableHarvestSlot.getId());
@@ -232,7 +232,7 @@ public class GameBoardController {
 
 	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor) {
 		FlowPane slot = (FlowPane) stage.getScene().lookup("#" + slotType + position);
-		String pathFamiliar = "file:Assets/Image/Familiars/" + playerColor + "/" + familiarColor + ".png";
+		String pathFamiliar = "/Image/Familiars/" + playerColor + "/" + familiarColor + ".png";
 		ImageView familiar = new ImageView(new Image(pathFamiliar));
 		familiar.setFitHeight(25);
 		familiar.setFitWidth(25);
@@ -311,7 +311,7 @@ public class GameBoardController {
 		for (int i = 0; i < 4; i++) {
 			ImageView image = (ImageView) stage.getScene().lookup("#VIEW" + slotType + i);
 			image.setDisable(false);
-			image.setImage(new Image("file:Assets/Image/Cards/" + slotType + "/" + cards[i].getName() + ".png"));
+			image.setImage(new Image("/Image/Cards/" + slotType + "/" + cards[i].getName() + ".png"));
 			cardPosition.put(cards[i].getName(), "#VIEW" + slotType + i);
 		}
 		clearSlots();
@@ -378,7 +378,7 @@ public class GameBoardController {
 	}
 
 	private void placeExcommunications(Excommunication[] excommunications) {
-		String path = "file:Assets/Image/Excommunication/";
+		String path = "/Image/Excommunication/";
 		for (Excommunication excom : excommunications) {
 			ImageView excommunication = (ImageView) stage.getScene()
 					.lookup("#VIEWEXCOMMUNICATION" + excom.getPeriodType().name());
@@ -388,7 +388,7 @@ public class GameBoardController {
 
 	public void placeExcommunicationToken(PlayerColor playerColor, PeriodType periodType) {
 		GridPane excommunication = (GridPane) stage.getScene().lookup("#EXCOMMUNICATION" + periodType.name());
-		String tokenPath = "file:Assets/Image/ExcommunicationToken/";
+		String tokenPath = "/Image/ExcommunicationToken/";
 		ImageView token = new ImageView(new Image(tokenPath + "/" + playerColor + ".png"));
 		token.setFitHeight(15);
 		token.setFitWidth(15);

@@ -32,13 +32,13 @@ public class LeaderCardChoiceController {
 		
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("../gui/leadercard/LeaderCardChoiceView.fxml"));
+			loader.setLocation(LeaderCardChoiceController.class.getResource("LeaderCardChoiceView.fxml"));
 			loader.setController(this);
 			AnchorPane leaderChoice = (AnchorPane) loader.load();
 			Scene scene = new Scene(leaderChoice);
 			stage.setScene(scene);
 			stage.setResizable(false);
-			stage.getIcons().add(new Image("file:Assets/Image/Cards/LEADER/LeaderCard Cover.jpg"));
+			stage.getIcons().add(new Image("/Image/Cards/LEADER/LeaderCard Cover.jpg"));
 			stage.initStyle(StageStyle.UNDECORATED);
 			stage.setTitle("Lorenzo il Magnifico");
 			stage.show();
@@ -49,7 +49,7 @@ public class LeaderCardChoiceController {
 	}
 
 	public void chooseLeader(String[] leadersName) {
-		String path = "file:Assets/Image/Cards/LEADER/";
+		String path = "/Image/Cards/LEADER/";
 
 		System.out.println("LeaderCardChoiceController::chooseLeader -- " + leadersName.length + " leaders");
 

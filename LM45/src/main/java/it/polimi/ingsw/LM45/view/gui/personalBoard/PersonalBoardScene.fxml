@@ -41,7 +41,7 @@
                   <Circle fill="#ffffff00" layoutX="63.0" layoutY="25.0" radius="20.0" stroke="#f7a60a" strokeType="INSIDE" />
                   <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="-47.0" layoutY="-22.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="file:Assets/Image/Resources/COINS.PNG" />
+                        <Image url="/Image/Resources/COINS.png" />
                      </image>
                   </ImageView>
                </children>
@@ -55,7 +55,7 @@
                   <Circle fill="#ffffff00" layoutX="63.0" layoutY="25.0" radius="20.0" stroke="#f7a60a" strokeType="INSIDE" />
                   <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="-47.0" layoutY="-22.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="file:Assets/Image/Resources/STONE.PNG" />
+                        <Image url="/Image/Resources/STONE.png" />
                      </image>
                   </ImageView>
                </children>
@@ -69,7 +69,7 @@
                   <Circle fill="#ffffff00" layoutX="63.0" layoutY="25.0" radius="20.0" stroke="#f7a60a" strokeType="INSIDE" />
                   <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="-47.0" layoutY="-22.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="file:Assets/Image/Resources/WOOD.PNG" />
+                        <Image url="/Image/Resources/WOOD.png" />
                      </image>
                   </ImageView>
                </children>
@@ -83,7 +83,7 @@
                   <Circle fill="#ffffff00" layoutX="63.0" layoutY="25.0" radius="20.0" stroke="#f7a60a" strokeType="INSIDE" />
                   <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="-47.0" layoutY="-22.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="file:Assets/Image/Resources/SERVANTS.PNG" />
+                        <Image url="/Image/Resources/SERVANTS.png" />
                      </image>
                   </ImageView>
                </children>
@@ -97,7 +97,7 @@
                   <Circle fill="#ffffff00" layoutX="63.0" layoutY="25.0" radius="20.0" stroke="#f7a60a" strokeType="INSIDE" />
                   <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="-47.0" layoutY="-25.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="file:Assets/Image/Resources/VICTORY.PNG" />
+                        <Image url="/Image/Resources/VICTORY.png" />
                      </image>
                   </ImageView>
                </children>
@@ -111,7 +111,7 @@
                   <Circle fill="#ffffff00" layoutX="63.0" layoutY="25.0" radius="20.0" stroke="#f7a60a" strokeType="INSIDE" />
                   <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="-47.0" layoutY="-25.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="file:Assets/Image/Resources/MILITARY.PNG" />
+                        <Image url="/Image/Resources/MILITARY.png" />
                      </image>
                   </ImageView>
                </children>
@@ -125,7 +125,7 @@
                   <Circle fill="#ffffff00" layoutX="63.0" layoutY="25.0" radius="20.0" stroke="#f7a60a" strokeType="INSIDE" />
                   <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="-47.0" layoutY="-25.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="file:Assets/Image/Resources/FAITH.PNG" />
+                        <Image url="/Image/Resources/FAITH.png" />
                      </image>
                   </ImageView>
                </children>
