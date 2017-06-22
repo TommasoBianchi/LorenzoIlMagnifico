@@ -18,7 +18,6 @@ import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.network.client.ClientController;
 import it.polimi.ingsw.LM45.util.Pair;
-import it.polimi.ingsw.LM45.view.controller.Main;
 import it.polimi.ingsw.LM45.view.gui.personalBoard.PersonalBoardController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -58,6 +57,9 @@ public class GameBoardController {
 
 	@FXML
 	private GridPane familiarPane;
+
+	@FXML
+	private GridPane bonusActionPane;
 
 	@FXML
 	private Button endTurnButton;
@@ -125,8 +127,8 @@ public class GameBoardController {
 				for (FamiliarColor familiarColor : new FamiliarColor[] { FamiliarColor.BLACK, FamiliarColor.ORANGE,
 						FamiliarColor.UNCOLORED, FamiliarColor.WHITE }) {
 					ImageView familiarImage = (ImageView) stage.getScene().lookup("#FAMILIAR" + familiarColor);
-					familiarImage.setImage(
-							new Image("/Image/Familiars/" + playerColors[i] + "/" + familiarColor + ".png"));
+					familiarImage
+							.setImage(new Image("/Image/Familiars/" + playerColors[i] + "/" + familiarColor + ".png"));
 				}
 			}
 			System.out.println(usersPersonalBoards.containsKey(playersUsername[i]));
@@ -138,25 +140,21 @@ public class GameBoardController {
 		coveredSlotsIDs = new HashSet<>();
 
 		if (numPlayers < 4) {
-			coverableMarketSlot2
-					.setStyle("-fx-background-image : url(/Image/GameBoard/CoverMarketSlot2.png);"
-							+ "-fx-background-size : cover;");
+			coverableMarketSlot2.setStyle("-fx-background-image : url(/Image/GameBoard/CoverMarketSlot2.png);"
+					+ "-fx-background-size : cover;");
 			coverableMarketSlot2.setDisable(true);
 			coveredSlotsIDs.add(coverableMarketSlot2.getId());
-			coverableMarketSlot3
-					.setStyle("-fx-background-image : url(/Image/GameBoard/CoverMarketSlot3.png);"
-							+ "-fx-background-size : cover;");
+			coverableMarketSlot3.setStyle("-fx-background-image : url(/Image/GameBoard/CoverMarketSlot3.png);"
+					+ "-fx-background-size : cover;");
 			coverableMarketSlot3.setDisable(true);
 			coveredSlotsIDs.add(coverableMarketSlot3.getId());
 			if (numPlayers < 3) {
-				coverableProductionSlot
-						.setStyle("-fx-background-image : url(/Image/GameBoard/CoverProduce.png);"
-								+ "-fx-background-size : cover;");
+				coverableProductionSlot.setStyle("-fx-background-image : url(/Image/GameBoard/CoverProduce.png);"
+						+ "-fx-background-size : cover;");
 				coverableProductionSlot.setDisable(true);
 				coveredSlotsIDs.add(coverableProductionSlot.getId());
-				coverableHarvestSlot
-						.setStyle("-fx-background-image : url(/Image/GameBoard/CoverHarvest.png);"
-								+ "-fx-background-size : cover;");
+				coverableHarvestSlot.setStyle("-fx-background-image : url(/Image/GameBoard/CoverHarvest.png);"
+						+ "-fx-background-size : cover;");
 				coverableHarvestSlot.setDisable(true);
 				coveredSlotsIDs.add(coverableHarvestSlot.getId());
 			}
@@ -217,8 +215,10 @@ public class GameBoardController {
 	public void doBonusAction(SlotType slotType, int value) {
 		writeInDialogBox("Do Bonus Action: " + slotType + " of value " + value);
 		familiarColor = FamiliarColor.BONUS;
-		
-		//TODO add value and + icon to increase action value
+		bonusActionPane.setDisable(false);
+		bonusActionPane.setOpacity(1);
+		Label bonusValue = (Label) stage.getScene().lookup("#VALUE" + value);
+		bonusValue.setText(Integer.toString(value));
 	}
 
 	public void pickCard(Card card, String username) {
@@ -231,17 +231,22 @@ public class GameBoardController {
 	}
 
 	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor) {
-		FlowPane slot = (FlowPane) stage.getScene().lookup("#" + slotType + position);
-		String pathFamiliar = "/Image/Familiars/" + playerColor + "/" + familiarColor + ".png";
-		ImageView familiar = new ImageView(new Image(pathFamiliar));
-		familiar.setFitHeight(25);
-		familiar.setFitWidth(25);
-		slot.getChildren().add(familiar);
-		usersPersonalBoards.get(playerColorName.get(playerColor)).familiarUsed(familiarColor);
-		if (playerColorName.get(playerColor) == myUsername) {
-			familiarUsed(familiarColor);
-			endTurnButton.setDisable(false);
-			familiarPane.setDisable(true);
+		if (familiarColor == FamiliarColor.BONUS) {
+			bonusActionPane.setDisable(true);
+			bonusActionPane.setOpacity(0);
+		} else {
+			FlowPane slot = (FlowPane) stage.getScene().lookup("#" + slotType + position);
+			String pathFamiliar = "/Image/Familiars/" + playerColor + "/" + familiarColor + ".png";
+			ImageView familiar = new ImageView(new Image(pathFamiliar));
+			familiar.setFitHeight(25);
+			familiar.setFitWidth(25);
+			slot.getChildren().add(familiar);
+			usersPersonalBoards.get(playerColorName.get(playerColor)).familiarUsed(familiarColor);
+			if (playerColorName.get(playerColor) == myUsername) {
+				familiarUsed(familiarColor);
+				endTurnButton.setDisable(false);
+				familiarPane.setDisable(true);
+			}
 		}
 	}
 

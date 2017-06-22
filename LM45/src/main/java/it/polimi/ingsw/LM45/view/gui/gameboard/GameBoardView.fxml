@@ -825,6 +825,42 @@
                                     <Image url="/Image/Resources/SERVANTS.png" />
                                  </image>
                               </ImageView>
+                              <GridPane fx:id="bonusActionPane" disable="true" layoutX="87.0" layoutY="381.0" opacity="0.0" prefHeight="36.0" prefWidth="205.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="146.0" minWidth="10.0" prefWidth="146.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="84.0" minWidth="0.0" prefWidth="28.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="83.0" minWidth="10.0" prefWidth="32.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <ImageView id="BONUS" fitHeight="15.0" fitWidth="15.0" onMouseClicked="#spendServant" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+                                       <image>
+                                          <Image url="/Image/GameBoard/AddIcon.png" />
+                                       </image>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                       <GridPane.margin>
+                                          <Insets top="5.0" />
+                                       </GridPane.margin>
+                                    </ImageView>
+                                    <Label id="VALUEBONUS" text="0" textFill="#ffc000" GridPane.columnIndex="1">
+                                       <font>
+                                          <Font name="Bell MT Italic" size="31.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="BONUS ACTION :" textFill="#ffc000">
+                                       <font>
+                                          <Font name="Bell MT Italic" size="16.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets top="5.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                 </children>
+                              </GridPane>
                            </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="388.0" prefWidth="294.0">
