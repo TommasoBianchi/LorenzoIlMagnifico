@@ -28,7 +28,7 @@ public class GainModifierEffect extends Effect {
 	@Override
 	public ActionModifier getActionModifier(SlotType slotType) {
 		// FIXME: need a smart way to implement this!
-		return ActionModifier.EMPTY;
+		return ActionModifier.EMPTY();
 	}
 	
 	@Override

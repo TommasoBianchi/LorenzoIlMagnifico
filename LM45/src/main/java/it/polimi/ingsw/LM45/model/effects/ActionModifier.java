@@ -8,14 +8,16 @@ import it.polimi.ingsw.LM45.model.core.ResourceType;
 
 public class ActionModifier {
 
-	public static final ActionModifier EMPTY = new ActionModifier(0);
-
 	private Map<ResourceType, Integer> costModifiers = new EnumMap<>(ResourceType.class);
 	private Map<ResourceType, Integer> gainModifiers = new EnumMap<>(ResourceType.class);
 	private int diceBonus;
 	private boolean blockImmediateResources;
 	private boolean canPlaceMultipleFamiliars;
 	private boolean canPlaceFamiliars;
+	
+	public static final ActionModifier EMPTY(){
+		return new ActionModifier(0);
+	}
 
 	public ActionModifier(Resource[] costModifiers, Resource[] gainModifiers, int diceBonus,
 			boolean blockImmediateResources, boolean canPlaceMultipleFamiliars, boolean canPlaceFamiliars) {

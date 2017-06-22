@@ -11,7 +11,7 @@ public abstract class Effect implements Serializable {
 	public abstract void resolveEffect(EffectResolutor effectResolutor);
 	
 	public ActionModifier getActionModifier(SlotType slotType){
-		return ActionModifier.EMPTY;
+		return ActionModifier.EMPTY();
 	}
 
 }

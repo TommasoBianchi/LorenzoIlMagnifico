@@ -47,13 +47,13 @@ public class CardEffect implements Serializable {
 			// If they are alternative and at least one of them is effective (i.e. generates a non-empty ActionModifier)
 			// make the player choose one and return that
 			if(actionModifiers.allMatch(ActionModifier::isEmpty))
-				return ActionModifier.EMPTY;
+				return ActionModifier.EMPTY();
 			else
 				return effectResolutor.chooseFrom(actionModifiers.toArray(ActionModifier[]::new));
 		}
 		else
 			// Otherwise just return the merging of the ActionModifiers of every effect
-			return actionModifiers.reduce(ActionModifier.EMPTY, (accumulator, actionModifier) -> accumulator.merge(actionModifier));
+			return actionModifiers.reduce(ActionModifier.EMPTY(), (accumulator, actionModifier) -> accumulator.merge(actionModifier));
 	}
 	
 	public boolean getEffectsArePermanent(){

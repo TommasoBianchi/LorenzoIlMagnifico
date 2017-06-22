@@ -36,7 +36,7 @@ public class ActionEffect extends Effect {
 					Arrays.stream(discount).map(resource -> resource.getAmount() > 0 ? resource.multiply(-1) : resource).toArray(Resource[]::new),
 					new Resource[] {}, diceNumber);
 		else
-			return ActionModifier.EMPTY;
+			return ActionModifier.EMPTY();
 	}
 
 	@Override

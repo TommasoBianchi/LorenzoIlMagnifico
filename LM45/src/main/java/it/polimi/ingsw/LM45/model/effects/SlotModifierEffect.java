@@ -30,7 +30,7 @@ public class SlotModifierEffect extends Effect {
 		if (slotType == this.slotType)
 			return new ActionModifier(!canReceiveResources, canPlaceMultipleFamiliars, canPlaceFamiliars);
 		else
-			return ActionModifier.EMPTY;
+			return ActionModifier.EMPTY();
 	}
 	
 	@Override
