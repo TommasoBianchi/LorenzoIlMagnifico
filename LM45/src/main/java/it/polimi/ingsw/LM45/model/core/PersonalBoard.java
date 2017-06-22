@@ -8,6 +8,7 @@ import java.util.Map;
 
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.CardType;
+import it.polimi.ingsw.LM45.model.cards.Territory;
 import it.polimi.ingsw.LM45.model.effects.CardEffect;
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
 
@@ -117,7 +118,7 @@ public class PersonalBoard {
 	 * @param value the value of the harvest action
 	 */
 	public void harvest(EffectResolutor effectResolutor, int value){
-		if(cards.get(CardType.BUILDING) != null)
+		if(cards.get(CardType.TERRITORY) != null)
 			for(Card card : cards.get(CardType.TERRITORY)){
 				card.resolveEffect(effectResolutor, value);
 			}
