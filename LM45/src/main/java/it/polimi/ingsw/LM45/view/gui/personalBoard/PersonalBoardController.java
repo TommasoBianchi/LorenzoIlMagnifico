@@ -8,6 +8,7 @@ import java.util.Map;
 import it.polimi.ingsw.LM45.model.cards.CardType;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
+import it.polimi.ingsw.LM45.model.core.PersonalBonusTile;
 import it.polimi.ingsw.LM45.model.core.PlayerColor;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.ResourceType;
@@ -239,9 +240,13 @@ public class PersonalBoardController {
 		}
 	}
 
-	public void activateLeaderCard(String username, LeaderCard leader) {
+	public void activateLeaderCard(LeaderCard leader) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public void setPersonalBonusTile(PersonalBonusTile personalBonusTile) {
+		// TODO Auto-generated method stub
 	}
 
 	public Stage getStage() {
