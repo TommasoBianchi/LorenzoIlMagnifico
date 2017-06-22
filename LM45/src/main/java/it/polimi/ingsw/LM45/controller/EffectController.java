@@ -53,7 +53,7 @@ public class EffectController implements EffectResolutor {
 					.map(resourceType -> new Resource(resourceType, player.getResourceAmount(resourceType))).toArray(Resource[]::new);
 			serverController.notifyPlayers(clientInterface -> clientInterface.setResources(changedResources, player.getUsername()));
 		}
-		else {
+		else {			
 			player.addResources(resource);
 
 			// Notify all players only of the resource that has changed

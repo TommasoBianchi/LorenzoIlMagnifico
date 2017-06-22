@@ -152,8 +152,6 @@ public class ServerController {
 				}
 				else {
 					logInfo(player + " failed to place familiar " + familiarColor + " in slot " + slotID + " of type " + slotType);
-					throw new IllegalActionException(
-							"Cannot add a familiar of color " + familiarColor + " in slot " + slotID + " of type " + slotType);
 				}
 			}
 			catch (IllegalActionException e) {

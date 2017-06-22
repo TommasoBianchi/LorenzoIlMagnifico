@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import it.polimi.ingsw.LM45.exceptions.IllegalActionException;
 import it.polimi.ingsw.LM45.model.effects.ActionModifier;
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
 
@@ -17,15 +18,20 @@ public class Slot {
 	protected boolean multipleFamiliarsOfSamePlayer;
 	protected SlotType type;
 	protected List<Slot> neighbouringSlots;
-	
+
 	/**
-	 * @param immediateBonus the resource immediately gained when a familiar is placed in this slot
-	 * @param minDice the minimum value of a familiar in order to be place in this slot
-	 * @param type the {@link SlotType} of this slot
-	 * @param multipleFamiliars true if multiple players can put their familiars in this slot
-	 * @param multipleFamiliarsOfSamePlayer true if even a single player can put multiple of his familiars in this slot
+	 * @param immediateBonus
+	 *            the resource immediately gained when a familiar is placed in this slot
+	 * @param minDice
+	 *            the minimum value of a familiar in order to be place in this slot
+	 * @param type
+	 *            the {@link SlotType} of this slot
+	 * @param multipleFamiliars
+	 *            true if multiple players can put their familiars in this slot
+	 * @param multipleFamiliarsOfSamePlayer
+	 *            true if even a single player can put multiple of his familiars in this slot
 	 */
-	public Slot(Resource[] immediateBonus, int minDice, SlotType type, boolean multipleFamiliars, boolean multipleFamiliarsOfSamePlayer){
+	public Slot(Resource[] immediateBonus, int minDice, SlotType type, boolean multipleFamiliars, boolean multipleFamiliarsOfSamePlayer) {
 		this.immediateBonus = immediateBonus;
 		this.minDice = minDice;
 		this.familiars = new ArrayList<>();
@@ -35,49 +41,53 @@ public class Slot {
 		this.neighbouringSlots = new ArrayList<>();
 	}
 
-	// FIXME: remove if it remains unneeded
-	/**
-	 * @param minDice the minimum value of a familiar in order to be place in this slot
-	 * @param type the {@link SlotType} of this slot
-	 * @param multipleFamiliars true if multiple players can put their familiars in this slot
-	 * @param multipleFamiliarsOfSamePlayer true if even a single player can put multiple of his familiars in this slot
-	 */
-	/*public Slot(int minDice, SlotType type, boolean multipleFamiliars, boolean multipleFamiliarsOfSamePlayer){
-		this(new Resource[]{}, minDice, type, multipleFamiliars, multipleFamiliarsOfSamePlayer);
-	}*/
-	
 	/**
 	 * This function is used to form groups of slots in which a player can place only one of his familiars
-	 * @param slot a slot that is part of the same group as this one (i.e. it is a neighbour)
+	 * 
+	 * @param slot
+	 *            a slot that is part of the same group as this one (i.e. it is a neighbour)
 	 */
-	public void addNeighbouringSlot(Slot slot){
+	public void addNeighbouringSlot(Slot slot) {
 		neighbouringSlots.add(slot);
 	}
 
 	/**
-	 * @param familiar the familiar to check for this slot
-	 * @param actionModifier the actionModifier collected by doing this action in this moment
+	 * @param familiar
+	 *            the familiar to check for this slot
+	 * @param actionModifier
+	 *            the actionModifier collected by doing this action in this moment
 	 * @return true if it is legal to place the familiar in this slots with regards to the given actionModifier
+	 * @throws IllegalActionException
+	 *             if the familiar cannot be placed in this slot
 	 */
-	public boolean canAddFamiliar(Familiar familiar, ActionModifier actionModifier) {
-		return (!isOccupied(familiar) || actionModifier.getCanPlaceMultipleFamiliars())
-				&& isFamiliarValueOK(familiar, actionModifier);
+	public boolean canAddFamiliar(Familiar familiar, ActionModifier actionModifier) throws IllegalActionException {
+		boolean isFree = !isOccupied(familiar) || actionModifier.getCanPlaceMultipleFamiliars();
+		boolean valueOK = isFamiliarValueOK(familiar, actionModifier);
+
+		if (!isFree)
+			throw new IllegalActionException(
+					"Cannot place a familiar " + familiar.getFamiliarColor() + " because this slot (or a neighbouring one) is already occupied");
+		else if (!valueOK)
+			throw new IllegalActionException("Cannot place a familiar " + familiar.getFamiliarColor() + " because its value is not sufficient");
+
+		return isFree && valueOK;
 	}
 
 	/**
-	 * @param familiar the familiar to add in this slot
-	 * @param actionModifier the actionModifier collected by doing this action in this moment
-	 * @param effectResolutor the effectResolutor needed to add the immediateBonus to the player (subclass may use
-	 * this to provide more interaction, even client-side)
+	 * @param familiar
+	 *            the familiar to add in this slot
+	 * @param actionModifier
+	 *            the actionModifier collected by doing this action in this moment
+	 * @param effectResolutor
+	 *            the effectResolutor needed to add the immediateBonus to the player (subclass may use this to provide more interaction, even client-side)
 	 */
 	public void addFamiliar(Familiar familiar, ActionModifier actionModifier, EffectResolutor effectResolutor) {
 		// FIXME: think about gain modifiers that multiply instead of increment
 		// Think also about the slots that decrement the familiar value
 		// Think also about production and harvest
 		Map<ResourceType, Integer> gainModifiers = actionModifier.getGainModifiers();
-		if(!actionModifier.getBlockImmediateResources())
-			Arrays.stream(immediateBonus)
-					.map(resource -> resource.increment(gainModifiers.getOrDefault(resource.getResourceType(), 0)))
+		if (!actionModifier.getBlockImmediateResources())
+			Arrays.stream(immediateBonus).map(resource -> resource.increment(gainModifiers.getOrDefault(resource.getResourceType(), 0)))
 					.forEach(resource -> effectResolutor.addResources(resource));
 		familiars.add(familiar);
 		familiar.setIsPlaced(true);
@@ -91,40 +101,41 @@ public class Slot {
 			familiar.setIsPlaced(false);
 		familiars.clear();
 	}
-	
+
 	/**
 	 * @return all the players that currently have a familiar standing on this slot
 	 */
-	public Player[] getPlayersInSlot(){
+	public Player[] getPlayersInSlot() {
 		return familiars.stream().map(Familiar::getPlayer).toArray(Player[]::new);
 	}
-	
+
 	/**
 	 * @return the slotType of this slot
 	 */
-	public SlotType getType(){
+	public SlotType getType() {
 		return this.type;
 	}
-	
+
 	/**
 	 * @return true if there are no familiars in this slot
 	 */
-	public boolean isEmpty(){
+	public boolean isEmpty() {
 		return this.familiars.isEmpty();
 	}
-	
+
 	private boolean isOccupied(Familiar familiar) {
 		boolean hasFamiliarInNeighbouringSlots = false;
-		for (Slot neighbouringSlot : neighbouringSlots) {
-			for (Familiar f : neighbouringSlot.familiars)
-				if (f.getFamiliarColor() != FamiliarColor.UNCOLORED && f.getPlayer() == familiar.getPlayer()) {
-					hasFamiliarInNeighbouringSlots = true;
-					break;
-				}
+		if (familiar.getFamiliarColor() != FamiliarColor.UNCOLORED) {
+			for (Slot neighbouringSlot : neighbouringSlots) {
+				for (Familiar f : neighbouringSlot.familiars)
+					if (f.getFamiliarColor() != FamiliarColor.UNCOLORED && f.getPlayer() == familiar.getPlayer()) {
+						hasFamiliarInNeighbouringSlots = true;
+						break;
+					}
+			}
 		}
 
-		return (familiars.size() > 1 || multipleFamiliars)
-				&& (!multipleFamiliarsOfSamePlayer || hasFamiliarInNeighbouringSlots);
+		return (familiars.size() > 0 && !multipleFamiliars) || (!multipleFamiliarsOfSamePlayer && hasFamiliarInNeighbouringSlots);
 	}
 
 	private boolean isFamiliarValueOK(Familiar familiar, ActionModifier actionModifier) {

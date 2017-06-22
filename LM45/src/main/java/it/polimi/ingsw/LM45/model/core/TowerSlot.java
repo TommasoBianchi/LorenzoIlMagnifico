@@ -1,5 +1,6 @@
 package it.polimi.ingsw.LM45.model.core;
 
+import it.polimi.ingsw.LM45.exceptions.IllegalActionException;
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.effects.ActionModifier;
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
@@ -30,17 +31,23 @@ public class TowerSlot extends Slot {
 	}
 
 	@Override
-	public boolean canAddFamiliar(Familiar familiar, ActionModifier actionModifier) {
+	public boolean canAddFamiliar(Familiar familiar, ActionModifier actionModifier) throws IllegalActionException {
 		if(hasToPayTower(familiar.getPlayer()))
 			actionModifier.merge(new ActionModifier(new Resource[]{ new Resource(ResourceType.COINS, 3) }));
-		return super.canAddFamiliar(familiar, actionModifier) && hasCard && card.canPick(familiar.getPlayer(), actionModifier);
+		
+		boolean canPickCard = card.canPick(familiar.getPlayer(), actionModifier);
+		
+		if(!hasCard)
+			throw new IllegalActionException("Cannot place a familiar " + familiar.getFamiliarColor() + " because this slot's card has already been taken");
+		else if(!canPickCard)
+			throw new IllegalActionException("Cannot place a familiar " + familiar.getFamiliarColor() + " because you cannot afford the card on this slot");
+		
+		return super.canAddFamiliar(familiar, actionModifier) && hasCard && canPickCard;
 	}
 
 	@Override
 	public void addFamiliar(Familiar familiar, ActionModifier actionModifier, EffectResolutor effectResolutor) {
 		super.addFamiliar(familiar, actionModifier, effectResolutor);
-		if(hasToPayTower(familiar.getPlayer()))
-			actionModifier.merge(new ActionModifier(new Resource[]{ new Resource(ResourceType.COINS, 3) }));
 		card.payCost(effectResolutor, actionModifier);
 		card.resolveImmediateEffect(effectResolutor);
 		effectResolutor.addCard(card, actionModifier);

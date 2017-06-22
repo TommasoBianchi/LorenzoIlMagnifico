@@ -134,7 +134,7 @@ public class ClientController {
 		// TEST		
 		//int chosenNumber = viewChooseFrom(alternatives);		
 
-		boolean fastTest = false;
+		boolean fastTest = true;
 		if(fastTest) return 0;
 		// TEST
 		
