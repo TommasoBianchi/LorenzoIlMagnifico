@@ -114,20 +114,19 @@ public class PersonalBoardController {
 		leaderCardsInHand.getChildren().clear();
 	}
 
-	public void addCard(Image card, CardType cardType) {
-		ImageView imageView = new ImageView();
-		imageView.setImage(card);
-		imageView.setFitWidth(130);
-		imageView.setFitHeight(90);
-		imageView.setCursor(Cursor.HAND);
-		imageView.setOnMousePressed(new EventHandler<MouseEvent>() {
+	public void addCard(Image cardView, CardType cardType) {
+		ImageView card = new ImageView(cardView);
+		card.setFitWidth(90);
+		card.setFitHeight(130);
+		card.setCursor(Cursor.HAND);
+		card.setOnMousePressed(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
 				zoomImage(event);
 			}
 		});
-		imageView.setOnMouseReleased(new EventHandler<MouseEvent>() {
+		card.setOnMouseReleased(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
@@ -135,22 +134,21 @@ public class PersonalBoardController {
 			}
 		});
 		if (cardFlowPanes.containsKey(cardType)) {
-			cardFlowPanes.get(cardType).getChildren().add(imageView);
+			cardFlowPanes.get(cardType).getChildren().add(card);
 		}
 	}
 
 	public void zoomImage(MouseEvent event) {
 		ImageView image = (ImageView) event.getSource();
+		image.setScaleX(2);
+		image.setScaleY(2);
+		image.toFront();
 		if (cardFlowPanes.get(CardType.TERRITORY).getChildren().contains(image)
 				|| cardFlowPanes.get(CardType.BUILDING).getChildren().contains(image)) {
 			image.setTranslateX(45);
-		}
-		else {
+		} else {
 			image.setTranslateX(-45);
 		}
-		image.toFront();
-		image.setScaleX(2);
-		image.setScaleY(2);
 	}
 
 	public void resetZoomImage(MouseEvent event) {

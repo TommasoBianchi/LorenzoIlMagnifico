@@ -41,7 +41,7 @@
                   <Circle fill="#ffffff00" layoutX="63.0" layoutY="25.0" radius="20.0" stroke="#f7a60a" strokeType="INSIDE" />
                   <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="-47.0" layoutY="-22.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../../../../Assets/Image/Resources/COINS.PNG" />
+                        <Image url="file:Assets/Image/Resources/COINS.PNG" />
                      </image>
                   </ImageView>
                </children>
@@ -55,7 +55,7 @@
                   <Circle fill="#ffffff00" layoutX="63.0" layoutY="25.0" radius="20.0" stroke="#f7a60a" strokeType="INSIDE" />
                   <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="-47.0" layoutY="-22.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../../../../Assets/Image/Resources/STONE.PNG" />
+                        <Image url="file:Assets/Image/Resources/STONE.PNG" />
                      </image>
                   </ImageView>
                </children>
@@ -69,7 +69,7 @@
                   <Circle fill="#ffffff00" layoutX="63.0" layoutY="25.0" radius="20.0" stroke="#f7a60a" strokeType="INSIDE" />
                   <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="-47.0" layoutY="-22.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../../../../Assets/Image/Resources/WOOD.PNG" />
+                        <Image url="file:Assets/Image/Resources/WOOD.PNG" />
                      </image>
                   </ImageView>
                </children>
@@ -83,7 +83,7 @@
                   <Circle fill="#ffffff00" layoutX="63.0" layoutY="25.0" radius="20.0" stroke="#f7a60a" strokeType="INSIDE" />
                   <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="-47.0" layoutY="-22.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../../../../Assets/Image/Resources/SERVANTS.PNG" />
+                        <Image url="file:Assets/Image/Resources/SERVANTS.PNG" />
                      </image>
                   </ImageView>
                </children>
@@ -97,7 +97,7 @@
                   <Circle fill="#ffffff00" layoutX="63.0" layoutY="25.0" radius="20.0" stroke="#f7a60a" strokeType="INSIDE" />
                   <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="-47.0" layoutY="-25.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../../../../Assets/Image/Resources/VICTORY.PNG" />
+                        <Image url="file:Assets/Image/Resources/VICTORY.PNG" />
                      </image>
                   </ImageView>
                </children>
@@ -111,7 +111,7 @@
                   <Circle fill="#ffffff00" layoutX="63.0" layoutY="25.0" radius="20.0" stroke="#f7a60a" strokeType="INSIDE" />
                   <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="-47.0" layoutY="-25.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../../../../Assets/Image/Resources/MILITARY.PNG" />
+                        <Image url="file:Assets/Image/Resources/MILITARY.PNG" />
                      </image>
                   </ImageView>
                </children>
@@ -125,7 +125,7 @@
                   <Circle fill="#ffffff00" layoutX="63.0" layoutY="25.0" radius="20.0" stroke="#f7a60a" strokeType="INSIDE" />
                   <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="-47.0" layoutY="-25.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../../../../Assets/Image/Resources/FAITH.PNG" />
+                        <Image url="file:Assets/Image/Resources/FAITH.PNG" />
                      </image>
                   </ImageView>
                </children>
@@ -148,7 +148,7 @@
                <children>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <FlowPane fx:id="territories" alignment="CENTER_LEFT" hgap="9.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="610.0" style="-fx-border-color: #914f0e; -fx-border-width: 4; -fx-border-radius: 30; -fx-border-style: dashed centered;">
+                        <FlowPane fx:id="territories" alignment="CENTER_RIGHT" hgap="9.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="610.0" style="-fx-border-color: #914f0e; -fx-border-width: 4; -fx-border-radius: 30; -fx-border-style: dashed centered;">
                            <padding>
                               <Insets left="10.0" right="10.0" />
                            </padding>
@@ -160,7 +160,7 @@
                   </AnchorPane>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                      <children>
-                        <FlowPane fx:id="buildings" alignment="CENTER_LEFT" hgap="9.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="610.0" style="-fx-border-color: #914f0e; -fx-border-width: 4; -fx-border-radius: 30; -fx-border-style: dashed centered;">
+                        <FlowPane fx:id="buildings" alignment="CENTER_RIGHT" hgap="9.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="610.0" style="-fx-border-color: #914f0e; -fx-border-width: 4; -fx-border-radius: 30; -fx-border-style: dashed centered;">
                            <padding>
                               <Insets left="10.0" right="10.0" />
                            </padding>
@@ -172,7 +172,7 @@
                   </AnchorPane>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                      <children>
-                        <FlowPane fx:id="characters" alignment="CENTER_RIGHT" hgap="9.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="610.0" style="-fx-border-color: #914f0e; -fx-border-width: 4; -fx-border-radius: 30; -fx-border-style: dashed centered;">
+                        <FlowPane fx:id="characters" alignment="CENTER_LEFT" hgap="9.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="610.0" style="-fx-border-color: #914f0e; -fx-border-width: 4; -fx-border-radius: 30; -fx-border-style: dashed centered;">
                            <padding>
                               <Insets left="10.0" right="10.0" />
                            </padding>
@@ -184,7 +184,7 @@
                   </AnchorPane>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <FlowPane fx:id="ventures" alignment="CENTER_RIGHT" hgap="9.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="610.0" style="-fx-border-color: #914f0e; -fx-border-width: 4; -fx-border-radius: 30; -fx-border-style: dashed centered;">
+                        <FlowPane fx:id="ventures" alignment="CENTER_LEFT" hgap="9.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="610.0" style="-fx-border-color: #914f0e; -fx-border-width: 4; -fx-border-radius: 30; -fx-border-style: dashed centered;">
                            <padding>
                               <Insets left="10.0" right="10.0" />
                            </padding>
