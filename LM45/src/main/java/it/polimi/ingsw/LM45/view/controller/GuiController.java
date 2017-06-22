@@ -138,8 +138,7 @@ public class GuiController implements ViewInterface {
 
 	@Override
 	public void doBonusAction(SlotType slotType, int value) {
-		// TODO Auto-generated method stub
-
+		gameBoardController.doBonusAction(slotType, value);
 	}
 
 	@Override
