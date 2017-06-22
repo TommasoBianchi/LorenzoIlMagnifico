@@ -411,13 +411,11 @@ public class GameBoardController {
 	}
 
 	public void playLeaderCard(String username, LeaderCard leader) {
-		// TODO Auto-generated method stub
-
+		usersPersonalBoards.get(username).playLeaderCard(leader);
 	}
 
 	public void activateLeaderCard(String username, LeaderCard leader) {
-		// TODO Auto-generated method stub
-
+		usersPersonalBoards.get(username).activateLeaderCard(leader);
 	}
 
 }
