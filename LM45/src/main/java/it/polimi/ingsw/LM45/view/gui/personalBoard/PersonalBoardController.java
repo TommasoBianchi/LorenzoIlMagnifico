@@ -14,6 +14,7 @@ import it.polimi.ingsw.LM45.network.client.ClientController;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.NodeOrientation;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -119,6 +120,7 @@ public class PersonalBoardController {
 		card.setFitWidth(90);
 		card.setFitHeight(130);
 		card.setCursor(Cursor.HAND);
+		card.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
 		card.setOnMousePressed(new EventHandler<MouseEvent>() {
 
 			@Override
@@ -142,13 +144,8 @@ public class PersonalBoardController {
 		ImageView image = (ImageView) event.getSource();
 		image.setScaleX(2);
 		image.setScaleY(2);
-		image.toFront();
-		if (cardFlowPanes.get(CardType.TERRITORY).getChildren().contains(image)
-				|| cardFlowPanes.get(CardType.BUILDING).getChildren().contains(image)) {
-			image.setTranslateX(45);
-		} else {
-			image.setTranslateX(-45);
-		}
+		image.getParent().getParent().toFront();
+		image.setTranslateX(-45);
 	}
 
 	public void resetZoomImage(MouseEvent event) {
