@@ -2,10 +2,15 @@ package it.polimi.ingsw.LM45.network.client;
 
 import java.io.IOException;
 import java.rmi.NotBoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 import it.polimi.ingsw.LM45.network.server.ServerInterface;
 
 public class ServerInterfaceFactory {
+	
+	private static List<SocketClient> createdSocketClients = new ArrayList<>();
+	private static List<RMIClient> createdRMIClients = new ArrayList<>();
 
 	private ServerInterfaceFactory() {}
 
@@ -13,12 +18,23 @@ public class ServerInterfaceFactory {
 			throws IOException, NotBoundException {
 		switch (connectionType) {
 			case SOCKET:
-				return new SocketClient(host, port, clientController);
+				SocketClient socketClient = new SocketClient(host, port, clientController);
+				createdSocketClients.add(socketClient);
+				return socketClient;
 			case RMI:
-				return new RMIClient(host, clientController);
+				RMIClient rmiClient = new RMIClient(host, clientController);
+				createdRMIClients.add(rmiClient);
+				return rmiClient;
 			default:
-				return new SocketClient(host, port, clientController);
+				socketClient = new SocketClient(host, port, clientController);
+				createdSocketClients.add(socketClient);
+				return socketClient;
 		}
+	}
+	
+	public static void stop(){
+		createdSocketClients.forEach(SocketClient::stop);
+		createdRMIClients.forEach(RMIClient::stop);
 	}
 
 }

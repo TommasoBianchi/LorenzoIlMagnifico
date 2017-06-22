@@ -28,6 +28,10 @@ public class Main extends Application {
 		}
 	}
 	
+	public void stop(){
+		ClientLauncher.stop();
+	}
+	
 	public Stage getPrimaryStage() {
 		return primaryStage;
 	}

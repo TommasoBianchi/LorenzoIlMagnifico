@@ -43,6 +43,12 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 
 		isRunning = true;
 	}
+	
+	public void stop(){
+		System.out.println("Shutting down SocketClient");
+		executorService.shutdownNow();
+		isRunning = false;
+	}
 
 	@Override
 	public void run() {

@@ -33,6 +33,10 @@ public class RMIClient implements RemoteClientInterface, ServerInterface {
 		remoteServer = ((RMIRemoteFactory) registry.lookup("RMIFactory"))
 				.getServerInterface((RemoteClientInterface) UnicastRemoteObject.exportObject(this, 0));
 	}
+	
+	public void stop(){
+		System.out.println("Shutting down RMIClient");		
+	}
 
 	@Override
 	public void login(String username) throws IOException {

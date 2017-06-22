@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import it.polimi.ingsw.LM45.network.client.ClientController;
 import it.polimi.ingsw.LM45.network.client.ConnectionType;
+import it.polimi.ingsw.LM45.network.client.ServerInterfaceFactory;
 import it.polimi.ingsw.LM45.view.controller.ViewInterface;
 import it.polimi.ingsw.LM45.view.controller.ViewInterfaceFactory;
 import it.polimi.ingsw.LM45.view.controller.ViewType;
@@ -19,6 +20,11 @@ public class ClientLauncher {
 		viewInterface.setClientController(clientController);
 		clientController.login(username);
 		viewInterface.showLeaderCardChoiceView();
+	}
+	
+	public static void stop(){
+		ServerInterfaceFactory.stop();
+		System.out.println("I have been stopped");
 	}
 	
 }
