@@ -418,7 +418,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                      <image>
-                        <Image url="@../../../../../../../../../../Assets/Image/Cards/LEADER/LeaderCard%20Cover.jpg" />
+                        <Image url="/Image/Cards/LEADER/LeaderCard%20Cover.jpg" />
                      </image>
                   </ImageView>
                   <ImageView id="HAND2" fitHeight="130.0" fitWidth="100.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" translateX="-0.0" translateY="-0.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -426,7 +426,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                      <image>
-                        <Image url="@../../../../../../../../../../Assets/Image/Cards/LEADER/LeaderCard%20Cover.jpg" />
+                        <Image url="/Image/Cards/LEADER/LeaderCard%20Cover.jpg" />
                      </image>
                   </ImageView>
                   <ImageView id="HAND1" fitHeight="130.0" fitWidth="100.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
@@ -434,7 +434,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                      <image>
-                        <Image url="@../../../../../../../../../../Assets/Image/Cards/LEADER/LeaderCard%20Cover.jpg" />
+                        <Image url="/Image/Cards/LEADER/LeaderCard%20Cover.jpg" />
                      </image>
                   </ImageView>
                   <ImageView id="HAND0" fitHeight="130.0" fitWidth="100.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" translateX="-0.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
@@ -442,7 +442,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                      <image>
-                        <Image url="@../../../../../../../../../../Assets/Image/Cards/LEADER/LeaderCard%20Cover.jpg" />
+                        <Image url="/Image/Cards/LEADER/LeaderCard%20Cover.jpg" />
                      </image>
                   </ImageView>
                </children>
@@ -459,7 +459,7 @@
                   <RowConstraints maxHeight="151.33331298828125" minHeight="10.0" prefHeight="136.66668701171875" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Button id="DISCARD0" disable="true" mnemonicParsing="false" onAction="#discardLeaderCard" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Activate">
+                  <Button id="ACTIVATE0" disable="true" mnemonicParsing="false" onAction="#discardLeaderCard" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Activate">
                      <GridPane.margin>
                         <Insets left="15.0" top="20.0" />
                      </GridPane.margin>
@@ -467,7 +467,7 @@
                         <Font name="Bell MT Italic" size="12.0" />
                      </font>
                   </Button>
-                  <Button id="DISCARD1" disable="true" mnemonicParsing="false" onAction="#discardLeaderCard" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Activate" GridPane.columnIndex="1">
+                  <Button id="ACTIVATE1" disable="true" mnemonicParsing="false" onAction="#discardLeaderCard" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Activate" GridPane.columnIndex="1">
                      <font>
                         <Font name="Bell MT Italic" size="12.0" />
                      </font>
@@ -475,7 +475,7 @@
                         <Insets left="15.0" top="20.0" />
                      </GridPane.margin>
                   </Button>
-                  <Button id="DISCARD2" disable="true" mnemonicParsing="false" onAction="#discardLeaderCard" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Activate" GridPane.columnIndex="2">
+                  <Button id="ACTIVATE2" disable="true" mnemonicParsing="false" onAction="#discardLeaderCard" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Activate" GridPane.columnIndex="2">
                      <font>
                         <Font name="Bell MT Italic" size="12.0" />
                      </font>
@@ -483,7 +483,7 @@
                         <Insets left="15.0" top="20.0" />
                      </GridPane.margin>
                   </Button>
-                  <Button id="DISCARD3" disable="true" mnemonicParsing="false" onAction="#discardLeaderCard" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Activate" GridPane.columnIndex="3">
+                  <Button id="ACTIVATE3" disable="true" mnemonicParsing="false" onAction="#discardLeaderCard" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Activate" GridPane.columnIndex="3">
                      <font>
                         <Font name="Bell MT Italic" size="12.0" />
                      </font>
@@ -495,33 +495,21 @@
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
-                     <image>
-                        <Image url="@../../../../../../../../../../Assets/Image/Cards/LEADER/LeaderCard%20Cover.jpg" />
-                     </image>
                   </ImageView>
                   <ImageView id="HAND2" fitHeight="130.0" fitWidth="100.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" translateX="-0.0" translateY="-0.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
-                     <image>
-                        <Image url="@../../../../../../../../../../Assets/Image/Cards/LEADER/LeaderCard%20Cover.jpg" />
-                     </image>
                   </ImageView>
                   <ImageView id="HAND1" fitHeight="130.0" fitWidth="100.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
-                     <image>
-                        <Image url="@../../../../../../../../../../Assets/Image/Cards/LEADER/LeaderCard%20Cover.jpg" />
-                     </image>
                   </ImageView>
                   <ImageView id="HAND0" fitHeight="130.0" fitWidth="100.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" translateX="-0.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
-                     <image>
-                        <Image url="@../../../../../../../../../../Assets/Image/Cards/LEADER/LeaderCard%20Cover.jpg" />
-                     </image>
                   </ImageView>
                </children>
                <GridPane.margin>
