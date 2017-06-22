@@ -60,7 +60,7 @@
                   </TextField>
                   <ImageView fitHeight="127.0" fitWidth="273.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <image>
-                        <Image url="/Image/Lobby/WoodPanel.PNG" />
+                        <Image url="/Image/Lobby/WoodPanel.png" />
                      </image>
                      <GridPane.margin>
                         <Insets left="10.0" />
