@@ -11,7 +11,7 @@ import it.polimi.ingsw.LM45.model.core.PlayerColor;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.ResourceType;
 import it.polimi.ingsw.LM45.network.client.ClientController;
-import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -206,21 +206,21 @@ public class PersonalBoardController {
 		}
 	}
 
-	public void playLeader(ActionEvent event) {
+	public void playLeader(Event event) {
 		Button button = (Button) event.getSource();
-		String leaderName = button.getId().substring(5);
+		String leaderName = button.getId().substring(4);
 		clientController.playLeaderCard(leaderName);
 	}
 
-	public void discardLeader(MouseEvent event) {
+	public void discardLeader(Event event) {
 		Button button = (Button) event.getSource();
-		String leaderName = button.getId().substring(8);
+		String leaderName = button.getId().substring(7);
 		clientController.discardLeaderCard(leaderName);
 	}
 
-	public void activateLeader(MouseEvent event) {
+	public void activateLeader(Event event) {
 		Button button = (Button) event.getSource();
-		String leaderName = button.getId().substring(9);
+		String leaderName = button.getId().substring(8);
 		clientController.activateLeaderCard(leaderName);
 	}
 
