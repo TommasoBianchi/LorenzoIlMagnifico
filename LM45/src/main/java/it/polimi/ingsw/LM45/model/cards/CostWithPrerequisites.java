@@ -2,7 +2,6 @@ package it.polimi.ingsw.LM45.model.cards;
 
 import java.util.Arrays;
 
-import it.polimi.ingsw.LM45.model.core.Player;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.effects.ActionModifier;
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;

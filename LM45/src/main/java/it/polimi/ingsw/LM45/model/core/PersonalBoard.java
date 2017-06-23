@@ -6,10 +6,8 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-import it.polimi.ingsw.LM45.exceptions.IllegalActionException;
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.CardType;
-import it.polimi.ingsw.LM45.model.cards.Territory;
 import it.polimi.ingsw.LM45.model.effects.ActionModifier;
 import it.polimi.ingsw.LM45.model.effects.CardEffect;
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;

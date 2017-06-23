@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import it.polimi.ingsw.LM45.model.core.Player;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.ResourceType;
 import it.polimi.ingsw.LM45.model.effects.ActionModifier;
@@ -63,7 +62,6 @@ public class Cost implements Serializable {
 		Set<ResourceType> incrementedResources = new HashSet<>();
 		Stream<Resource> resourcesToPay = Arrays.stream(costResources).map(resource -> {
 			Resource incrementedResource = resource.increment(costModifiers.getOrDefault(resource.getResourceType(), 0));
-			System.out.println(incrementedResource);
 			incrementedResources.add(resource.getResourceType());
 			return incrementedResource;
 		});
