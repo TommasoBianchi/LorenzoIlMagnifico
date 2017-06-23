@@ -286,12 +286,18 @@ public class ServerController {
 				excommunications);
 		game.start();
 
-		choosePersonalBonusTiles();
-		chooseLeaderCards();
+		Map<String, PersonalBonusTile> chosenPersonalBonusTiles = choosePersonalBonusTiles();
+		Map<String, LeaderCard[]> chosenLeaderCards = chooseLeaderCards();
 
+		// Initialize the gameboards client-side
 		String[] playersUsername = players.values().stream().map(Player::getUsername).toArray(String[]::new);
 		PlayerColor[] playerColors = players.values().stream().map(Player::getColor).toArray(PlayerColor[]::new);
 		notifyPlayers(clientInterface -> clientInterface.initializeGameBoard(playersUsername, playerColors, game.getPlacedExcommunications()));
+
+		// Notify of chosen personalBonusTiles and leaderCards only after gameboards have been initialized
+		chosenPersonalBonusTiles.forEach(
+				(username, personalBonusTile) -> notifyPlayers(clientInterface -> clientInterface.setPersonalBonusTile(username, personalBonusTile)));
+		notifyPlayers((username, clientInterface) -> clientInterface.setLeaderCards(chosenLeaderCards.get(username)));
 
 		giveBaseResources();
 
@@ -375,7 +381,7 @@ public class ServerController {
 		return canDo;
 	}
 
-	private void chooseLeaderCards() {
+	private Map<String, LeaderCard[]> chooseLeaderCards() {
 		Map<String, LeaderCard[]> chosenLeaderCards = new HashMap<>();
 
 		// Shuffle the leaderCards and take 4 of them for each of the players
@@ -449,10 +455,11 @@ public class ServerController {
 			chosenLeaderCards.get(username)[3] = leaderCard;
 		});
 
-		notifyPlayers((username, clientInterface) -> clientInterface.setLeaderCards(chosenLeaderCards.get(username)));
+		return chosenLeaderCards;
 	}
 
-	private void choosePersonalBonusTiles() {
+	private Map<String, PersonalBonusTile> choosePersonalBonusTiles() {
+		Map<String, PersonalBonusTile> chosenPersonalBonusTiles = new HashMap<>();
 		List<PersonalBonusTile> personalBonusTiles = new ArrayList<>(Arrays.asList(personalBonusTilesConfiguration.getPersonalBonusTiles()));
 		Player[] orderedPlayers = game.getOrderedPlayers();
 
@@ -465,8 +472,10 @@ public class ServerController {
 			PersonalBonusTile chosenPersonalBonusTile = personalBonusTiles.remove(chosenIndex);
 			logInfo(player.getUsername() + " has chosen " + chosenPersonalBonusTile);
 			player.setPersonalBonusTile(chosenPersonalBonusTile);
-			notifyPlayers(clientInterface -> clientInterface.setPersonalBonusTile(player.getUsername(), chosenPersonalBonusTile));
+			chosenPersonalBonusTiles.put(player.getUsername(), chosenPersonalBonusTile);
 		}
+
+		return chosenPersonalBonusTiles;
 	}
 
 	private void giveBaseResources() {
@@ -523,7 +532,7 @@ public class ServerController {
 				Resource[] changedResources = changedResourcesTypes.stream()
 						.map(resourceType -> new Resource(resourceType, player.getResourceAmount(resourceType))).toArray(Resource[]::new);
 				notifyPlayers(clientInterface -> clientInterface.setResources(changedResources, username));
-				
+
 				logInfo(username + " has supported the Church!");
 			}
 			else {
