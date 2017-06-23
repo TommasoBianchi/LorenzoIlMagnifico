@@ -116,8 +116,6 @@ public class PersonalBoard {
 	 *            the CardEffect to add as a permanent effects
 	 */
 	public void addPermanentEffect(CardEffect permanentEffect) {
-		System.out.println("Adding permanent effect");
-		System.out.println(permanentEffect);
 		permanentEffects.add(permanentEffect);
 	}
 
@@ -157,8 +155,6 @@ public class PersonalBoard {
 	public ActionModifier getActionModifier(SlotType slotType, EffectResolutor effectResolutor) {
 		ActionModifier actionModifier = permanentEffects.stream().map(cardEffect -> cardEffect.getActionModifier(slotType, effectResolutor)).reduce(ActionModifier.EMPTY(),
 				(a, b) -> a.merge(b));
-		System.out.println("PersonalBoard::getActionModifier");
-		System.out.println(actionModifier.getBlockImmediateResources());
 		return actionModifier;
 	}
 }
