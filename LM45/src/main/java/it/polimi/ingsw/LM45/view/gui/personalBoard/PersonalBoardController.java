@@ -1,7 +1,9 @@
 package it.polimi.ingsw.LM45.view.gui.personalBoard;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 
 import it.polimi.ingsw.LM45.model.cards.CardType;
@@ -74,6 +76,7 @@ public class PersonalBoardController {
 
 	private Map<CardType, FlowPane> cardFlowPanes = new EnumMap<>(CardType.class);
 	private Map<ResourceType, Text> resourceTexts = new EnumMap<>(ResourceType.class);
+	private List<LeaderCard> leaders = new ArrayList<LeaderCard>();
 
 	public PersonalBoardController(Stage stage, String username, ClientController clienteController) {
 		this.stage = stage;
@@ -295,14 +298,19 @@ public class PersonalBoardController {
 
 	public void activateLeaderCard(LeaderCard leader) {
 		if (stage.getScene().lookup("#FIELD" + leader.getName().replaceAll(" ", "_")) != null) {
+			leaders.add(leader);
 			Label activeLabel = (Label) stage.getScene().lookup("#ACTIVELABEL" + leader.getName().replaceAll(" ", "_"));
 			activeLabel.setOpacity(1);
 			Button activate = (Button) stage.getScene().lookup("#ACTIVATE" + leader.getName().replaceAll(" ", "_"));
 			activate.setDisable(true);
 		}
-
-		// TODO need a method from client to disable ACTIVELABEL and reactivate
-		// ACTIVATE button
+	}
+	
+	public void deactivateLeaderCards() {
+		leaders.forEach(leader -> {
+			Label activeLabel = (Label) stage.getScene().lookup("#ACTIVELABEL" + leader.getName().replaceAll(" ", "_"));
+			activeLabel.setOpacity(0);
+		});
 	}
 
 	public void setPersonalBonusTile(Resource[] productionBonus, Resource[] harvestBonus) {
