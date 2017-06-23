@@ -334,6 +334,48 @@
                   <Insets />
                </GridPane.margin>
             </GridPane>
+            <GridPane fx:id="productionGrid" opacity="0.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                     <GridPane.margin>
+                        <Insets left="5.0" />
+                     </GridPane.margin>
+                     <image>
+                        <Image url="/Image/GameBoard/PRODUCTION.PNG" />
+                     </image>
+                  </ImageView>
+                  <ImageView id="PRODUCTION0" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
+                  <Label id="LABELPRODUCTION0" text="0" textFill="WHITE" GridPane.columnIndex="1">
+                     <font>
+                        <Font name="Bell MT Italic" size="27.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="60.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <ImageView id="PRODUCTION1" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
+                  <Label id="LABELPRODUCTION1" text="0" textFill="WHITE" GridPane.columnIndex="2">
+                     <font>
+                        <Font name="Bell MT Italic" size="27.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="60.0" />
+                     </GridPane.margin>
+                  </Label>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="190.0" left="40.0" top="20.0" />
+               </GridPane.margin>
+            </GridPane>
             <GridPane nodeOrientation="RIGHT_TO_LEFT" prefHeight="108.0" prefWidth="432.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="108.0" minWidth="10.0" prefWidth="108.0" />
@@ -346,72 +388,96 @@
                   <RowConstraints maxHeight="151.33331298828125" minHeight="10.0" prefHeight="136.66668701171875" vgrow="SOMETIMES" />
               </rowConstraints>
                <GridPane.margin>
-                  <Insets bottom="30.0" left="25.0" top="40.0" />
+                  <Insets bottom="30.0" left="25.0" top="20.0" />
                </GridPane.margin>
                <children>
                   <Button id="PLAY0" disable="true" mnemonicParsing="false" onAction="#playLeader" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Play">
                      <GridPane.margin>
-                        <Insets bottom="35.0" left="15.0" />
+                        <Insets bottom="30.0" left="15.0" />
                      </GridPane.margin>
                      <font>
                         <Font name="Bell MT Italic" size="12.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <Button id="DISCARD0" disable="true" mnemonicParsing="false" onAction="#discardLeader" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Discard">
                      <GridPane.margin>
-                        <Insets left="15.0" top="20.0" />
+                        <Insets left="15.0" top="25.0" />
                      </GridPane.margin>
                      <font>
                         <Font name="Bell MT Italic" size="12.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <Button id="PLAY1" disable="true" mnemonicParsing="false" onAction="#playLeader" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Play" GridPane.columnIndex="1">
                      <font>
                         <Font name="Bell MT Italic" size="12.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets bottom="35.0" left="15.0" />
+                        <Insets bottom="30.0" left="15.0" />
                      </GridPane.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <Button id="DISCARD1" disable="true" mnemonicParsing="false" onAction="#discardLeader" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Discard" GridPane.columnIndex="1">
                      <font>
                         <Font name="Bell MT Italic" size="12.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets left="15.0" top="20.0" />
+                        <Insets left="15.0" top="25.0" />
                      </GridPane.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <Button id="PLAY2" disable="true" mnemonicParsing="false" onAction="#playLeader" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Play" GridPane.columnIndex="2">
                      <font>
                         <Font name="Bell MT Italic" size="12.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets bottom="35.0" left="15.0" />
+                        <Insets bottom="30.0" left="15.0" />
                      </GridPane.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <Button id="DISCARD2" disable="true" mnemonicParsing="false" onAction="#discardLeader" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Discard" GridPane.columnIndex="2">
                      <font>
                         <Font name="Bell MT Italic" size="12.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets left="15.0" top="20.0" />
+                        <Insets left="15.0" top="25.0" />
                      </GridPane.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <Button id="PLAY3" disable="true" mnemonicParsing="false" onAction="#playLeader" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Play" GridPane.columnIndex="3">
                      <font>
                         <Font name="Bell MT Italic" size="12.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets bottom="35.0" left="15.0" />
+                        <Insets bottom="30.0" left="15.0" />
                      </GridPane.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <Button id="DISCARD3" disable="true" mnemonicParsing="false" onAction="#discardLeader" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Discard" GridPane.columnIndex="3">
                      <font>
                         <Font name="Bell MT Italic" size="12.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets left="15.0" top="20.0" />
+                        <Insets left="15.0" top="25.0" />
                      </GridPane.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <ImageView id="HAND3" fitHeight="130.0" fitWidth="100.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" GridPane.rowIndex="1">
                      <cursor>
@@ -446,6 +512,57 @@
                      </image>
                   </ImageView>
                </children>
+            </GridPane>
+            <GridPane fx:id="harvestGrid" opacity="0.0" GridPane.columnIndex="2">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                     <GridPane.margin>
+                        <Insets left="5.0" />
+                     </GridPane.margin>
+                     <image>
+                        <Image url="/Image/GameBoard/HARVEST.PNG" />
+                     </image>
+                  </ImageView>
+                  <ImageView id="HARVEST0" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
+                  <Label id="LABELHARVEST0" text="0" textFill="WHITE" GridPane.columnIndex="1">
+                     <font>
+                        <Font name="Bell MT Italic" size="27.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="60.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <ImageView id="HARVEST1" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
+                  <Label id="LABELHARVEST1" text="0" textFill="WHITE" GridPane.columnIndex="2">
+                     <font>
+                        <Font name="Bell MT Italic" size="27.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="60.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <ImageView id="HARVEST2" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" />
+                  <Label id="LABELHARVEST2" text="0" textFill="WHITE" GridPane.columnIndex="3">
+                     <font>
+                        <Font name="Bell MT Italic" size="27.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="60.0" />
+                     </GridPane.margin>
+                  </Label>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="190.0" right="40.0" top="20.0" />
+               </GridPane.margin>
             </GridPane>
             <GridPane alignment="TOP_RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="108.0" prefWidth="432.0" GridPane.columnIndex="2">
                <columnConstraints>
@@ -547,99 +664,6 @@
                </children>
                <GridPane.margin>
                   <Insets right="25.0" top="40.0" />
-               </GridPane.margin>
-            </GridPane>
-            <GridPane fx:id="productionGrid" opacity="0.0">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                     <GridPane.margin>
-                        <Insets left="5.0" />
-                     </GridPane.margin>
-                     <image>
-                        <Image url="/Image/GameBoard/PRODUCTION.PNG" />
-                     </image>
-                  </ImageView>
-                  <ImageView id="PRODUCTION0" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
-                  <Label id="LABELPRODUCTION0" text="0" textFill="WHITE" GridPane.columnIndex="1">
-                     <font>
-                        <Font name="Bell MT Italic" size="27.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets bottom="5.0" left="60.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <ImageView id="PRODUCTION1" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
-                  <Label id="LABELPRODUCTION1" text="0" textFill="WHITE" GridPane.columnIndex="2">
-                     <font>
-                        <Font name="Bell MT Italic" size="27.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets bottom="5.0" left="60.0" />
-                     </GridPane.margin>
-                  </Label>
-               </children>
-               <GridPane.margin>
-                  <Insets bottom="190.0" left="40.0" top="20.0" />
-               </GridPane.margin>
-            </GridPane>
-            <GridPane fx:id="harvestGrid" opacity="0.0" GridPane.columnIndex="2">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                     <GridPane.margin>
-                        <Insets left="5.0" />
-                     </GridPane.margin>
-                     <image>
-                        <Image url="/Image/GameBoard/HARVEST.PNG" />
-                     </image>
-                  </ImageView>
-                  <ImageView id="HARVEST0" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
-                  <Label id="LABELHARVEST0" text="0" textFill="WHITE" GridPane.columnIndex="1">
-                     <font>
-                        <Font name="Bell MT Italic" size="27.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets bottom="5.0" left="60.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <ImageView id="HARVEST1" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
-                  <Label id="LABELHARVEST1" text="0" textFill="WHITE" GridPane.columnIndex="2">
-                     <font>
-                        <Font name="Bell MT Italic" size="27.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets bottom="5.0" left="60.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <ImageView id="HARVEST2" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" />
-                  <Label id="LABELHARVEST2" text="0" textFill="WHITE" GridPane.columnIndex="3">
-                     <font>
-                        <Font name="Bell MT Italic" size="27.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets bottom="5.0" left="60.0" />
-                     </GridPane.margin>
-                  </Label>
-               </children>
-               <GridPane.margin>
-                  <Insets bottom="190.0" right="40.0" top="20.0" />
                </GridPane.margin>
             </GridPane>
          </children>
