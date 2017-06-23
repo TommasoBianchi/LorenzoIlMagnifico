@@ -34,12 +34,12 @@ public abstract class Card implements Serializable {
 	}
 	
 	/**
-	 * @param player Player that want to pick the Card
+	 * @param effectResolutor effectResolutor of the player that wants to pick the Card
 	 * @param actionModifier the actionModifier for the action the player is trying to do
 	 * @return True, if player has requisites and resources to pick the card
 	 */
-	public boolean canPick(Player player, ActionModifier actionModifier){
-		return cost.canPay(player, actionModifier);
+	public boolean canPick(EffectResolutor effectResolutor, ActionModifier actionModifier){
+		return cost.canPay(effectResolutor, actionModifier);
 	}
 	
 	/**

@@ -40,8 +40,8 @@ public class Venture extends Card {
 	}
 
 	@Override
-	public boolean canPick(Player player, ActionModifier actionModifier) {
-		return super.canPick(player, actionModifier) || alternativeCost.canPay(player, actionModifier);
+	public boolean canPick(EffectResolutor effectResolutor, ActionModifier actionModifier) {
+		return super.canPick(effectResolutor, actionModifier) || alternativeCost.canPay(effectResolutor, actionModifier);
 	}
 
 	@Override
