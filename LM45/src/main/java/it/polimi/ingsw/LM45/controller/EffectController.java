@@ -5,12 +5,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import it.polimi.ingsw.LM45.model.cards.Card;
-import it.polimi.ingsw.LM45.model.core.Familiar;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.Player;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.ResourceType;
-import it.polimi.ingsw.LM45.model.core.Slot;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.model.effects.ActionModifier;
 import it.polimi.ingsw.LM45.model.effects.CardEffect;
@@ -21,14 +19,10 @@ public class EffectController implements EffectResolutor {
 
 	private Player player;
 	private ServerController serverController;
-	
-	private Familiar bonusFamiliar;
-	private ActionModifier bonusFamiliarActionModifier;
 
 	public EffectController(Player player, ServerController serverController) {
 		this.player = player;
 		this.serverController = serverController;
-		this.bonusFamiliar = null;
 	}
 
 	public void addResources(Resource resource) {
@@ -59,7 +53,7 @@ public class EffectController implements EffectResolutor {
 					.map(resourceType -> new Resource(resourceType, player.getResourceAmount(resourceType))).toArray(Resource[]::new);
 			serverController.notifyPlayers(clientInterface -> clientInterface.setResources(changedResources, player.getUsername()));
 		}
-		else {			
+		else {	
 			player.addResources(resource);
 
 			// Notify all players only of the resource that has changed
@@ -71,6 +65,10 @@ public class EffectController implements EffectResolutor {
 
 	public int getResourceAmount(ResourceType resourceType) {
 		return player.getResourceAmount(resourceType);
+	}
+	
+	public boolean hasResources(Resource resource) {
+		return player.hasResources(resource);
 	}
 
 	public void addChurchSupportBonus(Resource resource) {
