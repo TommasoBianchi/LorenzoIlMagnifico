@@ -7,7 +7,6 @@ import java.util.Map;
 import it.polimi.ingsw.LM45.model.cards.CardType;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
-import it.polimi.ingsw.LM45.model.core.PersonalBonusTile;
 import it.polimi.ingsw.LM45.model.core.PlayerColor;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.ResourceType;
@@ -25,6 +24,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -62,6 +62,12 @@ public class PersonalBoardController {
 
 	@FXML
 	private Text faithPointsText;
+	
+	@FXML
+	private GridPane productionGrid;
+	
+	@FXML
+	private GridPane harvestGrid;
 
 	private Stage stage;
 	private ClientController clientController;
@@ -298,8 +304,23 @@ public class PersonalBoardController {
 		// ACTIVATE button
 	}
 
-	public void setPersonalBonusTile(PersonalBonusTile personalBonusTile) {
-		// TODO Auto-generated method stub
+	public void setPersonalBonusTile(Resource[] productionBonus, Resource[] harvestBonus) {
+		productionGrid.setOpacity(1);
+		for(int i=0; i<2; i++){
+			ImageView resourceView = (ImageView) stage.getScene().lookup("#PRODUCTION" + i);
+			Image resource = new Image("/Image/Resources/" + productionBonus[i].getResourceType() + ".png");
+			resourceView.setImage(resource);
+			Label resourceValue = (Label) stage.getScene().lookup("#LABELPRODUCTION" + i);
+			resourceValue.setText(Integer.toString(productionBonus[i].getAmount()));
+		}
+		harvestGrid.setOpacity(1);
+		for(int i=0; i<2; i++){
+			ImageView resourceView = (ImageView) stage.getScene().lookup("#HARVEST" + i);
+			Image resource = new Image("/Image/Resources/" + harvestBonus[i].getResourceType() + ".png");
+			resourceView.setImage(resource);
+			Label resourceValue = (Label) stage.getScene().lookup("#LABELHARVEST" + i);
+			resourceValue.setText(Integer.toString(harvestBonus[i].getAmount()));
+		}
 	}
 
 	public Stage getStage() {

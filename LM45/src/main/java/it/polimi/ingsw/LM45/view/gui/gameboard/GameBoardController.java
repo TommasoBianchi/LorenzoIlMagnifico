@@ -430,7 +430,7 @@ public class GameBoardController {
 				Label resourceValue = (Label) stage.getScene().lookup("#LABELPRODUCTION" + i);
 				resourceValue.setText(Integer.toString(productionBonus[i].getAmount()));
 			}
-			for(int i=0; i<2; i++){
+			for(int i=0; i<3; i++){
 				ImageView resourceView = (ImageView) stage.getScene().lookup("#HARVEST" + i);
 				Image resource = new Image("/Image/Resources/" + harvestBonus[i].getResourceType() + ".png");
 				resourceView.setImage(resource);
