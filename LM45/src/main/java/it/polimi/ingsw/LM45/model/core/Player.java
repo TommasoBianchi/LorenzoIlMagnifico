@@ -22,6 +22,7 @@ public class Player {
 	private boolean payIfTowerIsOccupied;
 	private List<Resource> churchSupportBonuses;
 	private boolean hasToSkipFirstTurn;
+	private Resource[] bonusFamiliarDiscount;
 
 	/**
 	 * @param username
@@ -46,7 +47,8 @@ public class Player {
 	}
 
 	/**
-	 * @param effectResolutor the effectResolutor used to check for this card
+	 * @param effectResolutor
+	 *            the effectResolutor used to check for this card
 	 * @param card
 	 *            the card to check
 	 * @param actionModifier
@@ -284,8 +286,7 @@ public class Player {
 	 * @return the value of the requested familiar (-1 if the familiar is not present -- should never happen)
 	 */
 	public int getFamiliarValue(FamiliarColor familiarColor) {
-		return familiars.stream().filter(familiar -> familiar.getFamiliarColor() == familiarColor).map(Familiar::getValue).findFirst()
-				.orElse(-1);
+		return familiars.stream().filter(familiar -> familiar.getFamiliarColor() == familiarColor).map(Familiar::getValue).findFirst().orElse(-1);
 	}
 
 	/**
@@ -316,24 +317,46 @@ public class Player {
 	public void setPersonalBonusTile(PersonalBonusTile personalBonusTile) {
 		this.personalBonusTile = personalBonusTile;
 	}
-	
+
 	/**
 	 * @return an array of resources containing all the additional resources gained upon church support
 	 */
-	public Resource[] getChurchSupportBonuses(){
+	public Resource[] getChurchSupportBonuses() {
 		return churchSupportBonuses.stream().toArray(Resource[]::new);
 	}
-	
-	// TODO: manage the discount
-	public void addBonusFamiliar(SlotType slotType, int value, Resource[] discount){
+
+	/**
+	 * @param slotType the slotType the bonus familiar can be placed into
+	 * @param value the value of the bonus familiar
+	 * @param discount the discount received when picking a card with this bonus familiar
+	 */
+	public void addBonusFamiliar(SlotType slotType, int value, Resource[] discount) {
 		Familiar bonusFamiliar = new Familiar(this, FamiliarColor.BONUS);
 		bonusFamiliar.setValue(value);
-		this.familiars.add(bonusFamiliar);		
+		this.familiars.add(bonusFamiliar);
+		this.bonusFamiliarDiscount = Arrays.stream(discount).map(resource -> resource.getAmount() > 0 ? resource.multiply(-1) : resource)
+				.toArray(Resource[]::new); // Make sure the discounts are expressed as negative resources
 	}
-	
-	// TODO: Javadoc this
-	public void removeBonusFamiliar(){
+
+	/**
+	 * removes the bonus familiar because it has been "placed" on the board
+	 */
+	public void removeBonusFamiliar() {
 		familiars.removeIf(familiar -> familiar.getFamiliarColor() == FamiliarColor.BONUS);
+	}
+
+	/**
+	 * @param slotType
+	 *            the slotType in which we are placing a familiar
+	 * @param effectResolutor
+	 *            the effectResolutor of this player
+	 * @return an actionModifier describing all the modifiers from permanentEffects of this player that have to be applied on this action
+	 */
+	public ActionModifier getActionModifier(SlotType slotType, EffectResolutor effectResolutor) {
+		ActionModifier actionModifier = personalBoard.getActionModifier(slotType, effectResolutor);
+		if (bonusFamiliarDiscount != null)
+			actionModifier.merge(new ActionModifier(bonusFamiliarDiscount));
+		return actionModifier;
 	}
 
 }

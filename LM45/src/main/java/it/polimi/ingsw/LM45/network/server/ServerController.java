@@ -70,6 +70,7 @@ public class ServerController {
 	private Game game;
 	private Player currentPlayer;
 	private boolean currentPlayerAlreadyPlacedFamiliar;
+	private SlotType bonusActionSlotType;
 
 	public ServerController(int gameID, int maxNumberOfPlayers, long gameStartTimerDelay, long turnTimerDelay)
 			throws JsonSyntaxException, JsonIOException, FileNotFoundException {
@@ -140,19 +141,23 @@ public class ServerController {
 			try {
 				if (familiarColor != FamiliarColor.BONUS && currentPlayerAlreadyPlacedFamiliar)
 					throw new IllegalActionException("You have already placed a familiar this turn!");
+				else if(familiarColor == FamiliarColor.BONUS && !bonusActionSlotType.isCompatible(slotType))
+					throw new IllegalActionException("You cannot place this bonus familiar on a " + slotType + " slot!");
 
 				Slot slot = game.getSlot(slotType, slotID);
 				Familiar familiar = players.get(player).getFamiliarByColor(familiarColor);
-				ActionModifier actionModifier = ActionModifier.EMPTY(); // FIXME: grab the right ActionModifier
 				EffectResolutor effectResolutor = effectResolutors.get(player);
+				ActionModifier actionModifier = players.get(player).getActionModifier(slotType, effectResolutor); // NOTE: this may be incorrect
 				if (slot.canAddFamiliar(familiar, actionModifier, effectResolutor)) {
 					slot.addFamiliar(familiar, actionModifier, effectResolutor);
 					notifyPlayers(clientInterface -> clientInterface.addFamiliar(slotType, slotID, familiarColor, players.get(player).getColor()));
 					currentPlayerAlreadyPlacedFamiliar = familiarColor != FamiliarColor.BONUS;
 					logInfo(player + " successfully placed the familiar");
 					
-					if(familiarColor == FamiliarColor.BONUS)
+					if(familiarColor == FamiliarColor.BONUS){
 						players.get(player).removeBonusFamiliar();
+						bonusActionSlotType = null;
+					}
 				}
 				else {
 					logInfo(player + " failed to place familiar " + familiarColor + " in slot " + slotID + " of type " + slotType);
@@ -227,6 +232,7 @@ public class ServerController {
 	public void doBonusAction(String player, SlotType slotType, int value, Resource[] discount){
 		try {
 			players.get(player).addBonusFamiliar(slotType, value, discount);
+			bonusActionSlotType = slotType;
 			users.get(player).doBonusAction(slotType, value);
 		}
 		catch (IOException e) {
@@ -277,6 +283,7 @@ public class ServerController {
 			turnTimer.schedule(new TimerTask() {
 				@Override
 				public void run() {
+					// TODO: reset every pending choice, bonus familiar, ...
 					endPlayerRound(currentPlayer.getUsername());
 				}
 			}, turnTimerDelay);

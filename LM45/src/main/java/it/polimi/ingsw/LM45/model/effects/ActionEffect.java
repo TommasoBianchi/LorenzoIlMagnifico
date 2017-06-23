@@ -30,7 +30,7 @@ public class ActionEffect extends Effect {
 
 	@Override
 	public ActionModifier getActionModifier(SlotType slotType) {
-		if (slotType == this.slotType)
+		if (slotType.isCompatible(this.slotType))
 			// Make sure the discount is expressed as a negative cost modifier (otherwise it won't be a discount)
 			return new ActionModifier(
 					Arrays.stream(discount).map(resource -> resource.getAmount() > 0 ? resource.multiply(-1) : resource).toArray(Resource[]::new),

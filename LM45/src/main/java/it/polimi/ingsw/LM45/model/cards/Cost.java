@@ -35,10 +35,8 @@ public class Cost implements Serializable {
 	 * @return true if the player can pay the cost modified (either increased or decreased) by the action modifier
 	 */
 	public boolean canPay(EffectResolutor effectResolutor, ActionModifier actionModifier) {
-		Map<ResourceType, Integer> costModifiers = actionModifier.getCostModifiers();
-		Stream<Resource> resourcesToPay = Arrays.stream(costResources)
-				.map(resource -> resource.increment(costModifiers.getOrDefault(resource.getResourceType(), 0)));
-		return resourcesToPay.allMatch(resource -> effectResolutor.hasResources(resource));
+		return getResourcesToPay(actionModifier).filter(resource -> resource.getAmount() > 0)
+				.allMatch(resource -> effectResolutor.hasResources(resource));
 	}
 
 	/**
@@ -47,27 +45,30 @@ public class Cost implements Serializable {
 	 * @param actionModifier
 	 *            the actionModifier for the action the player is trying to do
 	 */
-	public void pay(EffectResolutor effectResolutor, ActionModifier actionModifier) {		
+	public void pay(EffectResolutor effectResolutor, ActionModifier actionModifier) {
+		getResourcesToPay(actionModifier).filter(resource -> resource.getAmount() > 0).forEach(resource -> effectResolutor.addResources(resource));
+	}
+
+	/**
+	 * @return whether or not this is an empty cost
+	 */
+	public boolean isEmpty() {
+		return costResources == null || costResources.length == 0;
+	}
+
+	private Stream<Resource> getResourcesToPay(ActionModifier actionModifier) {
 		Map<ResourceType, Integer> costModifiers = actionModifier.getCostModifiers();
 		Stream<Resource> resourcesToPay = Arrays.stream(costResources).map(resource -> {
 			Resource incrementedResource = resource.increment(costModifiers.getOrDefault(resource.getResourceType(), 0));
 			costModifiers.remove(resource.getResourceType());
 			return incrementedResource;
 		}).map(resource -> resource.getAmount() > 0 ? resource.multiply(-1) : resource); // To make sure to subtract resources
-		
+
 		// Make sure you pay also resources in the costModifier that were not present in the original cost
 		// (i.e. if this was an empty cost and the costModifier contains +3 COINS, than you have to pay them)
 		resourcesToPay = Stream.concat(resourcesToPay,
 				costModifiers.entrySet().stream().map(entry -> new Resource(entry.getKey(), -entry.getValue())));
-
-		resourcesToPay.forEach(resource -> effectResolutor.addResources(resource));
-	}
-	
-	/**
-	 * @return wheter or not this is an empty cost
-	 */
-	public boolean isEmpty(){
-		return costResources == null || costResources.length == 0;
+		return resourcesToPay;
 	}
 
 	@Override

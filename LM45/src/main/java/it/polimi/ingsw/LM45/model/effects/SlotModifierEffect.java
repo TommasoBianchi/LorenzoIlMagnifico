@@ -27,7 +27,7 @@ public class SlotModifierEffect extends Effect {
 
 	@Override
 	public ActionModifier getActionModifier(SlotType slotType) {
-		if (slotType == this.slotType)
+		if (slotType.isCompatible(this.slotType))
 			return new ActionModifier(!canReceiveResources, canPlaceMultipleFamiliars, canPlaceFamiliars);
 		else
 			return ActionModifier.EMPTY();
