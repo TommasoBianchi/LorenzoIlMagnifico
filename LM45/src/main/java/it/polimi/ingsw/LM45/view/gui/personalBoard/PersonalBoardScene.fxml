@@ -584,6 +584,9 @@
                      <font>
                         <Font name="Bell MT Italic" size="12.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <Button id="ACTIVATE1" disable="true" mnemonicParsing="false" onAction="#activateLeader" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Activate" GridPane.columnIndex="1">
                      <font>
@@ -592,6 +595,9 @@
                      <GridPane.margin>
                         <Insets left="15.0" top="20.0" />
                      </GridPane.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <Button id="ACTIVATE2" disable="true" mnemonicParsing="false" onAction="#activateLeader" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Activate" GridPane.columnIndex="2">
                      <font>
@@ -600,6 +606,9 @@
                      <GridPane.margin>
                         <Insets left="15.0" top="20.0" />
                      </GridPane.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <Button id="ACTIVATE3" disable="true" mnemonicParsing="false" onAction="#activateLeader" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Activate" GridPane.columnIndex="3">
                      <font>
@@ -608,6 +617,9 @@
                      <GridPane.margin>
                         <Insets left="15.0" top="20.0" />
                      </GridPane.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <ImageView id="FIELD0" disable="true" fitHeight="130.0" fitWidth="100.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" GridPane.rowIndex="1">
                      <cursor>

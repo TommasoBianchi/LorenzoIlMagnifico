@@ -75,7 +75,6 @@ public class PersonalBoardController {
 
 	private Map<CardType, FlowPane> cardFlowPanes = new EnumMap<>(CardType.class);
 	private Map<ResourceType, Text> resourceTexts = new EnumMap<>(ResourceType.class);
-	private Map<String, String> leaderPosition = new HashMap<>();
 
 	public PersonalBoardController(Stage stage, String username, ClientController clienteController) {
 		this.stage = stage;
@@ -196,14 +195,13 @@ public class PersonalBoardController {
 		for (int i = 0; i < 4; i++) {
 			ImageView leaderView = (ImageView) stage.getScene().lookup("#HAND" + i);
 			leaderView.setImage(new Image(path + leaderCard[i].getName() + ".jpg"));
-			leaderView.setId("HAND" + leaderCard[i].getName());
-			System.out.println(leaderView.getId());
+			leaderView.setId("HAND" + leaderCard[i].getName().replaceAll(" ", "_"));
 			Button play = (Button) stage.getScene().lookup("#PLAY" + i);
-			play.setId("PLAY" + leaderCard[i].getName());
+			play.setId("PLAY" + leaderCard[i].getName().replaceAll(" ", "_"));
 			play.setDisable(false);
 			play.setOpacity(1);
 			Button discard = (Button) stage.getScene().lookup("#DISCARD" + i);
-			discard.setId("DISCARD" + leaderCard[i].getName());
+			discard.setId("DISCARD" + leaderCard[i].getName().replaceAll(" ", "_"));
 			discard.setDisable(false);
 			discard.setOpacity(1);
 		}
@@ -212,32 +210,39 @@ public class PersonalBoardController {
 	public void playLeader(Event event) {
 		Button button = (Button) event.getSource();
 		String leaderName = button.getId().substring(4);
-		clientController.playLeaderCard(leaderName);
+		clientController.playLeaderCard(leaderName.replaceAll("_", " "));
 	}
 
 	public void discardLeader(Event event) {
 		Button button = (Button) event.getSource();
 		String leaderName = button.getId().substring(7);
-		clientController.discardLeaderCard(leaderName);
+		clientController.discardLeaderCard(leaderName.replaceAll("_", " "));
 	}
 
 	public void activateLeader(Event event) {
 		Button button = (Button) event.getSource();
 		String leaderName = button.getId().substring(8);
-		clientController.activateLeaderCard(leaderName);
+		clientController.activateLeaderCard(leaderName.replaceAll("_", " "));
 	}
 
 	public void discardLeaderCard(LeaderCard leader) {
-		if (stage.getScene().lookup("#HAND" + leader.getName()) != null) {
-			System.out.println("before eliminating");
+		if (stage.getScene().lookup("#HAND" + leader.getName().replaceAll(" ", "_")) != null) {
 			eliminateCardFromHand(leader.getName());
 		} else {
 			eliminateFirstCover();
 		}
 	}
 
+	public int findFirstFreeId(String id) {
+		for (int i = 0; i < 4; i++) {
+			if (stage.getScene().lookup("#" + id + i) != null)
+				return i;
+		}
+		return -1;
+	}
+
 	private void eliminateFirstCover() {
-		int i = findFirstIdAvailable("HAND");
+		int i = findFirstFreeId("HAND");
 		if (i != -1) {
 			ImageView cover = (ImageView) stage.getScene().lookup("#HAND" + i);
 			cover.setDisable(true);
@@ -247,64 +252,53 @@ public class PersonalBoardController {
 	}
 
 	private void eliminateCardFromHand(String leaderName) {
-		System.out.print("elminating card from hand");
-		ImageView leaderView = (ImageView) stage.getScene().lookup("#HAND" + leaderName);
+		ImageView leaderView = (ImageView) stage.getScene().lookup("#HAND" + leaderName.replaceAll(" ", "_"));
 		leaderView.setImage(null);
 		leaderView.setId(null);
 		leaderView.setDisable(true);
-		System.out.println("ELIMINATING IMAGE");
-		Button play = (Button) stage.getScene().lookup("#PLAY" + leaderName);
+		Button play = (Button) stage.getScene().lookup("#PLAY" + leaderName.replaceAll(" ", "_"));
 		play.setId(null);
 		play.setDisable(true);
 		play.setOpacity(0);
-		Button discard = (Button) stage.getScene().lookup("#DISCARD" + leaderName);
+		Button discard = (Button) stage.getScene().lookup("#DISCARD" + leaderName.replaceAll(" ", "_"));
 		discard.setId(null);
 		discard.setDisable(true);
 		discard.setOpacity(0);
 	}
 
-	private int findFirstIdAvailable(String id) {
-		for (int i = 0; i < 4; i++) {
-			if (stage.getScene().lookup("#" + id + i) != null)
-				return i;
-		}
-		return -1;
-	}
-
-	private void putLeaderCardInField(Image leader, String leaderName, boolean activateActivateButton) {
-		int i = findFirstIdAvailable("FIELD");
+	private void putLeaderCardInField(String leaderName, boolean activateActivateButton) {
+		int i = findFirstFreeId("FIELD");
 		if (i != -1) {
-			ImageView leaderView = (ImageView) stage.getScene().lookup("#FIELD" + i);
-			leaderView.setImage(leader);
-			leaderView.setDisable(false);
-			leaderView.setId("FIELD" + leaderName);
+			ImageView fieldView = (ImageView) stage.getScene().lookup("#FIELD" + i);
+			fieldView.setImage(new Image("/Image/Cards/LEADER/" + leaderName + ".jpg"));
+			fieldView.setDisable(false);
+			fieldView.setId("FIELD" + leaderName.replaceAll(" ", "_"));
 			Label activeLabel = (Label) stage.getScene().lookup("#ACTIVELABEL" + i);
-			activeLabel.setId("ACTIVELABEL" + leaderName);
+			activeLabel.setId("ACTIVELABEL" + leaderName.replaceAll(" ", "_"));
 			if (activateActivateButton) {
 				Button activate = (Button) stage.getScene().lookup("#ACTIVATE" + i);
 				activate.setDisable(false);
 				activate.setOpacity(1);
-				activate.setId("ACTIVATE" + leaderName);
+				activate.setId("ACTIVATE" + leaderName.replaceAll(" ", "_"));
 			}
 		}
 	}
 
 	public void playLeaderCard(LeaderCard leader) {
-		if (stage.getScene().lookup("#HAND" + leader.getName()) != null) {
-			ImageView leaderView = (ImageView) stage.getScene().lookup("#HAND" + leader.getName());
-			putLeaderCardInField(leaderView.getImage(), leader.getName(), true);
+		if (stage.getScene().lookup("#HAND" + leader.getName().replaceAll(" ", "_")) != null) {
+			putLeaderCardInField(leader.getName(), true);
 			eliminateCardFromHand(leader.getName());
 		} else {
 			eliminateFirstCover();
-			putLeaderCardInField(new Image("/Image/Cards/LEADER/" + leader.getName() + ".jpg"), leader.getName(), false);
+			putLeaderCardInField(leader.getName(), false);
 		}
 	}
 
 	public void activateLeaderCard(LeaderCard leader) {
-		if (stage.getScene().lookup("#FIELD" + leader.getName()) != null) {
-			Label activeLabel = (Label) stage.getScene().lookup("#ACTIVELABEL" + leader.getName());
+		if (stage.getScene().lookup("#FIELD" + leader.getName().replaceAll(" ", "_")) != null) {
+			Label activeLabel = (Label) stage.getScene().lookup("#ACTIVELABEL" + leader.getName().replaceAll(" ", "_"));
 			activeLabel.setOpacity(1);
-			Button activate = (Button) stage.getScene().lookup("#ACTIVATE" + leader.getName());
+			Button activate = (Button) stage.getScene().lookup("#ACTIVATE" + leader.getName().replaceAll(" ", "_"));
 			activate.setDisable(true);
 		}
 
