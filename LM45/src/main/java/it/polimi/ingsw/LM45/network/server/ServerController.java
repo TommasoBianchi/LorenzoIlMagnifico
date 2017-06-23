@@ -536,9 +536,11 @@ public class ServerController {
 
 				Set<ResourceType> changedResourcesTypes = new HashSet<>();
 
-				player.addResources(new Resource(ResourceType.VICTORY, -player.getResourceAmount(ResourceType.VICTORY)));
-				changedResourcesTypes.add(ResourceType.VICTORY);
+				// Remove all Faith points
+				player.addResources(new Resource(ResourceType.FAITH, -player.getResourceAmount(ResourceType.FAITH)));
+				changedResourcesTypes.add(ResourceType.FAITH);
 
+				// Give player the resources he's gained by supporting the Church
 				Arrays.stream(game.getChurchSupportResources(player.getResourceAmount(ResourceType.FAITH))).forEach(resource -> {
 					player.addResources(resource);
 					changedResourcesTypes.add(resource.getResourceType());
