@@ -182,9 +182,11 @@ public class ServerController {
 
 	public void playLeaderCard(String player, String leaderCardName) {
 		if (playerCanDoActions(player) && leaderCards.containsKey(leaderCardName)) {
-			logInfo(player + " played leader card " + leaderCardName);
 			try {
-				players.get(player).playLeaderCard(leaderCards.get(leaderCardName));
+				LeaderCard leaderCard = leaderCards.get(leaderCardName);
+				players.get(player).playLeaderCard(leaderCard);
+				notifyPlayers(clientInterface -> clientInterface.playLeaderCard(player, leaderCard));
+				logInfo(player + " played leader card " + leaderCardName);
 			}
 			catch (IllegalActionException e) {
 				manageGameExceptions(player, e);
@@ -194,9 +196,11 @@ public class ServerController {
 
 	public void activateLeaderCard(String player, String leaderCardName) {
 		if (playerCanDoActions(player) && leaderCards.containsKey(leaderCardName)) {
-			logInfo(player + " activated leader card " + leaderCardName);
 			try {
+				LeaderCard leaderCard = leaderCards.get(leaderCardName);
 				players.get(player).activateLeaderCard(leaderCards.get(leaderCardName), effectResolutors.get(player));
+				notifyPlayers(clientInterface -> clientInterface.activateLeaderCard(player, leaderCard));
+				logInfo(player + " activated leader card " + leaderCardName);
 			}
 			catch (IllegalActionException e) {
 				manageGameExceptions(player, e);
@@ -207,9 +211,11 @@ public class ServerController {
 	public void discardLeaderCard(String player, String leaderCardName) {
 		if (playerCanDoActions(player) && leaderCards.containsKey(leaderCardName)) {
 			try {
-				players.get(player).discardLeaderCard(leaderCards.get(leaderCardName));
-				logInfo(player + " discarded leader card " + leaderCardName);
+				LeaderCard leaderCard = leaderCards.get(leaderCardName);
+				players.get(player).discardLeaderCard(leaderCard);
+				notifyPlayers(clientInterface -> clientInterface.discardLeaderCard(player, leaderCard));
 				effectResolutors.get(player).addResources(new Resource(ResourceType.COUNCIL_PRIVILEGES, 1));
+				logInfo(player + " discarded leader card " + leaderCardName);
 			}
 			catch (IllegalActionException e) {
 				manageGameExceptions(player, e);
