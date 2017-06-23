@@ -2,6 +2,7 @@ package it.polimi.ingsw.LM45.view.gui.personalBoard;
 
 import java.io.IOException;
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.Map;
 
 import it.polimi.ingsw.LM45.model.cards.CardType;
@@ -62,10 +63,10 @@ public class PersonalBoardController {
 
 	@FXML
 	private Text faithPointsText;
-	
+
 	@FXML
 	private GridPane productionGrid;
-	
+
 	@FXML
 	private GridPane harvestGrid;
 
@@ -74,6 +75,7 @@ public class PersonalBoardController {
 
 	private Map<CardType, FlowPane> cardFlowPanes = new EnumMap<>(CardType.class);
 	private Map<ResourceType, Text> resourceTexts = new EnumMap<>(ResourceType.class);
+	private Map<String, String> leaderPosition = new HashMap<>();
 
 	public PersonalBoardController(Stage stage, String username, ClientController clienteController) {
 		this.stage = stage;
@@ -195,6 +197,7 @@ public class PersonalBoardController {
 			ImageView leaderView = (ImageView) stage.getScene().lookup("#HAND" + i);
 			leaderView.setImage(new Image(path + leaderCard[i].getName() + ".jpg"));
 			leaderView.setId("HAND" + leaderCard[i].getName());
+			System.out.println(leaderView.getId());
 			Button play = (Button) stage.getScene().lookup("#PLAY" + i);
 			play.setId("PLAY" + leaderCard[i].getName());
 			play.setDisable(false);
@@ -226,6 +229,7 @@ public class PersonalBoardController {
 
 	public void discardLeaderCard(LeaderCard leader) {
 		if (stage.getScene().lookup("#HAND" + leader.getName()) != null) {
+			System.out.println("before eliminating");
 			eliminateCardFromHand(leader.getName());
 		} else {
 			eliminateFirstCover();
@@ -243,10 +247,12 @@ public class PersonalBoardController {
 	}
 
 	private void eliminateCardFromHand(String leaderName) {
+		System.out.print("elminating card from hand");
 		ImageView leaderView = (ImageView) stage.getScene().lookup("#HAND" + leaderName);
 		leaderView.setImage(null);
 		leaderView.setId(null);
 		leaderView.setDisable(true);
+		System.out.println("ELIMINATING IMAGE");
 		Button play = (Button) stage.getScene().lookup("#PLAY" + leaderName);
 		play.setId(null);
 		play.setDisable(true);
@@ -265,30 +271,32 @@ public class PersonalBoardController {
 		return -1;
 	}
 
-	private void putLeaderCardInField(Image leader, String leaderName) {
+	private void putLeaderCardInField(Image leader, String leaderName, boolean activateActivateButton) {
 		int i = findFirstIdAvailable("FIELD");
 		if (i != -1) {
 			ImageView leaderView = (ImageView) stage.getScene().lookup("#FIELD" + i);
 			leaderView.setImage(leader);
 			leaderView.setDisable(false);
 			leaderView.setId("FIELD" + leaderName);
-			Button activate = (Button) stage.getScene().lookup("#ACTIVATE" + i);
-			activate.setDisable(false);
-			activate.setOpacity(1);
-			activate.setId("ACTIVATE" + leaderName);
 			Label activeLabel = (Label) stage.getScene().lookup("#ACTIVELABEL" + i);
 			activeLabel.setId("ACTIVELABEL" + leaderName);
+			if (activateActivateButton) {
+				Button activate = (Button) stage.getScene().lookup("#ACTIVATE" + i);
+				activate.setDisable(false);
+				activate.setOpacity(1);
+				activate.setId("ACTIVATE" + leaderName);
+			}
 		}
 	}
 
 	public void playLeaderCard(LeaderCard leader) {
 		if (stage.getScene().lookup("#HAND" + leader.getName()) != null) {
 			ImageView leaderView = (ImageView) stage.getScene().lookup("#HAND" + leader.getName());
-			putLeaderCardInField(leaderView.getImage(), leader.getName());
+			putLeaderCardInField(leaderView.getImage(), leader.getName(), true);
 			eliminateCardFromHand(leader.getName());
 		} else {
 			eliminateFirstCover();
-			putLeaderCardInField(new Image("/Image/Cards/LEADER/" + leader.getName() + ".jpg"), leader.getName());
+			putLeaderCardInField(new Image("/Image/Cards/LEADER/" + leader.getName() + ".jpg"), leader.getName(), false);
 		}
 	}
 
@@ -306,7 +314,7 @@ public class PersonalBoardController {
 
 	public void setPersonalBonusTile(Resource[] productionBonus, Resource[] harvestBonus) {
 		productionGrid.setOpacity(1);
-		for(int i=0; i<2; i++){
+		for (int i = 0; i < 2; i++) {
 			ImageView resourceView = (ImageView) stage.getScene().lookup("#PRODUCTION" + i);
 			Image resource = new Image("/Image/Resources/" + productionBonus[i].getResourceType() + ".png");
 			resourceView.setImage(resource);
@@ -314,7 +322,7 @@ public class PersonalBoardController {
 			resourceValue.setText(Integer.toString(productionBonus[i].getAmount()));
 		}
 		harvestGrid.setOpacity(1);
-		for(int i=0; i<2; i++){
+		for (int i = 0; i < 2; i++) {
 			ImageView resourceView = (ImageView) stage.getScene().lookup("#HARVEST" + i);
 			Image resource = new Image("/Image/Resources/" + harvestBonus[i].getResourceType() + ".png");
 			resourceView.setImage(resource);
