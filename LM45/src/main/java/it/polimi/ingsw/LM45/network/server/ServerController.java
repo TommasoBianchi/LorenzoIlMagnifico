@@ -144,8 +144,9 @@ public class ServerController {
 				Slot slot = game.getSlot(slotType, slotID);
 				Familiar familiar = players.get(player).getFamiliarByColor(familiarColor);
 				ActionModifier actionModifier = ActionModifier.EMPTY(); // FIXME: grab the right ActionModifier
-				if (slot.canAddFamiliar(familiar, actionModifier)) {
-					slot.addFamiliar(familiar, actionModifier, effectResolutors.get(player));
+				EffectResolutor effectResolutor = effectResolutors.get(player);
+				if (slot.canAddFamiliar(familiar, actionModifier, effectResolutor)) {
+					slot.addFamiliar(familiar, actionModifier, effectResolutor);
 					notifyPlayers(clientInterface -> clientInterface.addFamiliar(slotType, slotID, familiarColor, players.get(player).getColor()));
 					currentPlayerAlreadyPlacedFamiliar = familiarColor != FamiliarColor.BONUS;
 					logInfo(player + " successfully placed the familiar");

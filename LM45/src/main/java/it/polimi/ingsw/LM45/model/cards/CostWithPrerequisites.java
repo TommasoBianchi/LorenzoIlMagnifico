@@ -5,6 +5,7 @@ import java.util.Arrays;
 import it.polimi.ingsw.LM45.model.core.Player;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.effects.ActionModifier;
+import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
 
 public class CostWithPrerequisites extends Cost {
 	
@@ -24,10 +25,10 @@ public class CostWithPrerequisites extends Cost {
 	}
 
 	@Override
-	public boolean canPay(Player player, ActionModifier actionModifier) {
+	public boolean canPay(EffectResolutor effectResolutor, ActionModifier actionModifier) {
 		// Make sure to check if player has a positive amount of resources
-		return super.canPay(player, actionModifier) && Arrays.stream(prerequisites)
-				.map(resource -> resource.getAmount() > 0 ? resource : resource.multiply(-1)).allMatch(resource -> player.hasResources(resource));
+		return super.canPay(effectResolutor, actionModifier) && Arrays.stream(prerequisites)
+				.map(resource -> resource.getAmount() > 0 ? resource : resource.multiply(-1)).allMatch(resource -> effectResolutor.hasResources(resource));
 	}
 
 	@Override
