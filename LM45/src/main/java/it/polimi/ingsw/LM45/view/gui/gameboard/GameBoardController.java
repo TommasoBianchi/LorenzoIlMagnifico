@@ -294,6 +294,8 @@ public class GameBoardController {
 		familiarSelected = false;
 		clientController.endTurn();
 		disableGameBoard();
+		bonusActionPane.setDisable(true);
+		bonusActionPane.setOpacity(0);
 	}
 
 	public void disableGameBoard() {
@@ -323,6 +325,8 @@ public class GameBoardController {
 		}
 		clearSlots();
 		showFamiliars();
+		for(PersonalBoardController personalBoard : usersPersonalBoards.values())
+			personalBoard.deactivateLeaderCards();
 	}
 
 	private void clearSlots() {
