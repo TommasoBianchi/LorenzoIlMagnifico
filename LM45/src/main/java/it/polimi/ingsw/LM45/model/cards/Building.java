@@ -26,8 +26,11 @@ public class Building extends Card {
 	
 	@Override
 	public void resolveEffect(EffectResolutor effectResolutor, int diceValue){
-		if(diceValue >= minDiceToProduce)
-			effect.resolveEffects(effectResolutor);
+		if(diceValue >= minDiceToProduce) {
+			boolean produce = effectResolutor.chooseFrom(new String[]{ "Activate " + name + "'s production effect", "Do not activate" }).startsWith("Activate");
+			if(produce)
+				effect.resolveEffects(effectResolutor);
+		}
 	}
 	
 	@Override
