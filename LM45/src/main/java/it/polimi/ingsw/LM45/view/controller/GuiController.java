@@ -168,32 +168,32 @@ public class GuiController implements ViewInterface {
 
 	@Override
 	public void setLeaderCards(LeaderCard[] leaders) {
-		gameBoardController.setLeaderCards(leaders);
+		Platform.runLater(() -> gameBoardController.setLeaderCards(leaders));
 	}
 
 	@Override
 	public void discardLeaderCard(String username, LeaderCard leader) {
-		gameBoardController.discardLeaderCard(username, leader);
+		Platform.runLater(() -> gameBoardController.discardLeaderCard(username, leader));
 	}
 
 	@Override
 	public void playLeaderCard(String username, LeaderCard leader) {
-		gameBoardController.playLeaderCard(username, leader);
+		Platform.runLater(() -> gameBoardController.playLeaderCard(username, leader));
 	}
 
 	@Override
 	public void activateLeaderCard(String username, LeaderCard leader) {
-		gameBoardController.activateLeaderCard(username, leader);
+		Platform.runLater(() -> gameBoardController.activateLeaderCard(username, leader));
 	}
 
 	@Override
 	public void setPersonalBonusTile(String username, PersonalBonusTile personalBonusTile) {
-		gameBoardController.setPersonalBonusTile(username, personalBonusTile);
+		Platform.runLater(() -> gameBoardController.setPersonalBonusTile(username, personalBonusTile));
 	}
 	
 	@Override
 	public void placeExcommunicationToken(PlayerColor playerColor, PeriodType periodType){
-		gameBoardController.placeExcommunicationToken(playerColor, periodType);
+		Platform.runLater(() -> gameBoardController.placeExcommunicationToken(playerColor, periodType));
 	}
 
 }
