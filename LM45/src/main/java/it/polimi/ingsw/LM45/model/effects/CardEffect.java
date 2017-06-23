@@ -2,6 +2,8 @@ package it.polimi.ingsw.LM45.model.effects;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import it.polimi.ingsw.LM45.model.core.SlotType;
@@ -42,18 +44,18 @@ public class CardEffect implements Serializable {
 	}
 	
 	public ActionModifier getActionModifier(SlotType slotType, EffectResolutor effectResolutor){
-		Stream<ActionModifier> actionModifiers = Arrays.stream(effects).map(effect -> effect.getActionModifier(slotType));
+		List<ActionModifier> actionModifiers = Arrays.stream(effects).map(effect -> effect.getActionModifier(slotType)).collect(Collectors.toList());
 		if(effectsAreAlternative){
 			// If they are alternative and at least one of them is effective (i.e. generates a non-empty ActionModifier)
 			// make the player choose one and return that
-			if(actionModifiers.allMatch(ActionModifier::isEmpty))
+			if(actionModifiers.stream().allMatch(ActionModifier::isEmpty))
 				return ActionModifier.EMPTY();
 			else
-				return effectResolutor.chooseFrom(actionModifiers.toArray(ActionModifier[]::new));
+				return effectResolutor.chooseFrom(actionModifiers.stream().toArray(ActionModifier[]::new));
 		}
 		else
 			// Otherwise just return the merging of the ActionModifiers of every effect
-			return actionModifiers.reduce(ActionModifier.EMPTY(), (accumulator, actionModifier) -> accumulator.merge(actionModifier));
+			return actionModifiers.stream().reduce(ActionModifier.EMPTY(), (accumulator, actionModifier) -> accumulator.merge(actionModifier));
 	}
 	
 	public boolean getEffectsArePermanent(){
