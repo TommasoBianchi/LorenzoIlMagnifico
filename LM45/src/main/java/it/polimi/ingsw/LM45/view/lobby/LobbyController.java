@@ -3,7 +3,6 @@ package it.polimi.ingsw.LM45.view.lobby;
 import java.io.IOException;
 
 import it.polimi.ingsw.LM45.controller.ClientLauncher;
-import it.polimi.ingsw.LM45.view.controller.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

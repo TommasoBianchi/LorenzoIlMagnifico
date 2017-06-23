@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import it.polimi.ingsw.LM45.view.controller.GuiController;
-import it.polimi.ingsw.LM45.view.controller.Main;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
