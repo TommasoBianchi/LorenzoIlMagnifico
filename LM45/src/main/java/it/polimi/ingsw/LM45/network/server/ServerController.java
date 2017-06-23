@@ -149,6 +149,9 @@ public class ServerController {
 					notifyPlayers(clientInterface -> clientInterface.addFamiliar(slotType, slotID, familiarColor, players.get(player).getColor()));
 					currentPlayerAlreadyPlacedFamiliar = familiarColor != FamiliarColor.BONUS;
 					logInfo(player + " successfully placed the familiar");
+					
+					if(familiarColor == FamiliarColor.BONUS)
+						players.get(player).removeBonusFamiliar();
 				}
 				else {
 					logInfo(player + " failed to place familiar " + familiarColor + " in slot " + slotID + " of type " + slotType);
@@ -211,6 +214,16 @@ public class ServerController {
 			catch (IllegalActionException e) {
 				manageGameExceptions(player, e);
 			}
+		}
+	}
+
+	public void doBonusAction(String player, SlotType slotType, int value, Resource[] discount){
+		try {
+			players.get(player).addBonusFamiliar(slotType, value, discount);
+			users.get(player).doBonusAction(slotType, value);
+		}
+		catch (IOException e) {
+			manageIOException(player, e);
 		}
 	}
 

@@ -17,7 +17,7 @@ public class Player {
 	private PlayerColor playerColor;
 	private List<LeaderCard> leaderCards;
 	private PersonalBoard personalBoard;
-	private Familiar[] familiars;
+	private List<Familiar> familiars;
 	private PersonalBonusTile personalBonusTile;
 	private boolean payIfTowerIsOccupied;
 	private List<Resource> churchSupportBonuses;
@@ -34,8 +34,11 @@ public class Player {
 		this.playerColor = playerColor;
 		this.leaderCards = new ArrayList<>();
 		this.personalBoard = new PersonalBoard();
-		this.familiars = new Familiar[] { new Familiar(this, FamiliarColor.BLACK), new Familiar(this, FamiliarColor.ORANGE),
-				new Familiar(this, FamiliarColor.WHITE), new Familiar(this, FamiliarColor.UNCOLORED) };
+		this.familiars = new ArrayList<>();
+		this.familiars.add(new Familiar(this, FamiliarColor.BLACK));
+		this.familiars.add(new Familiar(this, FamiliarColor.WHITE));
+		this.familiars.add(new Familiar(this, FamiliarColor.ORANGE));
+		this.familiars.add(new Familiar(this, FamiliarColor.UNCOLORED));
 		this.personalBonusTile = null; // This needs to be chosen later on by the player
 		this.payIfTowerIsOccupied = true;
 		this.churchSupportBonuses = new ArrayList<>();
@@ -270,7 +273,7 @@ public class Player {
 	 *             if no familiar of the given familiarColor is found
 	 */
 	public Familiar getFamiliarByColor(FamiliarColor familiarColor) throws IllegalActionException {
-		return Arrays.stream(familiars).filter(familiar -> !familiar.getIsPlaced() && familiar.getFamiliarColor() == familiarColor).findFirst()
+		return familiars.stream().filter(familiar -> !familiar.getIsPlaced() && familiar.getFamiliarColor() == familiarColor).findFirst()
 				.orElseThrow(() -> new IllegalActionException("Familiar of color " + familiarColor + " does not exists or has already been used"));
 	}
 
@@ -280,15 +283,15 @@ public class Player {
 	 * @return the value of the requested familiar (-1 if the familiar is not present -- should never happen)
 	 */
 	public int getFamiliarValue(FamiliarColor familiarColor) {
-		return Arrays.stream(familiars).filter(familiar -> familiar.getFamiliarColor() == familiarColor).map(Familiar::getValue).findFirst()
+		return familiars.stream().filter(familiar -> familiar.getFamiliarColor() == familiarColor).map(Familiar::getValue).findFirst()
 				.orElse(-1);
 	}
 
 	/**
-	 * @return an array containint all this player's familiars
+	 * @return an array containing all this player's familiars
 	 */
 	public Familiar[] getFamiliars() {
-		return familiars.clone();
+		return familiars.stream().toArray(Familiar[]::new);
 	}
 
 	/**
@@ -318,6 +321,18 @@ public class Player {
 	 */
 	public Resource[] getChurchSupportBonuses(){
 		return churchSupportBonuses.stream().toArray(Resource[]::new);
+	}
+	
+	// TODO: manage the discount
+	public void addBonusFamiliar(SlotType slotType, int value, Resource[] discount){
+		Familiar bonusFamiliar = new Familiar(this, FamiliarColor.BONUS);
+		bonusFamiliar.setValue(value);
+		this.familiars.add(bonusFamiliar);		
+	}
+	
+	// TODO: Javadoc this
+	public void removeBonusFamiliar(){
+		familiars.removeIf(familiar -> familiar.getFamiliarColor() == FamiliarColor.BONUS);
 	}
 
 }

@@ -5,10 +5,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 import it.polimi.ingsw.LM45.model.cards.Card;
+import it.polimi.ingsw.LM45.model.core.Familiar;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.Player;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.ResourceType;
+import it.polimi.ingsw.LM45.model.core.Slot;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.model.effects.ActionModifier;
 import it.polimi.ingsw.LM45.model.effects.CardEffect;
@@ -19,10 +21,14 @@ public class EffectController implements EffectResolutor {
 
 	private Player player;
 	private ServerController serverController;
+	
+	private Familiar bonusFamiliar;
+	private ActionModifier bonusFamiliarActionModifier;
 
 	public EffectController(Player player, ServerController serverController) {
 		this.player = player;
 		this.serverController = serverController;
+		this.bonusFamiliar = null;
 	}
 
 	public void addResources(Resource resource) {
@@ -103,7 +109,7 @@ public class EffectController implements EffectResolutor {
 	}
 
 	public void doBonusAction(SlotType slotType, int diceNumber, Resource[] discount) {
-		// TODO: implement
+		serverController.doBonusAction(player.getUsername(), slotType, diceNumber, discount);
 	}
 
 	public void harvest(int value) {
