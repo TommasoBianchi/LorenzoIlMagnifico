@@ -83,10 +83,9 @@ public class GameBoardController {
 	public GameBoardController(String[] playersUsername, PlayerColor[] playerColors, ClientController clientController,
 			Excommunication[] excommunications) {
 
-		this.stage = new Stage();
+		stage = new Stage();
 		this.clientController = clientController;
 		myUsername = clientController.getUsername();
-		System.out.println("HEY!");
 
 		for (int i = 0; i < playersUsername.length; i++) {
 			usersPersonalBoards.put(playersUsername[i],

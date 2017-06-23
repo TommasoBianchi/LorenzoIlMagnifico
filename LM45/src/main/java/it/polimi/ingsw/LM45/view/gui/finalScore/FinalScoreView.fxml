@@ -1,8 +1,146 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
-	<!-- TODO Add Nodes -->
+
+<AnchorPane prefHeight="720.0" prefWidth="550.0" style="-fx-background-color: #421a03;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111">
+   <children>
+      <ImageView fitHeight="720.0" fitWidth="550.0" layoutX="-0.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../../../../../../../../../Assets/Image/Cards/LEADER/LeaderCard%20Cover.jpg" />
+         </image>
+         <viewport>
+            <Rectangle2D height="720.0" minX="60.0" minY="100.0" width="550.0" />
+         </viewport>
+      </ImageView>
+      <GridPane alignment="CENTER" blendMode="HARD_LIGHT" layoutX="344.0" layoutY="363.0" prefHeight="720.0" prefWidth="720.0" style="-fx-background-color: #421a03;" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="200.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="86.33332824707031" minWidth="10.0" prefWidth="65.66667175292969" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="119.66667175292969" minWidth="10.0" prefWidth="61.33332824707031" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="162.33334350585938" minWidth="10.0" prefWidth="155.6666717529297" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="81.33334350585938" minWidth="10.0" prefWidth="69.33334350585938" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label id="POSITION0" opacity="0.0" text="1" textFill="WHITE">
+               <font>
+                  <Font name="Bell MT Italic" size="35.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="25.0" />
+               </GridPane.margin>
+            </Label>
+            <Label id="POSITION1" opacity="0.0" text="2" textFill="WHITE" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Bell MT Italic" size="35.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="25.0" />
+               </GridPane.margin>
+            </Label>
+            <Label id="POSITION2" opacity="0.0" text="3" textFill="WHITE" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Bell MT Italic" size="35.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="25.0" />
+               </GridPane.margin>
+            </Label>
+            <Label id="POSITION3" opacity="0.0" text="4" textFill="WHITE" GridPane.rowIndex="3">
+               <font>
+                  <Font name="Bell MT Italic" size="35.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="25.0" />
+               </GridPane.margin>
+            </Label>
+            <ImageView id="IMAGE0" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
+            <ImageView id="IMAGE1" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ImageView id="IMAGE2" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ImageView id="IMAGE3" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
+               <children>
+                  <Label id="NAME0" alignment="CENTER" contentDisplay="CENTER" opacity="0.0" prefHeight="80.0" prefWidth="155.0" text="Name" textAlignment="CENTER" textFill="#f7a60a" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font name="Bell MT Italic" size="26.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <children>
+                  <Label id="NAME1" alignment="CENTER" contentDisplay="CENTER" opacity="0.0" prefHeight="80.0" prefWidth="155.0" text="Name" textAlignment="CENTER" textFill="#f7a60a" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font name="Bell MT Italic" size="26.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <children>
+                  <Label id="NAME2" alignment="CENTER" contentDisplay="CENTER" opacity="0.0" prefHeight="80.0" prefWidth="155.0" text="Name" textAlignment="CENTER" textFill="#f7a60a" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font name="Bell MT Italic" size="26.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+               <children>
+                  <Label id="NAME3" alignment="CENTER" contentDisplay="CENTER" opacity="0.0" prefHeight="80.0" prefWidth="155.0" text="Name" textAlignment="CENTER" textFill="#f7a60a" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font name="Bell MT Italic" size="26.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <Label id="SCORE0" alignment="CENTER" contentDisplay="CENTER" opacity="0.0" prefHeight="80.0" prefWidth="155.0" text="0" textAlignment="CENTER" textFill="#f7a60a" GridPane.columnIndex="3">
+               <font>
+                  <Font name="Bell MT Italic" size="51.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label id="SCORE1" alignment="CENTER" contentDisplay="CENTER" opacity="0.0" prefHeight="80.0" prefWidth="155.0" text="0" textAlignment="CENTER" textFill="#f7a60a" GridPane.columnIndex="3" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Bell MT Italic" size="51.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label id="SCORE2" alignment="CENTER" contentDisplay="CENTER" opacity="0.0" prefHeight="80.0" prefWidth="155.0" text="0" textAlignment="CENTER" textFill="#f7a60a" GridPane.columnIndex="3" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Bell MT Italic" size="51.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label id="SCORE3" alignment="CENTER" contentDisplay="CENTER" opacity="0.0" prefHeight="80.0" prefWidth="155.0" text="0" textAlignment="CENTER" textFill="#f7a60a" GridPane.columnIndex="3" GridPane.rowIndex="3">
+               <font>
+                  <Font name="Bell MT Italic" size="51.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="10.0" />
+               </GridPane.margin>
+            </Label>
+         </children>
+      </GridPane>
+   </children>
 </AnchorPane>
-
