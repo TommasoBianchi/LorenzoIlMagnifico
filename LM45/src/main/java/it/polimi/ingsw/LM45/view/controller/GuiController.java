@@ -12,6 +12,7 @@ import it.polimi.ingsw.LM45.model.core.PlayerColor;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.network.client.ClientController;
+import it.polimi.ingsw.LM45.view.gui.finalScore.FinalScoreController;
 import it.polimi.ingsw.LM45.view.gui.gameboard.GameBoardController;
 import it.polimi.ingsw.LM45.view.gui.leadercard.LeaderCardChoiceController;
 import it.polimi.ingsw.LM45.view.lobby.LobbyController;
@@ -31,6 +32,7 @@ public class GuiController implements ViewInterface {
 	LeaderCardChoiceController leaderChoiceController;
 	GameBoardController gameBoardController;
 	ClientController clientController;
+	FinalScoreController finalController;
 
 	private int choice = -1;
 	private Object choiceLockToken = new Object();
@@ -194,6 +196,12 @@ public class GuiController implements ViewInterface {
 	@Override
 	public void placeExcommunicationToken(PlayerColor playerColor, PeriodType periodType){
 		Platform.runLater(() -> gameBoardController.placeExcommunicationToken(playerColor, periodType));
+	}
+	
+	@Override
+	public void showFinalScore(String[] playersUsername, PlayerColor[] playerColors, int[] scores){
+		finalController = new FinalScoreController(playersUsername, playerColors, scores);
+		gameBoardController.close();
 	}
 
 }

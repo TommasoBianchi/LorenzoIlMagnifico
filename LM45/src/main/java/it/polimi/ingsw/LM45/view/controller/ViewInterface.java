@@ -36,5 +36,6 @@ public interface ViewInterface {
 	public void activateLeaderCard(String username, LeaderCard leader);
 	public void setPersonalBonusTile(String username, PersonalBonusTile personalBonusTile);
 	public void placeExcommunicationToken(PlayerColor playerColor, PeriodType periodType);
+	public void showFinalScore(String[] playersUsername, PlayerColor[] playerColors, int[] scores);
 	
 }

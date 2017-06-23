@@ -444,5 +444,11 @@ public class GameBoardController {
 		} else
 			usersPersonalBoards.get(username).setPersonalBonusTile(productionBonus, harvestBonus);
 	}
+	
+	public void close() {
+		for(PersonalBoardController personalBoard : usersPersonalBoards.values())
+			personalBoard.getStage().close();
+		stage.close();
+	}
 
 }
