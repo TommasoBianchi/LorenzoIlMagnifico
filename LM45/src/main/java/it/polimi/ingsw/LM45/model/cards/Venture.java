@@ -3,6 +3,7 @@ package it.polimi.ingsw.LM45.model.cards;
 import it.polimi.ingsw.LM45.model.core.Player;
 import it.polimi.ingsw.LM45.model.effects.ActionModifier;
 import it.polimi.ingsw.LM45.model.effects.CardEffect;
+import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
 
 public class Venture extends Card {
 	
@@ -40,13 +41,23 @@ public class Venture extends Card {
 
 	@Override
 	public boolean canPick(Player player, ActionModifier actionModifier) {
-		return super.canPick(player, actionModifier) && alternativeCost.canPay(player, actionModifier);
+		return super.canPick(player, actionModifier) || alternativeCost.canPay(player, actionModifier);
+	}
+
+	@Override
+	public void payCost(EffectResolutor effectResolutor, ActionModifier actionModifier){
+		if(alternativeCost.isEmpty())
+			super.payCost(effectResolutor, actionModifier);
+		else {
+			Cost chosenCost = effectResolutor.chooseFrom(new Cost[]{ cost, alternativeCost });
+			chosenCost.pay(effectResolutor, actionModifier);
+		}
 	}
 	
 	@Override
 	public String toString(){
 		String result = super.toString();
-		if(!alternativeCost.toString().equals(""))
+		if(!alternativeCost.isEmpty())
 			result += "\nAlternative cost: " + alternativeCost.toString();
 		return result;
 	}

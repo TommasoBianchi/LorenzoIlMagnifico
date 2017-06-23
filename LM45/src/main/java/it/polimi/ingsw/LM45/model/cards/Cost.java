@@ -62,6 +62,13 @@ public class Cost implements Serializable {
 
 		resourcesToPay.forEach(resource -> effectResolutor.addResources(resource));
 	}
+	
+	/**
+	 * @return wheter or not this is an empty cost
+	 */
+	public boolean isEmpty(){
+		return costResources == null || costResources.length == 0;
+	}
 
 	@Override
 	public String toString() {
