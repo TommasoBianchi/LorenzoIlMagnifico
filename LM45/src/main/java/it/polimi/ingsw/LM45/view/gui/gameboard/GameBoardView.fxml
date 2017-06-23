@@ -627,7 +627,7 @@
                                     <Image url="/Image/GameBoard/PRODUCTION.PNG" />
                                  </image>
                               </ImageView>
-                              <ImageView id="PRODUCTION0" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
+                              <ImageView id="PRODUCTIONTILE0" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
                               <Label id="LABELPRODUCTION0" text="0" textFill="WHITE" GridPane.columnIndex="1">
                                  <font>
                                     <Font name="Bell MT Italic" size="27.0" />
@@ -636,7 +636,7 @@
                                     <Insets bottom="5.0" left="50.0" />
                                  </GridPane.margin>
                               </Label>
-                              <ImageView id="PRODUCTION1" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
+                              <ImageView id="PRODUCTIONTILE1" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
                               <Label id="LABELPRODUCTION1" text="0" textFill="WHITE" GridPane.columnIndex="2">
                                  <font>
                                     <Font name="Bell MT Italic" size="27.0" />
@@ -669,7 +669,7 @@
                                     <Image url="/Image/GameBoard/HARVEST.PNG" />
                                  </image>
                               </ImageView>
-                              <ImageView id="HARVEST0" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
+                              <ImageView id="HARVESTTILE0" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
                               <Label id="LABELHARVEST0" text="0" textFill="WHITE" GridPane.columnIndex="1">
                                  <font>
                                     <Font name="Bell MT Italic" size="27.0" />
@@ -678,7 +678,7 @@
                                     <Insets bottom="5.0" left="50.0" />
                                  </GridPane.margin>
                               </Label>
-                              <ImageView id="HARVEST1" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
+                              <ImageView id="HARVESTTILE1" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
                               <Label id="LABELHARVEST1" text="0" textFill="WHITE" GridPane.columnIndex="2">
                                  <font>
                                     <Font name="Bell MT Italic" size="27.0" />
@@ -687,7 +687,7 @@
                                     <Insets bottom="5.0" left="50.0" />
                                  </GridPane.margin>
                               </Label>
-                              <ImageView id="HARVEST2" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" />
+                              <ImageView id="HARVESTTILE2" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" />
                               <Label id="LABELHARVEST2" text="0" textFill="WHITE" GridPane.columnIndex="3">
                                  <font>
                                     <Font name="Bell MT Italic" size="27.0" />

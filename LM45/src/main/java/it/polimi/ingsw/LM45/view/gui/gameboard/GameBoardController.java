@@ -424,14 +424,14 @@ public class GameBoardController {
 		Resource[] harvestBonus = personalBonusTile.getHarvestBonuses();
 		if (username == myUsername) {
 			for(int i=0; i<2; i++){
-				ImageView resourceView = (ImageView) stage.getScene().lookup("#PRODUCTION" + i);
+				ImageView resourceView = (ImageView) stage.getScene().lookup("#PRODUCTIONTILE" + i);
 				Image resource = new Image("/Image/Resources/" + productionBonus[i].getResourceType() + ".png");
 				resourceView.setImage(resource);
 				Label resourceValue = (Label) stage.getScene().lookup("#LABELPRODUCTION" + i);
 				resourceValue.setText(Integer.toString(productionBonus[i].getAmount()));
 			}
 			for(int i=0; i<3; i++){
-				ImageView resourceView = (ImageView) stage.getScene().lookup("#HARVEST" + i);
+				ImageView resourceView = (ImageView) stage.getScene().lookup("#HARVESTTILE" + i);
 				Image resource = new Image("/Image/Resources/" + harvestBonus[i].getResourceType() + ".png");
 				resourceView.setImage(resource);
 				Label resourceValue = (Label) stage.getScene().lookup("#LABELHARVEST" + i);
