@@ -6,6 +6,7 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
+import it.polimi.ingsw.LM45.exceptions.IllegalActionException;
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.CardType;
 import it.polimi.ingsw.LM45.model.cards.Territory;
@@ -47,7 +48,8 @@ public class PersonalBoard {
 	 * @param resource the resource to remove (it has to contain a negative amount)
 	 */
 	public void removeResources(Resource resource) {
-		int newAmount = resources.getOrDefault(resource.getResourceType(), 0) - resource.getAmount();
+		int oldAmount = resources.getOrDefault(resource.getResourceType(), 0);
+		int newAmount = oldAmount - resource.getAmount();
 		if (newAmount < 0)
 			newAmount = 0;
 		resources.put(resource.getResourceType(), newAmount);

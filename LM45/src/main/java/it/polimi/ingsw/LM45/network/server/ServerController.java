@@ -144,8 +144,9 @@ public class ServerController {
 				Slot slot = game.getSlot(slotType, slotID);
 				Familiar familiar = players.get(player).getFamiliarByColor(familiarColor);
 				ActionModifier actionModifier = ActionModifier.EMPTY(); // FIXME: grab the right ActionModifier
-				if (slot.canAddFamiliar(familiar, actionModifier)) {
-					slot.addFamiliar(familiar, actionModifier, effectResolutors.get(player));
+				EffectResolutor effectResolutor = effectResolutors.get(player);
+				if (slot.canAddFamiliar(familiar, actionModifier, effectResolutor)) {
+					slot.addFamiliar(familiar, actionModifier, effectResolutor);
 					notifyPlayers(clientInterface -> clientInterface.addFamiliar(slotType, slotID, familiarColor, players.get(player).getColor()));
 					currentPlayerAlreadyPlacedFamiliar = familiarColor != FamiliarColor.BONUS;
 					logInfo(player + " successfully placed the familiar");
@@ -535,9 +536,11 @@ public class ServerController {
 
 				Set<ResourceType> changedResourcesTypes = new HashSet<>();
 
-				player.addResources(new Resource(ResourceType.VICTORY, -player.getResourceAmount(ResourceType.VICTORY)));
-				changedResourcesTypes.add(ResourceType.VICTORY);
+				// Remove all Faith points
+				player.addResources(new Resource(ResourceType.FAITH, -player.getResourceAmount(ResourceType.FAITH)));
+				changedResourcesTypes.add(ResourceType.FAITH);
 
+				// Give player the resources he's gained by supporting the Church
 				Arrays.stream(game.getChurchSupportResources(player.getResourceAmount(ResourceType.FAITH))).forEach(resource -> {
 					player.addResources(resource);
 					changedResourcesTypes.add(resource.getResourceType());

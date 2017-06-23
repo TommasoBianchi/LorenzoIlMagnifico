@@ -30,7 +30,8 @@
         "resourceType": "MILITARY",
         "amount": 2
       }
-    ]
+    ],
+    "SUBCLASS": "it.polimi.ingsw.LM45.model.cards.CostWithPrerequisites"
   },
   "immediateEffect": {
     "effects": [

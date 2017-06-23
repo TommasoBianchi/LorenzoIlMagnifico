@@ -53,7 +53,9 @@ public class FileManager {
 
 	private static final String BASE_PATH = "Assets/Json";
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().registerTypeAdapter(Effect.class, new GsonTypeAdapter<Effect>())
-			.registerTypeAdapter(Card.class, new GsonTypeAdapter<Card>()).create();
+			.registerTypeAdapter(Card.class, new GsonTypeAdapter<Card>())
+			.registerTypeAdapter(Cost.class, new GsonConcreteTypeAdapter<Cost>())
+			.create();
 
 	public static void saveCard(Card card) throws IOException {
 		String path = BASE_PATH + "/Cards/" + card.getCardType();

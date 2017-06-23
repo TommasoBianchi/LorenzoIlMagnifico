@@ -56,11 +56,12 @@ public class Slot {
 	 *            the familiar to check for this slot
 	 * @param actionModifier
 	 *            the actionModifier collected by doing this action in this moment
+	 * @param effectResolutor the effect resolutor for the player is trying to add a familiar
 	 * @return true if it is legal to place the familiar in this slots with regards to the given actionModifier
 	 * @throws IllegalActionException
 	 *             if the familiar cannot be placed in this slot
 	 */
-	public boolean canAddFamiliar(Familiar familiar, ActionModifier actionModifier) throws IllegalActionException {
+	public boolean canAddFamiliar(Familiar familiar, ActionModifier actionModifier, EffectResolutor effectResolutor) throws IllegalActionException {
 		boolean isFree = !isOccupied(familiar) || actionModifier.getCanPlaceMultipleFamiliars();
 		boolean valueOK = isFamiliarValueOK(familiar, actionModifier);
 

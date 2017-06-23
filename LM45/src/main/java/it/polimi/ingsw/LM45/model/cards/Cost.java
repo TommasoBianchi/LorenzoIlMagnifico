@@ -28,17 +28,17 @@ public class Cost implements Serializable {
 	}
 
 	/**
-	 * @param player
-	 *            the player whom resources you want to check
+	 * @param effectResolutor
+	 *            the effectResolutor of the player whom resources you want to check
 	 * @param actionModifier
 	 *            the actionModifier for the action the player is trying to do
 	 * @return true if the player can pay the cost modified (either increased or decreased) by the action modifier
 	 */
-	public boolean canPay(Player player, ActionModifier actionModifier) {
+	public boolean canPay(EffectResolutor effectResolutor, ActionModifier actionModifier) {
 		Map<ResourceType, Integer> costModifiers = actionModifier.getCostModifiers();
 		Stream<Resource> resourcesToPay = Arrays.stream(costResources)
 				.map(resource -> resource.increment(costModifiers.getOrDefault(resource.getResourceType(), 0)));
-		return resourcesToPay.allMatch(resource -> player.hasResources(resource));
+		return resourcesToPay.allMatch(resource -> effectResolutor.hasResources(resource));
 	}
 
 	/**
@@ -61,6 +61,13 @@ public class Cost implements Serializable {
 				costModifiers.entrySet().stream().map(entry -> new Resource(entry.getKey(), -entry.getValue())));
 
 		resourcesToPay.forEach(resource -> effectResolutor.addResources(resource));
+	}
+	
+	/**
+	 * @return wheter or not this is an empty cost
+	 */
+	public boolean isEmpty(){
+		return costResources == null || costResources.length == 0;
 	}
 
 	@Override

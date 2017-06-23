@@ -10,6 +10,7 @@ public interface EffectResolutor {
 	
 	public void addResources(Resource resource);
 	public int getResourceAmount(ResourceType resourceType);
+	public boolean hasResources(Resource resource);
 	public void addChurchSupportBonus(Resource resource);
 	public void addFamiliarBonus(FamiliarColor color, int bonus);
 	public void setFamiliarValue(FamiliarColor color, int bonus);

@@ -31,18 +31,18 @@ public class TowerSlot extends Slot {
 	}
 
 	@Override
-	public boolean canAddFamiliar(Familiar familiar, ActionModifier actionModifier) throws IllegalActionException {
+	public boolean canAddFamiliar(Familiar familiar, ActionModifier actionModifier, EffectResolutor effectResolutor) throws IllegalActionException {
 		if(hasToPayTower(familiar.getPlayer()))
 			actionModifier.merge(new ActionModifier(new Resource[]{ new Resource(ResourceType.COINS, 3) }));
 		
-		boolean canPickCard = card.canPick(familiar.getPlayer(), actionModifier);
+		boolean canPickCard = card.canPick(effectResolutor, actionModifier);
 		
 		if(!hasCard)
 			throw new IllegalActionException("Cannot place a familiar " + familiar.getFamiliarColor() + " because this slot's card has already been taken");
 		else if(!canPickCard)
 			throw new IllegalActionException("Cannot place a familiar " + familiar.getFamiliarColor() + " because you cannot afford the card on this slot");
 		
-		return super.canAddFamiliar(familiar, actionModifier) && hasCard && canPickCard;
+		return super.canAddFamiliar(familiar, actionModifier, effectResolutor) && hasCard && canPickCard;
 	}
 
 	@Override

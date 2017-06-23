@@ -3,6 +3,7 @@ package it.polimi.ingsw.LM45.model.cards;
 import it.polimi.ingsw.LM45.model.core.Player;
 import it.polimi.ingsw.LM45.model.effects.ActionModifier;
 import it.polimi.ingsw.LM45.model.effects.CardEffect;
+import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
 
 public class Venture extends Card {
 	
@@ -39,14 +40,31 @@ public class Venture extends Card {
 	}
 
 	@Override
-	public boolean canPick(Player player, ActionModifier actionModifier) {
-		return super.canPick(player, actionModifier) && alternativeCost.canPay(player, actionModifier);
+	public boolean canPick(EffectResolutor effectResolutor, ActionModifier actionModifier) {
+		return super.canPick(effectResolutor, actionModifier) || alternativeCost.canPay(effectResolutor, actionModifier);
+	}
+
+	@Override
+	public void payCost(EffectResolutor effectResolutor, ActionModifier actionModifier){
+		if(alternativeCost.isEmpty())
+			super.payCost(effectResolutor, actionModifier);
+		else {
+			Cost chosenCost = cost;
+			System.out.println(cost);
+			System.out.println(alternativeCost);
+			// Make player choose a cost only if he can afford both cost and alternativeCost
+			if(cost.canPay(effectResolutor, actionModifier) && alternativeCost.canPay(effectResolutor, actionModifier))
+				chosenCost = effectResolutor.chooseFrom(new Cost[]{ cost, alternativeCost });
+			else if(alternativeCost.canPay(effectResolutor, actionModifier))
+				chosenCost = alternativeCost;
+			chosenCost.pay(effectResolutor, actionModifier);
+		}
 	}
 	
 	@Override
 	public String toString(){
 		String result = super.toString();
-		if(!alternativeCost.toString().equals(""))
+		if(!alternativeCost.isEmpty())
 			result += "\nAlternative cost: " + alternativeCost.toString();
 		return result;
 	}
