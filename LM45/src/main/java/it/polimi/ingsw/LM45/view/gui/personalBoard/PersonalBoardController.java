@@ -2,7 +2,6 @@ package it.polimi.ingsw.LM45.view.gui.personalBoard;
 
 import java.io.IOException;
 import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.Map;
 
 import it.polimi.ingsw.LM45.model.cards.CardType;
@@ -26,7 +25,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -70,7 +68,6 @@ public class PersonalBoardController {
 
 	private Map<CardType, FlowPane> cardFlowPanes = new EnumMap<>(CardType.class);
 	private Map<ResourceType, Text> resourceTexts = new EnumMap<>(ResourceType.class);
-	private Map<String, Integer> leaderPositonHand = new HashMap<>();
 
 	public PersonalBoardController(Stage stage, String username, ClientController clienteController) {
 		this.stage = stage;
@@ -188,10 +185,10 @@ public class PersonalBoardController {
 
 	public void setLeaderCards(LeaderCard[] leaderCard) {
 		String path = "/Image/Cards/LEADER/";
-		for (int i=0; i<4; i++) {
+		for (int i = 0; i < 4; i++) {
 			ImageView leaderView = (ImageView) stage.getScene().lookup("#HAND" + i);
-			leaderView.setImage(new Image(path + leaderCard[i].getName() +".jpg"));
-			leaderView.setId(leaderCard[i].getName());
+			leaderView.setImage(new Image(path + leaderCard[i].getName() + ".jpg"));
+			leaderView.setId("HAND" + leaderCard[i].getName());
 			Button play = (Button) stage.getScene().lookup("#PLAY" + i);
 			play.setId("PLAY" + leaderCard[i].getName());
 			play.setDisable(false);
@@ -204,61 +201,103 @@ public class PersonalBoardController {
 	}
 
 	public void playLeader(ActionEvent event) {
-		Button button = (Button)event.getSource();
+		Button button = (Button) event.getSource();
 		String leaderName = button.getId().substring(5);
 		clientController.playLeaderCard(leaderName);
 	}
 
 	public void discardLeader(MouseEvent event) {
-		Button button = (Button)event.getSource();
+		Button button = (Button) event.getSource();
 		String leaderName = button.getId().substring(8);
 		clientController.discardLeaderCard(leaderName);
 	}
-	
+
+	public void activateLeader(MouseEvent event) {
+		Button button = (Button) event.getSource();
+		String leaderName = button.getId().substring(9);
+		clientController.activateLeaderCard(leaderName);
+	}
+
 	public void discardLeaderCard(LeaderCard leader) {
-		if(stage.getScene().lookup("#" + leader.getName()) != null) {
-			ImageView leaderView = (ImageView) stage.getScene().lookup("#" + leader.getName());
-			leaderView.setImage(null);
-			leaderView.setId(null);
-			leaderView.setDisable(true);
-			Button play = (Button) stage.getScene().lookup("#PLAY" + leader.getName());
-			play.setDisable(true);
-			play.setOpacity(0);
-			Button discard = (Button) stage.getScene().lookup("#DISCARD" + leader.getName());
-			discard.setDisable(true);
-			discard.setOpacity(0);
+		if (stage.getScene().lookup("#HAND" + leader.getName()) != null) {
+			eliminateCardFromHand(leader.getName());
 		} else {
-			for(int i=0; i<4 ; i++){
-				if(stage.getScene().lookup("#HAND" + i) != null) {
-					ImageView cover = (ImageView) stage.getScene().lookup("#HAND" + i);
-					cover.setDisable(true);
-					cover.setImage(null);
-					cover.setId(null);
-					return;
-				}
-			}
+			eliminateFirstCover();
 		}
 	}
-	
+
+	private void eliminateFirstCover() {
+		int i = findFirstIdAvailable("HAND");
+		if (i != -1) {
+			ImageView cover = (ImageView) stage.getScene().lookup("#HAND" + i);
+			cover.setDisable(true);
+			cover.setImage(null);
+			cover.setId(null);
+		}
+	}
+
+	private void eliminateCardFromHand(String leaderName) {
+		ImageView leaderView = (ImageView) stage.getScene().lookup("#HAND" + leaderName);
+		leaderView.setImage(null);
+		leaderView.setId(null);
+		leaderView.setDisable(true);
+		Button play = (Button) stage.getScene().lookup("#PLAY" + leaderName);
+		play.setId(null);
+		play.setDisable(true);
+		play.setOpacity(0);
+		Button discard = (Button) stage.getScene().lookup("#DISCARD" + leaderName);
+		discard.setId(null);
+		discard.setDisable(true);
+		discard.setOpacity(0);
+	}
+
+	private int findFirstIdAvailable(String id) {
+		for (int i = 0; i < 4; i++) {
+			if (stage.getScene().lookup("#" + id + i) != null)
+				return i;
+		}
+		return -1;
+	}
+
+	private void putLeaderCardInField(Image leader, String leaderName) {
+		int i = findFirstIdAvailable("FIELD");
+		if (i != -1) {
+			ImageView leaderView = (ImageView) stage.getScene().lookup("#FIELD" + i);
+			leaderView.setImage(leader);
+			leaderView.setDisable(false);
+			leaderView.setId("FIELD" + leaderName);
+			Button activate = (Button) stage.getScene().lookup("#ACTIVATE" + i);
+			activate.setDisable(false);
+			activate.setOpacity(1);
+			activate.setId("ACTIVATE" + leaderName);
+			Label activeLabel = (Label) stage.getScene().lookup("#ACTIVELABEL" + i);
+			activeLabel.setId("ACTIVELABEL" + leaderName);
+		}
+	}
+
 	public void playLeaderCard(LeaderCard leader) {
-		if(stage.getScene().lookup("#" + leader.getName()) != null) {
-			ImageView leaderView = (ImageView) stage.getScene().lookup("#" + leader.getName());
+		if (stage.getScene().lookup("#HAND" + leader.getName()) != null) {
+			ImageView leaderView = (ImageView) stage.getScene().lookup("#HAND" + leader.getName());
+			putLeaderCardInField(leaderView.getImage(), leader.getName());
+			eliminateCardFromHand(leader.getName());
 		} else {
-			for(int i=0; i<4 ; i++){
-				if(stage.getScene().lookup("#HAND" + i) != null) {
-					ImageView cover = (ImageView) stage.getScene().lookup("#HAND" + i);
-					cover.setDisable(true);
-					cover.setOpacity(0);
-					return;
-				}
-			}
+			eliminateFirstCover();
+			putLeaderCardInField(new Image("/Image/Cards/LEADER/" + leader.getName() + ".jpg"), leader.getName());
 		}
 	}
 
 	public void activateLeaderCard(LeaderCard leader) {
-		// TODO Auto-generated method stub
+		if (stage.getScene().lookup("#FIELD" + leader.getName()) != null) {
+			Label activeLabel = (Label) stage.getScene().lookup("#ACTIVELABEL" + leader.getName());
+			activeLabel.setOpacity(1);
+			Button activate = (Button) stage.getScene().lookup("#ACTIVATE" + leader.getName());
+			activate.setDisable(true);
+		}
+
+		// TODO need a method from client to disable ACTIVELABEL and reactivate
+		// ACTIVATE button
 	}
-	
+
 	public void setPersonalBonusTile(PersonalBonusTile personalBonusTile) {
 		// TODO Auto-generated method stub
 	}

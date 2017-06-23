@@ -349,7 +349,7 @@
                   <Insets bottom="30.0" left="25.0" top="40.0" />
                </GridPane.margin>
                <children>
-                  <Button id="PLAY0" disable="true" mnemonicParsing="false" onAction="#playLeaderCard" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Play">
+                  <Button id="PLAY0" disable="true" mnemonicParsing="false" onAction="#playLeader" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Play">
                      <GridPane.margin>
                         <Insets bottom="35.0" left="15.0" />
                      </GridPane.margin>
@@ -357,7 +357,7 @@
                         <Font name="Bell MT Italic" size="12.0" />
                      </font>
                   </Button>
-                  <Button id="DISCARD0" disable="true" mnemonicParsing="false" onAction="#discardLeaderCard" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Discard">
+                  <Button id="DISCARD0" disable="true" mnemonicParsing="false" onAction="#discardLeader" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Discard">
                      <GridPane.margin>
                         <Insets left="15.0" top="20.0" />
                      </GridPane.margin>
@@ -365,7 +365,7 @@
                         <Font name="Bell MT Italic" size="12.0" />
                      </font>
                   </Button>
-                  <Button id="PLAY1" disable="true" mnemonicParsing="false" onAction="#playLeaderCard" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Play" GridPane.columnIndex="1">
+                  <Button id="PLAY1" disable="true" mnemonicParsing="false" onAction="#playLeader" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Play" GridPane.columnIndex="1">
                      <font>
                         <Font name="Bell MT Italic" size="12.0" />
                      </font>
@@ -373,7 +373,7 @@
                         <Insets bottom="35.0" left="15.0" />
                      </GridPane.margin>
                   </Button>
-                  <Button id="DISCARD1" disable="true" mnemonicParsing="false" onAction="#discardLeaderCard" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Discard" GridPane.columnIndex="1">
+                  <Button id="DISCARD1" disable="true" mnemonicParsing="false" onAction="#discardLeader" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Discard" GridPane.columnIndex="1">
                      <font>
                         <Font name="Bell MT Italic" size="12.0" />
                      </font>
@@ -381,7 +381,7 @@
                         <Insets left="15.0" top="20.0" />
                      </GridPane.margin>
                   </Button>
-                  <Button id="PLAY2" disable="true" mnemonicParsing="false" onAction="#playLeaderCard" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Play" GridPane.columnIndex="2">
+                  <Button id="PLAY2" disable="true" mnemonicParsing="false" onAction="#playLeader" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Play" GridPane.columnIndex="2">
                      <font>
                         <Font name="Bell MT Italic" size="12.0" />
                      </font>
@@ -389,7 +389,7 @@
                         <Insets bottom="35.0" left="15.0" />
                      </GridPane.margin>
                   </Button>
-                  <Button id="DISCARD2" disable="true" mnemonicParsing="false" onAction="#discardLeaderCard" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Discard" GridPane.columnIndex="2">
+                  <Button id="DISCARD2" disable="true" mnemonicParsing="false" onAction="#discardLeader" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Discard" GridPane.columnIndex="2">
                      <font>
                         <Font name="Bell MT Italic" size="12.0" />
                      </font>
@@ -397,7 +397,7 @@
                         <Insets left="15.0" top="20.0" />
                      </GridPane.margin>
                   </Button>
-                  <Button id="PLAY3" disable="true" mnemonicParsing="false" onAction="#playLeaderCard" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Play" GridPane.columnIndex="3">
+                  <Button id="PLAY3" disable="true" mnemonicParsing="false" onAction="#playLeader" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Play" GridPane.columnIndex="3">
                      <font>
                         <Font name="Bell MT Italic" size="12.0" />
                      </font>
@@ -405,7 +405,7 @@
                         <Insets bottom="35.0" left="15.0" />
                      </GridPane.margin>
                   </Button>
-                  <Button id="DISCARD3" disable="true" mnemonicParsing="false" onAction="#discardLeaderCard" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Discard" GridPane.columnIndex="3">
+                  <Button id="DISCARD3" disable="true" mnemonicParsing="false" onAction="#discardLeader" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Discard" GridPane.columnIndex="3">
                      <font>
                         <Font name="Bell MT Italic" size="12.0" />
                      </font>
@@ -456,10 +456,11 @@
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints maxHeight="80.33331298828125" minHeight="10.0" prefHeight="36.33331298828125" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="151.33331298828125" minHeight="10.0" prefHeight="136.66668701171875" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="167.0" minHeight="10.0" prefHeight="153.66668701171875" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="151.33331298828125" minHeight="8.0" prefHeight="21.33331298828125" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Button id="ACTIVATE0" disable="true" mnemonicParsing="false" onAction="#discardLeaderCard" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Activate">
+                  <Button id="ACTIVATE0" disable="true" mnemonicParsing="false" onAction="#activateLeader" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Activate">
                      <GridPane.margin>
                         <Insets left="15.0" top="20.0" />
                      </GridPane.margin>
@@ -467,7 +468,7 @@
                         <Font name="Bell MT Italic" size="12.0" />
                      </font>
                   </Button>
-                  <Button id="ACTIVATE1" disable="true" mnemonicParsing="false" onAction="#discardLeaderCard" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Activate" GridPane.columnIndex="1">
+                  <Button id="ACTIVATE1" disable="true" mnemonicParsing="false" onAction="#activateLeader" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Activate" GridPane.columnIndex="1">
                      <font>
                         <Font name="Bell MT Italic" size="12.0" />
                      </font>
@@ -475,7 +476,7 @@
                         <Insets left="15.0" top="20.0" />
                      </GridPane.margin>
                   </Button>
-                  <Button id="ACTIVATE2" disable="true" mnemonicParsing="false" onAction="#discardLeaderCard" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Activate" GridPane.columnIndex="2">
+                  <Button id="ACTIVATE2" disable="true" mnemonicParsing="false" onAction="#activateLeader" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Activate" GridPane.columnIndex="2">
                      <font>
                         <Font name="Bell MT Italic" size="12.0" />
                      </font>
@@ -483,7 +484,7 @@
                         <Insets left="15.0" top="20.0" />
                      </GridPane.margin>
                   </Button>
-                  <Button id="ACTIVATE3" disable="true" mnemonicParsing="false" onAction="#discardLeaderCard" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Activate" GridPane.columnIndex="3">
+                  <Button id="ACTIVATE3" disable="true" mnemonicParsing="false" onAction="#activateLeader" opacity="0.0" prefHeight="22.0" prefWidth="70.0" text="Activate" GridPane.columnIndex="3">
                      <font>
                         <Font name="Bell MT Italic" size="12.0" />
                      </font>
@@ -491,29 +492,61 @@
                         <Insets left="15.0" top="20.0" />
                      </GridPane.margin>
                   </Button>
-                  <ImageView id="FIELD0" fitHeight="130.0" fitWidth="100.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" GridPane.rowIndex="1">
+                  <ImageView id="FIELD0" disable="true" fitHeight="130.0" fitWidth="100.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" GridPane.rowIndex="1">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <ImageView id="FIELD1" fitHeight="130.0" fitWidth="100.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" translateX="-0.0" translateY="-0.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <ImageView id="FIELD1" disable="true" fitHeight="130.0" fitWidth="100.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" translateX="-0.0" translateY="-0.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <ImageView id="FIELD2" fitHeight="130.0" fitWidth="100.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <ImageView id="FIELD2" disable="true" fitHeight="130.0" fitWidth="100.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <ImageView id="FIELD3" fitHeight="130.0" fitWidth="100.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" translateX="-0.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                  <ImageView id="FIELD3" disable="true" fitHeight="130.0" fitWidth="100.0" onMousePressed="#zoomImage" onMouseReleased="#resetZoomImage" pickOnBounds="true" translateX="-0.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
+                  <Label id="ACTIVELABEL0" alignment="CENTER" contentDisplay="CENTER" opacity="0.0" text="Active !" textFill="#f7a60a" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Bell MT Italic" size="14.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets bottom="15.0" left="30.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label id="ACTIVELABEL1" alignment="CENTER" contentDisplay="CENTER" opacity="0.0" text="Active !" textFill="#f7a60a" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Bell MT Italic" size="14.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets bottom="15.0" left="30.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label id="ACTIVELABEL2" alignment="CENTER" contentDisplay="CENTER" opacity="0.0" text="Active !" textFill="#f7a60a" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Bell MT Italic" size="14.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets bottom="15.0" left="30.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label id="ACTIVELABEL3" alignment="CENTER" contentDisplay="CENTER" opacity="0.0" text="Active !" textFill="#f7a60a" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Bell MT Italic" size="14.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets bottom="15.0" left="30.0" />
+                     </GridPane.margin>
+                  </Label>
                </children>
                <GridPane.margin>
-                  <Insets bottom="30.0" right="25.0" top="40.0" />
+                  <Insets right="25.0" top="40.0" />
                </GridPane.margin>
             </GridPane>
          </children>
