@@ -219,7 +219,7 @@ public class GameBoardController {
 		familiarColor = FamiliarColor.BONUS;
 		bonusActionPane.setDisable(false);
 		bonusActionPane.setOpacity(1);
-		Label bonusValue = (Label) stage.getScene().lookup("#VALUE" + value);
+		Label bonusValue = (Label) stage.getScene().lookup("#VALUEBONUS");
 		bonusValue.setText(Integer.toString(value));
 	}
 
