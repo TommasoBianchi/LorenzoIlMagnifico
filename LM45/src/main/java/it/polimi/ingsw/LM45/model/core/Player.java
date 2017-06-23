@@ -22,6 +22,7 @@ public class Player {
 	private boolean payIfTowerIsOccupied;
 	private List<Resource> churchSupportBonuses;
 	private boolean hasToSkipFirstTurn;
+	private Resource[] bonusFamiliarDiscount;
 
 	/**
 	 * @param username
@@ -324,14 +325,22 @@ public class Player {
 		return churchSupportBonuses.stream().toArray(Resource[]::new);
 	}
 
-	// TODO: manage the discount
+	/**
+	 * @param slotType the slotType the bonus familiar can be placed into
+	 * @param value the value of the bonus familiar
+	 * @param discount the discount received when picking a card with this bonus familiar
+	 */
 	public void addBonusFamiliar(SlotType slotType, int value, Resource[] discount) {
 		Familiar bonusFamiliar = new Familiar(this, FamiliarColor.BONUS);
 		bonusFamiliar.setValue(value);
 		this.familiars.add(bonusFamiliar);
+		this.bonusFamiliarDiscount = Arrays.stream(discount).map(resource -> resource.getAmount() > 0 ? resource.multiply(-1) : resource)
+				.toArray(Resource[]::new); // Make sure the discounts are expressed as negative resources
 	}
 
-	// TODO: Javadoc this
+	/**
+	 * removes the bonus familiar because it has been "placed" on the board
+	 */
 	public void removeBonusFamiliar() {
 		familiars.removeIf(familiar -> familiar.getFamiliarColor() == FamiliarColor.BONUS);
 	}
@@ -344,7 +353,10 @@ public class Player {
 	 * @return an actionModifier describing all the modifiers from permanentEffects of this player that have to be applied on this action
 	 */
 	public ActionModifier getActionModifier(SlotType slotType, EffectResolutor effectResolutor) {
-		return personalBoard.getActionModifier(slotType, effectResolutor);
+		ActionModifier actionModifier = personalBoard.getActionModifier(slotType, effectResolutor);
+		if (bonusFamiliarDiscount != null)
+			actionModifier.merge(new ActionModifier(bonusFamiliarDiscount));
+		return actionModifier;
 	}
 
 }
