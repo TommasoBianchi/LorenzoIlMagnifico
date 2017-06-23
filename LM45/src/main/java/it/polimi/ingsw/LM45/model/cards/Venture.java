@@ -49,7 +49,12 @@ public class Venture extends Card {
 		if(alternativeCost.isEmpty())
 			super.payCost(effectResolutor, actionModifier);
 		else {
-			Cost chosenCost = effectResolutor.chooseFrom(new Cost[]{ cost, alternativeCost });
+			Cost chosenCost = cost;
+			// Make player choose a cost only if he can afford both cost and alternativeCost
+			if(cost.canPay(effectResolutor, actionModifier) && alternativeCost.canPay(effectResolutor, actionModifier))
+				chosenCost = effectResolutor.chooseFrom(new Cost[]{ cost, alternativeCost });
+			else if(alternativeCost.canPay(effectResolutor, actionModifier))
+				chosenCost = alternativeCost;
 			chosenCost.pay(effectResolutor, actionModifier);
 		}
 	}
