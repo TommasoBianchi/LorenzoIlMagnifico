@@ -43,8 +43,8 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 
 		isRunning = true;
 	}
-	
-	public void stop(){
+
+	public void stop() {
 		System.out.println("Shutting down SocketClient");
 		executorService.shutdownNow();
 		isRunning = false;
@@ -95,51 +95,51 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 				String[] alternatives = (String[]) inStream.readObject();
 				performAsync(() -> {
 					Integer index = new Integer(chooseFrom(alternatives));
-					if(index >= 0 && index < alternatives.length)
+					if (index >= 0 && index < alternatives.length)
 						outStream.writeObject(index);
 				});
 				break;
 			case PICK_CARD:
 				Card card = (Card) inStream.readObject();
 				username = (String) inStream.readObject();
-				performAsync(() -> pickCard(card, username)); 
+				performAsync(() -> pickCard(card, username));
 				break;
 			case SETUP_TOWER:
 				Card[] cards = (Card[]) inStream.readObject();
 				SlotType slotType = (SlotType) inStream.readObject();
-				performAsync(() -> addCardsOnTower(cards, slotType)); 
+				performAsync(() -> addCardsOnTower(cards, slotType));
 				break;
 			case ADD_FAMILIAR:
 				slotType = (SlotType) inStream.readObject();
 				Integer position = (Integer) inStream.readObject();
 				FamiliarColor familiarColor = (FamiliarColor) inStream.readObject();
-				PlayerColor playerColor = (PlayerColor) inStream.readObject();				
-				performAsync(() -> addFamiliar(slotType, position, familiarColor, playerColor)); 
+				PlayerColor playerColor = (PlayerColor) inStream.readObject();
+				performAsync(() -> addFamiliar(slotType, position, familiarColor, playerColor));
 				break;
 			case SETUP_LEADERS:
 				LeaderCard[] leaders = (LeaderCard[]) inStream.readObject();
-				performAsync(() -> setLeaderCards(leaders)); 
+				performAsync(() -> setLeaderCards(leaders));
 				break;
 			case SET_FAMILIAR:
 				username = (String) inStream.readObject();
 				FamiliarColor color = (FamiliarColor) inStream.readObject();
 				Integer value = (Integer) inStream.readObject();
-				performAsync(() -> setFamiliar(username, color, value)); 
+				performAsync(() -> setFamiliar(username, color, value));
 				break;
 			case BONUS_ACTION:
 				slotType = (SlotType) inStream.readObject();
 				value = (Integer) inStream.readObject();
-				performAsync(() -> doBonusAction(slotType, value)); 
+				performAsync(() -> doBonusAction(slotType, value));
 				break;
 			case SET_RESOURCES:
 				Resource[] resources = (Resource[]) inStream.readObject();
 				username = (String) inStream.readObject();
-				performAsync(() -> setResources(resources, username)); 
+				performAsync(() -> setResources(resources, username));
 				break;
 			case SET_PERSONALTILE:
 				PersonalBonusTile personalBonusTile = (PersonalBonusTile) inStream.readObject();
 				username = (String) inStream.readObject();
-				performAsync(() -> setPersonalBonusTile(username, personalBonusTile)); 
+				performAsync(() -> setPersonalBonusTile(username, personalBonusTile));
 				break;
 			case INIT_GAMEBOARD:
 				String[] playersUsername = (String[]) inStream.readObject();
@@ -151,6 +151,21 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 				playerColor = (PlayerColor) inStream.readObject();
 				PeriodType periodType = (PeriodType) inStream.readObject();
 				performAsync(() -> placeExcommunicationToken(playerColor, periodType));
+				break;
+			case PLAY_LEADER:
+				player = (String) inStream.readObject();
+				LeaderCard leaderCard = (LeaderCard) inStream.readObject();
+				performAsync(() -> playLeaderCard(player, leaderCard));
+				break;
+			case ACTIVATE_LEADER:
+				player = (String) inStream.readObject();
+				leaderCard = (LeaderCard) inStream.readObject();
+				performAsync(() -> activateLeaderCard(player, leaderCard));
+				break;
+			case DISCARD_LEADER:
+				player = (String) inStream.readObject();
+				leaderCard = (LeaderCard) inStream.readObject();
+				performAsync(() -> discardLeaderCard(player, leaderCard));
 				break;
 			default:
 				break;
@@ -221,10 +236,10 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 	}
 
 	/**
-	 * Perform some asynchronous processing. Useful to free as soon as possible the thread
-	 * waiting on the inStream
+	 * Perform some asynchronous processing. Useful to free as soon as possible the thread waiting on the inStream
 	 * 
-	 * @param action the function to execute asynchronously (IOException already handled)
+	 * @param action
+	 *            the function to execute asynchronously (IOException already handled)
 	 */
 	private void performAsync(CheckedAction<IOException> action) {
 		executorService.submit(() -> {
@@ -286,6 +301,21 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 	@Override
 	public void placeExcommunicationToken(PlayerColor playerColor, PeriodType periodType) throws IOException {
 		clientController.placeExcommunicationToken(playerColor, periodType);
+	}
+
+	@Override
+	public void playLeaderCard(String username, LeaderCard leader) throws IOException {
+		clientController.playLeaderCard(username, leader);
+	}
+
+	@Override
+	public void activateLeaderCard(String username, LeaderCard leader) throws IOException {
+		clientController.activateLeaderCard(username, leader);
+	}
+
+	@Override
+	public void discardLeaderCard(String username, LeaderCard leader) throws IOException {
+		clientController.discardLeaderCard(username, leader);
 	}
 
 }

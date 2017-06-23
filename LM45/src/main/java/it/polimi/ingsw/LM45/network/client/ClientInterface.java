@@ -32,5 +32,8 @@ public interface ClientInterface {
 	public void setPersonalBonusTile(String username, PersonalBonusTile personalBonusTile) throws IOException;
 	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications) throws IOException;
 	public void placeExcommunicationToken(PlayerColor playerColor, PeriodType periodType) throws IOException;
+	public void playLeaderCard(String username, LeaderCard leader) throws IOException;
+	public void activateLeaderCard(String username, LeaderCard leader) throws IOException;
+	public void discardLeaderCard(String username, LeaderCard leader) throws IOException;
 	
 }

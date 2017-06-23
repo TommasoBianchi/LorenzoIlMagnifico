@@ -142,5 +142,20 @@ public class RMIClient implements RemoteClientInterface, ServerInterface {
 	public void placeExcommunicationToken(PlayerColor playerColor, PeriodType periodType) throws IOException {
 		clientController.placeExcommunicationToken(playerColor, periodType);
 	}
+
+	@Override
+	public void playLeaderCard(String username, LeaderCard leader) throws IOException {
+		clientController.playLeaderCard(username, leader);
+	}
+
+	@Override
+	public void activateLeaderCard(String username, LeaderCard leader) throws IOException {
+		clientController.activateLeaderCard(username, leader);		
+	}
+
+	@Override
+	public void discardLeaderCard(String username, LeaderCard leader) throws IOException {
+		clientController.discardLeaderCard(username, leader);
+	}
 	
 }

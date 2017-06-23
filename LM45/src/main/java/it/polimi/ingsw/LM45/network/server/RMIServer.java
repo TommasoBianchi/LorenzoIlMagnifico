@@ -144,4 +144,19 @@ public class RMIServer implements RemoteServerInterface, ClientInterface {
 		remoteClient.placeExcommunicationToken(playerColor, periodType);
 	}
 
+	@Override
+	public void playLeaderCard(String username, LeaderCard leader) throws IOException {
+		remoteClient.playLeaderCard(username, leader);
+	}
+
+	@Override
+	public void activateLeaderCard(String username, LeaderCard leader) throws IOException {
+		remoteClient.activateLeaderCard(username, leader);
+	}
+
+	@Override
+	public void discardLeaderCard(String username, LeaderCard leader) throws IOException {
+		remoteClient.discardLeaderCard(username, leader);
+	}
+
 }

@@ -321,4 +321,25 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 		outStream.writeObject(periodType);
 	}
 
+	@Override
+	public void playLeaderCard(String username, LeaderCard leader) throws IOException {
+		outStream.writeObject(ClientMessages.PLAY_LEADER);
+		outStream.writeObject(username);
+		outStream.writeObject(leader);
+	}
+
+	@Override
+	public void activateLeaderCard(String username, LeaderCard leader) throws IOException {
+		outStream.writeObject(ClientMessages.ACTIVATE_LEADER);
+		outStream.writeObject(username);
+		outStream.writeObject(leader);
+	}
+
+	@Override
+	public void discardLeaderCard(String username, LeaderCard leader) throws IOException {
+		outStream.writeObject(ClientMessages.DISCARD_LEADER);
+		outStream.writeObject(username);
+		outStream.writeObject(leader);
+	}
+
 }

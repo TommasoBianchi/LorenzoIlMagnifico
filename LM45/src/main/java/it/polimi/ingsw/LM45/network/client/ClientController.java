@@ -228,6 +228,18 @@ public class ClientController {
 	
 	public void placeExcommunicationToken(PlayerColor playerColor, PeriodType periodType){
 		viewInterface.placeExcommunicationToken(playerColor, periodType);
+	}	
+	
+	public void playLeaderCard(String username, LeaderCard leader){
+		viewInterface.playLeaderCard(username, leader);
+	}
+	
+	public void activateLeaderCard(String username, LeaderCard leader){
+		viewInterface.activateLeaderCard(username, leader);	
+	}
+
+	public void discardLeaderCard(String username, LeaderCard leader){
+		viewInterface.discardLeaderCard(username, leader);
 	}
 
 	private void manageIOException(IOException e) {
