@@ -1,6 +1,7 @@
 package it.polimi.ingsw.LM45.model.effects;
 
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.Map;
 
 import it.polimi.ingsw.LM45.model.core.Resource;
@@ -54,11 +55,11 @@ public class ActionModifier {
 	}
 
 	public Map<ResourceType, Integer> getCostModifiers() {
-		return this.costModifiers;
+		return new HashMap<>(this.costModifiers);
 	}
 
 	public Map<ResourceType, Integer> getGainModifiers() {
-		return this.gainModifiers;
+		return new HashMap<>(this.gainModifiers);
 	}
 
 	public int getDiceBonus() {
