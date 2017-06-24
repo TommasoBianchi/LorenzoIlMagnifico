@@ -5,10 +5,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+import java.util.zip.ZipInputStream;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -51,7 +55,7 @@ import it.polimi.ingsw.LM45.model.effects.VictoryPointsFromCardsEffect;
 
 public class FileManager {
 
-	private static final String BASE_PATH = "Assets/Json";
+	private static final String BASE_PATH = "./Assets/Json";
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().registerTypeAdapter(Effect.class, new GsonTypeAdapter<Effect>())
 			.registerTypeAdapter(Card.class, new GsonTypeAdapter<Card>())
 			.registerTypeAdapter(Cost.class, new GsonConcreteTypeAdapter<Cost>())
@@ -170,8 +174,8 @@ public class FileManager {
 	}
 
 	public static <T extends Configuration> T loadConfiguration(Class<T> cl) throws JsonSyntaxException, JsonIOException, FileNotFoundException {
-		File file = new File(BASE_PATH + "/Config/" + cl.getSimpleName() + ".json");
-
+		File file = new File(BASE_PATH + "/Config/" + cl.getSimpleName()+ ".json");
+		
 		return GSON.fromJson(new FileReader(file), cl);
 	}
 
