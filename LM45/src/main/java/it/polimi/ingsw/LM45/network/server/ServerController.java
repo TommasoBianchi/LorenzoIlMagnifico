@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -141,7 +142,7 @@ public class ServerController {
 			try {
 				if (familiarColor != FamiliarColor.BONUS && currentPlayerAlreadyPlacedFamiliar)
 					throw new IllegalActionException("You have already placed a familiar this turn!");
-				else if(familiarColor == FamiliarColor.BONUS && !bonusActionSlotType.isCompatible(slotType))
+				else if (familiarColor == FamiliarColor.BONUS && !bonusActionSlotType.isCompatible(slotType))
 					throw new IllegalActionException("You cannot place this bonus familiar on a " + slotType + " slot!");
 
 				Slot slot = game.getSlot(slotType, slotID);
@@ -153,8 +154,8 @@ public class ServerController {
 					notifyPlayers(clientInterface -> clientInterface.addFamiliar(slotType, slotID, familiarColor, players.get(player).getColor()));
 					currentPlayerAlreadyPlacedFamiliar = familiarColor != FamiliarColor.BONUS;
 					logInfo(player + " successfully placed the familiar");
-					
-					if(familiarColor == FamiliarColor.BONUS){
+
+					if (familiarColor == FamiliarColor.BONUS) {
 						players.get(player).removeBonusFamiliar();
 						bonusActionSlotType = null;
 					}
@@ -229,7 +230,7 @@ public class ServerController {
 		}
 	}
 
-	public void doBonusAction(String player, SlotType slotType, int value, Resource[] discount){
+	public void doBonusAction(String player, SlotType slotType, int value, Resource[] discount) {
 		try {
 			players.get(player).addBonusFamiliar(slotType, value, discount);
 			bonusActionSlotType = slotType;
@@ -296,8 +297,8 @@ public class ServerController {
 			}
 
 			if (game.getCurrentTurn() == 6) {
-				// TODO: end the game!
 				logInfo("Game ended!");
+				endGame();
 			}
 			else {
 				nextGameTurn();
@@ -329,6 +330,57 @@ public class ServerController {
 		giveBaseResources();
 
 		nextGameTurn();
+	}
+
+	private void endGame() {
+		// Add final victory points to each player
+		players.values().forEach(player -> {
+			// For territories
+			int[] territoriesVictoryPoints = new int[] { 0, 0, 1, 4, 10, 20 };
+			player.addResources(new Resource(ResourceType.VICTORY, territoriesVictoryPoints[player.getResourceAmount(ResourceType.TERRITORY)]));
+
+			// For characters
+			int[] charactersVictoryPoints = new int[] { 1, 3, 6, 10, 15, 21 };
+			player.addResources(new Resource(ResourceType.VICTORY, charactersVictoryPoints[player.getResourceAmount(ResourceType.CHARACTER)]));
+
+			// For ventures
+			player.resolveVentures(effectResolutors.get(player.getUsername()));
+
+			// For resources owned
+			int totalResources = Arrays
+					.stream(new ResourceType[] { ResourceType.STONE, ResourceType.WOOD, ResourceType.COINS, ResourceType.SERVANTS })
+					.mapToInt(resourceType -> player.getResourceAmount(resourceType)).sum();
+			player.addResources(new Resource(ResourceType.VICTORY, totalResources));
+		});
+
+		// Give the two players with most military points some victory points (5 for the first, 2 for the second)
+		// If we have more than one player with the highest amount of military points, all of them get 5 victory points
+		// and none of them gains 2.
+		// If we have more than one player with the second highest amount of military points, all of them get 2 victory points
+		Player[] militaryOrderedPlayers = players.values().stream()
+				.sorted((player1, player2) -> player2.getResourceAmount(ResourceType.MILITARY) - player1.getResourceAmount(ResourceType.MILITARY))
+				.toArray(Player[]::new);
+		if (militaryOrderedPlayers[0].getResourceAmount(ResourceType.MILITARY) == militaryOrderedPlayers[1]
+				.getResourceAmount(ResourceType.MILITARY)) {
+			Arrays.stream(militaryOrderedPlayers).filter(
+					player -> player.getResourceAmount(ResourceType.MILITARY) == militaryOrderedPlayers[0].getResourceAmount(ResourceType.MILITARY))
+					.forEach(player -> player.addResources(new Resource(ResourceType.VICTORY, 5)));
+		}
+		else {
+			militaryOrderedPlayers[0].addResources(new Resource(ResourceType.VICTORY, 5));
+			Arrays.stream(militaryOrderedPlayers).filter(
+					player -> player.getResourceAmount(ResourceType.MILITARY) == militaryOrderedPlayers[1].getResourceAmount(ResourceType.MILITARY))
+					.forEach(player -> player.addResources(new Resource(ResourceType.VICTORY, 2)));
+		}
+		
+		// Notify client about the final ordering
+		Player[] victoryOrderedPlayers = players.values().stream()
+				.sorted((player1, player2) -> player2.getResourceAmount(ResourceType.VICTORY) - player1.getResourceAmount(ResourceType.VICTORY))
+				.toArray(Player[]::new);
+		String[] playersUsername = Arrays.stream(victoryOrderedPlayers).map(Player::getUsername).toArray(String[]::new);
+		PlayerColor[] playerColors = Arrays.stream(victoryOrderedPlayers).map(Player::getColor).toArray(PlayerColor[]::new);
+		int[] scores = Arrays.stream(victoryOrderedPlayers).mapToInt(player -> player.getResourceAmount(ResourceType.VICTORY)).toArray();
+		notifyPlayers(clientInterface -> clientInterface.showFinalScore(playersUsername, playerColors, scores));
 	}
 
 	private void nextGameTurn() {

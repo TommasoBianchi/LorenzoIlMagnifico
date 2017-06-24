@@ -6,7 +6,6 @@ import java.util.List;
 
 import it.polimi.ingsw.LM45.exceptions.IllegalActionException;
 import it.polimi.ingsw.LM45.model.cards.Card;
-import it.polimi.ingsw.LM45.model.cards.CardType;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.effects.ActionModifier;
 import it.polimi.ingsw.LM45.model.effects.CardEffect;
