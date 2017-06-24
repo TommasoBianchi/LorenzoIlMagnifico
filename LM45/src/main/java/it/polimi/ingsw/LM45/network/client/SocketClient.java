@@ -173,6 +173,7 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 				playerColors = (PlayerColor[]) inStream.readObject();
 				int[] scores = Arrays.stream((Integer[]) inStream.readObject()).mapToInt(Integer::intValue).toArray(); // Unbox Integers
 				performAsync(() -> showFinalScore(playersUsername, playerColors, scores));
+				break;
 			default:
 				break;
 		}

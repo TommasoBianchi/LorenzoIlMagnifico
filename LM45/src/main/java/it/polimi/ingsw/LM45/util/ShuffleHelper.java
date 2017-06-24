@@ -12,6 +12,8 @@ import it.polimi.ingsw.LM45.model.cards.PeriodType;
 
 public class ShuffleHelper {
 	
+	private ShuffleHelper(){}
+	
 	// Durstenfeld algorithm
 	public static <T> List<T> shuffle(Collection<T> list){
 		Random random = new Random();

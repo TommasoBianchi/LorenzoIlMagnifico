@@ -5,14 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
-import java.util.zip.ZipInputStream;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -60,6 +56,8 @@ public class FileManager {
 			.registerTypeAdapter(Card.class, new GsonTypeAdapter<Card>())
 			.registerTypeAdapter(Cost.class, new GsonConcreteTypeAdapter<Cost>())
 			.create();
+	
+	private FileManager(){}
 
 	public static void saveCard(Card card) throws IOException {
 		String path = BASE_PATH + "/Cards/" + card.getCardType();

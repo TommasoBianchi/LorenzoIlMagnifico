@@ -10,6 +10,8 @@ import it.polimi.ingsw.LM45.view.controller.ViewInterfaceFactory;
 import it.polimi.ingsw.LM45.view.controller.ViewType;
 
 public class ClientLauncher {
+	
+	private ClientLauncher(){}
 
 	public static void launch(String username, String host, int port, boolean useRMI, boolean useGUI) throws IOException{
 		ConnectionType connectionType = useRMI ? ConnectionType.RMI : ConnectionType.SOCKET;
