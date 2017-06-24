@@ -6,6 +6,7 @@ import java.util.List;
 
 import it.polimi.ingsw.LM45.exceptions.IllegalActionException;
 import it.polimi.ingsw.LM45.model.cards.Card;
+import it.polimi.ingsw.LM45.model.cards.CardType;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.effects.ActionModifier;
 import it.polimi.ingsw.LM45.model.effects.CardEffect;
@@ -266,6 +267,16 @@ public class Player {
 	public void produce(EffectResolutor effectResolutor, int value) {
 		personalBonusTile.produce(effectResolutor, value);
 		personalBoard.produce(effectResolutor, value);
+	}
+
+
+	/**
+	 * This has to be called at the end of the game to collect victory points from venture cards
+	 * 
+	 * @param effectResolutor the effectResolutor needed in order to resolve venture's effects
+	 */
+	public void resolveVentures(EffectResolutor effectResolutor){
+		personalBoard.resolveVentures(effectResolutor);
 	}
 
 	/**

@@ -144,6 +144,17 @@ public class PersonalBoard {
 	}
 
 	/**
+	 * This has to be called at the end of the game to collect victory points from venture cards
+	 * 
+	 * @param effectResolutor the effectResolutor needed in order to resolve venture's effects
+	 */
+	public void resolveVentures(EffectResolutor effectResolutor) {
+		if(resources.getOrDefault(ResourceType.VENTURE, 0) > 0){
+			cards.get(CardType.VENTURE).stream().forEach(venture -> venture.resolveEffect(effectResolutor));
+		}
+	}
+
+	/**
 	 * @param slotType
 	 *            the slotType in which we are placing a familiar
 	 * @param effectResolutor
@@ -151,8 +162,8 @@ public class PersonalBoard {
 	 * @return an actionModifier describing all the modifiers from permanentEffects of cards on this personalBoard that have to be applied on this action
 	 */
 	public ActionModifier getActionModifier(SlotType slotType, EffectResolutor effectResolutor) {
-		ActionModifier actionModifier = permanentEffects.stream().map(cardEffect -> cardEffect.getActionModifier(slotType, effectResolutor)).reduce(ActionModifier.EMPTY(),
-				(a, b) -> a.merge(b));
+		ActionModifier actionModifier = permanentEffects.stream().map(cardEffect -> cardEffect.getActionModifier(slotType, effectResolutor))
+				.reduce(ActionModifier.EMPTY(), (a, b) -> a.merge(b));
 		return actionModifier;
 	}
 }
