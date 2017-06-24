@@ -242,6 +242,10 @@ public class ClientController {
 		viewInterface.discardLeaderCard(username, leader);
 	}
 
+	public void showFinalScore(String[] playersUsername, PlayerColor[] playerColors, int[] scores){
+		viewInterface.showFinalScore(playersUsername, playerColors, scores);
+	}
+
 	private void manageIOException(IOException e) {
 		// TODO: implement better
 		e.printStackTrace();

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.Arrays;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.locks.ReentrantLock;
@@ -340,6 +341,13 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 		outStream.writeObject(ClientMessages.DISCARD_LEADER);
 		outStream.writeObject(username);
 		outStream.writeObject(leader);
+	}
+
+	@Override
+	public void showFinalScore(String[] playersUsername, PlayerColor[] playerColors, int[] scores) throws IOException {
+		outStream.writeObject(playersUsername);
+		outStream.writeObject(playerColors);
+		outStream.writeObject(Arrays.stream(scores).mapToObj(Integer::valueOf).toArray(Integer[]::new)); // Box ints
 	}
 
 }

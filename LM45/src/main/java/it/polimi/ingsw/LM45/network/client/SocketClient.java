@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -167,6 +168,11 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 				leaderCard = (LeaderCard) inStream.readObject();
 				performAsync(() -> discardLeaderCard(player, leaderCard));
 				break;
+			case FINAL_SCORE:
+				playersUsername = (String[]) inStream.readObject();
+				playerColors = (PlayerColor[]) inStream.readObject();
+				int[] scores = Arrays.stream((Integer[]) inStream.readObject()).mapToInt(Integer::intValue).toArray(); // Unbox Integers
+				performAsync(() -> showFinalScore(playersUsername, playerColors, scores));
 			default:
 				break;
 		}
@@ -316,6 +322,11 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 	@Override
 	public void discardLeaderCard(String username, LeaderCard leader) throws IOException {
 		clientController.discardLeaderCard(username, leader);
+	}
+
+	@Override
+	public void showFinalScore(String[] playersUsername, PlayerColor[] playerColors, int[] scores) throws IOException {
+		clientController.showFinalScore(playersUsername, playerColors, scores);		
 	}
 
 }

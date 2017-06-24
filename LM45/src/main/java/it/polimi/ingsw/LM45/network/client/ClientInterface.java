@@ -35,5 +35,6 @@ public interface ClientInterface {
 	public void playLeaderCard(String username, LeaderCard leader) throws IOException;
 	public void activateLeaderCard(String username, LeaderCard leader) throws IOException;
 	public void discardLeaderCard(String username, LeaderCard leader) throws IOException;
+	public void showFinalScore(String[] playersUsername, PlayerColor[] playerColors, int[] scores) throws IOException;
 	
 }
