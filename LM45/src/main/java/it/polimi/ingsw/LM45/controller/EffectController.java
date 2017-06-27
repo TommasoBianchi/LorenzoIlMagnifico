@@ -102,6 +102,10 @@ public class EffectController implements EffectResolutor {
 	public void addPermanentEffect(CardEffect permanentEffect) {
 		player.addPermanentEffect(permanentEffect);
 	}
+	
+	public boolean canAddCard(Card card){
+		return player.canAddCard(card);
+	}
 
 	public void addCard(Card card, ActionModifier actionModifier) {
 		player.addCard(card, actionModifier);

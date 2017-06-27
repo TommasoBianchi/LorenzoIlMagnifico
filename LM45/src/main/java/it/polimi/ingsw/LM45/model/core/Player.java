@@ -47,16 +47,11 @@ public class Player {
 	}
 
 	/**
-	 * @param effectResolutor
-	 *            the effectResolutor used to check for this card
-	 * @param card
-	 *            the card to check
-	 * @param actionModifier
-	 *            the actionModifier for the action the player is trying to do (in this case, picking a card of a specific cardType)
+	 * @param card the card to check
 	 * @return true if we can add that card to this player's personalBoard (including check about territoryRequisites and about card's cost)
 	 */
-	public boolean canAddCard(EffectResolutor effectResolutor, Card card, ActionModifier actionModifier) {
-		return card.canPick(effectResolutor, actionModifier) && personalBoard.canAddCard(card);
+	public boolean canAddCard(Card card) {
+		return personalBoard.canAddCard(card);
 	}
 
 	/**
