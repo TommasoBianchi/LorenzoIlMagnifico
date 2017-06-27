@@ -39,6 +39,13 @@ public class ResourceTest extends TestCase {
 		}
 	}
 	
+	public void testToString(){
+		for(int i = 0; i < 10; i++){
+			Resource resource = randomResource();
+			assertEquals(resource.toString(), resource.getAmount() + " " + resource.getResourceType());
+		}
+	}
+	
 	private Resource randomResource(){
 		ResourceType[] resourceTypes = ResourceType.values();
 		return new Resource(resourceTypes[random.nextInt(resourceTypes.length)], random.nextInt(10));
