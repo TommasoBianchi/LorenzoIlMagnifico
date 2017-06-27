@@ -114,10 +114,10 @@ public class ServerController {
 		if (users.size() == maxNumberOfPlayers) {
 			// Do not start the game immediately but with a short delay,
 			// to make this method end and return to the caller before starting
-			setGameStartTimer(3000, true);
+			setGameStartTimer(3000);
 		}
 		else if (users.size() > 1) {
-			setGameStartTimer(gameStartTimerDelay, true);
+			setGameStartTimer(gameStartTimerDelay);
 		}
 	}
 
@@ -413,20 +413,18 @@ public class ServerController {
 		return index;
 	}
 
-	private void setGameStartTimer(long delay, boolean createNewTimer) {
-		if(gameStartTimer == null && createNewTimer){
+	private void setGameStartTimer(long delay) {
+		if(gameStartTimer == null){
 			gameStartTimer = new Timer();			
 		}
 		
-		if (gameStartTimer != null) {
-			gameStartTimer.schedule(new TimerTask() {
-				@Override
-				public void run() {
-					logInfo("Timer ended! Game is about to start!");
-					startGame();
-				}
-			}, delay);
-		}
+		gameStartTimer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				logInfo("Timer ended! Game is about to start!");
+				startGame();
+			}
+		}, delay);
 	}
 
 	private void manageIOException(String user, IOException e) {
@@ -600,11 +598,12 @@ public class ServerController {
 				Set<ResourceType> changedResourcesTypes = new HashSet<>();
 
 				// Remove all Faith points
-				player.addResources(new Resource(ResourceType.FAITH, -player.getResourceAmount(ResourceType.FAITH)));
+				int faithPoints = player.getResourceAmount(ResourceType.FAITH);
+				player.addResources(new Resource(ResourceType.FAITH, -faithPoints));
 				changedResourcesTypes.add(ResourceType.FAITH);
-
+				
 				// Give player the resources he's gained by supporting the Church
-				Arrays.stream(game.getChurchSupportResources(player.getResourceAmount(ResourceType.FAITH))).forEach(resource -> {
+				Arrays.stream(game.getChurchSupportResources(faithPoints)).forEach(resource -> {
 					player.addResources(resource);
 					changedResourcesTypes.add(resource.getResourceType());
 				});
