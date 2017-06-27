@@ -132,7 +132,7 @@ public class ServerController {
 
 		// If only one player is remaining stop the gameStartTimer (if present and only before the game starts)
 		if (game == null && users.size() == 1 && gameStartTimer != null) {
-			System.out.println("Only one player remaining. Resetting timer");
+			logInfo("Only one player remaining. Resetting timer");
 			gameStartTimer.cancel();
 			gameStartTimer = null;
 		}
@@ -154,7 +154,7 @@ public class ServerController {
 					slot.addFamiliar(familiar, actionModifier, effectResolutor);
 					notifyPlayers(clientInterface -> clientInterface.addFamiliar(slotType, slotID, familiarColor, players.get(player).getColor()));
 					currentPlayerAlreadyPlacedFamiliar = familiarColor != FamiliarColor.BONUS;
-					logInfo(player + " successfully placed the familiar");
+					logInfo(player + " successfully placed the familiar " + familiarColor + " in slot " + slotType + " " + slotID);
 
 					if (familiarColor == FamiliarColor.BONUS) {
 						players.get(player).removeBonusFamiliar();
