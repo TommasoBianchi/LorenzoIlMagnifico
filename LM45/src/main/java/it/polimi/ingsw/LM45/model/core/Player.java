@@ -118,6 +118,13 @@ public class Player {
 			throw new IllegalActionException("You cannot activate LeaderCard " + leaderCard.getName() + " because you do not have it");
 		}
 	}
+	
+	/**
+	 * @return an array containing all the leaderCards that have been played by this player
+	 */
+	public LeaderCard[] getPlayedLeaderCards(){
+		return leaderCards.stream().filter(LeaderCard::getHasBeenPlayed).toArray(LeaderCard[]::new);
+	}
 
 	/**
 	 * @param resource

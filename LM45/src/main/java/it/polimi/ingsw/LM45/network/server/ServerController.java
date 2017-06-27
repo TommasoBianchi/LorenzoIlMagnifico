@@ -261,6 +261,10 @@ public class ServerController {
 	public boolean isMyTurn(Player player){
 		return currentPlayer == player;
 	}
+	
+	public LeaderCard[] getAllPlayedLeaderCards(){
+		return players.values().stream().flatMap(player -> Arrays.stream(player.getPlayedLeaderCards())).toArray(LeaderCard[]::new);
+	}
 
 	private void setPlayerUsername(String username, ClientInterface clientInterface) {
 		try {

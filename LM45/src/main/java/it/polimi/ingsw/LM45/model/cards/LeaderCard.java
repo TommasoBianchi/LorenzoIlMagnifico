@@ -77,6 +77,13 @@ public class LeaderCard implements Serializable {
 	public boolean getHasBeenPlayed(){
 		return this.hasBeenPlayed;
 	}
+	
+	/**
+	 * @return the effect of this leaderCard
+	 */
+	public CardEffect getEffect(){
+		return this.effect;
+	}
 
 	@Override
 	public String toString() {

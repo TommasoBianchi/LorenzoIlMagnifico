@@ -2,10 +2,13 @@ package it.polimi.ingsw.LM45.controller;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import it.polimi.ingsw.LM45.model.cards.Card;
+import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.Player;
 import it.polimi.ingsw.LM45.model.core.Resource;
@@ -35,10 +38,8 @@ public class EffectController implements EffectResolutor {
 					new Resource[] { new Resource(ResourceType.MILITARY, 2) }, new Resource[] { new Resource(ResourceType.FAITH, 1) } };
 
 			for (int i = 0; i < resource.getAmount(); i++) {
-				int chosenIndex = serverController.chooseFrom(player.getUsername(),
-						Arrays.stream(resourcesToChooseFrom)
-								.map(resources -> Arrays.stream(resources).map(Resource::toString).reduce("", (a, b) -> a + " " + b))
-								.toArray(String[]::new));
+				int chosenIndex = serverController.chooseFrom(player.getUsername(), Arrays.stream(resourcesToChooseFrom)
+						.map(resources -> Arrays.stream(resources).map(Resource::toString).reduce("", (a, b) -> a + " " + b)).toArray(String[]::new));
 				Resource[] choosenResources = resourcesToChooseFrom[chosenIndex];
 				Arrays.stream(choosenResources).forEach(res -> {
 					player.addResources(res);
@@ -54,7 +55,7 @@ public class EffectController implements EffectResolutor {
 					.map(resourceType -> new Resource(resourceType, player.getResourceAmount(resourceType))).toArray(Resource[]::new);
 			serverController.notifyPlayers(clientInterface -> clientInterface.setResources(changedResources, player.getUsername()));
 		}
-		else {	
+		else {
 			player.addResources(resource);
 
 			// Notify all players only of the resource that has changed
@@ -67,7 +68,7 @@ public class EffectController implements EffectResolutor {
 	public int getResourceAmount(ResourceType resourceType) {
 		return player.getResourceAmount(resourceType);
 	}
-	
+
 	public boolean hasResources(Resource resource) {
 		return player.hasResources(resource);
 	}
@@ -120,14 +121,18 @@ public class EffectController implements EffectResolutor {
 	}
 
 	public CardEffect copyEffect() {
-		// TODO: implement and remove exception
-		throw new UnsupportedOperationException();
+		LeaderCard[] playedLeaderCards = serverController.getAllPlayedLeaderCards();
+		List<LeaderCard> myPlayerPlayedLeaderCards = Arrays.asList(player.getPlayedLeaderCards());
+		LeaderCard[] chosableLeaderCards = Arrays.stream(playedLeaderCards).filter(leaderCard -> !myPlayerPlayedLeaderCards.contains(leaderCard))
+				.toArray(LeaderCard[]::new);
+		LeaderCard chosenLeaderCard = chooseFrom(chosableLeaderCards);
+		return chosenLeaderCard.getEffect();
 	}
 
 	public <T> T chooseFrom(T[] alternatives) {
-		if(serverController.isMyTurn(player)){
+		if (serverController.isMyTurn(player)) {
 			int index = serverController.chooseFrom(player.getUsername(), Arrays.stream(alternatives).map(Object::toString).toArray(String[]::new));
-			if(index < 0 || index >= alternatives.length)
+			if (index < 0 || index >= alternatives.length)
 				index = new Random().nextInt(alternatives.length);
 			return alternatives[index];
 		}
