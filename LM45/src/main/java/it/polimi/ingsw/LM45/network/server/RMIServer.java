@@ -1,6 +1,8 @@
 package it.polimi.ingsw.LM45.network.server;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import it.polimi.ingsw.LM45.exceptions.GameException;
 import it.polimi.ingsw.LM45.model.cards.Card;
@@ -20,9 +22,11 @@ public class RMIServer implements RemoteServerInterface, ClientInterface {
 	private ServerController serverController;
 	private RemoteClientInterface remoteClient;
 	private String username;
+	private ExecutorService executorService; // This is needed to ensure void RMI methods returns as soon as possible
 
 	public RMIServer(RemoteClientInterface remoteClient) {
 		this.remoteClient = remoteClient;
+		this.executorService = Executors.newSingleThreadExecutor();
 	}
 
 	@Override
@@ -34,42 +38,42 @@ public class RMIServer implements RemoteServerInterface, ClientInterface {
 	@Override
 	public void placeFamiliar(FamiliarColor familiarColor, SlotType slotType, Integer slotID) throws IOException {
 		if (serverController != null) {
-			serverController.placeFamiliar(username, familiarColor, slotType, slotID);
+			executorService.submit(() -> serverController.placeFamiliar(username, familiarColor, slotType, slotID));
 		}
 	}
 
 	@Override
 	public void increaseFamiliarValue(FamiliarColor familiarColor) throws IOException {
 		if (serverController != null) {
-			serverController.increaseFamiliarValue(username, familiarColor);
+			executorService.submit(() -> serverController.increaseFamiliarValue(username, familiarColor));
 		}
 	}
 
 	@Override
 	public void playLeaderCard(String leaderCardName) throws IOException {
 		if (serverController != null) {
-			serverController.playLeaderCard(username, leaderCardName);
+			executorService.submit(() -> serverController.playLeaderCard(username, leaderCardName));
 		}
 	}
 
 	@Override
 	public void activateLeaderCard(String leaderCardName) throws IOException {
 		if (serverController != null) {
-			serverController.activateLeaderCard(username, leaderCardName);
+			executorService.submit(() -> serverController.activateLeaderCard(username, leaderCardName));
 		}
 	}
 
 	@Override
 	public void discardLeaderCard(String leaderCardName) throws IOException {
 		if (serverController != null) {
-			serverController.discardLeaderCard(username, leaderCardName);
+			executorService.submit(() -> serverController.discardLeaderCard(username, leaderCardName));
 		}
 	}
 
 	@Override
 	public void endTurn() throws IOException {
 		if (serverController != null) {
-			serverController.endPlayerRound(username);
+			executorService.submit(() -> serverController.endPlayerRound(username));
 		}
 	}
 
