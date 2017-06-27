@@ -70,6 +70,13 @@ public class LeaderCard implements Serializable {
 			throw new IllegalActionException("LeaderCard " + name + " has not been played yet");
 		}
 	}
+	
+	/**
+	 * @return whether or not this leaderCard has been played by its owner
+	 */
+	public boolean getHasBeenPlayed(){
+		return this.hasBeenPlayed;
+	}
 
 	@Override
 	public String toString() {
