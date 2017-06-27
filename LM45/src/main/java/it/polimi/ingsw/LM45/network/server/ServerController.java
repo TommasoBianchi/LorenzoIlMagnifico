@@ -4,7 +4,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -113,10 +112,12 @@ public class ServerController {
 		}
 
 		if (users.size() == maxNumberOfPlayers) {
-			startGame();
+			// Do not start the game immediately but with a short delay,
+			// to make this method end and return to the caller before starting
+			setGameStartTimer(3000, true);
 		}
 		else if (users.size() > 1) {
-			setGameStartTimer();
+			setGameStartTimer(gameStartTimerDelay, true);
 		}
 	}
 
@@ -412,16 +413,19 @@ public class ServerController {
 		return index;
 	}
 
-	private void setGameStartTimer() {
-		if (gameStartTimer == null) {
-			gameStartTimer = new Timer();
+	private void setGameStartTimer(long delay, boolean createNewTimer) {
+		if(gameStartTimer == null && createNewTimer){
+			gameStartTimer = new Timer();			
+		}
+		
+		if (gameStartTimer != null) {
 			gameStartTimer.schedule(new TimerTask() {
 				@Override
 				public void run() {
 					logInfo("Timer ended! Game is about to start!");
 					startGame();
 				}
-			}, gameStartTimerDelay);
+			}, delay);
 		}
 	}
 
