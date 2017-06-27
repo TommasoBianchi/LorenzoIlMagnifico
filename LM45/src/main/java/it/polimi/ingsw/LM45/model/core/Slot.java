@@ -90,7 +90,8 @@ public class Slot {
 		if (!actionModifier.getBlockImmediateResources())
 			Arrays.stream(immediateBonus).map(resource -> resource.increment(gainModifiers.getOrDefault(resource.getResourceType(), 0)))
 					.forEach(resource -> effectResolutor.addResources(resource));
-		familiars.add(familiar);
+		if(familiar.getFamiliarColor() != FamiliarColor.BONUS)
+			familiars.add(familiar);
 		familiar.setIsPlaced(true);
 	}
 
