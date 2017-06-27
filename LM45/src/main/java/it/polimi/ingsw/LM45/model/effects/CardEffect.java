@@ -36,8 +36,15 @@ public class CardEffect implements Serializable {
 	}
 	
 	public void resolveEffects(EffectResolutor effectResolutor){
-		if(effectsAreAlternative)
-			effectResolutor.chooseFrom(effects).resolveEffect(effectResolutor);
+		if(effectsAreAlternative){
+			Effect[] choosableEffects = Arrays.stream(effects).filter(effect -> effect.canResolveEffect(effectResolutor)).toArray(Effect[]::new);
+			if(choosableEffects.length == 0)
+				return;
+			else if(choosableEffects.length == 1)
+				choosableEffects[0].resolveEffect(effectResolutor);
+			else
+				effectResolutor.chooseFrom(choosableEffects).resolveEffect(effectResolutor);
+		}
 		else
 			Arrays.stream(effects).forEach(effect -> effect.resolveEffect(effectResolutor));
 	}

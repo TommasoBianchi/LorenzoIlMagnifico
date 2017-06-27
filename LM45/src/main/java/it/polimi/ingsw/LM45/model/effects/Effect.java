@@ -7,6 +7,10 @@ import it.polimi.ingsw.LM45.model.core.SlotType;
 public abstract class Effect implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
+	public boolean canResolveEffect(EffectResolutor effectResolutor){
+		return true;
+	}
 
 	public abstract void resolveEffect(EffectResolutor effectResolutor);
 	

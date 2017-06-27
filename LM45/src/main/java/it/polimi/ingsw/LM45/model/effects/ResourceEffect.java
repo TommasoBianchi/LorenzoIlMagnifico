@@ -31,6 +31,16 @@ public class ResourceEffect extends Effect {
 	}
 
 	@Override
+	public boolean canResolveEffect(EffectResolutor effectResolutor) {
+		for (Resource resource : resourcesToPay) {
+			if(!effectResolutor.hasResources(resource))
+				return false;
+		}
+		
+		return super.canResolveEffect(effectResolutor);
+	}
+
+	@Override
 	public void resolveEffect(EffectResolutor effectResolutor) {
 		for (Resource resource : resourcesToPay) {
 			effectResolutor.addResources(resource.multiply(-1)); // Pay a negative amount of resources
