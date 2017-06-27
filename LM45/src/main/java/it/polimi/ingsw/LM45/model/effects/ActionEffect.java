@@ -7,6 +7,8 @@ import it.polimi.ingsw.LM45.model.core.SlotType;
 
 public class ActionEffect extends Effect {
 
+	private static final long serialVersionUID = 1L;
+
 	private SlotType slotType;
 	private int diceNumber;
 	private Resource[] discount;
@@ -28,14 +30,23 @@ public class ActionEffect extends Effect {
 
 	@Override
 	public ActionModifier getActionModifier(SlotType slotType) {
-		if (slotType == this.slotType)
+		if (slotType.isCompatible(this.slotType))
 			// Make sure the discount is expressed as a negative cost modifier (otherwise it won't be a discount)
 			return new ActionModifier(
-					Arrays.stream(discount).map(resource -> resource.getAmount() > 0 ? resource.multiply(-1) : resource)
-							.toArray(Resource[]::new),
+					Arrays.stream(discount).map(resource -> resource.getAmount() > 0 ? resource.multiply(-1) : resource).toArray(Resource[]::new),
 					new Resource[] {}, diceNumber);
 		else
-			return ActionModifier.EMPTY;
+			return ActionModifier.EMPTY();
+	}
+
+	@Override
+	public String toString() {
+		String discountString = "";
+		if (discount.length > 0)
+			discountString = Arrays.stream(discount).map(Resource::toString).reduce(" and a discount of ", (a, b) -> a + " " + b);
+		return "You can do an action of type " + slotType.toString() + " with a value of " + diceNumber + discountString;
+		
+		//TODO fixme need boolean to distinguish doAction and BonusAction
 	}
 
 }

@@ -25,6 +25,7 @@ import it.polimi.ingsw.LM45.model.cards.CardType;
 import it.polimi.ingsw.LM45.model.cards.Character;
 import it.polimi.ingsw.LM45.model.cards.Cost;
 import it.polimi.ingsw.LM45.model.cards.CostWithPrerequisites;
+import it.polimi.ingsw.LM45.model.cards.Excommunication;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.cards.PeriodType;
 import it.polimi.ingsw.LM45.model.cards.Territory;
@@ -42,15 +43,21 @@ import it.polimi.ingsw.LM45.model.effects.CostModifierEffect;
 import it.polimi.ingsw.LM45.model.effects.Effect;
 import it.polimi.ingsw.LM45.model.effects.FamiliarEffect;
 import it.polimi.ingsw.LM45.model.effects.GainModifierEffect;
+import it.polimi.ingsw.LM45.model.effects.JumpFirstTurnEffect;
 import it.polimi.ingsw.LM45.model.effects.NoTerritoryRequisiteEffect;
 import it.polimi.ingsw.LM45.model.effects.ResourceEffect;
 import it.polimi.ingsw.LM45.model.effects.SlotModifierEffect;
+import it.polimi.ingsw.LM45.model.effects.VictoryPointsFromCardsEffect;
 
 public class FileManager {
 
-	private static final String BASE_PATH = "Assets/Json";
+	private static final String BASE_PATH = "./Assets/Json";
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().registerTypeAdapter(Effect.class, new GsonTypeAdapter<Effect>())
-			.registerTypeAdapter(Card.class, new GsonTypeAdapter<Card>()).create();
+			.registerTypeAdapter(Card.class, new GsonTypeAdapter<Card>())
+			.registerTypeAdapter(Cost.class, new GsonConcreteTypeAdapter<Cost>())
+			.create();
+	
+	private FileManager(){}
 
 	public static void saveCard(Card card) throws IOException {
 		String path = BASE_PATH + "/Cards/" + card.getCardType();
@@ -77,6 +84,19 @@ public class FileManager {
 		GSON.toJson(leaderCard, LeaderCard.class, writer);
 		writer.close();
 	}
+	
+	public static void saveExcommunication(Excommunication excommunication) throws IOException {
+		String path = BASE_PATH + "/Excommunications/" + excommunication.getPeriodType().name();
+		File directory = new File(path);
+
+		if (!directory.exists()) {
+			directory.mkdirs();
+		}
+
+		FileWriter writer = new FileWriter(path + "/" + excommunication.getName() + ".json");
+		GSON.toJson(excommunication, Excommunication.class, writer);
+		writer.close();
+	}
 
 	public static <T extends Configuration> void saveConfiguration(T configuration) throws IOException {
 		String path = BASE_PATH + "/Config";
@@ -92,13 +112,13 @@ public class FileManager {
 	}
 
 	public static Map<CardType, List<Card>> loadCards() throws JsonSyntaxException, JsonIOException, FileNotFoundException {
-		Map<CardType, List<Card>> deck = new EnumMap<CardType, List<Card>>(CardType.class);
+		Map<CardType, List<Card>> deck = new EnumMap<>(CardType.class);
 		File folder = new File(BASE_PATH + "/Cards/");
 
 		for (File dir : folder.listFiles()) {
 			if (dir.isDirectory()) {
 				CardType cardType = CardType.valueOf(dir.getName());
-				List<Card> cards = new ArrayList<Card>();
+				List<Card> cards = new ArrayList<>();
 
 				for (File file : dir.listFiles()) {
 					if (file.isFile()) {
@@ -115,7 +135,7 @@ public class FileManager {
 	}
 
 	public static List<LeaderCard> loadLeaderCards() throws JsonSyntaxException, JsonIOException, FileNotFoundException {
-		List<LeaderCard> leaderCards = new ArrayList<LeaderCard>();
+		List<LeaderCard> leaderCards = new ArrayList<>();
 		File folder = new File(BASE_PATH + "/LeaderCards/");
 
 		for (File file : folder.listFiles()) {
@@ -127,10 +147,33 @@ public class FileManager {
 
 		return leaderCards;
 	}
+	
+	public static Map<PeriodType, List<Excommunication>> loadExcommunications() throws JsonSyntaxException, JsonIOException, FileNotFoundException {
+		Map<PeriodType, List<Excommunication>> deck = new EnumMap<>(PeriodType.class);
+		File folder = new File(BASE_PATH + "/Excommunications/");
+
+		for (File dir : folder.listFiles()) {
+			if (dir.isDirectory()) {
+				PeriodType periodType = PeriodType.valueOf(dir.getName());
+				List<Excommunication> excommunications = new ArrayList<>();
+
+				for (File file : dir.listFiles()) {
+					if (file.isFile()) {
+						Excommunication excommunication = GSON.fromJson(new FileReader(file), Excommunication.class);
+						excommunications.add(excommunication);
+					}
+				}
+
+				deck.put(periodType, excommunications);
+			}
+		}
+
+		return deck;
+	}
 
 	public static <T extends Configuration> T loadConfiguration(Class<T> cl) throws JsonSyntaxException, JsonIOException, FileNotFoundException {
-		File file = new File(BASE_PATH + "/Config/" + cl.getSimpleName() + ".json");
-
+		File file = new File(BASE_PATH + "/Config/" + cl.getSimpleName()+ ".json");
+		
 		return GSON.fromJson(new FileReader(file), cl);
 	}
 
@@ -752,7 +795,7 @@ public class FileManager {
 				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 1),
 						new Resource(ResourceType.WOOD, 1), new Resource(ResourceType.STONE, 1) })),
 				new Resource[] { new Resource(ResourceType.MILITARY, 12) });
-		leaderCards[7] = new LeaderCard("Leonardo da Vincia", new CardEffect(new ActionEffect(SlotType.PRODUCTION, 0)),
+		leaderCards[7] = new LeaderCard("Leonardo da Vinci", new CardEffect(new ActionEffect(SlotType.PRODUCTION, 0)),
 				new Resource[] { new Resource(ResourceType.CHARACTER, 4), new Resource(ResourceType.TERRITORY, 2) });
 		leaderCards[8] = new LeaderCard("Sandro Botticelli", new CardEffect(new ResourceEffect(
 				new Resource[] { new Resource(ResourceType.MILITARY, 2), new Resource(ResourceType.VICTORY, 1) })),
@@ -802,12 +845,77 @@ public class FileManager {
 		leaderCards[19] = new LeaderCard("Pico della Mirandola",
 				new CardEffect(new CostModifierEffect(new Resource(ResourceType.COINS, -3), true, false, false)),
 				new Resource[] { new Resource(ResourceType.VENTURE, 4), new Resource(ResourceType.BUILDING, 2) });
+		
+		Excommunication[] excommunications = new Excommunication[21];
+		
+		//I Period
+		excommunications[0] = new Excommunication("1_1", PeriodType.I,
+				new CardEffect(new GainModifierEffect(new Resource(ResourceType.MILITARY, -1), true, true, false), true));
+		excommunications[1] = new Excommunication("1_2", PeriodType.I,
+				new CardEffect(new GainModifierEffect(new Resource(ResourceType.COINS, -1), true, true, false), true));
+		excommunications[2] = new Excommunication("1_3", PeriodType.I,
+				new CardEffect(new GainModifierEffect(new Resource(ResourceType.SERVANTS, -1), true, true, false), true));
+		excommunications[3] = new Excommunication("1_4", PeriodType.I,
+				new CardEffect(new Effect[] {
+						new GainModifierEffect(new Resource(ResourceType.STONE, -1), true, true, false),
+						new GainModifierEffect(new Resource(ResourceType.WOOD, -1), true, true, false)}, false, true));
+		excommunications[4] = new Excommunication("1_5", PeriodType.I,
+				new CardEffect(new ActionEffect(SlotType.HARVEST, -3), true));
+		excommunications[5] = new Excommunication("1_6", PeriodType.I,
+				new CardEffect(new ActionEffect(SlotType.PRODUCTION, -3), true));
+		excommunications[6] = new Excommunication("1_7", PeriodType.I,
+				new CardEffect(new FamiliarEffect(-1, false, new FamiliarColor[]{FamiliarColor.BLACK, FamiliarColor.ORANGE,
+						FamiliarColor.WHITE}, 1)));
+		
+		//II Period
+		excommunications[7] = new Excommunication("2_1", PeriodType.II,
+				new CardEffect(new ActionEffect(SlotType.TERRITORY, -4), true));
+		excommunications[8] = new Excommunication("2_2", PeriodType.II,
+				new CardEffect(new ActionEffect(SlotType.BUILDING, -4), true));
+		excommunications[9] = new Excommunication("2_3", PeriodType.II,
+				new CardEffect(new ActionEffect(SlotType.CHARACTER, -4), true));
+		excommunications[10] = new Excommunication("2_4", PeriodType.II,
+				new CardEffect(new ActionEffect(SlotType.VENTURE, -4), true));
+		excommunications[11] = new Excommunication("2_5", PeriodType.II,
+				new CardEffect(new SlotModifierEffect(SlotType.MARKET, false, false, false), true));
+		excommunications[12] = new Excommunication("2_6", PeriodType.II,
+				new CardEffect(new FamiliarEffect(0, false, new FamiliarColor[]{}, 2)));
+		excommunications[13] = new Excommunication("2_7", PeriodType.II,
+				new CardEffect(new JumpFirstTurnEffect()));
+		
+		//III Period
+		excommunications[14] = new Excommunication("3_1", PeriodType.III,
+				new CardEffect(new VictoryPointsFromCardsEffect(CardType.CHARACTER)));
+		excommunications[15] = new Excommunication("3_2", PeriodType.III,
+				new CardEffect(new VictoryPointsFromCardsEffect(CardType.VENTURE)));
+		excommunications[16] = new Excommunication("3_3", PeriodType.III,
+				new CardEffect(new VictoryPointsFromCardsEffect(CardType.TERRITORY)));
+		excommunications[17] = new Excommunication("3_4", PeriodType.III,
+				new CardEffect(new ResourceEffect(new Resource(ResourceType.VICTORY, 5),
+						new Resource[]{new Resource(ResourceType.VICTORY, -1)})));
+		excommunications[18] = new Excommunication("3_5", PeriodType.III,
+				new CardEffect(new ResourceEffect(new Resource(ResourceType.MILITARY, 1),
+						new Resource[]{new Resource(ResourceType.VICTORY, -1)})));
+		excommunications[19] = new Excommunication("3_6", PeriodType.III,
+				new CardEffect(new VictoryPointsFromCardsEffect(CardType.BUILDING)));
+		excommunications[20] = new Excommunication("3_7", PeriodType.III,
+				new CardEffect(new Effect[]{new ResourceEffect(new Resource(ResourceType.COINS, 1),
+						new Resource[]{new Resource(ResourceType.VICTORY, -1)}),
+						new ResourceEffect(new Resource(ResourceType.WOOD, 1),
+								new Resource[]{new Resource(ResourceType.VICTORY, -1)}),
+						new ResourceEffect(new Resource(ResourceType.STONE, 1),
+								new Resource[]{new Resource(ResourceType.VICTORY, -1)}),
+						new ResourceEffect(new Resource(ResourceType.SERVANTS, 1),
+								new Resource[]{new Resource(ResourceType.VICTORY, -1)})}, false));
+		
 
 		try {
 			for (Card card : cards)
 				saveCard(card);
 			for(LeaderCard leaderCard : leaderCards)
 				saveLeaderCard(leaderCard);
+			for (Excommunication excommunication : excommunications)
+				saveExcommunication(excommunication);
 
 			Map<CardType, List<Card>> deck = loadCards();
 			for (CardType cardType : new CardType[] { CardType.TERRITORY, CardType.CHARACTER, CardType.VENTURE,
@@ -817,7 +925,7 @@ public class FileManager {
 				List<Card> shuffledByPeriodCards = it.polimi.ingsw.LM45.util.ShuffleHelper
 						.shuffleByPeriod(deck.get(cardType));
 				for (Card card : shuffledByPeriodCards)
-					System.out.println(card.getName() + " - Period " + card.getPeriodType());
+					System.out.println("\n" + card.toString() + "\n");
 				System.out.println("------------------");
 				System.out.println("");
 			}
@@ -825,7 +933,17 @@ public class FileManager {
 			System.out.println("Leader Cards:");
 			System.out.println("");
 			for(LeaderCard leaderCard : loadLeaderCards()){
-				System.out.println(leaderCard.getName());
+				System.out.println("\n" + leaderCard.toString() + "\n");
+			}
+			
+			System.out.println("Excommunications :");
+			Map<PeriodType, List<Excommunication>> excommunicationDeck = loadExcommunications();
+			for (PeriodType periodType : new PeriodType[] { PeriodType.I, PeriodType.II, PeriodType.III}) {
+				System.out.println(periodType);
+				for(Excommunication excommunication : excommunicationDeck.get(periodType)){
+					System.out.println("\n" + excommunication.toString() + "\n");
+					System.out.println("------------------");
+				}
 			}
 
 		} catch (IOException e) {

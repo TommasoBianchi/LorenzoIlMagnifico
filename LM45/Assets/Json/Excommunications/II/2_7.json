@@ -1,0 +1,13 @@
+{
+  "name": "2_7",
+  "periodType": "II",
+  "effect": {
+    "effects": [
+      {
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.JumpFirstTurnEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  }
+}

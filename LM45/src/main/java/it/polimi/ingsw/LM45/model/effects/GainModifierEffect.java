@@ -4,6 +4,8 @@ import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 
 public class GainModifierEffect extends Effect {
+
+	private static final long serialVersionUID = 1L;
 	
 	private Resource resource;
 	private boolean canModifyCardGain;
@@ -26,7 +28,14 @@ public class GainModifierEffect extends Effect {
 	@Override
 	public ActionModifier getActionModifier(SlotType slotType) {
 		// FIXME: need a smart way to implement this!
-		return ActionModifier.EMPTY;
+		return ActionModifier.EMPTY();
+	}
+	
+	@Override
+	public String toString() {
+		String where = (canModifyCardGain && canModifyTowerGain) ? "cards and towers" : (canModifyCardGain) ? "cards" : "towers";
+		String sign = (isMultiplier) ? "x" : (resource.getAmount() > 0) ? "+" : "-";
+		return "Whenever you have to gain " + resource.getResourceType() + " on " + where + ", you gain " + sign + Math.abs(resource.getAmount());
 	}
 
 }

@@ -1,8 +1,14 @@
 package it.polimi.ingsw.LM45.controller;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
+import java.util.stream.Stream;
 
 import it.polimi.ingsw.LM45.model.cards.Card;
+import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.Player;
 import it.polimi.ingsw.LM45.model.core.Resource;
@@ -25,29 +31,46 @@ public class EffectController implements EffectResolutor {
 
 	public void addResources(Resource resource) {
 		if (resource.getResourceType() == ResourceType.COUNCIL_PRIVILEGES) {
+			Set<ResourceType> chosenResourcesTypes = new HashSet<>();
 			Resource[][] resourcesToChooseFrom = new Resource[][] {
 					new Resource[] { new Resource(ResourceType.WOOD, 1), new Resource(ResourceType.STONE, 1) },
 					new Resource[] { new Resource(ResourceType.SERVANTS, 2) }, new Resource[] { new Resource(ResourceType.COINS, 2) },
 					new Resource[] { new Resource(ResourceType.MILITARY, 2) }, new Resource[] { new Resource(ResourceType.FAITH, 1) } };
 
 			for (int i = 0; i < resource.getAmount(); i++) {
-				int chosenIndex = serverController.chooseFrom(player.getUsername(),
-						Arrays.stream(resourcesToChooseFrom)
-								.map(resources -> Arrays.stream(resources).map(res -> res.toString()).reduce("", (a, b) -> a + " " + b))
-								.toArray(String[]::new));
+				int chosenIndex = serverController.chooseFrom(player.getUsername(), Arrays.stream(resourcesToChooseFrom)
+						.map(resources -> Arrays.stream(resources).map(Resource::toString).reduce("", (a, b) -> a + " " + b)).toArray(String[]::new));
 				Resource[] choosenResources = resourcesToChooseFrom[chosenIndex];
-				Arrays.stream(choosenResources).forEach(res -> player.addResources(res));
+				Arrays.stream(choosenResources).forEach(res -> {
+					player.addResources(res);
+					chosenResourcesTypes.add(res.getResourceType());
+				});
 				resourcesToChooseFrom = Arrays.stream(resourcesToChooseFrom).filter(resources -> resources != choosenResources)
 						.toArray(Resource[][]::new);
 			}
+
+			// Notify all players only of the resources that have changed (because the player chosed to take them in
+			// exchange of a COUNCIL_PRIVILEGE)
+			Resource[] changedResources = chosenResourcesTypes.stream()
+					.map(resourceType -> new Resource(resourceType, player.getResourceAmount(resourceType))).toArray(Resource[]::new);
+			serverController.notifyPlayers(clientInterface -> clientInterface.setResources(changedResources, player.getUsername()));
 		}
 		else {
 			player.addResources(resource);
+
+			// Notify all players only of the resource that has changed
+			serverController.notifyPlayers(clientInterface -> clientInterface.setResources(
+					new Resource[] { new Resource(resource.getResourceType(), player.getResourceAmount(resource.getResourceType())) },
+					player.getUsername()));
 		}
 	}
 
 	public int getResourceAmount(ResourceType resourceType) {
 		return player.getResourceAmount(resourceType);
+	}
+
+	public boolean hasResources(Resource resource) {
+		return player.hasResources(resource);
 	}
 
 	public void addChurchSupportBonus(Resource resource) {
@@ -56,10 +79,12 @@ public class EffectController implements EffectResolutor {
 
 	public void addFamiliarBonus(FamiliarColor color, int bonus) {
 		player.addFamiliarBonus(color, bonus);
+		serverController.notifyPlayers(clientInterface -> clientInterface.setFamiliar(player.getUsername(), color, player.getFamiliarValue(color)));
 	}
 
 	public void setFamiliarValue(FamiliarColor color, int bonus) {
 		player.setFamiliarValue(color, bonus);
+		serverController.notifyPlayers(clientInterface -> clientInterface.setFamiliar(player.getUsername(), color, player.getFamiliarValue(color)));
 	}
 
 	public void modifyServantCost(int servantBonusCostModifier) {
@@ -80,10 +105,11 @@ public class EffectController implements EffectResolutor {
 
 	public void addCard(Card card, ActionModifier actionModifier) {
 		player.addCard(card, actionModifier);
+		serverController.notifyPlayers(clientInterface -> clientInterface.pickCard(card, player.getUsername()));
 	}
 
 	public void doBonusAction(SlotType slotType, int diceNumber, Resource[] discount) {
-		// TODO: implement
+		serverController.doBonusAction(player.getUsername(), slotType, diceNumber, discount);
 	}
 
 	public void harvest(int value) {
@@ -95,13 +121,23 @@ public class EffectController implements EffectResolutor {
 	}
 
 	public CardEffect copyEffect() {
-		// TODO: implement and remove exception
-		throw new UnsupportedOperationException();
+		LeaderCard[] playedLeaderCards = serverController.getAllPlayedLeaderCards();
+		List<LeaderCard> myPlayerPlayedLeaderCards = Arrays.asList(player.getPlayedLeaderCards());
+		LeaderCard[] chosableLeaderCards = Arrays.stream(playedLeaderCards).filter(leaderCard -> !myPlayerPlayedLeaderCards.contains(leaderCard))
+				.toArray(LeaderCard[]::new);
+		LeaderCard chosenLeaderCard = chooseFrom(chosableLeaderCards);
+		return chosenLeaderCard.getEffect();
 	}
 
 	public <T> T chooseFrom(T[] alternatives) {
-		int index = serverController.chooseFrom(player.getUsername(), Arrays.stream(alternatives).map(t -> t.toString()).toArray(String[]::new));
-		return alternatives[index];
+		if (serverController.isMyTurn(player)) {
+			int index = serverController.chooseFrom(player.getUsername(), Arrays.stream(alternatives).map(Object::toString).toArray(String[]::new));
+			if (index < 0 || index >= alternatives.length)
+				index = new Random().nextInt(alternatives.length);
+			return alternatives[index];
+		}
+		else
+			return alternatives[new Random().nextInt(alternatives.length)];
 	}
 
 }

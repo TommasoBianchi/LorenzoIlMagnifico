@@ -1,45 +1,61 @@
 package it.polimi.ingsw.LM45.network.server;
 
 import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 
 public class ServerControllerFactory {
 
-	private ServerController currentServerController;
-	private int instanceCount;
-	private int maxInstanceCount;
-	private long gameStartTimerDelay;
-	private long turnTimerDelay;
+	private static ServerController currentServerController;
+	private static int currentGameID = -1;
+	private static int instanceCount;
+	private static int maxInstanceCount;
+	private static long gameStartTimerDelay;
+	private static long turnTimerDelay;
+	private static Map<String, ServerController> disconnectedUsersDictionary;
 
-	public ServerControllerFactory(int maxInstanceCount, long gameStartTimerDelay, long turnTimerDelay) {
-		this.instanceCount = 0;
-		this.maxInstanceCount = maxInstanceCount;
-		this.gameStartTimerDelay = gameStartTimerDelay;
-		this.turnTimerDelay = turnTimerDelay;
-		this.currentServerController = createServerControllerInstance();
+	private ServerControllerFactory() {
 	}
 
-	public ServerController getServerControllerInstance(){
-		if(instanceCount >= maxInstanceCount){
+	public static void initialize(int maxInstanceCount, long gameStartTimerDelay, long turnTimerDelay) {
+		instanceCount = 0;
+		ServerControllerFactory.maxInstanceCount = maxInstanceCount;
+		ServerControllerFactory.gameStartTimerDelay = gameStartTimerDelay;
+		ServerControllerFactory.turnTimerDelay = turnTimerDelay;
+		disconnectedUsersDictionary = new HashMap<>();
+	}
+
+	public static ServerController getServerControllerInstance(String username) {
+		if (disconnectedUsersDictionary.containsKey(username)) {
+			return disconnectedUsersDictionary.remove(username);
+		}
+
+		if (currentServerController == null || instanceCount >= maxInstanceCount) {
 			instanceCount = 0;
 			currentServerController = createServerControllerInstance();
 		}
-		
+
 		instanceCount++;
 		return currentServerController;
 	}
 
-	public void shutdown(){
+	public static void addDisconnectedUser(String username, ServerController serverController) {
+		disconnectedUsersDictionary.put(username, serverController);
+	}
+
+	public static void shutdown() {
 		// TODO: implement
 	}
 
-	private ServerController createServerControllerInstance() {
+	private static ServerController createServerControllerInstance() {
 		try {
-			return new ServerController(maxInstanceCount, gameStartTimerDelay, turnTimerDelay);
-		} catch (JsonSyntaxException | JsonIOException | FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			return new ServerController(++currentGameID, maxInstanceCount, gameStartTimerDelay, turnTimerDelay);
+		}
+		catch (JsonSyntaxException | JsonIOException | FileNotFoundException e) {
+			System.err.println("ServerSocketFactory unable to instantiate a ServerController -- returning null (probably something will break)");
 			e.printStackTrace();
 			return null;
 		}

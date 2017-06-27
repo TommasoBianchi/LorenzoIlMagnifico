@@ -3,22 +3,24 @@ package it.polimi.ingsw.LM45.network.server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SocketFactory implements Runnable {
 	
 	private ServerSocket serverSocket;
-	private ServerControllerFactory serverControllerFactory;
 	private boolean isRunning;
+	private List<SocketServer> createdSockets;
 
-	public SocketFactory(ServerControllerFactory serverControllerFactory, int port) throws IOException{
-		this.serverControllerFactory = serverControllerFactory;
+	public SocketFactory(int port) throws IOException{
 		this.serverSocket = new ServerSocket(port);
+		this.createdSockets = new ArrayList<>();
 		new Thread(this).start();
 		isRunning = true;
 	}
 	
-	public SocketFactory(ServerControllerFactory serverControllerFactory) throws IOException{
-		this(serverControllerFactory, 0);
+	public SocketFactory() throws IOException{
+		this(0);
 	}
 	
 	public int getPort(){
@@ -30,16 +32,17 @@ public class SocketFactory implements Runnable {
 		while(isRunning){
 			try {
 				Socket socket = serverSocket.accept();
-				SocketServer socketServer = new SocketServer(socket, serverControllerFactory.getServerControllerInstance());
+				SocketServer socketServer = new SocketServer(socket);
+				createdSockets.add(socketServer);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				System.err.println("SocketFactory failed while trying to accept an incoming connection");
 				e.printStackTrace();
 			}
 		}
 	}
 
 	public void shutdown(){
-		// TODO: implement
+		createdSockets.forEach(SocketServer::close);
 	}
 	
 }

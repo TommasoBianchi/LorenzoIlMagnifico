@@ -14,38 +14,34 @@ public class ServerMain {
 	
 	private static SocketFactory socketFactory;
 	private static RMIFactory rmiFactory;
-	private static ServerControllerFactory serverControllerFactory;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) {					
 		ServerConfiguration serverConfiguration = new ServerConfiguration(4, 30000, 60000, 7000); // Defaults
 		try {
 			serverConfiguration = FileManager.loadConfiguration(ServerConfiguration.class);
 		}
 		catch (JsonSyntaxException | JsonIOException | FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			System.out.println("Couldn't load server configuration. Using the default one.");
+			System.err.println("Couldn't load server configuration. Using the default one.");
 			e.printStackTrace();
 		}
 
-		serverControllerFactory = new ServerControllerFactory(serverConfiguration.getMaxPlayersAmount(),
+		ServerControllerFactory.initialize(serverConfiguration.getMaxPlayersAmount(),
 				serverConfiguration.getGameStartTimerDelay(), serverConfiguration.getTurnTimerDelay());
 
 		try {
-			socketFactory = new SocketFactory(serverControllerFactory, serverConfiguration.getServerSocketPort());
+			socketFactory = new SocketFactory(serverConfiguration.getServerSocketPort());
 			System.out.println("SocketFactory listening on port " + socketFactory.getPort());
 		}
 		catch (IOException e) {
-			// TODO Auto-generated catch block
-			System.out.println("Couldn't start sockets' infrastructure. Please connect using RMI.");
+			System.err.println("Couldn't start sockets' infrastructure. Please connect using RMI.");
 			e.printStackTrace();
 		}
 
 		try {
-			rmiFactory = new RMIFactory(serverControllerFactory);
+			rmiFactory = new RMIFactory();
 		}
 		catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			System.out.println("Couldn't start RMI's infrastructure. Please connect using sockets.");
+			System.err.println("Couldn't start RMI's infrastructure. Please connect using sockets.");
 			e.printStackTrace();
 		}
 		
@@ -54,7 +50,7 @@ public class ServerMain {
 			public void run() {
 				socketFactory.shutdown();
 				rmiFactory.shutdown();
-				serverControllerFactory.shutdown();
+				ServerControllerFactory.shutdown();
 			}
 		});
 	}

@@ -2,6 +2,7 @@ package it.polimi.ingsw.LM45.model.core;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Random;
 
 import it.polimi.ingsw.LM45.config.BoardConfiguration;
@@ -53,8 +54,8 @@ public class Game {
 	public void start() {
 		shuffleDecks();
 
-		for (PeriodType periodType : excommunicationDeck.keySet())
-			board.placeExcommunication(excommunicationDeck.get(periodType).get(0)); // Pick the first because they have been already shuffled
+		// Pick the first because they have been already shuffled
+		excommunicationDeck.values().forEach(excommunicationList -> board.placeExcommunication(excommunicationList.get(0)));
 
 		players = ShuffleHelper.shuffle(players); // Randomize first turn order
 	}
@@ -66,7 +67,7 @@ public class Game {
 		// Return true if we are in one of the 4 rounds or we are in the 5th (used by the player that have skipped the first) and there are still
 		// players that have skipped the 1st
 		return currentRound < 4
-				|| (currentRound == 4 && players.stream().skip(currentPlayerIndex).anyMatch(player -> player.getHasToSkipFirstRound()));
+				|| (currentRound == 4 && players.stream().skip(currentPlayerIndex).anyMatch(Player::getHasToSkipFirstRound));
 	}
 
 	/**
@@ -110,6 +111,7 @@ public class Game {
 				orderedPlayers.add(player);
 		players = orderedPlayers;
 		
+		// Setup towers
 		board.clearSlots();
 		deck.keySet().stream().forEach(cardType -> {
 			for (int i = 0; i < 4; i++)
@@ -118,7 +120,7 @@ public class Game {
 		
 		// Roll dices for familiars' values
 		Random random = new Random();
-		for (FamiliarColor familiarColor : FamiliarColor.values()) {
+		for (FamiliarColor familiarColor : new FamiliarColor[]{ FamiliarColor.BLACK, FamiliarColor.WHITE, FamiliarColor.ORANGE }) {
 			int diceValue = random.nextInt(6) + 1; // A random number between 1 (inclusive) and 6 (inclusive)
 			players.stream().forEach(player -> player.setFamiliarValue(familiarColor, diceValue));
 		}
@@ -142,13 +144,44 @@ public class Game {
 	}
 
 	private void shuffleDecks() {
-		for (CardType cardType : deck.keySet())
-			deck.put(cardType, ShuffleHelper.shuffleByPeriod(deck.get(cardType)));
+		for (Entry<CardType, List<Card>> entry : deck.entrySet())
+			deck.put(entry.getKey(), ShuffleHelper.shuffleByPeriod(entry.getValue()));
 
 		leaderCards = ShuffleHelper.shuffle(leaderCards);
 
-		for (PeriodType periodType : excommunicationDeck.keySet())
-			excommunicationDeck.put(periodType, ShuffleHelper.shuffle(excommunicationDeck.get(periodType)));
+		for (Entry<PeriodType, List<Excommunication>> entry : excommunicationDeck.entrySet())
+			excommunicationDeck.put(entry.getKey(), ShuffleHelper.shuffle(entry.getValue()));
+	}
+	
+	/**
+	 * @return an array containing the players ordered by the turn order
+	 */
+	public Player[] getOrderedPlayers(){
+		return players.stream().toArray(Player[]::new);
+	}
+	
+	/**
+	 * @param type the cardType of the cards contained in the requested tower
+	 * @return the cards present in the requested tower
+	 */
+	public Card[] getCardsOnTower(CardType type){
+		return board.getCardsOnTower(type);
+	}
+	
+	/**
+	 * @return an array containing the excommunications actually on this game's board
+	 */
+	public Excommunication[] getPlacedExcommunications(){
+		return board.getPlacedExcommunications();
+	}
+
+	/**
+	 * @param faithPoints
+	 *            how many faith points a player has
+	 * @return the resources he'd gain by supporting the Church
+	 */
+	public Resource[] getChurchSupportResources(int faithPoints) {
+		return board.getChurchSupportResources(faithPoints);
 	}
 
 }

@@ -1,34 +1,216 @@
 package it.polimi.ingsw.LM45.view.controller;
 
-import it.polimi.ingsw.LM45.view.gameboard.GameBoardController;
-import it.polimi.ingsw.LM45.view.leadercard.LeaderCardChoiceController;
-import it.polimi.ingsw.LM45.view.lobby.LobbyController;
+import java.util.Arrays;
 
-public class GuiController {
-	
+import it.polimi.ingsw.LM45.model.cards.Card;
+import it.polimi.ingsw.LM45.model.cards.Excommunication;
+import it.polimi.ingsw.LM45.model.cards.LeaderCard;
+import it.polimi.ingsw.LM45.model.cards.PeriodType;
+import it.polimi.ingsw.LM45.model.core.FamiliarColor;
+import it.polimi.ingsw.LM45.model.core.PersonalBonusTile;
+import it.polimi.ingsw.LM45.model.core.PlayerColor;
+import it.polimi.ingsw.LM45.model.core.Resource;
+import it.polimi.ingsw.LM45.model.core.SlotType;
+import it.polimi.ingsw.LM45.network.client.ClientController;
+import it.polimi.ingsw.LM45.view.gui.finalScore.FinalScoreController;
+import it.polimi.ingsw.LM45.view.gui.gameboard.GameBoardController;
+import it.polimi.ingsw.LM45.view.gui.leadercard.LeaderCardChoiceController;
+import it.polimi.ingsw.LM45.view.lobby.LobbyController;
+import javafx.application.Platform;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.stage.StageStyle;
+
+public class GuiController implements ViewInterface {
+
+	// da mettere tutti private quando finiscono i test
 	LobbyController lobbyController;
 	LeaderCardChoiceController leaderChoiceController;
 	GameBoardController gameBoardController;
-	InitializeViewController initializeController;
-	
-	public void niente(){
-		
+	ClientController clientController;
+	FinalScoreController finalController;
+
+	private int choice = -1;
+	private Object choiceLockToken = new Object();
+	private Dialog<ButtonType> choiceDialog;
+
+	public void setChoice(int value) {
+		synchronized (choiceLockToken) {
+			choice = value;
+			choiceLockToken.notifyAll();
+		}
 	}
-	
-	public void setLobbyController(LobbyController lobbyController){
+
+	public void setLobbyController(LobbyController lobbyController) {
 		this.lobbyController = lobbyController;
 	}
-	
-	public void setLeaderChoiceController(LeaderCardChoiceController leaderChoiceController){
-		this.leaderChoiceController = leaderChoiceController;
+
+	@Override
+	public void showLeaderCardChoiceView() {
+		leaderChoiceController = new LeaderCardChoiceController();
+		leaderChoiceController.setGuiController(this);
+	}
+
+	@Override
+	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications) {
+		Platform.runLater(() -> {
+			gameBoardController = new GameBoardController(playersUsername, playerColors, clientController, excommunications);
+			leaderChoiceController.close();
+		});
+	}
+
+	@Override
+	public int chooseFrom(String[] alternatives) {
+		if (alternatives.length <= 0)
+			return -1;
+		else if (alternatives[0].contains("(LeaderCard)"))
+			return choose(alternatives, () -> leaderChoiceController
+					.chooseLeader(Arrays.stream(alternatives).map(leader -> leader.substring(0, leader.indexOf("(") - 1)).toArray(String[]::new)));
+		else {
+			return choose(alternatives, () -> {
+				if(choiceDialog != null && choiceDialog.isShowing())
+					choiceDialog.close();
+
+				choiceDialog = new Dialog<>();
+				choiceDialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+				GridPane root = new GridPane();
+				HBox box = new HBox(alternatives.length);
+				ToggleGroup group = new ToggleGroup();
+				for (int i = 0; i < alternatives.length; i++) {
+					RadioButton button = new RadioButton(alternatives[i]);
+					button.setToggleGroup(group);
+					button.setText(alternatives[i]);
+					box.getChildren().add(button);
+					if (i == 0)
+						group.selectToggle(button);
+				}
+				root.add(box, 0, 0);
+				choiceDialog.getDialogPane().setContent(root);
+				choiceDialog.setTitle("Personal Bonus Tiles");
+				choiceDialog.initStyle(StageStyle.UNDECORATED);
+				choiceDialog.showAndWait();
+				setChoice(group.getToggles().indexOf(group.getSelectedToggle()));
+			});
+		}
+	}
+
+	private int choose(String[] alternative, Runnable uiCallback) {
+		Platform.runLater(uiCallback);
+
+		synchronized (choiceLockToken) {
+			while (choice == -1)
+				try {
+					choiceLockToken.wait();
+				}
+				catch (InterruptedException e) {
+					Thread.currentThread().interrupt();
+					e.printStackTrace();
+				}
+
+			int x = choice;
+			choice = -1;
+			return x;
+		}
+	}
+
+	@Override
+	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor) {
+		Platform.runLater(() -> gameBoardController.addFamiliar(slotType, position, familiarColor, playerColor));
+	}
+
+	@Override
+	public void pickCard(Card card, String username) {
+		Platform.runLater(() -> gameBoardController.pickCard(card, username));
+	}
+
+	@Override
+	public void addCardsOnTower(Card[] cards, SlotType slotType) {
+		Platform.runLater(() -> gameBoardController.addCardsOnTower(cards, slotType));
+	}
+
+	@Override
+	public void setFamiliar(String username, FamiliarColor color, int value) {
+		Platform.runLater(() -> gameBoardController.setFamiliarValue(username, color, value));
+	}
+
+	@Override
+	public void notifyError(String message) {
+		Platform.runLater(() -> gameBoardController.writeInDialogBox("ERROR -- " + message));
+	}
+
+	@Override
+	public void doBonusAction(SlotType slotType, int value) {
+		Platform.runLater(() -> gameBoardController.doBonusAction(slotType, value));
+	}
+
+	@Override
+	public void setClientController(ClientController clientController) {
+		this.clientController = clientController;
+
+	}
+
+	@Override
+	public void setResources(Resource[] resources, String username) {
+		System.out.println("adding resources");
+		Platform.runLater(() -> gameBoardController.setResources(resources, username));
+	}
+
+	@Override
+	public void myTurn() {
+		Platform.runLater(() -> gameBoardController.myTurn());
+	}
+
+	@Override
+	public void playerTurn(String username) {
+		Platform.runLater(() -> {
+			gameBoardController.writeInDialogBox("It's " + username + "'s turn!");
+			gameBoardController.disableGameBoard();
+			
+			// My turn has ended, so if a choice was prompted to me close its dialog
+			if(choiceDialog != null && choiceDialog.isShowing()){
+				choiceDialog.close();
+			}
+		});
+	}
+
+	@Override
+	public void setLeaderCards(LeaderCard[] leaders) {
+		Platform.runLater(() -> gameBoardController.setLeaderCards(leaders));
+	}
+
+	@Override
+	public void discardLeaderCard(String username, LeaderCard leader) {
+		Platform.runLater(() -> gameBoardController.discardLeaderCard(username, leader));
+	}
+
+	@Override
+	public void playLeaderCard(String username, LeaderCard leader) {
+		Platform.runLater(() -> gameBoardController.playLeaderCard(username, leader));
+	}
+
+	@Override
+	public void activateLeaderCard(String username, LeaderCard leader) {
+		Platform.runLater(() -> gameBoardController.activateLeaderCard(username, leader));
+	}
+
+	@Override
+	public void setPersonalBonusTile(String username, PersonalBonusTile personalBonusTile) {
+		Platform.runLater(() -> gameBoardController.setPersonalBonusTile(username, personalBonusTile));
 	}
 	
-	public void setGameBoardController(GameBoardController gameBoardController){
-		this.gameBoardController = gameBoardController;
+	@Override
+	public void placeExcommunicationToken(PlayerColor playerColor, PeriodType periodType){
+		Platform.runLater(() -> gameBoardController.placeExcommunicationToken(playerColor, periodType));
 	}
 	
-	public void setInitializeController(InitializeViewController initializeController){
-		this.initializeController = initializeController;
+	@Override
+	public void showFinalScore(String[] playersUsername, PlayerColor[] playerColors, int[] scores){
+		finalController = new FinalScoreController(playersUsername, playerColors, scores);
+		gameBoardController.close();
 	}
 
 }

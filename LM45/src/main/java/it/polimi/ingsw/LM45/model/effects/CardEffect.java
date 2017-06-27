@@ -1,11 +1,15 @@
 package it.polimi.ingsw.LM45.model.effects;
 
+import java.io.Serializable;
 import java.util.Arrays;
-import java.util.stream.Stream;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import it.polimi.ingsw.LM45.model.core.SlotType;
 
-public class CardEffect {
+public class CardEffect implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	
 	public static final CardEffect EMPTY = new CardEffect(new Effect[]{}, false);
 	
@@ -32,28 +36,43 @@ public class CardEffect {
 	}
 	
 	public void resolveEffects(EffectResolutor effectResolutor){
-		if(effectsAreAlternative)
-			effectResolutor.chooseFrom(effects).resolveEffect(effectResolutor);
+		if(effectsAreAlternative){
+			Effect[] choosableEffects = Arrays.stream(effects).filter(effect -> effect.canResolveEffect(effectResolutor)).toArray(Effect[]::new);
+			if(choosableEffects.length == 0)
+				return;
+			else if(choosableEffects.length == 1)
+				choosableEffects[0].resolveEffect(effectResolutor);
+			else
+				effectResolutor.chooseFrom(choosableEffects).resolveEffect(effectResolutor);
+		}
 		else
 			Arrays.stream(effects).forEach(effect -> effect.resolveEffect(effectResolutor));
 	}
 	
 	public ActionModifier getActionModifier(SlotType slotType, EffectResolutor effectResolutor){
-		Stream<ActionModifier> actionModifiers = Arrays.stream(effects).map(effect -> effect.getActionModifier(slotType));
+		List<ActionModifier> actionModifiers = Arrays.stream(effects).map(effect -> effect.getActionModifier(slotType)).collect(Collectors.toList());
 		if(effectsAreAlternative){
 			// If they are alternative and at least one of them is effective (i.e. generates a non-empty ActionModifier)
 			// make the player choose one and return that
-			if(actionModifiers.allMatch(actionModifier -> actionModifier.isEmpty()))
-				return ActionModifier.EMPTY;
+			if(actionModifiers.stream().allMatch(ActionModifier::isEmpty))
+				return ActionModifier.EMPTY();
 			else
-				return effectResolutor.chooseFrom(actionModifiers.toArray(ActionModifier[]::new));
+				return effectResolutor.chooseFrom(actionModifiers.stream().toArray(ActionModifier[]::new));
 		}
 		else
 			// Otherwise just return the merging of the ActionModifiers of every effect
-			return actionModifiers.reduce(ActionModifier.EMPTY, (accumulator, actionModifier) -> accumulator.merge(actionModifier));
+			return actionModifiers.stream().reduce(ActionModifier.EMPTY(), (accumulator, actionModifier) -> accumulator.merge(actionModifier));
 	}
 	
 	public boolean getEffectsArePermanent(){
 		return effectsArePermanent;
+	}
+	
+	@Override
+	public String toString() {
+		if(effectsAreAlternative)
+			return Arrays.stream(effects).map(Effect::toString).reduce((a,b) -> a + " or\n" + b).orElse("No Effect");
+		else
+			return Arrays.stream(effects).map(Effect::toString).reduce((a,b) -> a + " and\n" + b).orElse("No Effect");
 	}
 }

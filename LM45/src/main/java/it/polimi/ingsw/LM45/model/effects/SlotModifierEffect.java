@@ -4,6 +4,8 @@ import it.polimi.ingsw.LM45.model.core.SlotType;
 
 public class SlotModifierEffect extends Effect {
 
+	private static final long serialVersionUID = 1L;
+
 	private SlotType slotType;
 	private boolean canPlaceFamiliars;
 	private boolean canPlaceMultipleFamiliars;
@@ -25,10 +27,20 @@ public class SlotModifierEffect extends Effect {
 
 	@Override
 	public ActionModifier getActionModifier(SlotType slotType) {
-		if (slotType == this.slotType)
+		if (slotType.isCompatible(this.slotType))
 			return new ActionModifier(!canReceiveResources, canPlaceMultipleFamiliars, canPlaceFamiliars);
 		else
-			return ActionModifier.EMPTY;
+			return ActionModifier.EMPTY();
+	}
+	
+	@Override
+	public String toString() {
+		if(!canPlaceFamiliars)
+			return "Can't place familiars in " + slotType.toString() + " slots";
+		else if(canPlaceMultipleFamiliars)
+			return "Can place familiars in occupied action slots";
+		else
+			return "Can't receive bonus resources from tower slots";
 	}
 
 }

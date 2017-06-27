@@ -8,7 +8,14 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 import it.polimi.ingsw.LM45.exceptions.GameException;
+import it.polimi.ingsw.LM45.model.cards.Card;
+import it.polimi.ingsw.LM45.model.cards.Excommunication;
+import it.polimi.ingsw.LM45.model.cards.LeaderCard;
+import it.polimi.ingsw.LM45.model.cards.PeriodType;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
+import it.polimi.ingsw.LM45.model.core.PersonalBonusTile;
+import it.polimi.ingsw.LM45.model.core.PlayerColor;
+import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.network.server.RMIRemoteFactory;
 import it.polimi.ingsw.LM45.network.server.RemoteServerInterface;
@@ -25,6 +32,10 @@ public class RMIClient implements RemoteClientInterface, ServerInterface {
 		Registry registry = LocateRegistry.getRegistry(host);
 		remoteServer = ((RMIRemoteFactory) registry.lookup("RMIFactory"))
 				.getServerInterface((RemoteClientInterface) UnicastRemoteObject.exportObject(this, 0));
+	}
+	
+	public void stop(){
+		System.out.println("Shutting down RMIClient");		
 	}
 
 	@Override
@@ -80,6 +91,76 @@ public class RMIClient implements RemoteClientInterface, ServerInterface {
 	@Override
 	public int chooseFrom(String[] alternatives) throws IOException {
 		return clientController.chooseFrom(alternatives);
+	}
+
+	@Override
+	public void pickCard(Card card, String username) {
+		clientController.pickCard(card, username);
+	}
+
+	@Override
+	public void addCardsOnTower(Card[] cards, SlotType slotType) {
+		clientController.addCardsOnTower(cards, slotType);
+	}
+
+	@Override
+	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor) {
+		clientController.addFamiliar(slotType, position, familiarColor, playerColor);
+	}
+
+	@Override
+	public void setLeaderCards(LeaderCard[] leaders) {
+		clientController.setLeaderCards(leaders);
+	}
+
+	@Override
+	public void setFamiliar(String username, FamiliarColor color, int value) {
+		clientController.setFamiliar(username, color, value);
+	}
+
+	@Override
+	public void doBonusAction(SlotType slotType, int value) {
+		clientController.doBonusAction(slotType, value);
+	}
+
+	@Override
+	public void setResources(Resource[] resources, String username) {
+		clientController.setResources(resources, username);
+	}
+
+	@Override
+	public void setPersonalBonusTile(String username, PersonalBonusTile personalBonusTile) throws IOException {
+		clientController.setPersonalBonusTile(username, personalBonusTile);
+	}
+
+	@Override
+	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications) throws IOException {
+		clientController.initializeGameBoard(playersUsername, playerColors, excommunications);
+	}
+
+	@Override
+	public void placeExcommunicationToken(PlayerColor playerColor, PeriodType periodType) throws IOException {
+		clientController.placeExcommunicationToken(playerColor, periodType);
+	}
+
+	@Override
+	public void playLeaderCard(String username, LeaderCard leader) throws IOException {
+		clientController.playLeaderCard(username, leader);
+	}
+
+	@Override
+	public void activateLeaderCard(String username, LeaderCard leader) throws IOException {
+		clientController.activateLeaderCard(username, leader);		
+	}
+
+	@Override
+	public void discardLeaderCard(String username, LeaderCard leader) throws IOException {
+		clientController.discardLeaderCard(username, leader);
+	}
+
+	@Override
+	public void showFinalScore(String[] playersUsername, PlayerColor[] playerColors, int[] scores) throws IOException {
+		clientController.showFinalScore(playersUsername, playerColors, scores);		
 	}
 	
 }

@@ -13,15 +13,25 @@ public enum CardType {
 	private SlotType slotType;
 	private ResourceType resourceType;
 	
+	/**
+	 * @param slotType the type of the Slot : BUILDING, TERRITORY, CHARACTER, VENTURE or ANY_CARD.
+	 * @param resourceType the type of the Resource : BUILDING, TERRITORY, CHARACTER, VENTURE or ANY_CARD.
+	 */
 	private CardType(SlotType slotType, ResourceType resourceType){
 		this.slotType = slotType;
 		this.resourceType = resourceType;
 	}
 	
+	/**
+	 * @return the equivalent slotType.
+	 */
 	public SlotType toSlotType(){
 		return this.slotType;
 	}
 	
+	/**
+	 * @return the equivalent resourceType.
+	 */
 	public ResourceType toResourceType(){
 		return this.resourceType;
 	}

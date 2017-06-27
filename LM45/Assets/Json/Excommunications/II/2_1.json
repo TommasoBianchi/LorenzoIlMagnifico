@@ -1,0 +1,16 @@
+{
+  "name": "2_1",
+  "periodType": "II",
+  "effect": {
+    "effects": [
+      {
+        "slotType": "TERRITORY",
+        "diceNumber": -4,
+        "discount": [],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ActionEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": true
+  }
+}
