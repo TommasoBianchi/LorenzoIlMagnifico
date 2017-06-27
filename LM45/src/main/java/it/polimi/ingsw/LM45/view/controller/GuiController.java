@@ -36,6 +36,7 @@ public class GuiController implements ViewInterface {
 
 	private int choice = -1;
 	private Object choiceLockToken = new Object();
+	private Dialog<ButtonType> choiceDialog;
 
 	public void setChoice(int value) {
 		synchronized (choiceLockToken) {
@@ -71,8 +72,11 @@ public class GuiController implements ViewInterface {
 					.chooseLeader(Arrays.stream(alternatives).map(leader -> leader.substring(0, leader.indexOf("(") - 1)).toArray(String[]::new)));
 		else {
 			return choose(alternatives, () -> {
-				Dialog<ButtonType> dialog = new Dialog<>();
-				dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+				if(choiceDialog != null && choiceDialog.isShowing())
+					choiceDialog.close();
+
+				choiceDialog = new Dialog<>();
+				choiceDialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
 				GridPane root = new GridPane();
 				HBox box = new HBox(alternatives.length);
 				ToggleGroup group = new ToggleGroup();
@@ -85,10 +89,10 @@ public class GuiController implements ViewInterface {
 						group.selectToggle(button);
 				}
 				root.add(box, 0, 0);
-				dialog.getDialogPane().setContent(root);
-				dialog.setTitle("Personal Bonus Tiles");
-				dialog.initStyle(StageStyle.UNDECORATED);
-				dialog.showAndWait();
+				choiceDialog.getDialogPane().setContent(root);
+				choiceDialog.setTitle("Personal Bonus Tiles");
+				choiceDialog.initStyle(StageStyle.UNDECORATED);
+				choiceDialog.showAndWait();
 				setChoice(group.getToggles().indexOf(group.getSelectedToggle()));
 			});
 		}
@@ -165,6 +169,11 @@ public class GuiController implements ViewInterface {
 		Platform.runLater(() -> {
 			gameBoardController.writeInDialogBox("It's " + username + "'s turn!");
 			gameBoardController.disableGameBoard();
+			
+			// My turn has ended, so if a choice was prompted to me close its dialog
+			if(choiceDialog != null && choiceDialog.isShowing()){
+				choiceDialog.close();
+			}
 		});
 	}
 

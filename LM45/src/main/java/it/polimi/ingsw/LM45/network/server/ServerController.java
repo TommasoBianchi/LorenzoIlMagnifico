@@ -153,7 +153,8 @@ public class ServerController {
 				if (slot.canAddFamiliar(familiar, actionModifier, effectResolutor)) {
 					slot.addFamiliar(familiar, actionModifier, effectResolutor);
 					notifyPlayers(clientInterface -> clientInterface.addFamiliar(slotType, slotID, familiarColor, players.get(player).getColor()));
-					currentPlayerAlreadyPlacedFamiliar = familiarColor != FamiliarColor.BONUS;
+					if(player.equals(currentPlayer.getUsername()))
+						currentPlayerAlreadyPlacedFamiliar = familiarColor != FamiliarColor.BONUS;
 					logInfo(player + " successfully placed the familiar " + familiarColor + " in slot " + slotType + " " + slotID);
 
 					if (familiarColor == FamiliarColor.BONUS) {

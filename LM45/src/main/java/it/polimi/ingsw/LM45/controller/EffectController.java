@@ -2,6 +2,7 @@ package it.polimi.ingsw.LM45.controller;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 import it.polimi.ingsw.LM45.model.cards.Card;
@@ -125,6 +126,8 @@ public class EffectController implements EffectResolutor {
 
 	public <T> T chooseFrom(T[] alternatives) {
 		int index = serverController.chooseFrom(player.getUsername(), Arrays.stream(alternatives).map(Object::toString).toArray(String[]::new));
+		if(index < 0 || index >= alternatives.length)
+			index = new Random().nextInt(alternatives.length);
 		return alternatives[index];
 	}
 

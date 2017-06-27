@@ -76,6 +76,7 @@ public class GameBoardController {
 	private Map<PlayerColor, String> playerColorName = new HashMap<>();
 	// Map<String cardName, String towerslotID>
 	private Map<String, String> cardPosition = new HashMap<>();
+	private boolean isMyTurn = false;
 
 	private FamiliarColor familiarColor = FamiliarColor.BONUS;
 	private boolean familiarSelected = false;
@@ -244,7 +245,7 @@ public class GameBoardController {
 			usersPersonalBoards.get(playerColorName.get(playerColor)).familiarUsed(familiarColor);
 			if (playerColorName.get(playerColor).equals(myUsername)) {
 				familiarUsed(familiarColor);
-				endTurnButton.setDisable(false);
+				endTurnButton.setDisable(!isMyTurn);
 				familiarPane.setDisable(true);
 			}
 		}
@@ -300,12 +301,14 @@ public class GameBoardController {
 		familiarPane.setDisable(true);
 		setSlotsDisabled(true);
 		endTurnButton.setDisable(true);
+		isMyTurn = false;
 	}
 
 	public void myTurn() {
 		writeInDialogBox("It's my turn!");
 		familiarPane.setDisable(false);
 		setSlotsDisabled(false);
+		isMyTurn = true;
 	}
 
 	public void spendServant(MouseEvent event) {
