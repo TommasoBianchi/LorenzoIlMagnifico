@@ -257,6 +257,10 @@ public class ServerController {
 			nextPlayerRound();
 		}
 	}
+	
+	public boolean isMyTurn(Player player){
+		return currentPlayer == player;
+	}
 
 	private void setPlayerUsername(String username, ClientInterface clientInterface) {
 		try {

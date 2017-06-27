@@ -125,10 +125,14 @@ public class EffectController implements EffectResolutor {
 	}
 
 	public <T> T chooseFrom(T[] alternatives) {
-		int index = serverController.chooseFrom(player.getUsername(), Arrays.stream(alternatives).map(Object::toString).toArray(String[]::new));
-		if(index < 0 || index >= alternatives.length)
-			index = new Random().nextInt(alternatives.length);
-		return alternatives[index];
+		if(serverController.isMyTurn(player)){
+			int index = serverController.chooseFrom(player.getUsername(), Arrays.stream(alternatives).map(Object::toString).toArray(String[]::new));
+			if(index < 0 || index >= alternatives.length)
+				index = new Random().nextInt(alternatives.length);
+			return alternatives[index];
+		}
+		else
+			return alternatives[new Random().nextInt(alternatives.length)];
 	}
 
 }
