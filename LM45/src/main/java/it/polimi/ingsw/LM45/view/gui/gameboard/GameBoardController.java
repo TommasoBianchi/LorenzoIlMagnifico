@@ -132,7 +132,6 @@ public class GameBoardController {
 							.setImage(new Image("/Image/Familiars/" + playerColors[i] + "/" + familiarColor + ".png"));
 				}
 			}
-			System.out.println(usersPersonalBoards.containsKey(playersUsername[i]));
 			usersPersonalBoards.get(playersUsername[i]).setFamiliarsColors(playerColors[i]);
 		}
 	}
@@ -181,7 +180,7 @@ public class GameBoardController {
 	}
 
 	public void setFamiliarValue(String username, FamiliarColor color, int value) {
-		if (username == myUsername) {
+		if (username.equals(myUsername)) {
 			Label familiarValue = (Label) stage.getScene().lookup("#VALUE" + color.toString());
 			familiarValue.setText(Integer.toString(value));
 		}
@@ -189,7 +188,7 @@ public class GameBoardController {
 	}
 
 	public void setResources(Resource[] resources, String username) {
-		if (username == myUsername)
+		if (username.equals(myUsername))
 			for (Resource resource : resources)
 				setResourceGameboard(resource);
 		for (Resource resource : resources)
@@ -243,7 +242,7 @@ public class GameBoardController {
 			familiar.setFitWidth(25);
 			slot.getChildren().add(familiar);
 			usersPersonalBoards.get(playerColorName.get(playerColor)).familiarUsed(familiarColor);
-			if (playerColorName.get(playerColor) == myUsername) {
+			if (playerColorName.get(playerColor).equals(myUsername)) {
 				familiarUsed(familiarColor);
 				endTurnButton.setDisable(false);
 				familiarPane.setDisable(true);
@@ -425,7 +424,7 @@ public class GameBoardController {
 	public void setPersonalBonusTile(String username, PersonalBonusTile personalBonusTile) {
 		Resource[] productionBonus = personalBonusTile.getProductionBonuses();
 		Resource[] harvestBonus = personalBonusTile.getHarvestBonuses();
-		if (username == myUsername) {
+		if (username.equals(myUsername)) {
 			for(int i=0; i<2; i++){
 				ImageView resourceView = (ImageView) stage.getScene().lookup("#PRODUCTIONTILE" + i);
 				Image resource = new Image("/Image/Resources/" + productionBonus[i].getResourceType() + ".png");
