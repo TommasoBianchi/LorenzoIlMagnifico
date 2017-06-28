@@ -14,9 +14,9 @@ import it.polimi.ingsw.LM45.model.core.Player;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.ResourceType;
 import it.polimi.ingsw.LM45.model.core.SlotType;
-import it.polimi.ingsw.LM45.model.effects.ActionModifier;
 import it.polimi.ingsw.LM45.model.effects.CardEffect;
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
+import it.polimi.ingsw.LM45.model.effects.modifiers.ActionModifier;
 import it.polimi.ingsw.LM45.network.server.ServerController;
 
 public class EffectController implements EffectResolutor {

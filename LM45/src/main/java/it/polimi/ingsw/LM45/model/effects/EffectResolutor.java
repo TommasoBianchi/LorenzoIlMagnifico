@@ -5,6 +5,7 @@ import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.ResourceType;
 import it.polimi.ingsw.LM45.model.core.SlotType;
+import it.polimi.ingsw.LM45.model.effects.modifiers.ActionModifier;
 
 public interface EffectResolutor {
 	

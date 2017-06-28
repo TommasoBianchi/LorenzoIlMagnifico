@@ -1,16 +1,14 @@
-package it.polimi.ingsw.LM45.model.effects;
+package it.polimi.ingsw.LM45.model.effects.modifiers;
 
 import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.Map;
 
-import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.ResourceType;
 
 public class ActionModifier {
 
-	private Map<ResourceType, Integer> costModifiers = new EnumMap<>(ResourceType.class);
-	private Map<ResourceType, Integer> gainModifiers = new EnumMap<>(ResourceType.class);
+	private Map<ResourceType, ResourceModifier> costModifiers = new EnumMap<>(ResourceType.class);
+	private Map<ResourceType, ResourceModifier> gainModifiers = new EnumMap<>(ResourceType.class);
 	private int diceBonus;
 	private boolean blockImmediateResources;
 	private boolean canPlaceMultipleFamiliars;
@@ -20,13 +18,15 @@ public class ActionModifier {
 		return new ActionModifier(0);
 	}
 
-	public ActionModifier(Resource[] costModifiers, Resource[] gainModifiers, int diceBonus, boolean blockImmediateResources,
+	public ActionModifier(ResourceModifier[] costModifiers, ResourceModifier[] gainModifiers, int diceBonus, boolean blockImmediateResources,
 			boolean canPlaceMultipleFamiliars, boolean canPlaceFamiliars) {
-		for (Resource resource : costModifiers)
-			this.costModifiers.put(resource.getResourceType(), this.costModifiers.getOrDefault(resource.getResourceType(), 0) + resource.getAmount());
+		for (ResourceModifier resourceModifier : costModifiers)
+			this.costModifiers.put(resourceModifier.getResourceType(), this.costModifiers
+					.getOrDefault(resourceModifier.getResourceType(), new NilModifier(resourceModifier.getResourceType())).merge(resourceModifier));
 
-		for (Resource resource : gainModifiers)
-			this.gainModifiers.put(resource.getResourceType(), this.gainModifiers.getOrDefault(resource.getResourceType(), 0) + resource.getAmount());
+		for (ResourceModifier resourceModifier : gainModifiers)
+			this.gainModifiers.put(resourceModifier.getResourceType(), this.gainModifiers
+					.getOrDefault(resourceModifier.getResourceType(), new NilModifier(resourceModifier.getResourceType())).merge(resourceModifier));
 
 		this.diceBonus = diceBonus;
 		this.blockImmediateResources = blockImmediateResources;
@@ -34,28 +34,28 @@ public class ActionModifier {
 		this.canPlaceFamiliars = canPlaceFamiliars;
 	}
 
-	public ActionModifier(Resource[] costModifiers, Resource[] gainModifiers, int diceBonus) {
+	public ActionModifier(ResourceModifier[] costModifiers, ResourceModifier[] gainModifiers, int diceBonus) {
 		this(costModifiers, gainModifiers, diceBonus, false, false, true);
 	}
 
-	public ActionModifier(Resource[] costModifiers) {
-		this(costModifiers, new Resource[] {}, 0);
+	public ActionModifier(ResourceModifier[] costModifiers) {
+		this(costModifiers, new ResourceModifier[] {}, 0);
 	}
 
 	public ActionModifier(boolean blockImmediateResources, boolean canPlaceMultipleFamiliars, boolean canPlaceFamiliars) {
-		this(new Resource[] {}, new Resource[] {}, 0, blockImmediateResources, canPlaceMultipleFamiliars, canPlaceFamiliars);
+		this(new ResourceModifier[] {}, new ResourceModifier[] {}, 0, blockImmediateResources, canPlaceMultipleFamiliars, canPlaceFamiliars);
 	}
 
 	public ActionModifier(int diceBonus) {
-		this(new Resource[] {}, new Resource[] {}, diceBonus);
+		this(new ResourceModifier[] {}, new ResourceModifier[] {}, diceBonus);
 	}
 
-	public Map<ResourceType, Integer> getCostModifiers() {
-		return new HashMap<>(this.costModifiers);
+	public Map<ResourceType, ResourceModifier> getCostModifiers() {
+		return new EnumMap<>(this.costModifiers);
 	}
 
-	public Map<ResourceType, Integer> getGainModifiers() {
-		return new HashMap<>(this.gainModifiers);
+	public Map<ResourceType, ResourceModifier> getGainModifiers() {
+		return new EnumMap<>(this.gainModifiers);
 	}
 
 	public int getDiceBonus() {
@@ -76,10 +76,10 @@ public class ActionModifier {
 
 	public ActionModifier merge(ActionModifier other) {
 		for (ResourceType resourceType : other.costModifiers.keySet())
-			this.costModifiers.put(resourceType, this.costModifiers.getOrDefault(resourceType, 0) + other.costModifiers.get(resourceType));
+			this.costModifiers.put(resourceType, this.costModifiers.getOrDefault(resourceType, new NilModifier(resourceType)).merge(other.costModifiers.get(resourceType)));
 
 		for (ResourceType resourceType : other.gainModifiers.keySet())
-			this.gainModifiers.put(resourceType, this.gainModifiers.getOrDefault(resourceType, 0) + other.gainModifiers.get(resourceType));
+			this.gainModifiers.put(resourceType, this.gainModifiers.getOrDefault(resourceType, new NilModifier(resourceType)).merge(other.gainModifiers.get(resourceType)));
 
 		this.diceBonus += other.diceBonus;
 
@@ -97,25 +97,25 @@ public class ActionModifier {
 
 	@Override
 	public String toString() {
-		String costModifierString = costModifiers.entrySet().stream().map(entry -> entry.getValue() + " " + entry.getKey())
+		String costModifierString = costModifiers.values().stream().map(ResourceModifier::toString)
 				.reduce((a, b) -> a + " " + b).orElse("");
-		String gainModifierString = gainModifiers.entrySet().stream().map(entry -> entry.getValue() + " " + entry.getKey())
+		String gainModifierString = gainModifiers.values().stream().map(ResourceModifier::toString)
 				.reduce((a, b) -> a + " " + b).orElse("");
-		
+
 		String result = "";
-		if(!costModifierString.equals(""))
+		if (!costModifierString.equals(""))
 			result += "Cost modifiers: " + costModifierString + "\n";
-		if(!gainModifierString.equals(""))
+		if (!gainModifierString.equals(""))
 			result += "Gain modifiers: " + gainModifierString + "\n";
-		if(diceBonus != 0)
+		if (diceBonus != 0)
 			result += "Dice bonus: " + diceBonus + "\n";
-		if(blockImmediateResources)
+		if (blockImmediateResources)
 			result += "You can not receive immediate resources\n";
-		if(canPlaceMultipleFamiliars)
+		if (canPlaceMultipleFamiliars)
 			result += "You can place multiple familiars\n";
-		if(!canPlaceFamiliars)
+		if (!canPlaceFamiliars)
 			result += "You can not place familiars\n";
-		
+
 		return result;
 	}
 

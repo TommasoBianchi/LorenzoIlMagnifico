@@ -7,9 +7,11 @@ import java.util.List;
 import it.polimi.ingsw.LM45.exceptions.IllegalActionException;
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
-import it.polimi.ingsw.LM45.model.effects.ActionModifier;
 import it.polimi.ingsw.LM45.model.effects.CardEffect;
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
+import it.polimi.ingsw.LM45.model.effects.modifiers.ActionModifier;
+import it.polimi.ingsw.LM45.model.effects.modifiers.ResourceAdder;
+import it.polimi.ingsw.LM45.model.effects.modifiers.ResourceModifier;
 
 public class Player {
 
@@ -370,7 +372,7 @@ public class Player {
 	public ActionModifier getActionModifier(SlotType slotType, EffectResolutor effectResolutor) {
 		ActionModifier actionModifier = personalBoard.getActionModifier(slotType, effectResolutor);
 		if (bonusFamiliarDiscount != null)
-			actionModifier.merge(new ActionModifier(bonusFamiliarDiscount));
+			actionModifier.merge(new ActionModifier(Arrays.stream(bonusFamiliarDiscount).map(ResourceAdder::new).toArray(ResourceModifier[]::new)));
 		return actionModifier;
 	}
 

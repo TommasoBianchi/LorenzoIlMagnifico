@@ -9,8 +9,10 @@ import java.util.stream.Stream;
 
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.ResourceType;
-import it.polimi.ingsw.LM45.model.effects.ActionModifier;
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
+import it.polimi.ingsw.LM45.model.effects.modifiers.ActionModifier;
+import it.polimi.ingsw.LM45.model.effects.modifiers.NilModifier;
+import it.polimi.ingsw.LM45.model.effects.modifiers.ResourceModifier;
 
 public class Cost implements Serializable {
 
@@ -58,18 +60,18 @@ public class Cost implements Serializable {
 	}
 
 	private Stream<Resource> getResourcesToPay(ActionModifier actionModifier) {
-		Map<ResourceType, Integer> costModifiers = actionModifier.getCostModifiers();
-		Set<ResourceType> incrementedResources = new HashSet<>();
+		Map<ResourceType, ResourceModifier> costModifiers = actionModifier.getCostModifiers();
+		Set<ResourceType> modifiedResources = new HashSet<>();
 		Stream<Resource> resourcesToPay = Arrays.stream(costResources).map(resource -> {
-			Resource incrementedResource = resource.increment(costModifiers.getOrDefault(resource.getResourceType(), 0));
-			incrementedResources.add(resource.getResourceType());
-			return incrementedResource;
+			Resource modifiedResource = costModifiers.getOrDefault(resource.getResourceType(), new NilModifier(resource.getResourceType())).modify(resource);
+			modifiedResources.add(resource.getResourceType());
+			return modifiedResource;
 		});
 
 		// Make sure you pay also resources in the costModifier that were not present in the original cost
 		// (i.e. if this was an empty cost and the costModifier contains +3 COINS, than you have to pay them)
 		resourcesToPay = Stream.concat(resourcesToPay, costModifiers.entrySet().stream()
-				.filter(entry -> !incrementedResources.contains(entry.getKey())).map(entry -> new Resource(entry.getKey(), entry.getValue())));
+				.filter(entry -> !modifiedResources.contains(entry.getKey())).map(entry -> entry.getValue().modify(new Resource(entry.getKey(), 0))));
 		return resourcesToPay.filter(resource -> resource.getAmount() > 0);
 	}
 

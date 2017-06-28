@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 import it.polimi.ingsw.LM45.exceptions.IllegalActionException;
-import it.polimi.ingsw.LM45.model.effects.ActionModifier;
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
+import it.polimi.ingsw.LM45.model.effects.modifiers.ActionModifier;
+import it.polimi.ingsw.LM45.model.effects.modifiers.NilModifier;
+import it.polimi.ingsw.LM45.model.effects.modifiers.ResourceModifier;
 
 public class Slot {
 
@@ -56,7 +58,8 @@ public class Slot {
 	 *            the familiar to check for this slot
 	 * @param actionModifier
 	 *            the actionModifier collected by doing this action in this moment
-	 * @param effectResolutor the effect resolutor for the player is trying to add a familiar
+	 * @param effectResolutor
+	 *            the effect resolutor for the player is trying to add a familiar
 	 * @return true if it is legal to place the familiar in this slots with regards to the given actionModifier
 	 * @throws IllegalActionException
 	 *             if the familiar cannot be placed in this slot
@@ -83,14 +86,12 @@ public class Slot {
 	 *            the effectResolutor needed to add the immediateBonus to the player (subclass may use this to provide more interaction, even client-side)
 	 */
 	public void addFamiliar(Familiar familiar, ActionModifier actionModifier, EffectResolutor effectResolutor) {
-		// FIXME: think about gain modifiers that multiply instead of increment
-		// Think also about the slots that decrement the familiar value
-		// Think also about production and harvest
-		Map<ResourceType, Integer> gainModifiers = actionModifier.getGainModifiers();
+		Map<ResourceType, ResourceModifier> gainModifiers = actionModifier.getGainModifiers();
 		if (!actionModifier.getBlockImmediateResources())
-			Arrays.stream(immediateBonus).map(resource -> resource.increment(gainModifiers.getOrDefault(resource.getResourceType(), 0)))
-					.forEach(resource -> effectResolutor.addResources(resource));
-		if(familiar.getFamiliarColor() != FamiliarColor.BONUS)
+			Arrays.stream(immediateBonus)
+					.map(resource -> gainModifiers.getOrDefault(resource.getResourceType(), new NilModifier(resource.getResourceType()))
+					.modify(resource)).forEach(resource -> effectResolutor.addResources(resource));
+		if (familiar.getFamiliarColor() != FamiliarColor.BONUS)
 			familiars.add(familiar);
 		familiar.setIsPlaced(true);
 	}

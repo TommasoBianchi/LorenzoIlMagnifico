@@ -2,8 +2,10 @@ package it.polimi.ingsw.LM45.model.core;
 
 import it.polimi.ingsw.LM45.exceptions.IllegalActionException;
 import it.polimi.ingsw.LM45.model.cards.Card;
-import it.polimi.ingsw.LM45.model.effects.ActionModifier;
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
+import it.polimi.ingsw.LM45.model.effects.modifiers.ActionModifier;
+import it.polimi.ingsw.LM45.model.effects.modifiers.ResourceAdder;
+import it.polimi.ingsw.LM45.model.effects.modifiers.ResourceModifier;
 
 public class TowerSlot extends Slot {
 
@@ -33,7 +35,7 @@ public class TowerSlot extends Slot {
 	@Override
 	public boolean canAddFamiliar(Familiar familiar, ActionModifier actionModifier, EffectResolutor effectResolutor) throws IllegalActionException {
 		if(hasToPayTower(familiar.getPlayer()))
-			actionModifier.merge(new ActionModifier(new Resource[]{ new Resource(ResourceType.COINS, 3) }));
+			actionModifier.merge(new ActionModifier(new ResourceModifier[]{ new ResourceAdder(ResourceType.COINS, 3) }));
 		
 		boolean canAffordCard = card.canPick(effectResolutor, actionModifier);
 		boolean playerCanPickCard = effectResolutor.canAddCard(card);
