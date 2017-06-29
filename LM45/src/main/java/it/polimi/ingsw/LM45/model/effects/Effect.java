@@ -3,6 +3,7 @@ package it.polimi.ingsw.LM45.model.effects;
 import java.io.Serializable;
 
 import it.polimi.ingsw.LM45.model.core.SlotType;
+import it.polimi.ingsw.LM45.model.effects.modifiers.ActionModifier;
 
 public abstract class Effect implements Serializable {
 

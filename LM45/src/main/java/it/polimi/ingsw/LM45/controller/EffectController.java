@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
@@ -14,7 +13,6 @@ import it.polimi.ingsw.LM45.model.core.Player;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.ResourceType;
 import it.polimi.ingsw.LM45.model.core.SlotType;
-import it.polimi.ingsw.LM45.model.effects.ActionModifier;
 import it.polimi.ingsw.LM45.model.effects.CardEffect;
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
 import it.polimi.ingsw.LM45.network.server.ServerController;
@@ -102,9 +100,13 @@ public class EffectController implements EffectResolutor {
 	public void addPermanentEffect(CardEffect permanentEffect) {
 		player.addPermanentEffect(permanentEffect);
 	}
+	
+	public boolean canAddCard(Card card){
+		return player.canAddCard(card);
+	}
 
-	public void addCard(Card card, ActionModifier actionModifier) {
-		player.addCard(card, actionModifier);
+	public void addCard(Card card) {
+		player.addCard(card);
 		serverController.notifyPlayers(clientInterface -> clientInterface.pickCard(card, player.getUsername()));
 	}
 

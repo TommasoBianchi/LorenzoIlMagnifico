@@ -2,8 +2,10 @@ package it.polimi.ingsw.LM45.model.core;
 
 import it.polimi.ingsw.LM45.exceptions.IllegalActionException;
 import it.polimi.ingsw.LM45.model.cards.Card;
-import it.polimi.ingsw.LM45.model.effects.ActionModifier;
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
+import it.polimi.ingsw.LM45.model.effects.modifiers.ActionModifier;
+import it.polimi.ingsw.LM45.model.effects.modifiers.ResourceAdder;
+import it.polimi.ingsw.LM45.model.effects.modifiers.ResourceModifier;
 
 public class TowerSlot extends Slot {
 
@@ -33,16 +35,19 @@ public class TowerSlot extends Slot {
 	@Override
 	public boolean canAddFamiliar(Familiar familiar, ActionModifier actionModifier, EffectResolutor effectResolutor) throws IllegalActionException {
 		if(hasToPayTower(familiar.getPlayer()))
-			actionModifier.merge(new ActionModifier(new Resource[]{ new Resource(ResourceType.COINS, 3) }));
+			actionModifier.merge(new ActionModifier(new ResourceModifier[]{ new ResourceAdder(ResourceType.COINS, 3) }));
 		
-		boolean canPickCard = card.canPick(effectResolutor, actionModifier);
+		boolean canAffordCard = card.canPick(effectResolutor, actionModifier);
+		boolean playerCanPickCard = effectResolutor.canAddCard(card);
 		
 		if(!hasCard)
 			throw new IllegalActionException("Cannot place a familiar " + familiar.getFamiliarColor() + " because this slot's card has already been taken");
-		else if(!canPickCard)
+		else if(!canAffordCard)
 			throw new IllegalActionException("Cannot place a familiar " + familiar.getFamiliarColor() + " because you cannot afford the card on this slot");
+		else if(!playerCanPickCard)
+			throw new IllegalActionException("Cannot place a familiar " + familiar.getFamiliarColor() + " because you cannot pick " + card.getCardType() + "s");
 		
-		return super.canAddFamiliar(familiar, actionModifier, effectResolutor) && hasCard && canPickCard;
+		return super.canAddFamiliar(familiar, actionModifier, effectResolutor) && hasCard && canAffordCard && playerCanPickCard;
 	}
 
 	@Override
@@ -50,7 +55,7 @@ public class TowerSlot extends Slot {
 		super.addFamiliar(familiar, actionModifier, effectResolutor);
 		card.payCost(effectResolutor, actionModifier);
 		card.resolveImmediateEffect(effectResolutor);
-		effectResolutor.addCard(card, actionModifier);
+		effectResolutor.addCard(card);
 		this.hasCard = false;
 	}
 	

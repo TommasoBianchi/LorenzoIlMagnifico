@@ -8,9 +8,9 @@ import java.util.Map;
 
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.CardType;
-import it.polimi.ingsw.LM45.model.effects.ActionModifier;
 import it.polimi.ingsw.LM45.model.effects.CardEffect;
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
+import it.polimi.ingsw.LM45.model.effects.modifiers.ActionModifier;
 
 public class PersonalBoard {
 
@@ -85,9 +85,10 @@ public class PersonalBoard {
 	 * @return true if we can add that card to this personalBoard (including check about territoryRequisites)
 	 */
 	public boolean canAddCard(Card card) {
-		boolean canAdd = getResourceAmount(card.getCardType().toResourceType()) < MAX_CARDS;
+		int cardsOfThisType = getResourceAmount(card.getCardType().toResourceType());
+		boolean canAdd = cardsOfThisType < MAX_CARDS;
 		if (card.getCardType() == CardType.TERRITORY)
-			canAdd = canAdd && hasResources(territoryRequisites[resources.getOrDefault(CardType.TERRITORY, 0)]);
+			canAdd = canAdd && hasResources(territoryRequisites[cardsOfThisType]);
 		return canAdd;
 	}
 

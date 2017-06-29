@@ -6,8 +6,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Random;
 import java.util.Set;
 import java.util.Timer;
@@ -40,8 +42,8 @@ import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.ResourceType;
 import it.polimi.ingsw.LM45.model.core.Slot;
 import it.polimi.ingsw.LM45.model.core.SlotType;
-import it.polimi.ingsw.LM45.model.effects.ActionModifier;
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
+import it.polimi.ingsw.LM45.model.effects.modifiers.ActionModifier;
 import it.polimi.ingsw.LM45.network.client.ClientInterface;
 import it.polimi.ingsw.LM45.serialization.FileManager;
 import it.polimi.ingsw.LM45.util.CheckedFunction1;
@@ -70,7 +72,9 @@ public class ServerController {
 	private Game game;
 	private Player currentPlayer;
 	private boolean currentPlayerAlreadyPlacedFamiliar;
-	private SlotType bonusActionSlotType;
+	private SlotType bonusActionSlotType;	
+	private Queue<CheckedFunction2<String, ClientInterface, IOException>> clientNotificationQueue = new LinkedList<>();
+
 
 	public ServerController(int gameID, int maxNumberOfPlayers, long gameStartTimerDelay, long turnTimerDelay)
 			throws JsonSyntaxException, JsonIOException, FileNotFoundException {
@@ -96,6 +100,11 @@ public class ServerController {
 			logInfo("Player " + username + " has been reconnected to this game");
 			users.put(username, clientInterface);
 			setPlayerUsername(username, clientInterface);
+			// If the game has already started, notify the reconnecting player about its state
+			if(game != null){
+				initializeBoardForReconnectingPlayer(username, clientInterface);
+				return;
+			}
 		}
 		else {
 			while (users.containsKey(username) || players.containsKey(username)) {
@@ -234,7 +243,7 @@ public class ServerController {
 
 	public void doBonusAction(String player, SlotType slotType, int value, Resource[] discount) {
 		try {
-			players.get(player).addBonusFamiliar(slotType, value, discount);
+			players.get(player).addBonusFamiliar(value, discount);
 			bonusActionSlotType = slotType;
 			users.get(player).doBonusAction(slotType, value);
 		}
@@ -244,7 +253,7 @@ public class ServerController {
 	}
 
 	public void endPlayerRound(String player) {
-		if (currentPlayer.getUsername() == player) {
+		if (currentPlayer.getUsername().equals(player)) {
 			logInfo(player + " ended his turn");
 			turnTimer.cancel();
 
@@ -447,6 +456,7 @@ public class ServerController {
 		try {
 			users.get(player).throwGameException(gameException);
 			logInfo(player + " raised a gameException saying " + gameException.getMessage());
+			gameException.printStackTrace();
 		}
 		catch (IOException e) {
 			manageIOException(player, e);
@@ -455,14 +465,14 @@ public class ServerController {
 
 	private boolean playerCanDoActions(String player) {
 		boolean canDo = players.containsKey(player) && users.containsKey(player) && game != null && currentPlayer != null
-				&& currentPlayer.getUsername() == player;
+				&& currentPlayer.getUsername().equals(player);
 
 		if (!canDo && users.containsKey(player)) {
 			GameException gameException = new GameException();
 
 			if (game == null || currentPlayer == null)
 				gameException = new IllegalActionException("Game is not started yet");
-			else if (currentPlayer.getUsername() != player)
+			else if (!currentPlayer.getUsername().equals(player))
 				gameException = new IllegalActionException("It is not your turn");
 
 			manageGameExceptions(player, gameException);
@@ -640,6 +650,17 @@ public class ServerController {
 			}
 		});
 	}
+	
+	private void initializeBoardForReconnectingPlayer(String playerUsername, ClientInterface clientInterface){
+		clientNotificationQueue.forEach(f -> {
+			try {
+				f.apply(playerUsername, clientInterface);
+			}
+			catch (IOException e) {
+				manageIOException(playerUsername, e);
+			}
+		});
+	}
 
 	private void logInfo(String message) {
 		System.out.println("> Game " + gameID + ": " + message);
@@ -654,7 +675,7 @@ public class ServerController {
 	public void notifyPlayers(CheckedFunction1<ClientInterface, IOException> c) {
 		notifyPlayers((username, clientInterface) -> c.apply(clientInterface));
 	}
-
+	
 	/**
 	 * Notify every connected client about something
 	 * 
@@ -662,6 +683,7 @@ public class ServerController {
 	 *            the function we want to call on every connected player (providing access to both the username and the clientInterface)
 	 */
 	private void notifyPlayers(CheckedFunction2<String, ClientInterface, IOException> c) {
+		clientNotificationQueue.add(c);
 		List<Pair<String, IOException>> raisedIOException = new ArrayList<>();
 
 		users.entrySet().stream().parallel().forEach(entry -> {

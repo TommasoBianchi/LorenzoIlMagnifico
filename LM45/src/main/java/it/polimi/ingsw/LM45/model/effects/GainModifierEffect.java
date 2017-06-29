@@ -2,6 +2,10 @@ package it.polimi.ingsw.LM45.model.effects;
 
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.SlotType;
+import it.polimi.ingsw.LM45.model.effects.modifiers.ActionModifier;
+import it.polimi.ingsw.LM45.model.effects.modifiers.ResourceAdder;
+import it.polimi.ingsw.LM45.model.effects.modifiers.ResourceModifier;
+import it.polimi.ingsw.LM45.model.effects.modifiers.ResourceMultiplier;
 
 public class GainModifierEffect extends Effect {
 
@@ -27,14 +31,17 @@ public class GainModifierEffect extends Effect {
 	
 	@Override
 	public ActionModifier getActionModifier(SlotType slotType) {
-		// FIXME: need a smart way to implement this!
-		return ActionModifier.EMPTY();
+		// FIXME: canModifyCardGain and canModifyTowerGain?
+		ResourceModifier resourceModifier = (isMultiplier) ? new ResourceMultiplier(resource) : new ResourceAdder(resource);
+		return new ActionModifier(new ResourceModifier[]{}, new ResourceModifier[]{ resourceModifier }, 0);
 	}
 	
 	@Override
 	public String toString() {
-		String where = (canModifyCardGain && canModifyTowerGain) ? "cards and towers" : (canModifyCardGain) ? "cards" : "towers";
-		String sign = (isMultiplier) ? "x" : (resource.getAmount() > 0) ? "+" : "-";
+		String where = (canModifyCardGain) ? "cards" : "towers";
+		where = (canModifyCardGain && canModifyTowerGain) ? "cards and towers" : where;
+		String sign = (resource.getAmount() > 0) ? "+" : "-";
+		sign = (isMultiplier) ? "x" : sign;
 		return "Whenever you have to gain " + resource.getResourceType() + " on " + where + ", you gain " + sign + Math.abs(resource.getAmount());
 	}
 

@@ -78,7 +78,7 @@ public class GameBoardController {
 	private Map<String, String> cardPosition = new HashMap<>();
 	private boolean isMyTurn = false;
 
-	private FamiliarColor familiarColor = FamiliarColor.BONUS;
+	private FamiliarColor selectedFamiliarColor = FamiliarColor.BONUS;
 	private boolean familiarSelected = false;
 
 	public GameBoardController(String[] playersUsername, PlayerColor[] playerColors, ClientController clientController,
@@ -94,10 +94,12 @@ public class GameBoardController {
 			playerColorName.put(playerColors[i], playersUsername[i]);
 		}
 
-		for (int i = 0, l = 0; i < 2; i++)
-			for (int j = 0; j < 2; j++, l++)
-				if (l < playerColors.length)
-					playerExcommunicationPosition.put(playerColors[l], new Pair<Integer, Integer>(i, j));
+		for (int i = 0; i < 2; i++)
+			for (int j = 0; j < 2; j++){
+				int index = i * 2 + j;
+				if (index < playerColors.length)
+					playerExcommunicationPosition.put(playerColors[index], new Pair<Integer, Integer>(i, j));
+			}
 
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -208,14 +210,14 @@ public class GameBoardController {
 			FlowPane slot = (FlowPane) event.getSource();
 			SlotType slotType = SlotType.valueOf((slot.getId().substring(0, slot.getId().length() - 1)));
 			int position = Integer.parseInt(slot.getId().substring(slot.getId().length() - 1));
-			clientController.placeFamiliar(familiarColor, slotType, position);
+			clientController.placeFamiliar(selectedFamiliarColor, slotType, position);
 			writeInDialogBox(slotType + " slot " + position);
 		}
 	}
 
 	public void doBonusAction(SlotType slotType, int value) {
 		writeInDialogBox("Do Bonus Action: " + slotType + " of value " + value);
-		familiarColor = FamiliarColor.BONUS;
+		selectedFamiliarColor = FamiliarColor.BONUS;
 		bonusActionPane.setDisable(false);
 		bonusActionPane.setOpacity(1);
 		Label bonusValue = (Label) stage.getScene().lookup("#VALUEBONUS");
@@ -253,9 +255,9 @@ public class GameBoardController {
 
 	public void familiarSelected(MouseEvent event) {
 		ImageView image = (ImageView) event.getSource();
-		familiarColor = FamiliarColor.valueOf(image.getId().substring(8));
+		selectedFamiliarColor = FamiliarColor.valueOf(image.getId().substring(8));
 		familiarSelected = true;
-		writeInDialogBox(familiarColor + " familiar selected !");
+		writeInDialogBox(selectedFamiliarColor + " familiar selected !");
 	}
 
 	private void familiarUsed(FamiliarColor familiarColor) {

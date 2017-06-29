@@ -1,8 +1,8 @@
 package it.polimi.ingsw.LM45.model.cards;
 
-import it.polimi.ingsw.LM45.model.effects.ActionModifier;
 import it.polimi.ingsw.LM45.model.effects.CardEffect;
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
+import it.polimi.ingsw.LM45.model.effects.modifiers.ActionModifier;
 
 public class Venture extends Card {
 

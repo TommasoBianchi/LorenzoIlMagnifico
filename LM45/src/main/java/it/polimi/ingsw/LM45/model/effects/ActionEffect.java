@@ -4,6 +4,9 @@ import java.util.Arrays;
 
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.SlotType;
+import it.polimi.ingsw.LM45.model.effects.modifiers.ActionModifier;
+import it.polimi.ingsw.LM45.model.effects.modifiers.ResourceAdder;
+import it.polimi.ingsw.LM45.model.effects.modifiers.ResourceModifier;
 
 public class ActionEffect extends Effect {
 
@@ -33,8 +36,9 @@ public class ActionEffect extends Effect {
 		if (slotType.isCompatible(this.slotType))
 			// Make sure the discount is expressed as a negative cost modifier (otherwise it won't be a discount)
 			return new ActionModifier(
-					Arrays.stream(discount).map(resource -> resource.getAmount() > 0 ? resource.multiply(-1) : resource).toArray(Resource[]::new),
-					new Resource[] {}, diceNumber);
+					Arrays.stream(discount).map(resource -> resource.getAmount() > 0 ? resource.multiply(-1) : resource)
+							.map(ResourceAdder::new).toArray(ResourceModifier[]::new),
+					new ResourceModifier[] {}, diceNumber);
 		else
 			return ActionModifier.EMPTY();
 	}
@@ -45,8 +49,8 @@ public class ActionEffect extends Effect {
 		if (discount.length > 0)
 			discountString = Arrays.stream(discount).map(Resource::toString).reduce(" and a discount of ", (a, b) -> a + " " + b);
 		return "You can do an action of type " + slotType.toString() + " with a value of " + diceNumber + discountString;
-		
-		//TODO fixme need boolean to distinguish doAction and BonusAction
+
+		// TODO fixme need boolean to distinguish doAction and BonusAction
 	}
 
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import it.polimi.ingsw.LM45.model.core.SlotType;
+import it.polimi.ingsw.LM45.model.effects.modifiers.ActionModifier;
 
 public class CardEffect implements Serializable {
 

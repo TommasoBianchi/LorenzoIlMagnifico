@@ -1,7 +1,7 @@
 package it.polimi.ingsw.LM45.model.core;
 
-import it.polimi.ingsw.LM45.model.effects.ActionModifier;
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
+import it.polimi.ingsw.LM45.model.effects.modifiers.ActionModifier;
 
 public class HarvestProductionSlot extends Slot {
 

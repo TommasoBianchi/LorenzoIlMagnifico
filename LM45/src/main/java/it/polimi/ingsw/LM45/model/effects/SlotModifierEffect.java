@@ -1,6 +1,7 @@
 package it.polimi.ingsw.LM45.model.effects;
 
 import it.polimi.ingsw.LM45.model.core.SlotType;
+import it.polimi.ingsw.LM45.model.effects.modifiers.ActionModifier;
 
 public class SlotModifierEffect extends Effect {
 

@@ -7,9 +7,11 @@ import java.util.List;
 import it.polimi.ingsw.LM45.exceptions.IllegalActionException;
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
-import it.polimi.ingsw.LM45.model.effects.ActionModifier;
 import it.polimi.ingsw.LM45.model.effects.CardEffect;
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
+import it.polimi.ingsw.LM45.model.effects.modifiers.ActionModifier;
+import it.polimi.ingsw.LM45.model.effects.modifiers.ResourceAdder;
+import it.polimi.ingsw.LM45.model.effects.modifiers.ResourceModifier;
 
 public class Player {
 
@@ -47,23 +49,18 @@ public class Player {
 	}
 
 	/**
-	 * @param effectResolutor
-	 *            the effectResolutor used to check for this card
-	 * @param card
-	 *            the card to check
-	 * @param actionModifier
-	 *            the actionModifier for the action the player is trying to do (in this case, picking a card of a specific cardType)
+	 * @param card the card to check
 	 * @return true if we can add that card to this player's personalBoard (including check about territoryRequisites and about card's cost)
 	 */
-	public boolean canAddCard(EffectResolutor effectResolutor, Card card, ActionModifier actionModifier) {
-		return card.canPick(effectResolutor, actionModifier) && personalBoard.canAddCard(card);
+	public boolean canAddCard(Card card) {
+		return personalBoard.canAddCard(card);
 	}
 
 	/**
 	 * @param card
 	 *            the card we want to add to this player's personalBoard
 	 */
-	public void addCard(Card card, ActionModifier actionModifier) {
+	public void addCard(Card card) {
 		personalBoard.addCard(card);
 	}
 
@@ -346,11 +343,10 @@ public class Player {
 	}
 
 	/**
-	 * @param slotType the slotType the bonus familiar can be placed into
 	 * @param value the value of the bonus familiar
 	 * @param discount the discount received when picking a card with this bonus familiar
 	 */
-	public void addBonusFamiliar(SlotType slotType, int value, Resource[] discount) {
+	public void addBonusFamiliar(int value, Resource[] discount) {
 		Familiar bonusFamiliar = new Familiar(this, FamiliarColor.BONUS);
 		bonusFamiliar.setValue(value);
 		this.familiars.add(bonusFamiliar);
@@ -375,7 +371,7 @@ public class Player {
 	public ActionModifier getActionModifier(SlotType slotType, EffectResolutor effectResolutor) {
 		ActionModifier actionModifier = personalBoard.getActionModifier(slotType, effectResolutor);
 		if (bonusFamiliarDiscount != null)
-			actionModifier.merge(new ActionModifier(bonusFamiliarDiscount));
+			actionModifier.merge(new ActionModifier(Arrays.stream(bonusFamiliarDiscount).map(ResourceAdder::new).toArray(ResourceModifier[]::new)));
 		return actionModifier;
 	}
 
