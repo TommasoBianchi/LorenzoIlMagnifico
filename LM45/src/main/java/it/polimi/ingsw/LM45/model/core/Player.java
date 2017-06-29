@@ -60,7 +60,7 @@ public class Player {
 	 * @param card
 	 *            the card we want to add to this player's personalBoard
 	 */
-	public void addCard(Card card, ActionModifier actionModifier) {
+	public void addCard(Card card) {
 		personalBoard.addCard(card);
 	}
 
@@ -343,11 +343,10 @@ public class Player {
 	}
 
 	/**
-	 * @param slotType the slotType the bonus familiar can be placed into
 	 * @param value the value of the bonus familiar
 	 * @param discount the discount received when picking a card with this bonus familiar
 	 */
-	public void addBonusFamiliar(SlotType slotType, int value, Resource[] discount) {
+	public void addBonusFamiliar(int value, Resource[] discount) {
 		Familiar bonusFamiliar = new Familiar(this, FamiliarColor.BONUS);
 		bonusFamiliar.setValue(value);
 		this.familiars.add(bonusFamiliar);

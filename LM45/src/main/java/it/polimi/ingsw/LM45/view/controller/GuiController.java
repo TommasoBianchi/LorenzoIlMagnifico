@@ -68,10 +68,10 @@ public class GuiController implements ViewInterface {
 		if (alternatives.length <= 0)
 			return -1;
 		else if (alternatives[0].contains("(LeaderCard)"))
-			return choose(alternatives, () -> leaderChoiceController
-					.chooseLeader(Arrays.stream(alternatives).map(leader -> leader.substring(0, leader.indexOf("(") - 1)).toArray(String[]::new)));
+			return choose(() -> leaderChoiceController
+					.chooseLeader(Arrays.stream(alternatives).map(leader -> leader.substring(0, leader.indexOf('(') - 1)).toArray(String[]::new)));
 		else {
-			return choose(alternatives, () -> {
+			return choose(() -> {
 				if(choiceDialog != null && choiceDialog.isShowing())
 					choiceDialog.close();
 
@@ -98,7 +98,7 @@ public class GuiController implements ViewInterface {
 		}
 	}
 
-	private int choose(String[] alternative, Runnable uiCallback) {
+	private int choose(Runnable uiCallback) {
 		Platform.runLater(uiCallback);
 
 		synchronized (choiceLockToken) {

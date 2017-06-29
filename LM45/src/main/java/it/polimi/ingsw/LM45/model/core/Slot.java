@@ -74,7 +74,7 @@ public class Slot {
 		else if (!valueOK)
 			throw new IllegalActionException("Cannot place a familiar " + familiar.getFamiliarColor() + " because its value is not sufficient");
 
-		return isFree && valueOK;
+		return true;
 	}
 
 	/**

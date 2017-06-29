@@ -243,7 +243,7 @@ public class ServerController {
 
 	public void doBonusAction(String player, SlotType slotType, int value, Resource[] discount) {
 		try {
-			players.get(player).addBonusFamiliar(slotType, value, discount);
+			players.get(player).addBonusFamiliar(value, discount);
 			bonusActionSlotType = slotType;
 			users.get(player).doBonusAction(slotType, value);
 		}

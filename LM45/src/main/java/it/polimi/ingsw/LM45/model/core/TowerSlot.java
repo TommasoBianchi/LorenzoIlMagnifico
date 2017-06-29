@@ -55,7 +55,7 @@ public class TowerSlot extends Slot {
 		super.addFamiliar(familiar, actionModifier, effectResolutor);
 		card.payCost(effectResolutor, actionModifier);
 		card.resolveImmediateEffect(effectResolutor);
-		effectResolutor.addCard(card, actionModifier);
+		effectResolutor.addCard(card);
 		this.hasCard = false;
 	}
 	

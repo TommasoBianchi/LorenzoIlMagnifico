@@ -202,6 +202,7 @@ public class ClientController {
 		}
 		catch (IOException | NotBoundException e1) {
 			// If we fail again, then just stop the client
+			e1.initCause(e);
 			e1.printStackTrace();
 			ClientLauncher.stop();
 		}

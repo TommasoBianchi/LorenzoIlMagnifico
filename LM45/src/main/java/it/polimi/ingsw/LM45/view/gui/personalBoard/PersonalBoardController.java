@@ -157,7 +157,7 @@ public class PersonalBoardController {
 
 	public void setResource(Resource resource) {
 		if (resourceTexts.containsKey(resource.getResourceType())) {
-			resourceTexts.get(resource.getResourceType()).setText(resource.getAmount() + "");
+			resourceTexts.get(resource.getResourceType()).setText(Integer.toString(resource.getAmount()));
 		}
 	}
 

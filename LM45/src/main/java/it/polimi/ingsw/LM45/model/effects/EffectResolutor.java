@@ -5,7 +5,6 @@ import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.ResourceType;
 import it.polimi.ingsw.LM45.model.core.SlotType;
-import it.polimi.ingsw.LM45.model.effects.modifiers.ActionModifier;
 
 public interface EffectResolutor {
 	
@@ -20,7 +19,7 @@ public interface EffectResolutor {
 	public void noTerritoryRequisites();
 	public void addPermanentEffect(CardEffect permanentEffect);
 	public boolean canAddCard(Card card);
-	public void addCard(Card card, ActionModifier actionModifier);
+	public void addCard(Card card);
 	public void harvest(int value);
 	public void produce(int value);
 	 

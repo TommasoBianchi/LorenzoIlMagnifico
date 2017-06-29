@@ -95,7 +95,7 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 			case CHOOSE:
 				String[] alternatives = (String[]) inStream.readObject();
 				performAsync(() -> {
-					Integer index = new Integer(chooseFrom(alternatives));
+					Integer index = Integer.valueOf((chooseFrom(alternatives)));
 					if (index >= 0 && index < alternatives.length)
 						outStream.writeObject(index);
 				});

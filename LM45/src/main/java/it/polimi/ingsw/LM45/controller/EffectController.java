@@ -15,7 +15,6 @@ import it.polimi.ingsw.LM45.model.core.ResourceType;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.model.effects.CardEffect;
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
-import it.polimi.ingsw.LM45.model.effects.modifiers.ActionModifier;
 import it.polimi.ingsw.LM45.network.server.ServerController;
 
 public class EffectController implements EffectResolutor {
@@ -106,8 +105,8 @@ public class EffectController implements EffectResolutor {
 		return player.canAddCard(card);
 	}
 
-	public void addCard(Card card, ActionModifier actionModifier) {
-		player.addCard(card, actionModifier);
+	public void addCard(Card card) {
+		player.addCard(card);
 		serverController.notifyPlayers(clientInterface -> clientInterface.pickCard(card, player.getUsername()));
 	}
 
