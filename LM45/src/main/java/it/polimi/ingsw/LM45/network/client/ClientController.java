@@ -3,6 +3,7 @@ package it.polimi.ingsw.LM45.network.client;
 import java.io.IOException;
 import java.rmi.NotBoundException;
 
+import it.polimi.ingsw.LM45.controller.ClientLauncher;
 import it.polimi.ingsw.LM45.exceptions.GameException;
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
@@ -128,12 +129,7 @@ public class ClientController {
 	}
 
 	public int chooseFrom(String[] alternatives) {
-		// TODO: implement in a sensible way
-		// maybe with a call to the view interface
-
-		// TEST		
-		//int chosenNumber = viewChooseFrom(alternatives);		
-
+		// TEST
 		boolean fastTest = true;
 		if(fastTest) return 0;
 		// TEST
@@ -142,53 +138,6 @@ public class ClientController {
 
 		return chosenNumber;
 	}
-	
-	// TEST: this function mimic the work of the view interface (in particular of the CLI)
-	/*private Queue<String> inQueue = new ConcurrentLinkedQueue<>();
-	private Integer threadCounter = 0;
-	private Object threadCounterLockToken = new Object();s
-	private int viewChooseFrom(String[] alternatives){
-		// See big explanation below
-		int oldThreadCounter = 0;
-		synchronized (threadCounterLockToken) {
-			threadCounter++;
-			oldThreadCounter = threadCounter;
-		}
-
-		System.out.println("");
-		System.out.println("Choose between this things: ");
-		System.out.println(Arrays.stream(alternatives).map(s -> "- " + s).reduce("", (a, b) -> a + "\n" + b));
-		int chosenNumber = alternatives.length > 0 ? new Random().nextInt(alternatives.length) : 0;
-
-		// All this is to make sure that if more then one thread has come to this point (let's say thread1, thread2, thread3) and 
-		// the first one of those has naturally put himself in wait for something from the scanner, then what should happen is this:
-		// - thread1 reads from the scanner at a certain point, realized he's no more the most recent thread and so adds the line read
-		//		to the inQueue; then he returns -1 which is outside of the valid range of chosable index.
-		// - one between thread2 and thread3 will gain the lock on this; in the first case thread2 will read from the inQueue, realize
-		// 		he's the wrong thread and so re-add it to the inQueue, while in the second one thread3 will correctly get the line read
-		// 		from the inQueue and will process it to return the choice to the caller.
-		//
-		// NOTE: main assumption here is that if chooseFrom is called a second time while another thread is waiting to resolve a chooseFrom
-		// 		 call, then only the last choice will be the relevant one (probably the server has already decided we were too slow to
-		//		 choose and so already handled for us the previous choice).
-		synchronized (this) {
-			String s = (inQueue.isEmpty()) ? ClientMain.scanner.nextLine() : inQueue.remove();
-			int newThreadCounter = 0;
-			synchronized (threadCounterLockToken) {
-				newThreadCounter = threadCounter;
-			}
-			if (oldThreadCounter == newThreadCounter) {
-				System.out.println("You have chosen " + alternatives[chosenNumber]);
-				System.out.println("");
-				return chosenNumber;
-			}
-			else {
-				inQueue.add(s);
-				return -1;
-			}
-		}
-	}*/
-	// TEST
 	
 	public void pickCard(Card card, String username) {
 		viewInterface.pickCard(card, username);
@@ -247,11 +196,15 @@ public class ClientController {
 	}
 
 	private void manageIOException(IOException e) {
-		// TODO: implement better
-		e.printStackTrace();
-
-		// Maybe try to reconnect
-		// serverInterface = ServerInterfaceFactory.create(connectionType, host, this);
+		try {
+			// Try to reconnect
+			serverInterface = ServerInterfaceFactory.create(connectionType, host, port, this);
+		}
+		catch (IOException | NotBoundException e1) {
+			// If we fail again, then just stop the client
+			e1.printStackTrace();
+			ClientLauncher.stop();
+		}
 	}
 
 }
