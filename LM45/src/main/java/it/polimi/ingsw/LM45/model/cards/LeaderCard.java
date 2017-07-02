@@ -87,6 +87,20 @@ public class LeaderCard implements Serializable {
 	public CardEffect getEffect(){
 		return this.effect;
 	}
+	
+	/**
+	 * @return whether or not this card needs to be enabled again
+	 */
+	public boolean canBeEnabled(){
+		return this.hasBeenPlayed && this.hasBeenActivated && !this.effect.getEffectsArePermanent();
+	}
+	
+	/**
+	 * Enable this leaderCard again so that it can be activated another time
+	 */
+	public void enable(){
+		this.hasBeenActivated = false;
+	}
 
 	@Override
 	public String toString() {

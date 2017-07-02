@@ -72,9 +72,8 @@ public class ServerController {
 	private Game game;
 	private Player currentPlayer;
 	private boolean currentPlayerAlreadyPlacedFamiliar;
-	private SlotType bonusActionSlotType;	
+	private SlotType bonusActionSlotType;
 	private Queue<CheckedFunction2<String, ClientInterface, IOException>> clientNotificationQueue = new LinkedList<>();
-
 
 	public ServerController(int gameID, int maxNumberOfPlayers, long gameStartTimerDelay, long turnTimerDelay)
 			throws JsonSyntaxException, JsonIOException, FileNotFoundException {
@@ -101,7 +100,7 @@ public class ServerController {
 			users.put(username, clientInterface);
 			setPlayerUsername(username, clientInterface);
 			// If the game has already started, notify the reconnecting player about its state
-			if(game != null){
+			if (game != null) {
 				initializeBoardForReconnectingPlayer(username, clientInterface);
 				return;
 			}
@@ -162,7 +161,7 @@ public class ServerController {
 				if (slot.canAddFamiliar(familiar, actionModifier, effectResolutor)) {
 					slot.addFamiliar(familiar, actionModifier, effectResolutor);
 					notifyPlayers(clientInterface -> clientInterface.addFamiliar(slotType, slotID, familiarColor, players.get(player).getColor()));
-					if(player.equals(currentPlayer.getUsername()))
+					if (player.equals(currentPlayer.getUsername()))
 						currentPlayerAlreadyPlacedFamiliar = familiarColor != FamiliarColor.BONUS;
 					logInfo(player + " successfully placed the familiar " + familiarColor + " in slot " + slotType + " " + slotID);
 
@@ -266,12 +265,12 @@ public class ServerController {
 			nextPlayerRound();
 		}
 	}
-	
-	public boolean isMyTurn(Player player){
+
+	public boolean isMyTurn(Player player) {
 		return currentPlayer == player;
 	}
-	
-	public LeaderCard[] getAllPlayedLeaderCards(){
+
+	public LeaderCard[] getAllPlayedLeaderCards() {
 		return players.values().stream().flatMap(player -> Arrays.stream(player.getPlayedLeaderCards())).toArray(LeaderCard[]::new);
 	}
 
@@ -391,7 +390,7 @@ public class ServerController {
 					player -> player.getResourceAmount(ResourceType.MILITARY) == militaryOrderedPlayers[1].getResourceAmount(ResourceType.MILITARY))
 					.forEach(player -> player.addResources(new Resource(ResourceType.VICTORY, 2)));
 		}
-		
+
 		// Notify client about the final ordering
 		Player[] victoryOrderedPlayers = players.values().stream()
 				.sorted((player1, player2) -> player2.getResourceAmount(ResourceType.VICTORY) - player1.getResourceAmount(ResourceType.VICTORY))
@@ -417,6 +416,15 @@ public class ServerController {
 				clientInterface.setFamiliar(username, familiar.getFamiliarColor(), familiar.getValue());
 		});
 
+		// Notify players about leaderCards that can now be activated again
+		players.forEach((username, player) -> {
+			LeaderCard[] playedLeaderCards = player.getPlayedLeaderCards();
+			Arrays.stream(playedLeaderCards).filter(leaderCard -> leaderCard.canBeEnabled()).forEach(leaderCard -> {
+				leaderCard.enable();
+				notifyPlayers(clientInterface -> clientInterface.enableLeaderCard(username, leaderCard));
+			});
+		});
+
 		nextPlayerRound();
 	}
 
@@ -432,10 +440,10 @@ public class ServerController {
 	}
 
 	private void setGameStartTimer(long delay) {
-		if(gameStartTimer == null){
-			gameStartTimer = new Timer();			
+		if (gameStartTimer == null) {
+			gameStartTimer = new Timer();
 		}
-		
+
 		gameStartTimer.schedule(new TimerTask() {
 			@Override
 			public void run() {
@@ -620,7 +628,7 @@ public class ServerController {
 				int faithPoints = player.getResourceAmount(ResourceType.FAITH);
 				player.addResources(new Resource(ResourceType.FAITH, -faithPoints));
 				changedResourcesTypes.add(ResourceType.FAITH);
-				
+
 				// Give player the resources he's gained by supporting the Church
 				Arrays.stream(game.getChurchSupportResources(faithPoints)).forEach(resource -> {
 					player.addResources(resource);
@@ -650,8 +658,8 @@ public class ServerController {
 			}
 		});
 	}
-	
-	private void initializeBoardForReconnectingPlayer(String playerUsername, ClientInterface clientInterface){
+
+	private void initializeBoardForReconnectingPlayer(String playerUsername, ClientInterface clientInterface) {
 		clientNotificationQueue.forEach(f -> {
 			try {
 				f.apply(playerUsername, clientInterface);
@@ -675,7 +683,7 @@ public class ServerController {
 	public void notifyPlayers(CheckedFunction1<ClientInterface, IOException> c) {
 		notifyPlayers((username, clientInterface) -> c.apply(clientInterface));
 	}
-	
+
 	/**
 	 * Notify every connected client about something
 	 * 
