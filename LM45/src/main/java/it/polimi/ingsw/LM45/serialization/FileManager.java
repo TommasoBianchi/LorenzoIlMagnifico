@@ -183,7 +183,7 @@ public class FileManager {
 		
 		try {
 			// Save serverConfiguration
-			saveConfiguration(new ServerConfiguration(2, 25000, 2000, 7000));
+			//saveConfiguration(new ServerConfiguration(2, 25000, 2000, 7000));
 
 			// Save boardConfiguration
 			Map<SlotType, Resource[][]> slotsConfiguration = new EnumMap<>(SlotType.class);
@@ -777,13 +777,13 @@ public class FileManager {
 		leaderCards[0] = new LeaderCard("Francesco Sforza", new CardEffect(new ActionEffect(SlotType.HARVEST, 1)),
 				new Resource[] { new Resource(ResourceType.VENTURE, 5) });
 		leaderCards[1] = new LeaderCard("Ludovico Ariosto",
-				new CardEffect(new SlotModifierEffect(SlotType.ANY, true, true, true)),
+				new CardEffect(new SlotModifierEffect(SlotType.ANY, true, true, true), true),
 				new Resource[] { new Resource(ResourceType.CHARACTER, 5) });
 		leaderCards[2] = new LeaderCard("Filippo Brunelleschi",
 				new CardEffect(new CostModifierEffect(new Resource(ResourceType.COINS, -3), false, true, false), true),
 				new Resource[] { new Resource(ResourceType.BUILDING, 5) });
 		leaderCards[3] = new LeaderCard("Sigismondo Malatesta",
-				new CardEffect(new FamiliarEffect(3, true, new FamiliarColor[] { FamiliarColor.UNCOLORED }, 1)),
+				new CardEffect(new FamiliarEffect(3, true, new FamiliarColor[] { FamiliarColor.UNCOLORED }, 1), true),
 				new Resource[] { new Resource(ResourceType.MILITARY, 7), new Resource(ResourceType.FAITH, 3) });
 		leaderCards[4] = new LeaderCard("Girolamo Savonarola",
 				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 1) })),
@@ -802,12 +802,12 @@ public class FileManager {
 				new Resource[] { new Resource(ResourceType.WOOD, 10) });
 		leaderCards[9] = new LeaderCard("Ludovico il Moro",
 				new CardEffect(new FamiliarEffect(5, false,
-						new FamiliarColor[] { FamiliarColor.BLACK, FamiliarColor.ORANGE, FamiliarColor.WHITE }, 1)),
+						new FamiliarColor[] { FamiliarColor.BLACK, FamiliarColor.ORANGE, FamiliarColor.WHITE }, 1), true),
 				new Resource[] { new Resource(ResourceType.CHARACTER, 2), new Resource(ResourceType.BUILDING, 2),
 						new Resource(ResourceType.TERRITORY, 2), new Resource(ResourceType.VENTURE, 2) });
 		leaderCards[10] = new LeaderCard("Lucrezia Borgia",
 				new CardEffect(new FamiliarEffect(2, true,
-						new FamiliarColor[] { FamiliarColor.BLACK, FamiliarColor.ORANGE, FamiliarColor.WHITE }, 1)),
+						new FamiliarColor[] { FamiliarColor.BLACK, FamiliarColor.ORANGE, FamiliarColor.WHITE }, 1), true),
 				new Resource[] { new Resource(ResourceType.ANY_CARD, 6) });
 		leaderCards[11] = new LeaderCard("Federico da Montefeltro",
 				new CardEffect(
@@ -816,13 +816,13 @@ public class FileManager {
 								new FamiliarEffect(6, false, new FamiliarColor[] { FamiliarColor.ORANGE }, 1) },
 						true),
 				new Resource[] { new Resource(ResourceType.TERRITORY, 5) });
-		leaderCards[12] = new LeaderCard("Lorenzo de' Medici", new CardEffect(new CopyEffect()),
+		leaderCards[12] = new LeaderCard("Lorenzo de' Medici", new CardEffect(new CopyEffect(), true),
 				new Resource[] { new Resource(ResourceType.VICTORY, 35) });
 		leaderCards[13] = new LeaderCard("Sisto IV",
-				new CardEffect(new ChurchSupportBonusEffect(new Resource(ResourceType.VICTORY, 5))),
+				new CardEffect(new ChurchSupportBonusEffect(new Resource(ResourceType.VICTORY, 5)), true),
 				new Resource[] { new Resource(ResourceType.STONE, 6), new Resource(ResourceType.WOOD, 6),
 						new Resource(ResourceType.COINS, 6), new Resource(ResourceType.SERVANTS, 6), });
-		leaderCards[14] = new LeaderCard("Cesare Borgia", new CardEffect(new NoTerritoryRequisiteEffect()),
+		leaderCards[14] = new LeaderCard("Cesare Borgia", new CardEffect(new NoTerritoryRequisiteEffect(), true),
 				new Resource[] { new Resource(ResourceType.BUILDING, 3), new Resource(ResourceType.COINS, 12),
 						new Resource(ResourceType.FAITH, 2) });
 		leaderCards[15] = new LeaderCard("Santa Rita",
@@ -831,7 +831,7 @@ public class FileManager {
 								new GainModifierEffect(new Resource(ResourceType.STONE, 2), true, false, true),
 								new GainModifierEffect(new Resource(ResourceType.WOOD, 2), true, false, true),
 								new GainModifierEffect(new Resource(ResourceType.SERVANTS, 2), true, false, true) },
-						false),
+						false, true),
 				new Resource[] { new Resource(ResourceType.FAITH, 8) });
 		leaderCards[16] = new LeaderCard("Cosimo de' Medici", new CardEffect(new ResourceEffect(
 				new Resource[] { new Resource(ResourceType.VICTORY, 1), new Resource(ResourceType.SERVANTS, 3) })),
@@ -843,7 +843,7 @@ public class FileManager {
 				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.COUNCIL_PRIVILEGES, 1) })),
 				new Resource[] { new Resource(ResourceType.SERVANTS, 15) });
 		leaderCards[19] = new LeaderCard("Pico della Mirandola",
-				new CardEffect(new CostModifierEffect(new Resource(ResourceType.COINS, -3), true, false, false)),
+				new CardEffect(new CostModifierEffect(new Resource(ResourceType.COINS, -3), true, false, false), true),
 				new Resource[] { new Resource(ResourceType.VENTURE, 4), new Resource(ResourceType.BUILDING, 2) });
 		
 		Excommunication[] excommunications = new Excommunication[21];

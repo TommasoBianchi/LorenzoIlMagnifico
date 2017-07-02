@@ -44,7 +44,7 @@
       }
     ],
     "effectsAreAlternative": false,
-    "effectsArePermanent": false
+    "effectsArePermanent": true
   },
   "requisites": [
     {
