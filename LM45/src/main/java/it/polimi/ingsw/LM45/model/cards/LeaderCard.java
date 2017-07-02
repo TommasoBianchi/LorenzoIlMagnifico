@@ -63,7 +63,7 @@ public class LeaderCard implements Serializable {
 	 */
 	public void activate(EffectResolutor effectResolutor) throws IllegalActionException {
 		if (hasBeenPlayed && !hasBeenActivated) {
-			hasBeenActivated = false;
+			hasBeenActivated = true;
 			effect.resolveEffects(effectResolutor);
 		}
 		else if (hasBeenActivated) {

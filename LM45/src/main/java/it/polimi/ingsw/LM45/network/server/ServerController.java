@@ -590,14 +590,14 @@ public class ServerController {
 		Player[] orderedPlayers = game.getOrderedPlayers();
 
 		Arrays.stream(orderedPlayers).forEach(player -> {
-			player.addResources(new Resource(ResourceType.WOOD, 2));
-			player.addResources(new Resource(ResourceType.STONE, 2));
-			player.addResources(new Resource(ResourceType.SERVANTS, 3));
+			player.addResources(new Resource(ResourceType.WOOD, 20));
+			player.addResources(new Resource(ResourceType.STONE, 20));
+			player.addResources(new Resource(ResourceType.SERVANTS, 30));
 		});
 
-		orderedPlayers[0].addResources(new Resource(ResourceType.COINS, 5));
+		orderedPlayers[0].addResources(new Resource(ResourceType.COINS, 50));
 		notifyPlayers(clientInterface -> clientInterface.setResources(orderedPlayers[0].getAllResources(), orderedPlayers[0].getUsername()));
-		orderedPlayers[1].addResources(new Resource(ResourceType.COINS, 6));
+		orderedPlayers[1].addResources(new Resource(ResourceType.COINS, 60));
 		notifyPlayers(clientInterface -> clientInterface.setResources(orderedPlayers[1].getAllResources(), orderedPlayers[1].getUsername()));
 		if (orderedPlayers.length > 2) {
 			orderedPlayers[2].addResources(new Resource(ResourceType.COINS, 7));

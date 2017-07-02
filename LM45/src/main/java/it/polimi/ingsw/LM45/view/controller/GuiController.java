@@ -155,7 +155,6 @@ public class GuiController implements ViewInterface {
 
 	@Override
 	public void setResources(Resource[] resources, String username) {
-		System.out.println("adding resources");
 		Platform.runLater(() -> gameBoardController.setResources(resources, username));
 	}
 
@@ -195,6 +194,11 @@ public class GuiController implements ViewInterface {
 	@Override
 	public void activateLeaderCard(String username, LeaderCard leader) {
 		Platform.runLater(() -> gameBoardController.activateLeaderCard(username, leader));
+	}
+
+	@Override
+	public void enableLeaderCard(String username, LeaderCard leader) {
+		Platform.runLater(() -> gameBoardController.enableLeaderCard(username, leader));
 	}
 
 	@Override

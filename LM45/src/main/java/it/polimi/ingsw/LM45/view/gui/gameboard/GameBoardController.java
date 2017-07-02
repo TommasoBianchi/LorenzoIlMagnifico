@@ -328,8 +328,6 @@ public class GameBoardController {
 		}
 		clearSlots();
 		showFamiliars();
-		for(PersonalBoardController personalBoard : usersPersonalBoards.values())
-			personalBoard.deactivateLeaderCards();
 	}
 
 	private void clearSlots() {
@@ -424,6 +422,10 @@ public class GameBoardController {
 
 	public void activateLeaderCard(String username, LeaderCard leader) {
 		usersPersonalBoards.get(username).activateLeaderCard(leader);
+	}
+	
+	public void enableLeaderCard(String username, LeaderCard leader) {
+		usersPersonalBoards.get(username).enableLeaderCard(leader);
 	}
 
 	public void setPersonalBonusTile(String username, PersonalBonusTile personalBonusTile) {

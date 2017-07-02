@@ -192,7 +192,8 @@ public class ClientController {
 	}
 	
 	public void enableLeaderCard(String username, LeaderCard leader){
-		// TODO: implement
+		System.out.println("Enabling " + leader.getName());
+		viewInterface.enableLeaderCard(username, leader);
 	}
 
 	public void showFinalScore(String[] playersUsername, PlayerColor[] playerColors, int[] scores){

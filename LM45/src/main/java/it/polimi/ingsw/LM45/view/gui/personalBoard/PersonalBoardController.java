@@ -302,15 +302,21 @@ public class PersonalBoardController {
 			Label activeLabel = (Label) stage.getScene().lookup("#ACTIVELABEL" + leader.getName().replaceAll(" ", "_"));
 			activeLabel.setOpacity(1);
 			Button activate = (Button) stage.getScene().lookup("#ACTIVATE" + leader.getName().replaceAll(" ", "_"));
-			activate.setDisable(true);
+			if(activate != null){
+				activate.setDisable(true);
+			}
 		}
 	}
 	
-	public void deactivateLeaderCards() {
-		leaders.forEach(leader -> {
+	public void enableLeaderCard(LeaderCard leader) {
+		if (stage.getScene().lookup("#FIELD" + leader.getName().replaceAll(" ", "_")) != null) {
 			Label activeLabel = (Label) stage.getScene().lookup("#ACTIVELABEL" + leader.getName().replaceAll(" ", "_"));
 			activeLabel.setOpacity(0);
-		});
+			Button activate = (Button) stage.getScene().lookup("#ACTIVATE" + leader.getName().replaceAll(" ", "_"));
+			if(activate != null){
+				activate.setDisable(false);
+			}
+		}
 	}
 
 	public void setPersonalBonusTile(Resource[] productionBonus, Resource[] harvestBonus) {
