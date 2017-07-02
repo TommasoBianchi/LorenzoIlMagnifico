@@ -218,6 +218,8 @@ public class GameBoardController {
 	public void doBonusAction(SlotType slotType, int value) {
 		writeInDialogBox("Do Bonus Action: " + slotType + " of value " + value);
 		selectedFamiliarColor = FamiliarColor.BONUS;
+		familiarSelected = true;
+		familiarPane.setDisable(true);
 		bonusActionPane.setDisable(false);
 		bonusActionPane.setOpacity(1);
 		Label bonusValue = (Label) stage.getScene().lookup("#VALUEBONUS");
@@ -237,6 +239,7 @@ public class GameBoardController {
 		if (familiarColor == FamiliarColor.BONUS) {
 			bonusActionPane.setDisable(true);
 			bonusActionPane.setOpacity(0);
+			familiarPane.setDisable(false);
 		} else {
 			FlowPane slot = (FlowPane) stage.getScene().lookup("#" + slotType + position);
 			String pathFamiliar = "/Image/Familiars/" + playerColor + "/" + familiarColor + ".png";
@@ -249,6 +252,7 @@ public class GameBoardController {
 				familiarUsed(familiarColor);
 				endTurnButton.setDisable(!isMyTurn);
 				familiarPane.setDisable(true);
+				familiarSelected = false;
 			}
 		}
 	}
