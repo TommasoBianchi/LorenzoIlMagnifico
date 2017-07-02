@@ -168,6 +168,11 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 				leaderCard = (LeaderCard) inStream.readObject();
 				performAsync(() -> discardLeaderCard(player, leaderCard));
 				break;
+			case ENABLE_LEADER:
+				player = (String) inStream.readObject();
+				leaderCard = (LeaderCard) inStream.readObject();
+				performAsync(() -> enableLeaderCard(player, leaderCard));
+				break;
 			case FINAL_SCORE:
 				playersUsername = (String[]) inStream.readObject();
 				playerColors = (PlayerColor[]) inStream.readObject();
@@ -323,6 +328,11 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 	@Override
 	public void discardLeaderCard(String username, LeaderCard leader) throws IOException {
 		clientController.discardLeaderCard(username, leader);
+	}
+
+	@Override
+	public void enableLeaderCard(String username, LeaderCard leader) throws IOException {
+		clientController.enableLeaderCard(username, leader);
 	}
 
 	@Override

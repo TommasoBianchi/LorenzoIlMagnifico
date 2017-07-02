@@ -344,6 +344,13 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 	}
 
 	@Override
+	public void enableLeaderCard(String username, LeaderCard leader) throws IOException {
+		outStream.writeObject(ClientMessages.ENABLE_LEADER);
+		outStream.writeObject(username);
+		outStream.writeObject(leader);
+	}
+
+	@Override
 	public void showFinalScore(String[] playersUsername, PlayerColor[] playerColors, int[] scores) throws IOException {
 		outStream.writeObject(playersUsername);
 		outStream.writeObject(playerColors);

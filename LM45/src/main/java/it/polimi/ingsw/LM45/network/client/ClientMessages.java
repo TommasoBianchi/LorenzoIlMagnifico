@@ -19,6 +19,7 @@ public enum ClientMessages {
 	PLAY_LEADER,
 	ACTIVATE_LEADER,
 	DISCARD_LEADER,
+	ENABLE_LEADER,
 	FINAL_SCORE;
 	
 }

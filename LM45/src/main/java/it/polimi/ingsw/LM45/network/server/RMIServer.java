@@ -164,6 +164,11 @@ public class RMIServer implements RemoteServerInterface, ClientInterface {
 	}
 
 	@Override
+	public void enableLeaderCard(String username, LeaderCard leader) throws IOException {
+		remoteClient.enableLeaderCard(username, leader);
+	}
+
+	@Override
 	public void showFinalScore(String[] playersUsername, PlayerColor[] playerColors, int[] scores) throws IOException {
 		remoteClient.showFinalScore(playersUsername, playerColors, scores);		
 	}

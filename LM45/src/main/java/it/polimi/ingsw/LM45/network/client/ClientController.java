@@ -190,6 +190,10 @@ public class ClientController {
 	public void discardLeaderCard(String username, LeaderCard leader){
 		viewInterface.discardLeaderCard(username, leader);
 	}
+	
+	public void enableLeaderCard(String username, LeaderCard leader){
+		// TODO: implement
+	}
 
 	public void showFinalScore(String[] playersUsername, PlayerColor[] playerColors, int[] scores){
 		viewInterface.showFinalScore(playersUsername, playerColors, scores);

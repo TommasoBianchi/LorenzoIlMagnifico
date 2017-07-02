@@ -159,6 +159,11 @@ public class RMIClient implements RemoteClientInterface, ServerInterface {
 	}
 
 	@Override
+	public void enableLeaderCard(String username, LeaderCard leader) throws IOException {
+		clientController.enableLeaderCard(username, leader);
+	}
+
+	@Override
 	public void showFinalScore(String[] playersUsername, PlayerColor[] playerColors, int[] scores) throws IOException {
 		clientController.showFinalScore(playersUsername, playerColors, scores);		
 	}
