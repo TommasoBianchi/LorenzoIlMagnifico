@@ -599,11 +599,6 @@ public class ServerController {
 			player.addResources(new Resource(ResourceType.STONE, 2));
 			player.addResources(new Resource(ResourceType.SERVANTS, 3));
 		});
-		
-		// TEST
-		for (ResourceType resourceType : ResourceType.values())
-			Arrays.stream(orderedPlayers).forEach(player -> player.addResources(new Resource(resourceType, 50)));
-		// TEST
 
 		orderedPlayers[0].addResources(new Resource(ResourceType.COINS, 5));
 		notifyPlayers(clientInterface -> clientInterface.setResources(orderedPlayers[0].getAllResources(), orderedPlayers[0].getUsername()));
