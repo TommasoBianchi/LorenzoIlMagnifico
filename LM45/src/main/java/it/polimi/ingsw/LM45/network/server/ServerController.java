@@ -355,7 +355,7 @@ public class ServerController {
 		// Add final victory points to each player
 		players.values().forEach(player -> {
 			// For territories
-			int[] territoriesVictoryPoints = new int[] { 0, 0, 1, 4, 10, 20 };
+			int[] territoriesVictoryPoints = new int[] { 0, 0, 0, 1, 4, 10, 20 };
 			player.addResources(new Resource(ResourceType.VICTORY, territoriesVictoryPoints[player.getResourceAmount(ResourceType.TERRITORY)]));
 
 			// For characters
