@@ -7,11 +7,11 @@
     "costResources": [
       {
         "resourceType": "STONE",
-        "amount": 6
+        "amount": 2
       },
       {
         "resourceType": "COINS",
-        "amount": 6
+        "amount": 2
       }
     ]
   },

@@ -627,7 +627,7 @@ public class FileManager {
 		// Buildings
 		// I Period
 		cards[72] = new Building("Triumphal Arch", PeriodType.I,
-				new Cost(new Resource[] { new Resource(ResourceType.STONE, 6), new Resource(ResourceType.COINS, 6)}),
+				new Cost(new Resource[] { new Resource(ResourceType.STONE, 2), new Resource(ResourceType.COINS, 2)}),
 				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 6)})),
 				new CardEffect(new ResourceEffect(new Resource(ResourceType.VENTURE, 1),
 						new Resource[] { new Resource(ResourceType.VICTORY, 1) })), 6);
