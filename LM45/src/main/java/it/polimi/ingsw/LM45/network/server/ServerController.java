@@ -204,6 +204,11 @@ public class ServerController {
 				players.get(player).playLeaderCard(leaderCard, effectResolutors.get(player));
 				notifyPlayers(clientInterface -> clientInterface.playLeaderCard(player, leaderCard));
 				logInfo(player + " played leader card " + leaderCardName);
+				
+				// If the leaderCards has been activated (which means it had a permanent effect), than notify
+				// the players about it
+				if(leaderCard.getHasBeenActivated())
+					notifyPlayers(clientInterface -> clientInterface.activateLeaderCard(player, leaderCard));
 			}
 			catch (IllegalActionException e) {
 				manageGameExceptions(player, e);
@@ -590,14 +595,19 @@ public class ServerController {
 		Player[] orderedPlayers = game.getOrderedPlayers();
 
 		Arrays.stream(orderedPlayers).forEach(player -> {
-			player.addResources(new Resource(ResourceType.WOOD, 20));
-			player.addResources(new Resource(ResourceType.STONE, 20));
-			player.addResources(new Resource(ResourceType.SERVANTS, 30));
+			player.addResources(new Resource(ResourceType.WOOD, 2));
+			player.addResources(new Resource(ResourceType.STONE, 2));
+			player.addResources(new Resource(ResourceType.SERVANTS, 3));
 		});
+		
+		// TEST
+		for (ResourceType resourceType : ResourceType.values())
+			Arrays.stream(orderedPlayers).forEach(player -> player.addResources(new Resource(resourceType, 50)));
+		// TEST
 
-		orderedPlayers[0].addResources(new Resource(ResourceType.COINS, 50));
+		orderedPlayers[0].addResources(new Resource(ResourceType.COINS, 5));
 		notifyPlayers(clientInterface -> clientInterface.setResources(orderedPlayers[0].getAllResources(), orderedPlayers[0].getUsername()));
-		orderedPlayers[1].addResources(new Resource(ResourceType.COINS, 60));
+		orderedPlayers[1].addResources(new Resource(ResourceType.COINS, 6));
 		notifyPlayers(clientInterface -> clientInterface.setResources(orderedPlayers[1].getAllResources(), orderedPlayers[1].getUsername()));
 		if (orderedPlayers.length > 2) {
 			orderedPlayers[2].addResources(new Resource(ResourceType.COINS, 7));

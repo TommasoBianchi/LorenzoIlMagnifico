@@ -82,6 +82,13 @@ public class LeaderCard implements Serializable {
 	}
 	
 	/**
+	 * @return whether or not this leaderCard has been activated by its owner
+	 */
+	public boolean getHasBeenActivated(){
+		return this.hasBeenActivated;
+	}
+	
+	/**
 	 * @return the effect of this leaderCard
 	 */
 	public CardEffect getEffect(){
