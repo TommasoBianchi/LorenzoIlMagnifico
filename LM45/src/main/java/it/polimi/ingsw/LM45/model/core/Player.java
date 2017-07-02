@@ -78,12 +78,12 @@ public class Player {
 	 * @throws IllegalActionException
 	 *             if the player does not have the requisites for the leaderCard or if it does not have the leaderCard itself
 	 */
-	public void playLeaderCard(LeaderCard leaderCard) throws IllegalActionException {
+	public void playLeaderCard(LeaderCard leaderCard, EffectResolutor effectResolutor) throws IllegalActionException {
 		if(!leaderCard.canPlay(this))
 			throw new IllegalActionException("You cannot play LeaderCard " + leaderCard.getName() + " because you do not have the requisites");
 		
 		if (leaderCards.contains(leaderCard)) {
-			leaderCard.play();
+			leaderCard.play(effectResolutor);
 		}
 		else {
 			throw new IllegalActionException("You cannot play LeaderCard " + leaderCard.getName() + " because you do not have it");

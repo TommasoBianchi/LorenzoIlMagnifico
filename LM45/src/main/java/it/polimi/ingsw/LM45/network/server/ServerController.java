@@ -202,7 +202,7 @@ public class ServerController {
 		if (playerCanDoActions(player) && leaderCards.containsKey(leaderCardName)) {
 			try {
 				LeaderCard leaderCard = leaderCards.get(leaderCardName);
-				players.get(player).playLeaderCard(leaderCard);
+				players.get(player).playLeaderCard(leaderCard, effectResolutors.get(player));
 				notifyPlayers(clientInterface -> clientInterface.playLeaderCard(player, leaderCard));
 				logInfo(player + " played leader card " + leaderCardName);
 			}

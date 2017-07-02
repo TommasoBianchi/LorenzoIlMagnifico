@@ -48,9 +48,12 @@ public class LeaderCard implements Serializable {
 
 	/**
 	 * Method called by player to play the leaderCard
+	 * @throws IllegalActionException exception that means that leaderCard it's been already activated
 	 */
-	public void play() {
+	public void play(EffectResolutor effectResolutor) throws IllegalActionException {
 		hasBeenPlayed = true;
+		if(effect.getEffectsArePermanent())
+			activate(effectResolutor);
 	}
 
 	/**
