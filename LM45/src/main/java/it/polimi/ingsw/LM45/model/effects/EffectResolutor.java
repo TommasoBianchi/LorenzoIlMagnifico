@@ -17,6 +17,7 @@ public interface EffectResolutor {
 	public void modifyServantCost(int servantBonusCostModifier);
 	public void setHasToSkipFirstRound();
 	public void noTerritoryRequisites();
+	public void setPayIfTowerIsOccupied(boolean value);
 	public void addPermanentEffect(CardEffect permanentEffect);
 	public boolean canAddCard(Card card);
 	public void addCard(Card card);

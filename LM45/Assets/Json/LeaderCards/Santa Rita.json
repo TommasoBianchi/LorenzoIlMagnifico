@@ -7,8 +7,6 @@
           "resourceType": "COINS",
           "amount": 2
         },
-        "canModifyCardGain": true,
-        "canModifyTowerGain": false,
         "isMultiplier": true,
         "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.GainModifierEffect"
       },
@@ -17,8 +15,6 @@
           "resourceType": "STONE",
           "amount": 2
         },
-        "canModifyCardGain": true,
-        "canModifyTowerGain": false,
         "isMultiplier": true,
         "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.GainModifierEffect"
       },
@@ -27,8 +23,6 @@
           "resourceType": "WOOD",
           "amount": 2
         },
-        "canModifyCardGain": true,
-        "canModifyTowerGain": false,
         "isMultiplier": true,
         "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.GainModifierEffect"
       },
@@ -37,8 +31,6 @@
           "resourceType": "SERVANTS",
           "amount": 2
         },
-        "canModifyCardGain": true,
-        "canModifyTowerGain": false,
         "isMultiplier": true,
         "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.GainModifierEffect"
       }

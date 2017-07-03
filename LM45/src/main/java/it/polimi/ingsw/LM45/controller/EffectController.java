@@ -97,6 +97,11 @@ public class EffectController implements EffectResolutor {
 		player.noTerritoryRequisites();
 	}
 
+	@Override
+	public void setPayIfTowerIsOccupied(boolean value) {
+		player.setPayIfTowerIsOccupied(value);
+	}
+
 	public void addPermanentEffect(CardEffect permanentEffect) {
 		player.addPermanentEffect(permanentEffect);
 	}

@@ -319,6 +319,13 @@ public class Player {
 	public boolean getPayIfTowerIsOccupied() {
 		return payIfTowerIsOccupied;
 	}
+	
+	/**
+	 * @param value true if this player must pay 3 COINS every time he places a familiar in a tower already occupied by another player
+	 */
+	public void setPayIfTowerIsOccupied(boolean value) {
+		this.payIfTowerIsOccupied = value;
+	}
 
 	/**
 	 * @return the color this player has on the board

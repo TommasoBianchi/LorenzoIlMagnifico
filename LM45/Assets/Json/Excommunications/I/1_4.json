@@ -8,8 +8,6 @@
           "resourceType": "STONE",
           "amount": -1
         },
-        "canModifyCardGain": true,
-        "canModifyTowerGain": true,
         "isMultiplier": false,
         "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.GainModifierEffect"
       },
@@ -18,8 +16,6 @@
           "resourceType": "WOOD",
           "amount": -1
         },
-        "canModifyCardGain": true,
-        "canModifyTowerGain": true,
         "isMultiplier": false,
         "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.GainModifierEffect"
       }

@@ -12,14 +12,10 @@ public class GainModifierEffect extends Effect {
 	private static final long serialVersionUID = 1L;
 	
 	private Resource resource;
-	private boolean canModifyCardGain;
-	private boolean canModifyTowerGain;
 	private boolean isMultiplier;
 	
-	public GainModifierEffect(Resource resource, boolean canModifyCardGain, boolean canModifyTowerGain, boolean isMultiplier){
+	public GainModifierEffect(Resource resource, boolean isMultiplier){
 		this.resource = resource;
-		this.canModifyCardGain = canModifyCardGain;
-		this.canModifyTowerGain = canModifyTowerGain;
 		this.isMultiplier = isMultiplier;
 	}
 
@@ -31,18 +27,15 @@ public class GainModifierEffect extends Effect {
 	
 	@Override
 	public ActionModifier getActionModifier(SlotType slotType) {
-		// FIXME: canModifyCardGain and canModifyTowerGain?
 		ResourceModifier resourceModifier = (isMultiplier) ? new ResourceMultiplier(resource) : new ResourceAdder(resource);
 		return new ActionModifier(new ResourceModifier[]{}, new ResourceModifier[]{ resourceModifier }, 0);
 	}
 	
 	@Override
 	public String toString() {
-		String where = (canModifyCardGain) ? "cards" : "towers";
-		where = (canModifyCardGain && canModifyTowerGain) ? "cards and towers" : where;
 		String sign = (resource.getAmount() > 0) ? "+" : "-";
 		sign = (isMultiplier) ? "x" : sign;
-		return "Whenever you have to gain " + resource.getResourceType() + " on " + where + ", you gain " + sign + Math.abs(resource.getAmount());
+		return "Whenever you have to gain " + resource.getResourceType() + ", you gain " + sign + Math.abs(resource.getAmount());
 	}
 
 }

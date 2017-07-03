@@ -8,8 +8,6 @@
           "resourceType": "MILITARY",
           "amount": -1
         },
-        "canModifyCardGain": true,
-        "canModifyTowerGain": true,
         "isMultiplier": false,
         "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.GainModifierEffect"
       }

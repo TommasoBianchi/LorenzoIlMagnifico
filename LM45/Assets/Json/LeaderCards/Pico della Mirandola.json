@@ -7,8 +7,7 @@
           "resourceType": "COINS",
           "amount": -3
         },
-        "canModifyCardCost": true,
-        "canModifyTowerCost": false,
+        "disableTowerCost": false,
         "isMultiplier": false,
         "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.CostModifierEffect"
       }

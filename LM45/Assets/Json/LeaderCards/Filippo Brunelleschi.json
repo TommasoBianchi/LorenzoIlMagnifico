@@ -3,12 +3,7 @@
   "effect": {
     "effects": [
       {
-        "resource": {
-          "resourceType": "COINS",
-          "amount": -3
-        },
-        "canModifyCardCost": false,
-        "canModifyTowerCost": true,
+        "disableTowerCost": true,
         "isMultiplier": false,
         "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.CostModifierEffect"
       }

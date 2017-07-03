@@ -780,7 +780,7 @@ public class FileManager {
 				new CardEffect(new SlotModifierEffect(SlotType.ANY, true, true, true), true),
 				new Resource[] { new Resource(ResourceType.CHARACTER, 5) });
 		leaderCards[2] = new LeaderCard("Filippo Brunelleschi",
-				new CardEffect(new CostModifierEffect(new Resource(ResourceType.COINS, -3), false, true, false), true),
+				new CardEffect(new CostModifierEffect(true), true),
 				new Resource[] { new Resource(ResourceType.BUILDING, 5) });
 		leaderCards[3] = new LeaderCard("Sigismondo Malatesta",
 				new CardEffect(new FamiliarEffect(3, true, new FamiliarColor[] { FamiliarColor.UNCOLORED }, 1), true),
@@ -827,10 +827,10 @@ public class FileManager {
 						new Resource(ResourceType.FAITH, 2) });
 		leaderCards[15] = new LeaderCard("Santa Rita",
 				new CardEffect(
-						new Effect[] { new GainModifierEffect(new Resource(ResourceType.COINS, 2), true, false, true),
-								new GainModifierEffect(new Resource(ResourceType.STONE, 2), true, false, true),
-								new GainModifierEffect(new Resource(ResourceType.WOOD, 2), true, false, true),
-								new GainModifierEffect(new Resource(ResourceType.SERVANTS, 2), true, false, true) },
+						new Effect[] { new GainModifierEffect(new Resource(ResourceType.COINS, 2), true),
+								new GainModifierEffect(new Resource(ResourceType.STONE, 2), true),
+								new GainModifierEffect(new Resource(ResourceType.WOOD, 2), true),
+								new GainModifierEffect(new Resource(ResourceType.SERVANTS, 2), true) },
 						false, true),
 				new Resource[] { new Resource(ResourceType.FAITH, 8) });
 		leaderCards[16] = new LeaderCard("Cosimo de' Medici", new CardEffect(new ResourceEffect(
@@ -843,22 +843,22 @@ public class FileManager {
 				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.COUNCIL_PRIVILEGES, 1) })),
 				new Resource[] { new Resource(ResourceType.SERVANTS, 15) });
 		leaderCards[19] = new LeaderCard("Pico della Mirandola",
-				new CardEffect(new CostModifierEffect(new Resource(ResourceType.COINS, -3), true, false, false), true),
+				new CardEffect(new CostModifierEffect(new Resource(ResourceType.COINS, -3), false), true),
 				new Resource[] { new Resource(ResourceType.VENTURE, 4), new Resource(ResourceType.BUILDING, 2) });
 		
 		Excommunication[] excommunications = new Excommunication[21];
 		
 		//I Period
 		excommunications[0] = new Excommunication("1_1", PeriodType.I,
-				new CardEffect(new GainModifierEffect(new Resource(ResourceType.MILITARY, -1), true, true, false), true));
+				new CardEffect(new GainModifierEffect(new Resource(ResourceType.MILITARY, -1), false), true));
 		excommunications[1] = new Excommunication("1_2", PeriodType.I,
-				new CardEffect(new GainModifierEffect(new Resource(ResourceType.COINS, -1), true, true, false), true));
+				new CardEffect(new GainModifierEffect(new Resource(ResourceType.COINS, -1), false), true));
 		excommunications[2] = new Excommunication("1_3", PeriodType.I,
-				new CardEffect(new GainModifierEffect(new Resource(ResourceType.SERVANTS, -1), true, true, false), true));
+				new CardEffect(new GainModifierEffect(new Resource(ResourceType.SERVANTS, -1), false), true));
 		excommunications[3] = new Excommunication("1_4", PeriodType.I,
 				new CardEffect(new Effect[] {
-						new GainModifierEffect(new Resource(ResourceType.STONE, -1), true, true, false),
-						new GainModifierEffect(new Resource(ResourceType.WOOD, -1), true, true, false)}, false, true));
+						new GainModifierEffect(new Resource(ResourceType.STONE, -1), false),
+						new GainModifierEffect(new Resource(ResourceType.WOOD, -1), false)}, false, true));
 		excommunications[4] = new Excommunication("1_5", PeriodType.I,
 				new CardEffect(new ActionEffect(SlotType.HARVEST, -3), true));
 		excommunications[5] = new Excommunication("1_6", PeriodType.I,
