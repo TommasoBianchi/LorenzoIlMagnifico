@@ -3,6 +3,7 @@ package it.polimi.ingsw.LM45.model.core;
 import java.util.Random;
 
 import junit.framework.TestCase;
+import testUtilities.Helper;
 
 public class ResourceTest extends TestCase {
 	
@@ -21,7 +22,7 @@ public class ResourceTest extends TestCase {
 
 	public void testIncrement() {
 		for(int i = 0; i < 10; i++){
-			Resource resource = randomResource();
+			Resource resource = Helper.randomResource();
 			int increment = random.nextInt(11) - 5;
 			Resource incrementedResource = resource.increment(increment);
 			assertEquals(incrementedResource.getAmount(), resource.getAmount() + increment);
@@ -31,7 +32,7 @@ public class ResourceTest extends TestCase {
 
 	public void testMultiply() {
 		for(int i = 0; i < 10; i++){
-			Resource resource = randomResource();
+			Resource resource = Helper.randomResource();
 			int multiplier = random.nextInt(11) - 5;
 			Resource incrementedResource = resource.multiply(multiplier);
 			assertEquals(incrementedResource.getAmount(), resource.getAmount() * multiplier);
@@ -41,14 +42,9 @@ public class ResourceTest extends TestCase {
 	
 	public void testToString(){
 		for(int i = 0; i < 10; i++){
-			Resource resource = randomResource();
+			Resource resource = Helper.randomResource();
 			assertEquals(resource.toString(), resource.getAmount() + " " + resource.getResourceType());
 		}
-	}
-	
-	private Resource randomResource(){
-		ResourceType[] resourceTypes = ResourceType.values();
-		return new Resource(resourceTypes[random.nextInt(resourceTypes.length)], random.nextInt(10));
 	}
 
 }
