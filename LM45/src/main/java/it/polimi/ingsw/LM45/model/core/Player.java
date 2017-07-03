@@ -97,7 +97,9 @@ public class Player {
 	 *             if the player does not have the leaderCard itself
 	 */
 	public void discardLeaderCard(LeaderCard leaderCard) throws IllegalActionException {
-		if (!leaderCards.remove(leaderCard))
+		if(leaderCard.getHasBeenPlayed())
+			throw new IllegalActionException("You cannot discard LeaderCard " + leaderCard.getName() + " because you have already played it");
+		else if (!leaderCards.remove(leaderCard))
 			throw new IllegalActionException("You cannot discard LeaderCard " + leaderCard.getName() + " because you do not have it");
 	}
 
