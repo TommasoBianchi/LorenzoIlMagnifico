@@ -21,22 +21,22 @@ public class PersonalBonusTile implements Serializable {
 	 *            the base bonuses for harvest actions
 	 */
 	public PersonalBonusTile(Resource[] productionBonuses, Resource[] harvestBonuses) {
-		this.productionBonuses = productionBonuses;
-		this.harvestBonuses = harvestBonuses;
+		this.productionBonuses = productionBonuses.clone();
+		this.harvestBonuses = harvestBonuses.clone();
 	}
 	
 	/**
 	 * @return the bonus resources when player produce
 	 */
 	public Resource[] getProductionBonuses() {
-		return productionBonuses;
+		return productionBonuses.clone();
 	}
 	
 	/**
 	 * @return the bonus resources when player harvest
 	 */
 	public Resource[] getHarvestBonuses() {
-		return harvestBonuses;
+		return harvestBonuses.clone();
 	}
 
 	/**
