@@ -35,7 +35,7 @@ public class Game {
 	public Game(List<Player> players, BoardConfiguration boardConfiguration, Map<CardType, List<Card>> deck, List<LeaderCard> leaderCards,
 			Map<PeriodType, List<Excommunication>> excommunicationDeck) {
 		this.players = players;
-		this.board = new Board(boardConfiguration);
+		this.board = new Board(boardConfiguration, players.size());
 		this.deck = deck;
 		this.leaderCards = leaderCards;
 		this.excommunicationDeck = excommunicationDeck;
