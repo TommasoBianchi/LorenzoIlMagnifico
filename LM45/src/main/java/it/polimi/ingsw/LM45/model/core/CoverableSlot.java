@@ -18,8 +18,8 @@ public class CoverableSlot extends Slot {
 	public boolean canAddFamiliar(Familiar familiar, ActionModifier actionModifier, EffectResolutor effectResolutor) throws IllegalActionException {
 		if(!isActive)
 			throw new IllegalActionException("Cannot place a familiar " + familiar.getFamiliarColor() + " because this slot is not active");
-		
-		return super.canAddFamiliar(familiar, actionModifier, effectResolutor) && isActive;
+		else
+			return super.canAddFamiliar(familiar, actionModifier, effectResolutor);
 	}
 
 	@Override
