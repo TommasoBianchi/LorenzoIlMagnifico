@@ -6,26 +6,27 @@ import it.polimi.ingsw.LM45.model.effects.modifiers.ActionModifier;
 
 public class CoverableSlot extends Slot {
 
-	public CoverableSlot(Resource[] immediateBonus, int minDice, SlotType type, boolean multipleFamiliars,
-			boolean multipleFamiliarsOfSamePlayer, boolean isActive) {
-		super(immediateBonus, minDice, type, multipleFamiliars, multipleFamiliarsOfSamePlayer);
+	private Slot baseSlot;
+	private boolean isActive;
+	
+	public CoverableSlot(Slot baseSlot, boolean isActive) {
+		super(baseSlot.immediateBonus, baseSlot.minDice, baseSlot.type, baseSlot.multipleFamiliars, baseSlot.multipleFamiliarsOfSamePlayer);
+		this.baseSlot = baseSlot;
 		this.isActive = isActive;
 	}
-
-	private boolean isActive;
 
 	@Override
 	public boolean canAddFamiliar(Familiar familiar, ActionModifier actionModifier, EffectResolutor effectResolutor) throws IllegalActionException {
 		if(!isActive)
 			throw new IllegalActionException("Cannot place a familiar " + familiar.getFamiliarColor() + " because this slot is not active");
 		else
-			return super.canAddFamiliar(familiar, actionModifier, effectResolutor);
+			return baseSlot.canAddFamiliar(familiar, actionModifier, effectResolutor);
 	}
 
 	@Override
 	public void addFamiliar(Familiar familiar, ActionModifier actionModifier, EffectResolutor effectResolutor) {
 		if(isActive)
-			super.addFamiliar(familiar, actionModifier, effectResolutor);
+			baseSlot.addFamiliar(familiar, actionModifier, effectResolutor);
 	}
 
 }

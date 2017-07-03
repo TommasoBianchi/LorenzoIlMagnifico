@@ -23,7 +23,7 @@ public class Board {
 	/**
 	 * Initializes a new Board by instantiating the collections needed to hold slots and excommunications plus the resources you receive when you support the Church.
 	 */
-	public Board(BoardConfiguration boardConfiguration) {
+	public Board(BoardConfiguration boardConfiguration, int playerAmount) {
 		this.slots = new EnumMap<>(SlotType.class);
 		this.towerSlots = new EnumMap<>(SlotType.class);
 		this.excommunications = new EnumMap<>(PeriodType.class);
@@ -44,7 +44,8 @@ public class Board {
 		// Create the production/harvest slots
 		for (SlotType slotType : new SlotType[] { SlotType.PRODUCTION, SlotType.HARVEST }) {
 			Slot smallSlot = new HarvestProductionSlot(boardConfiguration.getSlotBonuses(slotType, 0), 1, slotType, false, false);
-			Slot bigSlot = new HarvestProductionSlot(boardConfiguration.getSlotBonuses(slotType, 1), 1, slotType, true, false, -3);
+			Slot bigSlot = new CoverableSlot(new HarvestProductionSlot(boardConfiguration.getSlotBonuses(slotType, 1), 1, slotType, true, false, -3),
+					playerAmount > 2);
 			smallSlot.addNeighbouringSlot(bigSlot);
 			bigSlot.addNeighbouringSlot(smallSlot);
 			slots.put(slotType, new Slot[] { smallSlot, bigSlot });
@@ -53,8 +54,10 @@ public class Board {
 		// Create the market slots
 		Slot[] marketSlots = new Slot[] { new Slot(boardConfiguration.getSlotBonuses(SlotType.MARKET, 0), 1, SlotType.MARKET, false, false),
 				new Slot(boardConfiguration.getSlotBonuses(SlotType.MARKET, 1), 1, SlotType.MARKET, false, false),
-				new Slot(boardConfiguration.getSlotBonuses(SlotType.MARKET, 2), 1, SlotType.MARKET, false, false),
-				new Slot(boardConfiguration.getSlotBonuses(SlotType.MARKET, 3), 1, SlotType.MARKET, false, false), };
+				new CoverableSlot(new Slot(boardConfiguration.getSlotBonuses(SlotType.MARKET, 2), 1, SlotType.MARKET, false, false),
+						playerAmount > 3),
+				new CoverableSlot(new Slot(boardConfiguration.getSlotBonuses(SlotType.MARKET, 3), 1, SlotType.MARKET, false, false),
+						playerAmount > 3), };
 		slots.put(SlotType.MARKET, marketSlots);
 
 		// Create the council slot
@@ -128,11 +131,11 @@ public class Board {
 	public void placeExcommunication(Excommunication excommunication) {
 		excommunications.put(excommunication.getPeriodType(), excommunication);
 	}
-	
+
 	/**
 	 * @return an array containing the excommunications actually on this board
 	 */
-	public Excommunication[] getPlacedExcommunications(){
+	public Excommunication[] getPlacedExcommunications() {
 		return excommunications.values().stream().toArray(Excommunication[]::new);
 	}
 
@@ -149,7 +152,8 @@ public class Board {
 	}
 
 	/**
-	 * @param type the cardType of the cards contained in the requested tower
+	 * @param type
+	 *            the cardType of the cards contained in the requested tower
 	 * @return the cards present in the requested tower
 	 */
 	public Card[] getCardsOnTower(CardType type) {
