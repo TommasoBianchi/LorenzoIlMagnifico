@@ -1,5 +1,7 @@
-package it.polimi.ingsw.LM45.model.cards;
+package it.polimi.ingsw.LM45.test.model.cards;
 
+import it.polimi.ingsw.LM45.model.cards.Excommunication;
+import it.polimi.ingsw.LM45.model.cards.PeriodType;
 import it.polimi.ingsw.LM45.model.core.Player;
 import it.polimi.ingsw.LM45.model.core.PlayerColor;
 import it.polimi.ingsw.LM45.model.core.Resource;

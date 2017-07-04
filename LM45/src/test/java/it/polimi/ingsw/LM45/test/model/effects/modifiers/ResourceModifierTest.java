@@ -1,4 +1,4 @@
-package it.polimi.ingsw.LM45.model.effects.modifiers;
+package it.polimi.ingsw.LM45.test.model.effects.modifiers;
 
 import static org.junit.Assert.*;
 
@@ -6,6 +6,11 @@ import org.junit.Test;
 
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.ResourceType;
+import it.polimi.ingsw.LM45.model.effects.modifiers.NilModifier;
+import it.polimi.ingsw.LM45.model.effects.modifiers.ResourceAdder;
+import it.polimi.ingsw.LM45.model.effects.modifiers.ResourceAdderMultiplier;
+import it.polimi.ingsw.LM45.model.effects.modifiers.ResourceModifier;
+import it.polimi.ingsw.LM45.model.effects.modifiers.ResourceMultiplier;
 
 public class ResourceModifierTest {
 

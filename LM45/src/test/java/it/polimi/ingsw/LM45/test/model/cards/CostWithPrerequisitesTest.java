@@ -1,5 +1,6 @@
-package it.polimi.ingsw.LM45.model.cards;
+package it.polimi.ingsw.LM45.test.model.cards;
 
+import it.polimi.ingsw.LM45.model.cards.CostWithPrerequisites;
 import it.polimi.ingsw.LM45.model.core.Player;
 import it.polimi.ingsw.LM45.model.core.PlayerColor;
 import it.polimi.ingsw.LM45.model.core.Resource;

@@ -3,6 +3,7 @@ package testUtilities;
 import java.util.Map;
 
 import it.polimi.ingsw.LM45.model.cards.Card;
+import it.polimi.ingsw.LM45.model.cards.CardType;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.Player;
 import it.polimi.ingsw.LM45.model.core.Resource;
@@ -98,6 +99,11 @@ public class FakeEffectResolutor implements EffectResolutor {
 	@Override
 	public void produce(int value) {
 		player.produce(this, value);
+	}
+
+	@Override
+	public Resource[] getCardsTotalCost(CardType cardType) {
+		return player.getCardsTotalCost(cardType);
 	}
 
 	@Override

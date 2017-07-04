@@ -1,7 +1,11 @@
-package it.polimi.ingsw.LM45.model.core;
+package it.polimi.ingsw.LM45.test.model.core;
 
 import java.util.Random;
 
+import it.polimi.ingsw.LM45.model.core.PersonalBonusTile;
+import it.polimi.ingsw.LM45.model.core.Player;
+import it.polimi.ingsw.LM45.model.core.PlayerColor;
+import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
 import junit.framework.TestCase;
 import testUtilities.FakeEffectResolutor;

@@ -1,7 +1,9 @@
-package it.polimi.ingsw.LM45.model.core;
+package it.polimi.ingsw.LM45.test.model.core;
 
 import java.util.Random;
 
+import it.polimi.ingsw.LM45.model.core.Resource;
+import it.polimi.ingsw.LM45.model.core.ResourceType;
 import junit.framework.TestCase;
 import testUtilities.Helper;
 

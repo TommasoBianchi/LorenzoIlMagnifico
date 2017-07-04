@@ -1,4 +1,4 @@
-package it.polimi.ingsw.LM45.model.core;
+package it.polimi.ingsw.LM45.test.model.core;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -11,6 +11,12 @@ import it.polimi.ingsw.LM45.model.cards.CardType;
 import it.polimi.ingsw.LM45.model.cards.Cost;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
 import it.polimi.ingsw.LM45.model.cards.PeriodType;
+import it.polimi.ingsw.LM45.model.core.Board;
+import it.polimi.ingsw.LM45.model.core.FamiliarColor;
+import it.polimi.ingsw.LM45.model.core.Player;
+import it.polimi.ingsw.LM45.model.core.PlayerColor;
+import it.polimi.ingsw.LM45.model.core.Resource;
+import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.model.effects.CardEffect;
 import it.polimi.ingsw.LM45.model.effects.modifiers.ActionModifier;
 import it.polimi.ingsw.LM45.util.ShuffleHelper;

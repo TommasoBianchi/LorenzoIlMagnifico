@@ -1,4 +1,4 @@
-package it.polimi.ingsw.LM45.model.core;
+package it.polimi.ingsw.LM45.test.model.core;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +10,9 @@ import it.polimi.ingsw.LM45.model.cards.Cost;
 import it.polimi.ingsw.LM45.model.cards.PeriodType;
 import it.polimi.ingsw.LM45.model.cards.Territory;
 import it.polimi.ingsw.LM45.model.cards.Venture;
+import it.polimi.ingsw.LM45.model.core.PersonalBoard;
+import it.polimi.ingsw.LM45.model.core.Resource;
+import it.polimi.ingsw.LM45.model.core.ResourceType;
 import junit.framework.TestCase;
 import testUtilities.Helper;
 

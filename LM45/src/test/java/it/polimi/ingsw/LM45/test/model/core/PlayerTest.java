@@ -1,4 +1,4 @@
-package it.polimi.ingsw.LM45.model.core;
+package it.polimi.ingsw.LM45.test.model.core;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -11,6 +11,13 @@ import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.cards.PeriodType;
 import it.polimi.ingsw.LM45.model.cards.Territory;
 import it.polimi.ingsw.LM45.model.cards.Venture;
+import it.polimi.ingsw.LM45.model.core.FamiliarColor;
+import it.polimi.ingsw.LM45.model.core.PersonalBonusTile;
+import it.polimi.ingsw.LM45.model.core.Player;
+import it.polimi.ingsw.LM45.model.core.PlayerColor;
+import it.polimi.ingsw.LM45.model.core.Resource;
+import it.polimi.ingsw.LM45.model.core.ResourceType;
+import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.model.effects.CardEffect;
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
 import it.polimi.ingsw.LM45.model.effects.FamiliarEffect;

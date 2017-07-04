@@ -1,4 +1,4 @@
-package it.polimi.ingsw.LM45.model.core;
+package it.polimi.ingsw.LM45.test.model.core;
 
 import java.io.FileNotFoundException;
 import java.util.Arrays;
@@ -8,6 +8,10 @@ import com.google.gson.JsonSyntaxException;
 
 import it.polimi.ingsw.LM45.config.BoardConfiguration;
 import it.polimi.ingsw.LM45.exceptions.IllegalActionException;
+import it.polimi.ingsw.LM45.model.core.Game;
+import it.polimi.ingsw.LM45.model.core.Player;
+import it.polimi.ingsw.LM45.model.core.PlayerColor;
+import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.serialization.FileManager;
 import junit.framework.TestCase;
 

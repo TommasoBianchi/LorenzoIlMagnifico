@@ -1,5 +1,6 @@
-package it.polimi.ingsw.LM45.model.core;
+package it.polimi.ingsw.LM45.test.model.core;
 
+import it.polimi.ingsw.LM45.model.core.SlotType;
 import junit.framework.TestCase;
 
 public class SlotTypeTest extends TestCase {

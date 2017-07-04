@@ -1,6 +1,13 @@
-package it.polimi.ingsw.LM45.model.core;
+package it.polimi.ingsw.LM45.test.model.core;
 
 import it.polimi.ingsw.LM45.exceptions.IllegalActionException;
+import it.polimi.ingsw.LM45.model.core.CoverableSlot;
+import it.polimi.ingsw.LM45.model.core.FamiliarColor;
+import it.polimi.ingsw.LM45.model.core.Player;
+import it.polimi.ingsw.LM45.model.core.PlayerColor;
+import it.polimi.ingsw.LM45.model.core.Resource;
+import it.polimi.ingsw.LM45.model.core.Slot;
+import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.model.effects.modifiers.ActionModifier;
 import junit.framework.TestCase;
 

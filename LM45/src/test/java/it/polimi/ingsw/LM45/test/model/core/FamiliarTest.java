@@ -1,8 +1,14 @@
-package it.polimi.ingsw.LM45.model.core;
+package it.polimi.ingsw.LM45.test.model.core;
 
 import java.util.Random;
 
 import it.polimi.ingsw.LM45.exceptions.IllegalActionException;
+import it.polimi.ingsw.LM45.model.core.Familiar;
+import it.polimi.ingsw.LM45.model.core.FamiliarColor;
+import it.polimi.ingsw.LM45.model.core.Player;
+import it.polimi.ingsw.LM45.model.core.PlayerColor;
+import it.polimi.ingsw.LM45.model.core.Resource;
+import it.polimi.ingsw.LM45.model.core.ResourceType;
 import junit.framework.TestCase;
 
 public class FamiliarTest extends TestCase {
