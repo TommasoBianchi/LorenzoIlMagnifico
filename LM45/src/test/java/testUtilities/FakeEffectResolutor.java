@@ -1,5 +1,7 @@
 package testUtilities;
 
+import java.util.Map;
+
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.Player;
@@ -8,18 +10,24 @@ import it.polimi.ingsw.LM45.model.core.ResourceType;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.model.effects.CardEffect;
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
+import it.polimi.ingsw.LM45.model.effects.modifiers.NilModifier;
+import it.polimi.ingsw.LM45.model.effects.modifiers.ResourceModifier;
 
 public class FakeEffectResolutor implements EffectResolutor {
-	
+
 	private Player player;
-	
+
 	public FakeEffectResolutor(Player player) {
 		this.player = player;
 	}
 
 	@Override
 	public void addResources(Resource resource) {
-		player.addResources(resource);
+		Map<ResourceType, ResourceModifier> gainModifiers = player.getActionModifier(SlotType.ANY, this).getGainModifiers();
+		Resource modifiedResource = resource.getAmount() > 0
+				? gainModifiers.getOrDefault(resource.getResourceType(), new NilModifier(resource.getResourceType())).modify(resource) : resource;
+				
+		player.addResources(modifiedResource);
 	}
 
 	@Override
