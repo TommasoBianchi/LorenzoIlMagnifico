@@ -64,12 +64,15 @@ public class Slot {
 	public boolean canAddFamiliar(Familiar familiar, ActionModifier actionModifier, EffectResolutor effectResolutor) throws IllegalActionException {
 		boolean isFree = !isOccupied(familiar) || actionModifier.getCanPlaceMultipleFamiliars();
 		boolean valueOK = isFamiliarValueOK(familiar, actionModifier);
+		boolean isActionModifierOK = actionModifier.getCanPlaceFamiliars();
 
 		if (!isFree)
 			throw new IllegalActionException(
 					"Cannot place a familiar " + familiar.getFamiliarColor() + " because this slot (or a neighbouring one) is already occupied");
 		else if (!valueOK)
 			throw new IllegalActionException("Cannot place a familiar " + familiar.getFamiliarColor() + " because its value is not sufficient");
+		else if(!isActionModifierOK)
+			throw new IllegalActionException("Cannot place a familiar " + familiar.getFamiliarColor() + " because some effect is blocking this slot");
 
 		return true;
 	}
