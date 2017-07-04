@@ -17,5 +17,8 @@ public abstract class ResourceModifier {
 
 	public abstract Resource modify(Resource resource);
 	public abstract ResourceModifier merge(ResourceModifier other);
+	public abstract ResourceModifier merge(ResourceAdder other);
+	public abstract ResourceModifier merge(ResourceMultiplier other);
+	public abstract ResourceModifier merge(ResourceAdderMultiplier other);
 	
 }

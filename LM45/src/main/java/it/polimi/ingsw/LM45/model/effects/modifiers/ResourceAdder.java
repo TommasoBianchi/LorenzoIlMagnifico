@@ -32,14 +32,17 @@ public class ResourceAdder extends ResourceModifier {
 			return this;
 	}
 	
+	@Override
 	public ResourceAdder merge(ResourceAdder other){
 		return new ResourceAdder(resourceType, increment + other.increment);
 	}
-	
+
+	@Override
 	public ResourceAdderMultiplier merge(ResourceMultiplier other){
 		return new ResourceAdderMultiplier(resourceType, this, other);
 	}
-	
+
+	@Override
 	public ResourceAdderMultiplier merge(ResourceAdderMultiplier other){
 		return other.merge(this);
 	}

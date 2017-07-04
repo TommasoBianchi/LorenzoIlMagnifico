@@ -18,6 +18,21 @@ public class NilModifier extends ResourceModifier {
 	public ResourceModifier merge(ResourceModifier other) {
 		return other;
 	}
+
+	@Override
+	public ResourceModifier merge(ResourceAdder other) {
+		return other;
+	}
+
+	@Override
+	public ResourceModifier merge(ResourceMultiplier other) {
+		return other;
+	}
+
+	@Override
+	public ResourceModifier merge(ResourceAdderMultiplier other) {
+		return other;
+	}
 	
 	@Override
 	public String toString(){

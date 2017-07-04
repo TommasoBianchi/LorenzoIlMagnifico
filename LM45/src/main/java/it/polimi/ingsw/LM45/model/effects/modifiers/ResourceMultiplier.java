@@ -31,15 +31,18 @@ public class ResourceMultiplier extends ResourceModifier {
 		else
 			return this;
 	}
-	
+
+	@Override
 	public ResourceMultiplier merge(ResourceMultiplier other){
 		return new ResourceMultiplier(resourceType, factor * other.factor);
 	}
-	
+
+	@Override
 	public ResourceAdderMultiplier merge(ResourceAdder other){
 		return new ResourceAdderMultiplier(resourceType, other, this);
 	}
-	
+
+	@Override
 	public ResourceAdderMultiplier merge(ResourceAdderMultiplier other){
 		return other.merge(this);
 	}
