@@ -32,5 +32,11 @@ public class Helper {
 
 		return result;
 	}
+	
+	public static <T> boolean classImplementToString(T element){
+		String defaultToString = element.getClass().getName() + "@" + 
+	            Integer.toHexString(System.identityHashCode(element));
+		return defaultToString.equals(element.toString()) == false;
+	}
 
 }
