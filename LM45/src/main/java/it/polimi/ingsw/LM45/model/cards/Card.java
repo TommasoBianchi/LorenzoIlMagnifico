@@ -71,6 +71,13 @@ public abstract class Card implements Serializable {
 	}
 	
 	/**
+	 * @return the cost of this card
+	 */
+	public Cost getCardCost(){
+		return this.cost;
+	}
+	
+	/**
 	 * Resolves ImmediateEffect and controls if effect is a permanentEffect
 	 * If it's permanent it calls addPermanentEffect(effect), otherwise it does nothing
 	 * 

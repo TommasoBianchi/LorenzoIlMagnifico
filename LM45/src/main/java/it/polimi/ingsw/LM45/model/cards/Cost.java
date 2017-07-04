@@ -29,6 +29,13 @@ public class Cost implements Serializable {
 	public Cost(Resource[] costResources) {
 		this.costResources = costResources;
 	}
+	
+	/**
+	 * @return the resources this cost is made of
+	 */
+	public Resource[] getResources(){
+		return this.costResources.clone();
+	}
 
 	/**
 	 * @param effectResolutor
