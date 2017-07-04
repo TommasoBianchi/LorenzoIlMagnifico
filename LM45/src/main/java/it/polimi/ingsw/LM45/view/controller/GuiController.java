@@ -74,7 +74,7 @@ public class GuiController implements ViewInterface {
 					.chooseLeader(Arrays.stream(alternatives).map(leader -> leader.substring(0, leader.indexOf('(') - 1)).toArray(String[]::new)));
 		else {
 			return choose(() -> {
-				if(choiceDialog != null && choiceDialog.isShowing())
+				if (choiceDialog != null && choiceDialog.isShowing())
 					choiceDialog.close();
 
 				choiceDialog = new Dialog<>();
@@ -170,9 +170,9 @@ public class GuiController implements ViewInterface {
 		Platform.runLater(() -> {
 			gameBoardController.writeInDialogBox("It's " + username + "'s turn!");
 			gameBoardController.disableGameBoard();
-			
+
 			// My turn has ended, so if a choice was prompted to me close its dialog
-			if(choiceDialog != null && choiceDialog.isShowing()){
+			if (choiceDialog != null && choiceDialog.isShowing()) {
 				choiceDialog.close();
 			}
 		});
@@ -207,16 +207,18 @@ public class GuiController implements ViewInterface {
 	public void setPersonalBonusTile(String username, PersonalBonusTile personalBonusTile) {
 		Platform.runLater(() -> gameBoardController.setPersonalBonusTile(username, personalBonusTile));
 	}
-	
+
 	@Override
-	public void placeExcommunicationToken(PlayerColor playerColor, PeriodType periodType){
+	public void placeExcommunicationToken(PlayerColor playerColor, PeriodType periodType) {
 		Platform.runLater(() -> gameBoardController.placeExcommunicationToken(playerColor, periodType));
 	}
-	
+
 	@Override
-	public void showFinalScore(String[] playersUsername, PlayerColor[] playerColors, int[] scores){
-		finalController = new FinalScoreController(playersUsername, playerColors, scores);
-		gameBoardController.close();
+	public void showFinalScore(String[] playersUsername, PlayerColor[] playerColors, int[] scores) {
+		Platform.runLater(() -> {
+			finalController = new FinalScoreController(playersUsername, playerColors, scores);
+			gameBoardController.close();
+		});
 	}
 
 }
