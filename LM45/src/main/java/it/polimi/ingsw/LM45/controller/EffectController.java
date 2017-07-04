@@ -3,6 +3,7 @@ package it.polimi.ingsw.LM45.controller;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -15,6 +16,8 @@ import it.polimi.ingsw.LM45.model.core.ResourceType;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.model.effects.CardEffect;
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
+import it.polimi.ingsw.LM45.model.effects.modifiers.NilModifier;
+import it.polimi.ingsw.LM45.model.effects.modifiers.ResourceModifier;
 import it.polimi.ingsw.LM45.network.server.ServerController;
 
 public class EffectController implements EffectResolutor {
@@ -28,14 +31,18 @@ public class EffectController implements EffectResolutor {
 	}
 
 	public void addResources(Resource resource) {
-		if (resource.getResourceType() == ResourceType.COUNCIL_PRIVILEGES) {
+		Map<ResourceType, ResourceModifier> gainModifiers = player.getActionModifier(SlotType.ANY, this).getGainModifiers();
+		Resource modifiedResource = resource.getAmount() > 0
+				? gainModifiers.getOrDefault(resource.getResourceType(), new NilModifier(resource.getResourceType())).modify(resource) : resource;
+
+		if (modifiedResource.getResourceType() == ResourceType.COUNCIL_PRIVILEGES) {
 			Set<ResourceType> chosenResourcesTypes = new HashSet<>();
 			Resource[][] resourcesToChooseFrom = new Resource[][] {
 					new Resource[] { new Resource(ResourceType.WOOD, 1), new Resource(ResourceType.STONE, 1) },
 					new Resource[] { new Resource(ResourceType.SERVANTS, 2) }, new Resource[] { new Resource(ResourceType.COINS, 2) },
 					new Resource[] { new Resource(ResourceType.MILITARY, 2) }, new Resource[] { new Resource(ResourceType.FAITH, 1) } };
 
-			for (int i = 0; i < resource.getAmount(); i++) {
+			for (int i = 0; i < modifiedResource.getAmount(); i++) {
 				int chosenIndex = serverController.chooseFrom(player.getUsername(), Arrays.stream(resourcesToChooseFrom)
 						.map(resources -> Arrays.stream(resources).map(Resource::toString).reduce("", (a, b) -> a + " " + b)).toArray(String[]::new));
 				Resource[] choosenResources = resourcesToChooseFrom[chosenIndex];
@@ -54,11 +61,11 @@ public class EffectController implements EffectResolutor {
 			serverController.notifyPlayers(clientInterface -> clientInterface.setResources(changedResources, player.getUsername()));
 		}
 		else {
-			player.addResources(resource);
+			player.addResources(modifiedResource);
 
 			// Notify all players only of the resource that has changed
 			serverController.notifyPlayers(clientInterface -> clientInterface.setResources(
-					new Resource[] { new Resource(resource.getResourceType(), player.getResourceAmount(resource.getResourceType())) },
+					new Resource[] { new Resource(modifiedResource.getResourceType(), player.getResourceAmount(modifiedResource.getResourceType())) },
 					player.getUsername()));
 		}
 	}
@@ -105,8 +112,8 @@ public class EffectController implements EffectResolutor {
 	public void addPermanentEffect(CardEffect permanentEffect) {
 		player.addPermanentEffect(permanentEffect);
 	}
-	
-	public boolean canAddCard(Card card){
+
+	public boolean canAddCard(Card card) {
 		return player.canAddCard(card);
 	}
 

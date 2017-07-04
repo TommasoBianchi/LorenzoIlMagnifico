@@ -3,13 +3,10 @@ package it.polimi.ingsw.LM45.model.core;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import it.polimi.ingsw.LM45.exceptions.IllegalActionException;
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
 import it.polimi.ingsw.LM45.model.effects.modifiers.ActionModifier;
-import it.polimi.ingsw.LM45.model.effects.modifiers.NilModifier;
-import it.polimi.ingsw.LM45.model.effects.modifiers.ResourceModifier;
 
 public class Slot {
 
@@ -86,11 +83,8 @@ public class Slot {
 	 *            the effectResolutor needed to add the immediateBonus to the player (subclass may use this to provide more interaction, even client-side)
 	 */
 	public void addFamiliar(Familiar familiar, ActionModifier actionModifier, EffectResolutor effectResolutor) {
-		Map<ResourceType, ResourceModifier> gainModifiers = actionModifier.getGainModifiers();
 		if (!actionModifier.getBlockImmediateResources())
-			Arrays.stream(immediateBonus)
-					.map(resource -> gainModifiers.getOrDefault(resource.getResourceType(), new NilModifier(resource.getResourceType()))
-					.modify(resource)).forEach(resource -> effectResolutor.addResources(resource));
+			Arrays.stream(immediateBonus).forEach(resource -> effectResolutor.addResources(resource));
 		if (familiar.getFamiliarColor() != FamiliarColor.BONUS)
 			familiars.add(familiar);
 		familiar.setIsPlaced(true);
