@@ -37,6 +37,7 @@ public class GuiController implements ViewInterface {
 	private int choice = -1;
 	private Object choiceLockToken = new Object();
 	private Dialog<ButtonType> choiceDialog;
+	private boolean leaderChoicePhase = true;
 
 	public void setChoice(int value) {
 		synchronized (choiceLockToken) {
@@ -59,6 +60,7 @@ public class GuiController implements ViewInterface {
 	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications) {
 		Platform.runLater(() -> {
 			gameBoardController = new GameBoardController(playersUsername, playerColors, clientController, excommunications);
+			leaderChoicePhase = false;
 			leaderChoiceController.close();
 		});
 	}
@@ -67,7 +69,7 @@ public class GuiController implements ViewInterface {
 	public int chooseFrom(String[] alternatives) {
 		if (alternatives.length <= 0)
 			return -1;
-		else if (alternatives[0].contains("(LeaderCard)"))
+		else if (leaderChoicePhase && alternatives[0].contains("(LeaderCard)"))
 			return choose(() -> leaderChoiceController
 					.chooseLeader(Arrays.stream(alternatives).map(leader -> leader.substring(0, leader.indexOf('(') - 1)).toArray(String[]::new)));
 		else {

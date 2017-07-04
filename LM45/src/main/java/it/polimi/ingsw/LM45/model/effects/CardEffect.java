@@ -66,6 +66,7 @@ public class CardEffect implements Serializable {
 	}
 	
 	public boolean getEffectsArePermanent(){
+		Arrays.stream(effects).forEach(effect -> effectsArePermanent = effect.changeIsPermanent().apply(effectsArePermanent));
 		return effectsArePermanent;
 	}
 	
