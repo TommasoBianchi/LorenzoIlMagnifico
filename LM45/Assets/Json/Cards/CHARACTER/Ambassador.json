@@ -16,6 +16,7 @@
         "slotType": "ANY_CARD",
         "diceNumber": 7,
         "discount": [],
+        "isBonusAction": true,
         "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ActionEffect"
       },
       {

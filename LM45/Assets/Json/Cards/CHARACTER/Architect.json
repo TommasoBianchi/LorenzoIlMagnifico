@@ -25,6 +25,7 @@
             "amount": 1
           }
         ],
+        "isBonusAction": true,
         "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ActionEffect"
       }
     ],

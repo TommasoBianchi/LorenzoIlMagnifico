@@ -32,6 +32,7 @@
         "slotType": "TERRITORY",
         "diceNumber": 2,
         "discount": [],
+        "isBonusAction": false,
         "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ActionEffect"
       }
     ],

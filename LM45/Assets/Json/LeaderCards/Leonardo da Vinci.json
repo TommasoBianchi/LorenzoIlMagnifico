@@ -6,6 +6,7 @@
         "slotType": "PRODUCTION",
         "diceNumber": 0,
         "discount": [],
+        "isBonusAction": true,
         "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ActionEffect"
       }
     ],

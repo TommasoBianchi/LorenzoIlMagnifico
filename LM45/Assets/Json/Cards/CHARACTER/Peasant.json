@@ -21,6 +21,7 @@
         "slotType": "HARVEST",
         "diceNumber": 3,
         "discount": [],
+        "isBonusAction": false,
         "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ActionEffect"
       }
     ],

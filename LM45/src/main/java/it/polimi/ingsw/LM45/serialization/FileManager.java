@@ -18,7 +18,6 @@ import com.google.gson.JsonSyntaxException;
 import it.polimi.ingsw.LM45.config.BoardConfiguration;
 import it.polimi.ingsw.LM45.config.Configuration;
 import it.polimi.ingsw.LM45.config.PersonalBonusTilesConfiguration;
-import it.polimi.ingsw.LM45.config.ServerConfiguration;
 import it.polimi.ingsw.LM45.model.cards.Building;
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.CardType;
@@ -382,31 +381,31 @@ public class FileManager {
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 4) }),
 				CardEffect.EMPTY,
 				new CardEffect(new Effect[] {
-						new ActionEffect(SlotType.BUILDING, 2, new Resource[] { new Resource(ResourceType.WOOD, 1) }),
-						new ActionEffect(SlotType.BUILDING, 2, new Resource[] { new Resource(ResourceType.STONE, 1) }) },
+						new ActionEffect(SlotType.BUILDING, 2, new Resource[] { new Resource(ResourceType.WOOD, 1) }, false),
+						new ActionEffect(SlotType.BUILDING, 2, new Resource[] { new Resource(ResourceType.STONE, 1) }, false) },
 						true, true));
 		cards[26] = new Character("Dame", PeriodType.I,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 4) }),
 				CardEffect.EMPTY,
 				new CardEffect(new ActionEffect(SlotType.CHARACTER, 2,
-						new Resource[] { new Resource(ResourceType.COINS, 1) }), true));
+						new Resource[] { new Resource(ResourceType.COINS, 1) }, false), true));
 		cards[27] = new Character("Knight", PeriodType.I,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 2) }),
 				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.COUNCIL_PRIVILEGES, 1) })),
-				new CardEffect(new ActionEffect(SlotType.VENTURE, 2), true));
+				new CardEffect(new ActionEffect(SlotType.VENTURE, 2, false), true));
 		cards[28] = new Character("Warlord", PeriodType.I,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 2) }),
 				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.MILITARY, 3) })),
-				new CardEffect(new ActionEffect(SlotType.TERRITORY, 2), true));
+				new CardEffect(new ActionEffect(SlotType.TERRITORY, 2, false), true));
 		cards[29] = new Character("Artisan", PeriodType.I,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 3) }), CardEffect.EMPTY,
-				new CardEffect(new ActionEffect(SlotType.PRODUCTION, 2, new Resource[] {}), true));
+				new CardEffect(new ActionEffect(SlotType.PRODUCTION, 2, false), true));
 		cards[30] = new Character("Farmer", PeriodType.I,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 3) }), CardEffect.EMPTY,
-				new CardEffect(new ActionEffect(SlotType.HARVEST, 2, new Resource[] {}), true));
+				new CardEffect(new ActionEffect(SlotType.HARVEST, 2, false), true));
 		cards[31] = new Character("Abbess", PeriodType.I,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 3) }),
-				new CardEffect(new Effect[] { new ActionEffect(SlotType.ANY_CARD, 4),
+				new CardEffect(new Effect[] { new ActionEffect(SlotType.ANY_CARD, 4, true),
 						new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 1) }) }, false),
 				CardEffect.EMPTY);
 		
@@ -414,28 +413,28 @@ public class FileManager {
 		cards[32] = new Character("Patron", PeriodType.II,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 3) }),
 				new CardEffect(new ActionEffect(SlotType.CHARACTER, 6,
-						new Resource[] { new Resource(ResourceType.COINS, 2) })),
+						new Resource[] { new Resource(ResourceType.COINS, 2) }, true)),
 				CardEffect.EMPTY);
 		cards[33] = new Character("Architect", PeriodType.II,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 4) }),
 				new CardEffect(new ActionEffect(SlotType.BUILDING, 6,
-						new Resource[] { new Resource(ResourceType.WOOD, 1), new Resource(ResourceType.STONE, 1) })),
+						new Resource[] { new Resource(ResourceType.WOOD, 1), new Resource(ResourceType.STONE, 1) }, true)),
 				CardEffect.EMPTY);
 		cards[34] = new Character("Hero", PeriodType.II,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 4) }),
-				new CardEffect(new Effect[] { new ActionEffect(SlotType.VENTURE, 6),
+				new CardEffect(new Effect[] { new ActionEffect(SlotType.VENTURE, 6, true),
 						new ResourceEffect(new Resource[] { new Resource(ResourceType.COUNCIL_PRIVILEGES, 1) }) },
 						false),
 				CardEffect.EMPTY);
 		cards[35] = new Character("Captain", PeriodType.II,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 4) }),
-				new CardEffect(new Effect[] { new ActionEffect(SlotType.TERRITORY, 6),
+				new CardEffect(new Effect[] { new ActionEffect(SlotType.TERRITORY, 6, true),
 						new ResourceEffect(new Resource[] { new Resource(ResourceType.MILITARY, 2) }) }, false),
 				CardEffect.EMPTY);
 		cards[36] = new Character("Scholar", PeriodType.II,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 4) }),
 				CardEffect.EMPTY,
-				new CardEffect(new ActionEffect(SlotType.PRODUCTION, 3), true));
+				new CardEffect(new ActionEffect(SlotType.PRODUCTION, 3, false), true));
 		cards[37] = new Character("Royal Messenger", PeriodType.II,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 5) }),
 				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.COUNCIL_PRIVILEGES, 3) })),
@@ -447,12 +446,12 @@ public class FileManager {
 		cards[39] = new Character("Peasant", PeriodType.II,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 4) }),
 				CardEffect.EMPTY,
-				new CardEffect(new ActionEffect(SlotType.HARVEST, 3), true));
+				new CardEffect(new ActionEffect(SlotType.HARVEST, 3, false), true));
 
 		// III Period
 		cards[40] = new Character("Ambassador", PeriodType.III,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 6) }),
-				new CardEffect(new Effect[] { new ActionEffect(SlotType.ANY_CARD, 7),
+				new CardEffect(new Effect[] { new ActionEffect(SlotType.ANY_CARD, 7, true),
 						new ResourceEffect(new Resource[] { new Resource(ResourceType.COUNCIL_PRIVILEGES, 1) }) },
 						false),
 				CardEffect.EMPTY);
@@ -483,12 +482,12 @@ public class FileManager {
 				CardEffect.EMPTY);
 		cards[46] = new Character("Cardinal", PeriodType.III,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 4) }),
-				new CardEffect(new Effect[] { new ActionEffect(SlotType.HARVEST, 4),
+				new CardEffect(new Effect[] { new ActionEffect(SlotType.HARVEST, 4, true),
 						new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 2) }) }, false),
 				CardEffect.EMPTY);
 		cards[47] = new Character("Bishop", PeriodType.III,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 5) }),
-				new CardEffect(new Effect[] { new ActionEffect(SlotType.PRODUCTION, 4),
+				new CardEffect(new Effect[] { new ActionEffect(SlotType.PRODUCTION, 4, true),
 						new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 1) }) }, false),
 				CardEffect.EMPTY);
 
@@ -557,7 +556,7 @@ public class FileManager {
 		cards[59] = new Venture("Improving the Canals", PeriodType.II,
 				new Cost(
 						new Resource[] { new Resource(ResourceType.SERVANTS, 2), new Resource(ResourceType.COINS, 3) }),
-				new CardEffect(new ActionEffect(SlotType.HARVEST, 4)),
+				new CardEffect(new ActionEffect(SlotType.HARVEST, 4, true)),
 				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5) })));
 		cards[60] = new Venture("Building the Bastions", PeriodType.II,
 				new Cost(new Resource[] { new Resource(ResourceType.STONE, 4) }),
@@ -589,14 +588,14 @@ public class FileManager {
 		cards[65] = new Venture("Improving the Roads", PeriodType.III,
 				new Cost(
 						new Resource[] { new Resource(ResourceType.SERVANTS, 3), new Resource(ResourceType.COINS, 4) }),
-				new CardEffect(new ActionEffect(SlotType.HARVEST, 3)),
+				new CardEffect(new ActionEffect(SlotType.HARVEST, 3, true)),
 				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5) })));
 		cards[66] = new Venture("Repairing the Cathedral", PeriodType.III,
 				new Cost(new Resource[] { new Resource(ResourceType.COINS, 3), new Resource(ResourceType.WOOD, 3),
 						new Resource(ResourceType.STONE, 3) }),
 				new CardEffect(
 						new Effect[] { new ResourceEffect(new Resource[] { new Resource(ResourceType.FAITH, 1) }),
-								new ActionEffect(SlotType.ANY_CARD, 7) },
+								new ActionEffect(SlotType.ANY_CARD, 7, true) },
 						false),
 				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.VICTORY, 5) })));
 		cards[67] = new Venture("Military Conquest", PeriodType.III,
@@ -774,7 +773,7 @@ public class FileManager {
 
 		LeaderCard[] leaderCards = new LeaderCard[20];
 
-		leaderCards[0] = new LeaderCard("Francesco Sforza", new CardEffect(new ActionEffect(SlotType.HARVEST, 1)),
+		leaderCards[0] = new LeaderCard("Francesco Sforza", new CardEffect(new ActionEffect(SlotType.HARVEST, 1, true)),
 				new Resource[] { new Resource(ResourceType.VENTURE, 5) });
 		leaderCards[1] = new LeaderCard("Ludovico Ariosto",
 				new CardEffect(new SlotModifierEffect(SlotType.ANY, true, true, true), true),
@@ -795,7 +794,7 @@ public class FileManager {
 				new CardEffect(new ResourceEffect(new Resource[] { new Resource(ResourceType.COINS, 1),
 						new Resource(ResourceType.WOOD, 1), new Resource(ResourceType.STONE, 1) })),
 				new Resource[] { new Resource(ResourceType.MILITARY, 12) });
-		leaderCards[7] = new LeaderCard("Leonardo da Vinci", new CardEffect(new ActionEffect(SlotType.PRODUCTION, 0)),
+		leaderCards[7] = new LeaderCard("Leonardo da Vinci", new CardEffect(new ActionEffect(SlotType.PRODUCTION, 0, true)),
 				new Resource[] { new Resource(ResourceType.CHARACTER, 4), new Resource(ResourceType.TERRITORY, 2) });
 		leaderCards[8] = new LeaderCard("Sandro Botticelli", new CardEffect(new ResourceEffect(
 				new Resource[] { new Resource(ResourceType.MILITARY, 2), new Resource(ResourceType.VICTORY, 1) })),
@@ -860,22 +859,22 @@ public class FileManager {
 						new GainModifierEffect(new Resource(ResourceType.STONE, -1), false),
 						new GainModifierEffect(new Resource(ResourceType.WOOD, -1), false)}, false, true));
 		excommunications[4] = new Excommunication("1_5", PeriodType.I,
-				new CardEffect(new ActionEffect(SlotType.HARVEST, -3), true));
+				new CardEffect(new ActionEffect(SlotType.HARVEST, -3, false), true));
 		excommunications[5] = new Excommunication("1_6", PeriodType.I,
-				new CardEffect(new ActionEffect(SlotType.PRODUCTION, -3), true));
+				new CardEffect(new ActionEffect(SlotType.PRODUCTION, -3, false), true));
 		excommunications[6] = new Excommunication("1_7", PeriodType.I,
 				new CardEffect(new FamiliarEffect(-1, false, new FamiliarColor[]{FamiliarColor.BLACK, FamiliarColor.ORANGE,
 						FamiliarColor.WHITE}, 1)));
 		
 		//II Period
 		excommunications[7] = new Excommunication("2_1", PeriodType.II,
-				new CardEffect(new ActionEffect(SlotType.TERRITORY, -4), true));
+				new CardEffect(new ActionEffect(SlotType.TERRITORY, -4, false), true));
 		excommunications[8] = new Excommunication("2_2", PeriodType.II,
-				new CardEffect(new ActionEffect(SlotType.BUILDING, -4), true));
+				new CardEffect(new ActionEffect(SlotType.BUILDING, -4, false), true));
 		excommunications[9] = new Excommunication("2_3", PeriodType.II,
-				new CardEffect(new ActionEffect(SlotType.CHARACTER, -4), true));
+				new CardEffect(new ActionEffect(SlotType.CHARACTER, -4, false), true));
 		excommunications[10] = new Excommunication("2_4", PeriodType.II,
-				new CardEffect(new ActionEffect(SlotType.VENTURE, -4), true));
+				new CardEffect(new ActionEffect(SlotType.VENTURE, -4, false), true));
 		excommunications[11] = new Excommunication("2_5", PeriodType.II,
 				new CardEffect(new SlotModifierEffect(SlotType.MARKET, false, false, false), true));
 		excommunications[12] = new Excommunication("2_6", PeriodType.II,

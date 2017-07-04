@@ -26,6 +26,7 @@
             "amount": 1
           }
         ],
+        "isBonusAction": false,
         "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ActionEffect"
       },
       {
@@ -37,6 +38,7 @@
             "amount": 1
           }
         ],
+        "isBonusAction": false,
         "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ActionEffect"
       }
     ],

@@ -35,10 +35,10 @@ public class CardEffectTest extends TestCase {
 	}
 
 	public void testGetActionModifier() {
-		CardEffect cardEffect1 = new CardEffect(new ActionEffect(SlotType.BUILDING, 2), true);
+		CardEffect cardEffect1 = new CardEffect(new ActionEffect(SlotType.BUILDING, 2, false), true);
 		CardEffect cardEffect2 = new CardEffect(
-				new Effect[] { new ActionEffect(SlotType.TERRITORY, 2, new Resource[] { new Resource(ResourceType.STONE, 1) }),
-						new ActionEffect(SlotType.TERRITORY, 2, new Resource[] { new Resource(ResourceType.WOOD, 1) }) },
+				new Effect[] { new ActionEffect(SlotType.TERRITORY, 2, new Resource[] { new Resource(ResourceType.STONE, 1) }, false),
+						new ActionEffect(SlotType.TERRITORY, 2, new Resource[] { new Resource(ResourceType.WOOD, 1) }, false) },
 				true, true);
 		EffectResolutor effectResolutor = new FakeEffectResolutor(new Player("Test", PlayerColor.BLUE));
 
