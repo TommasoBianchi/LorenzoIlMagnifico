@@ -352,6 +352,7 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 
 	@Override
 	public void showFinalScore(String[] playersUsername, PlayerColor[] playerColors, int[] scores) throws IOException {
+		outStream.writeObject(ClientMessages.FINAL_SCORE);
 		outStream.writeObject(playersUsername);
 		outStream.writeObject(playerColors);
 		outStream.writeObject(Arrays.stream(scores).mapToObj(Integer::valueOf).toArray(Integer[]::new)); // Box ints
