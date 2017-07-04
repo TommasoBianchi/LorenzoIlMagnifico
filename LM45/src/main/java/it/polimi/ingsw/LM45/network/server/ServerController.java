@@ -363,7 +363,7 @@ public class ServerController {
 			player.addResources(new Resource(ResourceType.VICTORY, territoriesVictoryPoints[player.getResourceAmount(ResourceType.TERRITORY)]));
 
 			// For characters
-			int[] charactersVictoryPoints = new int[] { 1, 3, 6, 10, 15, 21 };
+			int[] charactersVictoryPoints = new int[] { 0, 1, 3, 6, 10, 15, 21 };
 			player.addResources(new Resource(ResourceType.VICTORY, charactersVictoryPoints[player.getResourceAmount(ResourceType.CHARACTER)]));
 
 			// For ventures
@@ -373,7 +373,7 @@ public class ServerController {
 			int totalResources = Arrays
 					.stream(new ResourceType[] { ResourceType.STONE, ResourceType.WOOD, ResourceType.COINS, ResourceType.SERVANTS })
 					.mapToInt(resourceType -> player.getResourceAmount(resourceType)).sum();
-			player.addResources(new Resource(ResourceType.VICTORY, totalResources));
+			player.addResources(new Resource(ResourceType.VICTORY, totalResources / 5));
 		});
 
 		// Give the two players with most military points some victory points (5 for the first, 2 for the second)
