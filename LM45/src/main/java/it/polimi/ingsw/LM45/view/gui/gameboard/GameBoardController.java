@@ -78,7 +78,7 @@ public class GameBoardController {
 	private Map<String, String> cardPosition = new HashMap<>();
 	private boolean isMyTurn = false;
 
-	private FamiliarColor selectedFamiliarColor = FamiliarColor.BONUS;
+	private FamiliarColor selectedFamiliarColor = null;
 	private boolean familiarSelected = false;
 
 	public GameBoardController(String[] playersUsername, PlayerColor[] playerColors, ClientController clientController,
@@ -252,7 +252,8 @@ public class GameBoardController {
 				familiarUsed(familiarColor);
 				endTurnButton.setDisable(!isMyTurn);
 				familiarPane.setDisable(true);
-				familiarSelected = false;
+				if(selectedFamiliarColor != FamiliarColor.BONUS)
+					familiarSelected = false;
 			}
 		}
 	}
