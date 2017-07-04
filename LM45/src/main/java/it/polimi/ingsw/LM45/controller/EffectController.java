@@ -144,8 +144,6 @@ public class EffectController implements EffectResolutor {
 		List<LeaderCard> myPlayerPlayedLeaderCards = Arrays.asList(player.getPlayedLeaderCards());
 		LeaderCard[] chosableLeaderCards = Arrays.stream(playedLeaderCards).filter(leaderCard -> !myPlayerPlayedLeaderCards.contains(leaderCard))
 				.toArray(LeaderCard[]::new);
-		// FIXME: if I send a leaderCard's toString to the client via chooseFrom he will think we are in first phase of the game (leader draft)
-		// and so it will not be able to correcly process our request
 		LeaderCard chosenLeaderCard = chooseFrom(chosableLeaderCards);
 		return chosenLeaderCard.getEffect();
 	}

@@ -23,7 +23,6 @@ public class Main extends Application {
 				new LobbyController(primaryStage);			
 		}
 		catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

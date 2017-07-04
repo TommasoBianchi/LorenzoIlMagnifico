@@ -59,8 +59,8 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 				handleMessage(messageType);
 			}
 			catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				stop();
 			}
 			catch (IOException e) {
 				// here it means the socket has been closed
@@ -69,10 +69,11 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 					inStream.close();
 					socket.close();
 					isRunning = false;
+					stop();
 				}
 				catch (IOException e2) {
-					// TODO Auto-generated catch block
 					e2.printStackTrace();
+					stop();
 				}
 			}
 		}
@@ -259,8 +260,8 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 				action.apply();
 			}
 			catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				stop();
 			}
 		});
 	}

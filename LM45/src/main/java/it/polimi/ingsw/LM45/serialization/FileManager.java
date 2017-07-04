@@ -244,7 +244,6 @@ public class FileManager {
 			saveConfiguration(new PersonalBonusTilesConfiguration(personalBonusTiles));
 			
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
@@ -946,8 +945,6 @@ public class FileManager {
 			}
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block (this is testing code, so no
-			// problem)
 			e.printStackTrace();
 		}
 	}
