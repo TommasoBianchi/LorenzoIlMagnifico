@@ -6,6 +6,7 @@ import java.util.List;
 
 import it.polimi.ingsw.LM45.exceptions.IllegalActionException;
 import it.polimi.ingsw.LM45.model.cards.Card;
+import it.polimi.ingsw.LM45.model.cards.CardType;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.effects.CardEffect;
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
@@ -382,6 +383,14 @@ public class Player {
 		if (bonusFamiliarDiscount != null)
 			actionModifier.merge(new ActionModifier(Arrays.stream(bonusFamiliarDiscount).map(ResourceAdder::new).toArray(ResourceModifier[]::new)));
 		return actionModifier;
+	}
+	
+	/**
+	 * @param cardType the type of cards whose total cost we want to inspect
+	 * @return an array containing the total cost of all the cards on this player's personalBoard of the given cardType
+	 */
+	public Resource[] getCardsTotalCost(CardType cardType) {
+		return personalBoard.getCardsTotalCost(cardType);
 	}
 
 }

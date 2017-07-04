@@ -8,6 +8,7 @@ import java.util.Map;
 
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.CardType;
+import it.polimi.ingsw.LM45.model.cards.Cost;
 import it.polimi.ingsw.LM45.model.effects.CardEffect;
 import it.polimi.ingsw.LM45.model.effects.EffectResolutor;
 import it.polimi.ingsw.LM45.model.effects.modifiers.ActionModifier;
@@ -147,10 +148,11 @@ public class PersonalBoard {
 	/**
 	 * This has to be called at the end of the game to collect victory points from venture cards
 	 * 
-	 * @param effectResolutor the effectResolutor needed in order to resolve venture's effects
+	 * @param effectResolutor
+	 *            the effectResolutor needed in order to resolve venture's effects
 	 */
 	public void resolveVentures(EffectResolutor effectResolutor) {
-		if(resources.getOrDefault(ResourceType.VENTURE, 0) > 0){
+		if (resources.getOrDefault(ResourceType.VENTURE, 0) > 0) {
 			cards.get(CardType.VENTURE).stream().forEach(venture -> venture.resolveEffect(effectResolutor));
 		}
 	}
@@ -166,5 +168,20 @@ public class PersonalBoard {
 		ActionModifier actionModifier = permanentEffects.stream().map(cardEffect -> cardEffect.getActionModifier(slotType, effectResolutor))
 				.reduce(ActionModifier.EMPTY(), (a, b) -> a.merge(b));
 		return actionModifier;
+	}
+
+	/**
+	 * @param cardType
+	 *            the type of cards whose total cost we want to inspect
+	 * @return an array containing the total cost of all the cards on this personalBoard of the given cardType
+	 */
+	public Resource[] getCardsTotalCost(CardType cardType) {
+		if (cards.containsKey(cardType)) {
+			return cards.get(cardType).stream().map(Card::getCardCost).map(Cost::getResources).flatMap(resource -> Arrays.stream(resource))
+					.toArray(Resource[]::new);
+		}
+		else {
+			return new Resource[] {};
+		}
 	}
 }

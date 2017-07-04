@@ -8,6 +8,7 @@ import java.util.Random;
 import java.util.Set;
 
 import it.polimi.ingsw.LM45.model.cards.Card;
+import it.polimi.ingsw.LM45.model.cards.CardType;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.Player;
@@ -132,6 +133,10 @@ public class EffectController implements EffectResolutor {
 
 	public void produce(int value) {
 		player.produce(this, value);
+	}
+
+	public Resource[] getCardsTotalCost(CardType cardType) {
+		return player.getCardsTotalCost(cardType);
 	}
 
 	public CardEffect copyEffect() {

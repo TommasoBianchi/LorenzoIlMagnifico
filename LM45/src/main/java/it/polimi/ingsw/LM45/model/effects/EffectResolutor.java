@@ -1,6 +1,7 @@
 package it.polimi.ingsw.LM45.model.effects;
 
 import it.polimi.ingsw.LM45.model.cards.Card;
+import it.polimi.ingsw.LM45.model.cards.CardType;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.ResourceType;
@@ -23,6 +24,7 @@ public interface EffectResolutor {
 	public void addCard(Card card);
 	public void harvest(int value);
 	public void produce(int value);
+	public Resource[] getCardsTotalCost(CardType cardType);
 	 
 	public void doBonusAction(SlotType slotType, int diceNumber, Resource[] discount);
 	public CardEffect copyEffect();
