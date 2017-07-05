@@ -14,7 +14,9 @@ public class BoardConfiguration implements Configuration, Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private class SlotConfiguration {
+	private class SlotConfiguration implements Serializable {
+		
+		private static final long serialVersionUID = 1L;
 
 		private SlotType slotType;
 		private int slotID;
