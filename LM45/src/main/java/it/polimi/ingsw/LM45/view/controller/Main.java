@@ -18,7 +18,7 @@ public class Main extends Application {
 		
 		try {
 			if(FAST_TESTING)
-				ClientLauncher.launch("Tommy", "127.0.0.1", 7000, false, true);
+				ClientLauncher.launch("Tommy", "127.0.0.1", 7000, false, false);
 			else
 				new LobbyController(primaryStage);			
 		}

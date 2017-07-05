@@ -13,8 +13,12 @@ import it.polimi.ingsw.LM45.network.client.ClientController;
 import it.polimi.ingsw.LM45.view.cli.ConsoleReader;
 import it.polimi.ingsw.LM45.view.cli.ConsoleWriter;
 import it.polimi.ingsw.LM45.view.cli.ConsoleWriter.ConsoleColor;
+import it.polimi.ingsw.LM45.view.cli.GameBoardCli;
 
 public class CliController implements ViewInterface {
+	
+	private ClientController clientController;
+	private GameBoardCli gameBoard;
 
 	@Override
 	public void showLeaderCardChoiceView() {
@@ -25,8 +29,7 @@ public class CliController implements ViewInterface {
 	@Override
 	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors,
 			Excommunication[] excommunications) {
-		// TODO Auto-generated method stub
-
+		gameBoard = new GameBoardCli(playersUsername, playerColors, excommunications, clientController);
 	}
 
 	@Override
@@ -37,14 +40,12 @@ public class CliController implements ViewInterface {
 
 	@Override
 	public void pickCard(Card card, String username) {
-		// TODO Auto-generated method stub
-
+		gameBoard.pickCard(card, username);
 	}
 
 	@Override
 	public void addCardsOnTower(Card[] cards, SlotType slotType) {
-		// TODO Auto-generated method stub
-
+		gameBoard.addCardsOnTower(cards, slotType);
 	}
 
 	@Override
@@ -89,8 +90,7 @@ public class CliController implements ViewInterface {
 
 	@Override
 	public void setClientController(ClientController clientController) {
-		// TODO Auto-generated method stub
-
+		this.clientController = clientController;
 	}
 
 	@Override
@@ -101,14 +101,13 @@ public class CliController implements ViewInterface {
 
 	@Override
 	public void myTurn() {
-		// TODO Auto-generated method stub
+		gameBoard.myTurn();
 
 	}
 
 	@Override
 	public void playerTurn(String username) {
-		// TODO Auto-generated method stub
-
+		gameBoard.playerTurn(username);
 	}
 
 	@Override
