@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import it.polimi.ingsw.LM45.config.BoardConfiguration;
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.CardType;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
@@ -25,7 +26,8 @@ public class GameBoardCli {
 	private Excommunication[] excommunications;
 	private String currentPlayer;
 
-	public GameBoardCli(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications, ClientController clientController) {
+	public GameBoardCli(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications,
+			BoardConfiguration boardConfiguration, ClientController clientController) {
 		this.myUsername = clientController.getUsername();
 		this.clientController = clientController;
 		this.usersPersonalBoards = new HashMap<>();
@@ -36,62 +38,62 @@ public class GameBoardCli {
 			usersPersonalBoards.put(playersUsername[i], new PersonalBoardCli());
 			playerColorName.put(playerColors[i], playersUsername[i]);
 		}
-		
+
 		this.excommunications = excommunications.clone();
 		this.towers = new HashMap<>();
-		
-		for(CardType cardType : new CardType[]{ CardType.TERRITORY, CardType.CHARACTER, CardType.BUILDING, CardType.VENTURE })
-			towers.put(cardType.toSlotType(), new TowerCli(cardType));
+
+		for (CardType cardType : new CardType[] { CardType.TERRITORY, CardType.CHARACTER, CardType.BUILDING, CardType.VENTURE })
+			towers.put(cardType.toSlotType(), new TowerCli(cardType, boardConfiguration));
 	}
-	
-	public void showMain(){
+
+	public void showMain() {
 		printTitle("GameBoard");
 		GameBoardCliOptions.navigate(Stage.MAIN, this);
 	}
-	
-	public void showTowers(){
+
+	public void showTowers() {
 		printTitle("Towers");
 		GameBoardCliOptions.navigate(Stage.TOWERS, this);
 	}
-	
-	public void showTower(CardType cardType){
+
+	public void showTower(CardType cardType) {
 		printTitle(cardType + " tower");
 		towers.get(cardType.toSlotType()).print();
 		GameBoardCliOptions.navigate(Stage.SINGLE_TOWER, this);
 	}
-	
-	public void showOtherSlots(){
-		
+
+	public void showOtherSlots() {
+
 	}
-	
-	public void showPersonalBoards(){
-		
+
+	public void showPersonalBoards() {
+
 	}
-	
-	public void myTurn(){
+
+	public void myTurn() {
 		currentPlayer = myUsername;
 		showMain();
 	}
-	
-	public void playerTurn(String username){
+
+	public void playerTurn(String username) {
 		boolean firstTurnEver = currentPlayer == null;
 		this.currentPlayer = username;
-		if(firstTurnEver)
+		if (firstTurnEver)
 			showMain();
 	}
-	
+
 	public void pickCard(Card card, String username) {
 		towers.get(card.getCardType()).removeCard(card);
-		// TODO: add card into the correct player's personalBoard 
+		// TODO: add card into the correct player's personalBoard
 	}
 
 	public void addCardsOnTower(Card[] cards, SlotType slotType) {
 		towers.get(slotType).addCards(cards);
 	}
-	
-	private void printTitle(String title){
+
+	private void printTitle(String title) {
 		ConsoleWriter.println("");
-		if(currentPlayer.equals(myUsername))
+		if (currentPlayer.equals(myUsername))
 			ConsoleWriter.println(title + " (my turn)", ConsoleColor.BLUE, ConsoleColor.WHITE);
 		else
 			ConsoleWriter.println(title + " (" + currentPlayer + "'s turn)", ConsoleColor.BLUE, ConsoleColor.WHITE);

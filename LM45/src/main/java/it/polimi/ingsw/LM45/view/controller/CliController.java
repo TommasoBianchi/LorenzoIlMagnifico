@@ -30,7 +30,7 @@ public class CliController implements ViewInterface {
 	@Override
 	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors,
 			Excommunication[] excommunications, BoardConfiguration boardConfiguration) {
-		gameBoard = new GameBoardCli(playersUsername, playerColors, excommunications, clientController);
+		gameBoard = new GameBoardCli(playersUsername, playerColors, excommunications, boardConfiguration, clientController);
 	}
 
 	@Override

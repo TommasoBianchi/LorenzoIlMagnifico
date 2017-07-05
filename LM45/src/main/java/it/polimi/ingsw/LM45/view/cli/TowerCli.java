@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import it.polimi.ingsw.LM45.config.BoardConfiguration;
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.CardType;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.PlayerColor;
+import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.util.Pair;
 
 public class TowerCli {
@@ -15,12 +17,12 @@ public class TowerCli {
 	private CardType cardType;
 	private TowerSlotCli[] slots;
 
-	public TowerCli(CardType cardType) {
+	public TowerCli(CardType cardType, BoardConfiguration boardConfiguration) {
 		this.cardType = cardType;
 		this.slots = new TowerSlotCli[4];
 
 		for (int i = 0; i < slots.length; i++)
-			slots[i] = new TowerSlotCli();
+			slots[i] = new TowerSlotCli(boardConfiguration.getSlotBonuses(cardType.toSlotType(), i));
 	}
 
 	public void print() {
@@ -45,12 +47,12 @@ public class TowerCli {
 				break;
 			}
 	}
-	
+
 	public void addFamiliar(int position, FamiliarColor familiarColor, PlayerColor playerColor) {
 		slots[position].placeFamiliar(familiarColor, playerColor);
 	}
-	
-	public void clearFamiliars(){
+
+	public void clearFamiliars() {
 		Arrays.stream(slots).forEach(TowerSlotCli::clearFamiliars);
 	}
 
@@ -58,10 +60,12 @@ public class TowerCli {
 
 		private Card card;
 		private List<Pair<FamiliarColor, PlayerColor>> familiars;
+		private Resource[] immediateResources;
 
-		public TowerSlotCli() {
+		public TowerSlotCli(Resource[] immediateResources) {
 			this.card = null;
 			this.familiars = new ArrayList<>();
+			this.immediateResources = immediateResources.clone();
 		}
 
 		public void print() {
@@ -69,6 +73,12 @@ public class TowerCli {
 				ConsoleWriter.println("No card on this slot");
 			else
 				ConsoleWriter.println(card.toString());
+
+			if (immediateResources.length > 0){
+				ConsoleWriter.println("");
+				ConsoleWriter.println("If you place a familiar on this slot you will receive "
+						+ Arrays.stream(immediateResources).map(Resource::toString).reduce("", (a, b) -> a + " " + b));
+			}
 
 			ConsoleWriter.println("");
 
