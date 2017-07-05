@@ -1,27 +1,53 @@
 package it.polimi.ingsw.LM45.view.cli;
 
+import com.diogonunes.jcdp.color.ColoredPrinter;
+import com.diogonunes.jcdp.color.api.Ansi.Attribute;
+import com.diogonunes.jcdp.color.api.Ansi.BColor;
+import com.diogonunes.jcdp.color.api.Ansi.FColor;
+
 public class ConsoleWriter {
 	
-	private static final String blue = (char)27 + "[34m";
-	private static final String green = (char)27 + "[32m";
-	private static final String yellow = (char)27 + "[33m";
-	private static final String format = "\u001B[0m";
-	
-	public static void printBlue (String msg) {
-		System.out.println(blue + msg + format);
+	public enum ConsoleColor {
+		BLUE(FColor.BLUE, BColor.BLUE),
+		GREEN(FColor.GREEN, BColor.GREEN),
+		YELLOW(FColor.YELLOW, BColor.YELLOW),
+		RED(FColor.RED, BColor.RED),
+		MAGENTA(FColor.MAGENTA, BColor.MAGENTA),
+		CYAN(FColor.CYAN, BColor.CYAN),
+		WHITE(FColor.WHITE, BColor.WHITE),
+		BLACK(FColor.BLACK, BColor.BLACK),
+		NONE(FColor.NONE, BColor.NONE);
+		
+		private FColor fontColor;
+		private BColor backgroundColor;
+		
+		private ConsoleColor(FColor fontColor, BColor backgroundColor){
+			this.fontColor = fontColor;
+			this.backgroundColor = backgroundColor;
+		}
+		
+		protected FColor toFontColor(){
+			return this.fontColor;
+		}
+		
+		protected BColor toBackgroundColor() {
+			return this.backgroundColor;
+		}
 	}
 	
-	public static void printGreen (String msg) {
-		System.out.println(green + msg + format);
+	private static ColoredPrinter coloredPrinter = new ColoredPrinter.Builder(1, false).build();
+	
+	public static void println(String message, ConsoleColor color, ConsoleColor backgroundColor){
+		coloredPrinter.println(message, Attribute.NONE, color.toFontColor(), backgroundColor.toBackgroundColor());
+		coloredPrinter.clear();
 	}
 	
-	public static void printYellow (String msg) {
-		System.out.println(yellow + msg);
+	public static void println(String message, ConsoleColor color){
+		println(message, color, ConsoleColor.NONE);
 	}
 	
-	public static void main (String[] args) {
-		String msg = "ciao";
-		printBlue(msg);
+	public static void println(String message){
+		println(message, ConsoleColor.NONE);
 	}
 
 }
