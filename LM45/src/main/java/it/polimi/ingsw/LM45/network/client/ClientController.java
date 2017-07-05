@@ -3,6 +3,7 @@ package it.polimi.ingsw.LM45.network.client;
 import java.io.IOException;
 import java.rmi.NotBoundException;
 
+import it.polimi.ingsw.LM45.config.BoardConfiguration;
 import it.polimi.ingsw.LM45.controller.ClientLauncher;
 import it.polimi.ingsw.LM45.exceptions.GameException;
 import it.polimi.ingsw.LM45.model.cards.Card;
@@ -43,7 +44,7 @@ public class ClientController {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
+
 	public String getUsername() {
 		return username;
 	}
@@ -131,14 +132,15 @@ public class ClientController {
 	public int chooseFrom(String[] alternatives) {
 		// TEST
 		boolean fastTest = true;
-		if(fastTest) return 0;
+		if (fastTest)
+			return 0;
 		// TEST
-		
+
 		int chosenNumber = viewInterface.chooseFrom(alternatives);
 
 		return chosenNumber;
 	}
-	
+
 	public void pickCard(Card card, String username) {
 		viewInterface.pickCard(card, username);
 	}
@@ -166,37 +168,38 @@ public class ClientController {
 	public void setResources(Resource[] resources, String username) {
 		viewInterface.setResources(resources, username);
 	}
-	
-	public void setPersonalBonusTile(String username, PersonalBonusTile personalBonusTile){
+
+	public void setPersonalBonusTile(String username, PersonalBonusTile personalBonusTile) {
 		viewInterface.setPersonalBonusTile(username, personalBonusTile);
 	}
-	
-	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications){
+
+	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications,
+			BoardConfiguration boardConfiguration) {
 		viewInterface.initializeGameBoard(playersUsername, playerColors, excommunications);
 	}
-	
-	public void placeExcommunicationToken(PlayerColor playerColor, PeriodType periodType){
+
+	public void placeExcommunicationToken(PlayerColor playerColor, PeriodType periodType) {
 		viewInterface.placeExcommunicationToken(playerColor, periodType);
-	}	
-	
-	public void playLeaderCard(String username, LeaderCard leader){
-		viewInterface.playLeaderCard(username, leader);
-	}
-	
-	public void activateLeaderCard(String username, LeaderCard leader){
-		viewInterface.activateLeaderCard(username, leader);	
 	}
 
-	public void discardLeaderCard(String username, LeaderCard leader){
+	public void playLeaderCard(String username, LeaderCard leader) {
+		viewInterface.playLeaderCard(username, leader);
+	}
+
+	public void activateLeaderCard(String username, LeaderCard leader) {
+		viewInterface.activateLeaderCard(username, leader);
+	}
+
+	public void discardLeaderCard(String username, LeaderCard leader) {
 		viewInterface.discardLeaderCard(username, leader);
 	}
-	
-	public void enableLeaderCard(String username, LeaderCard leader){
+
+	public void enableLeaderCard(String username, LeaderCard leader) {
 		System.out.println("Enabling " + leader.getName());
 		viewInterface.enableLeaderCard(username, leader);
 	}
 
-	public void showFinalScore(String[] playersUsername, PlayerColor[] playerColors, int[] scores){
+	public void showFinalScore(String[] playersUsername, PlayerColor[] playerColors, int[] scores) {
 		viewInterface.showFinalScore(playersUsername, playerColors, scores);
 	}
 

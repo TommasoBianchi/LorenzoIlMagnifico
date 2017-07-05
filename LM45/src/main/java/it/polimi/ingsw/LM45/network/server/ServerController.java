@@ -204,10 +204,10 @@ public class ServerController {
 				players.get(player).playLeaderCard(leaderCard, effectResolutors.get(player));
 				notifyPlayers(clientInterface -> clientInterface.playLeaderCard(player, leaderCard));
 				logInfo(player + " played leader card " + leaderCardName);
-				
+
 				// If the leaderCards has been activated (which means it had a permanent effect), than notify
 				// the players about it
-				if(leaderCard.getHasBeenActivated())
+				if (leaderCard.getHasBeenActivated())
 					notifyPlayers(clientInterface -> clientInterface.activateLeaderCard(player, leaderCard));
 			}
 			catch (IllegalActionException e) {
@@ -343,7 +343,8 @@ public class ServerController {
 		// Initialize the gameboards client-side
 		String[] playersUsername = players.values().stream().map(Player::getUsername).toArray(String[]::new);
 		PlayerColor[] playerColors = players.values().stream().map(Player::getColor).toArray(PlayerColor[]::new);
-		notifyPlayers(clientInterface -> clientInterface.initializeGameBoard(playersUsername, playerColors, game.getPlacedExcommunications()));
+		notifyPlayers(clientInterface -> clientInterface.initializeGameBoard(playersUsername, playerColors, game.getPlacedExcommunications(),
+				boardConfiguration));
 
 		// Notify of chosen personalBonusTiles and leaderCards only after gameboards have been initialized
 		chosenPersonalBonusTiles.forEach(

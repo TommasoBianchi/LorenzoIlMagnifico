@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import it.polimi.ingsw.LM45.config.BoardConfiguration;
 import it.polimi.ingsw.LM45.exceptions.GameException;
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
@@ -100,12 +101,12 @@ public class RMIServer implements RemoteServerInterface, ClientInterface {
 
 	@Override
 	public void pickCard(Card card, String username) throws IOException {
-		remoteClient.pickCard(card, username);		
+		remoteClient.pickCard(card, username);
 	}
 
 	@Override
 	public void addCardsOnTower(Card[] cards, SlotType slotType) throws IOException {
-		remoteClient.addCardsOnTower(cards, slotType);		
+		remoteClient.addCardsOnTower(cards, slotType);
 	}
 
 	@Override
@@ -139,8 +140,9 @@ public class RMIServer implements RemoteServerInterface, ClientInterface {
 	}
 
 	@Override
-	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications) throws IOException {
-		remoteClient.initializeGameBoard(playersUsername, playerColors, excommunications);
+	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications,
+			BoardConfiguration boardConfiguration) throws IOException {
+		remoteClient.initializeGameBoard(playersUsername, playerColors, excommunications, boardConfiguration);
 	}
 
 	@Override
@@ -170,7 +172,7 @@ public class RMIServer implements RemoteServerInterface, ClientInterface {
 
 	@Override
 	public void showFinalScore(String[] playersUsername, PlayerColor[] playerColors, int[] scores) throws IOException {
-		remoteClient.showFinalScore(playersUsername, playerColors, scores);		
+		remoteClient.showFinalScore(playersUsername, playerColors, scores);
 	}
 
 }

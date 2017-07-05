@@ -7,6 +7,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
+import it.polimi.ingsw.LM45.config.BoardConfiguration;
 import it.polimi.ingsw.LM45.exceptions.GameException;
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
@@ -28,14 +29,14 @@ public class RMIClient implements RemoteClientInterface, ServerInterface {
 
 	public RMIClient(String host, ClientController clientController) throws RemoteException, NotBoundException {
 		this.clientController = clientController;
-		
+
 		Registry registry = LocateRegistry.getRegistry(host);
 		remoteServer = ((RMIRemoteFactory) registry.lookup("RMIFactory"))
 				.getServerInterface((RemoteClientInterface) UnicastRemoteObject.exportObject(this, 0));
 	}
-	
-	public void stop(){
-		System.out.println("Shutting down RMIClient");		
+
+	public void stop() {
+		System.out.println("Shutting down RMIClient");
 	}
 
 	@Override
@@ -134,8 +135,9 @@ public class RMIClient implements RemoteClientInterface, ServerInterface {
 	}
 
 	@Override
-	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications) throws IOException {
-		clientController.initializeGameBoard(playersUsername, playerColors, excommunications);
+	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications,
+			BoardConfiguration boardConfiguration) throws IOException {
+		clientController.initializeGameBoard(playersUsername, playerColors, excommunications, boardConfiguration);
 	}
 
 	@Override
@@ -150,7 +152,7 @@ public class RMIClient implements RemoteClientInterface, ServerInterface {
 
 	@Override
 	public void activateLeaderCard(String username, LeaderCard leader) throws IOException {
-		clientController.activateLeaderCard(username, leader);		
+		clientController.activateLeaderCard(username, leader);
 	}
 
 	@Override
@@ -165,7 +167,7 @@ public class RMIClient implements RemoteClientInterface, ServerInterface {
 
 	@Override
 	public void showFinalScore(String[] playersUsername, PlayerColor[] playerColors, int[] scores) throws IOException {
-		clientController.showFinalScore(playersUsername, playerColors, scores);		
+		clientController.showFinalScore(playersUsername, playerColors, scores);
 	}
-	
+
 }

@@ -9,6 +9,7 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.locks.ReentrantLock;
 
+import it.polimi.ingsw.LM45.config.BoardConfiguration;
 import it.polimi.ingsw.LM45.exceptions.GameException;
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
@@ -308,7 +309,8 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 	}
 
 	@Override
-	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications) throws IOException {
+	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications,
+			BoardConfiguration boardConfiguration) throws IOException {
 		outStream.writeObject(ClientMessages.INIT_GAMEBOARD);
 		outStream.writeObject(playersUsername);
 		outStream.writeObject(playerColors);

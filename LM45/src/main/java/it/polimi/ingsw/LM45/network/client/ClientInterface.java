@@ -2,6 +2,7 @@ package it.polimi.ingsw.LM45.network.client;
 
 import java.io.IOException;
 
+import it.polimi.ingsw.LM45.config.BoardConfiguration;
 import it.polimi.ingsw.LM45.exceptions.GameException;
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
@@ -30,7 +31,8 @@ public interface ClientInterface {
 		setResources(new Resource[]{ resource }, username);
 	}
 	public void setPersonalBonusTile(String username, PersonalBonusTile personalBonusTile) throws IOException;
-	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications) throws IOException;
+	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications,
+			BoardConfiguration boardConfiguration) throws IOException;
 	public void placeExcommunicationToken(PlayerColor playerColor, PeriodType periodType) throws IOException;
 	public void playLeaderCard(String username, LeaderCard leader) throws IOException;
 	public void activateLeaderCard(String username, LeaderCard leader) throws IOException;

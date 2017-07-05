@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import it.polimi.ingsw.LM45.config.BoardConfiguration;
 import it.polimi.ingsw.LM45.exceptions.GameException;
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
@@ -147,7 +148,8 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 				String[] playersUsername = (String[]) inStream.readObject();
 				PlayerColor[] playerColors = (PlayerColor[]) inStream.readObject();
 				Excommunication[] excommunications = (Excommunication[]) inStream.readObject();
-				performAsync(() -> initializeGameBoard(playersUsername, playerColors, excommunications));
+				BoardConfiguration boardConfiguration = (BoardConfiguration) inStream.readObject();
+				performAsync(() -> initializeGameBoard(playersUsername, playerColors, excommunications, boardConfiguration));
 				break;
 			case PLACE_EXCOM:
 				playerColor = (PlayerColor) inStream.readObject();
@@ -307,8 +309,9 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 	}
 
 	@Override
-	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications) throws IOException {
-		clientController.initializeGameBoard(playersUsername, playerColors, excommunications);
+	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications,
+			BoardConfiguration boardConfiguration) throws IOException {
+		clientController.initializeGameBoard(playersUsername, playerColors, excommunications, boardConfiguration);
 	}
 
 	@Override
@@ -338,7 +341,7 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 
 	@Override
 	public void showFinalScore(String[] playersUsername, PlayerColor[] playerColors, int[] scores) throws IOException {
-		clientController.showFinalScore(playersUsername, playerColors, scores);		
+		clientController.showFinalScore(playersUsername, playerColors, scores);
 	}
 
 }
