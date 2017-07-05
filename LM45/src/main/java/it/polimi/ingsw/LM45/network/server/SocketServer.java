@@ -315,6 +315,7 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 		outStream.writeObject(playersUsername);
 		outStream.writeObject(playerColors);
 		outStream.writeObject(excommunications);
+		outStream.writeObject(boardConfiguration);
 	}
 
 	@Override
