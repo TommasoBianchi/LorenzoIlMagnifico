@@ -71,12 +71,12 @@ public class GameBoardController {
 	private ClientController clientController;
 	private Map<String, PersonalBoardController> usersPersonalBoards = new HashMap<>();
 	private Set<String> coveredSlotsIDs;
+	// Pair<Integer,Integer> refers to the position of the token player inside the excommunication Grid
 	private Map<PlayerColor, Pair<Integer, Integer>> playerExcommunicationPosition = new EnumMap<>(PlayerColor.class);
-	// Map<PlayerColor, String PlayerName
+	// Map<PlayerColor, String PlayerName>
 	private Map<PlayerColor, String> playerColorName = new HashMap<>();
 	// Map<String cardName, String towerslotID>
 	private Map<String, String> cardPosition = new HashMap<>();
-	private boolean isMyTurn = false;
 
 	private FamiliarColor selectedFamiliarColor = null;
 	private boolean familiarSelected = false;
@@ -250,7 +250,7 @@ public class GameBoardController {
 			usersPersonalBoards.get(playerColorName.get(playerColor)).familiarUsed(familiarColor);
 			if (playerColorName.get(playerColor).equals(myUsername)) {
 				familiarUsed(familiarColor);
-				endTurnButton.setDisable(!isMyTurn);
+				endTurnButton.setDisable(false);
 				familiarPane.setDisable(true);
 				if(selectedFamiliarColor != FamiliarColor.BONUS)
 					familiarSelected = false;
@@ -308,14 +308,12 @@ public class GameBoardController {
 		familiarPane.setDisable(true);
 		setSlotsDisabled(true);
 		endTurnButton.setDisable(true);
-		isMyTurn = false;
 	}
 
 	public void myTurn() {
 		writeInDialogBox("It's my turn!");
 		familiarPane.setDisable(false);
 		setSlotsDisabled(false);
-		isMyTurn = true;
 	}
 
 	public void spendServant(MouseEvent event) {

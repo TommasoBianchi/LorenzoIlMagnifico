@@ -27,8 +27,7 @@ import javafx.stage.StageStyle;
 
 public class GuiController implements ViewInterface {
 
-	// da mettere tutti private quando finiscono i test
-	LobbyController lobbyController;
+	// TODO da mettere tutti private quando finiscono i test
 	LeaderCardChoiceController leaderChoiceController;
 	GameBoardController gameBoardController;
 	ClientController clientController;
@@ -44,10 +43,6 @@ public class GuiController implements ViewInterface {
 			choice = value;
 			choiceLockToken.notifyAll();
 		}
-	}
-
-	public void setLobbyController(LobbyController lobbyController) {
-		this.lobbyController = lobbyController;
 	}
 
 	@Override
