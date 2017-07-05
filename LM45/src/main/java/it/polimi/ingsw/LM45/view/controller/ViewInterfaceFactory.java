@@ -5,13 +5,8 @@ public class ViewInterfaceFactory {
 	private ViewInterfaceFactory() {
 	}
 
-	public static ViewInterface create(ViewType viewType) {
-	
-		return new GuiController();
-		
-		// TODO: implement
-		
-		/*switch (viewType) {
+	public static ViewInterface create(ViewType viewType) {	
+		switch (viewType) {
 			case GUI:
 				return new GuiController();
 			
@@ -20,7 +15,7 @@ public class ViewInterfaceFactory {
 				
 			default:
 				return new GuiController();
-		}*/
+		}
 	}
 
 }
