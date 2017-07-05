@@ -2,6 +2,7 @@ package it.polimi.ingsw.LM45.view.controller;
 
 import java.util.Arrays;
 
+import it.polimi.ingsw.LM45.config.BoardConfiguration;
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
@@ -15,7 +16,6 @@ import it.polimi.ingsw.LM45.network.client.ClientController;
 import it.polimi.ingsw.LM45.view.gui.finalScore.FinalScoreController;
 import it.polimi.ingsw.LM45.view.gui.gameboard.GameBoardController;
 import it.polimi.ingsw.LM45.view.gui.leadercard.LeaderCardChoiceController;
-import it.polimi.ingsw.LM45.view.lobby.LobbyController;
 import javafx.application.Platform;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -52,7 +52,8 @@ public class GuiController implements ViewInterface {
 	}
 
 	@Override
-	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications) {
+	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications,
+			BoardConfiguration boardConfiguration) {
 		Platform.runLater(() -> {
 			gameBoardController = new GameBoardController(playersUsername, playerColors, clientController, excommunications);
 			leaderChoicePhase = false;

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.LM45.view.controller;
 
+import it.polimi.ingsw.LM45.config.BoardConfiguration;
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
@@ -14,17 +15,14 @@ import it.polimi.ingsw.LM45.network.client.ClientController;
 public interface ViewInterface {
 
 	public void showLeaderCardChoiceView();
-	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications);
-	// playerusername ha tutti gli username...myusername lo prendo dal client controller
+	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications,
+			BoardConfiguration boardConfiguration);
 	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor);
-	// do also disableFamiliar() in the GameBoard
 	public void pickCard(Card card, String username);
 	public void addCardsOnTower(Card[] cards, SlotType slotType);
-	//cancel existing cards and sostituisci
 	public void setFamiliar(String username,FamiliarColor color, int value);
 	public void notifyError(String message);
 	public void doBonusAction(SlotType slotType, int value);
-	//dopo action disable slots and on doBonusAction renable
 	public int chooseFrom(String[] alternatives);
 	public void setClientController(ClientController clientController);
 	public void setResources(Resource[] resources, String username);

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.LM45.view.controller;
 
+import it.polimi.ingsw.LM45.config.BoardConfiguration;
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
 import it.polimi.ingsw.LM45.model.cards.LeaderCard;
@@ -28,7 +29,7 @@ public class CliController implements ViewInterface {
 
 	@Override
 	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors,
-			Excommunication[] excommunications) {
+			Excommunication[] excommunications, BoardConfiguration boardConfiguration) {
 		gameBoard = new GameBoardCli(playersUsername, playerColors, excommunications, clientController);
 	}
 

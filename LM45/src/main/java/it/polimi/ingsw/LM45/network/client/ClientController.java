@@ -175,7 +175,7 @@ public class ClientController {
 
 	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications,
 			BoardConfiguration boardConfiguration) {
-		viewInterface.initializeGameBoard(playersUsername, playerColors, excommunications);
+		viewInterface.initializeGameBoard(playersUsername, playerColors, excommunications, boardConfiguration);
 	}
 
 	public void placeExcommunicationToken(PlayerColor playerColor, PeriodType periodType) {
