@@ -10,13 +10,16 @@ import it.polimi.ingsw.LM45.model.core.PlayerColor;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.network.client.ClientController;
+import it.polimi.ingsw.LM45.view.cli.ConsoleReader;
+import it.polimi.ingsw.LM45.view.cli.ConsoleWriter;
+import it.polimi.ingsw.LM45.view.cli.ConsoleWriter.ConsoleColor;
 
 public class CliController implements ViewInterface {
 
 	@Override
 	public void showLeaderCardChoiceView() {
-		System.out.println("Welcome to Lorenzo il Magnifico !\n");
-		System.out.println("--> LeaderCard Choice Phase\n");
+		ConsoleWriter.println("Welcome to Lorenzo il Magnifico !\n", ConsoleColor.RED, ConsoleColor.WHITE);
+		ConsoleWriter.println("-- LeaderCard Choice Phase\n", ConsoleColor.BLUE, ConsoleColor.WHITE);
 	}
 
 	@Override
@@ -64,8 +67,24 @@ public class CliController implements ViewInterface {
 
 	@Override
 	public int chooseFrom(String[] alternatives) {
-		// TODO Auto-generated method stub
-		return 0;
+		ConsoleWriter.println("Choose between: \n", ConsoleColor.CYAN);
+		for (int i = 0; i < alternatives.length; i++) {
+			ConsoleWriter.println((i + 1) + " - " + alternatives[i]);
+		}
+		
+		try {
+			int choice = ConsoleReader.readInt();
+			while(choice <= 0 || choice > alternatives.length){
+				ConsoleWriter.println("Invalid choice", ConsoleColor.RED);
+				choice = ConsoleReader.readInt();			
+			}
+			ConsoleWriter.println("Valid choice", ConsoleColor.GREEN);
+			return choice - 1;
+		}
+		catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
+			return -1;
+		}
 	}
 
 	@Override
