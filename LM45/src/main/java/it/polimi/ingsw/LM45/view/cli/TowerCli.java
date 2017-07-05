@@ -1,8 +1,6 @@
 package it.polimi.ingsw.LM45.view.cli;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import it.polimi.ingsw.LM45.config.BoardConfiguration;
 import it.polimi.ingsw.LM45.model.cards.Card;
@@ -10,7 +8,6 @@ import it.polimi.ingsw.LM45.model.cards.CardType;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.PlayerColor;
 import it.polimi.ingsw.LM45.model.core.Resource;
-import it.polimi.ingsw.LM45.util.Pair;
 
 public class TowerCli {
 
@@ -22,7 +19,7 @@ public class TowerCli {
 		this.slots = new TowerSlotCli[4];
 
 		for (int i = 0; i < slots.length; i++)
-			slots[i] = new TowerSlotCli(boardConfiguration.getSlotBonuses(cardType.toSlotType(), i));
+			slots[i] = new TowerSlotCli(cardType, boardConfiguration.getSlotBonuses(cardType.toSlotType(), i));
 	}
 
 	public void print() {
@@ -56,37 +53,25 @@ public class TowerCli {
 		Arrays.stream(slots).forEach(TowerSlotCli::clearFamiliars);
 	}
 
-	private class TowerSlotCli {
+	private class TowerSlotCli extends SlotCli {
 
 		private Card card;
-		private List<Pair<FamiliarColor, PlayerColor>> familiars;
-		private Resource[] immediateResources;
 
-		public TowerSlotCli(Resource[] immediateResources) {
+		public TowerSlotCli(CardType cardType, Resource[] immediateResources) {
+			super(cardType.toSlotType(), immediateResources);
 			this.card = null;
-			this.familiars = new ArrayList<>();
-			this.immediateResources = immediateResources.clone();
 		}
 
+		@Override
 		public void print() {
+			super.print();
+			
+			ConsoleWriter.println("");
+			
 			if (card == null)
 				ConsoleWriter.println("No card on this slot");
 			else
-				ConsoleWriter.println(card.toString());
-
-			if (immediateResources.length > 0){
-				ConsoleWriter.println("");
-				ConsoleWriter.println("If you place a familiar on this slot you will receive "
-						+ Arrays.stream(immediateResources).map(Resource::toString).reduce("", (a, b) -> a + " " + b));
-			}
-
-			ConsoleWriter.println("");
-
-			if (familiars.size() > 0)
-				ConsoleWriter.println("Familiars: "
-						+ familiars.stream().map(pair -> "familiar " + pair._1() + " by player " + pair._2()).reduce("", (a, b) -> a + " " + b));
-			else
-				ConsoleWriter.println("No familiars on this slot");
+				ConsoleWriter.println("Card: " + card.toString());
 		}
 
 		public void setCard(Card card) {
@@ -95,14 +80,6 @@ public class TowerCli {
 
 		public Card getCard() {
 			return this.card;
-		}
-
-		public void placeFamiliar(FamiliarColor familiarColor, PlayerColor playerColor) {
-			this.familiars.add(new Pair<FamiliarColor, PlayerColor>(familiarColor, playerColor));
-		}
-
-		public void clearFamiliars() {
-			this.familiars.clear();
 		}
 
 	}

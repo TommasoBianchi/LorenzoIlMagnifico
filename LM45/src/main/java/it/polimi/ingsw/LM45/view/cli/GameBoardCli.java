@@ -1,5 +1,6 @@
 package it.polimi.ingsw.LM45.view.cli;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,7 @@ public class GameBoardCli {
 	private Map<PlayerColor, String> playerColorName;
 
 	private Map<SlotType, TowerCli> towers;
+	private List<SlotCli> otherSlots;
 	private Excommunication[] excommunications;
 	private String currentPlayer;
 
@@ -44,6 +46,22 @@ public class GameBoardCli {
 
 		for (CardType cardType : new CardType[] { CardType.TERRITORY, CardType.CHARACTER, CardType.BUILDING, CardType.VENTURE })
 			towers.put(cardType.toSlotType(), new TowerCli(cardType, boardConfiguration));
+
+		this.otherSlots = new ArrayList<>();
+
+		otherSlots.add(new SlotCli(SlotType.COUNCIL, boardConfiguration.getSlotBonuses(SlotType.COUNCIL, 0)));
+		otherSlots.add(new SlotCli(SlotType.MARKET, boardConfiguration.getSlotBonuses(SlotType.MARKET, 0)));
+		otherSlots.add(new SlotCli(SlotType.MARKET, boardConfiguration.getSlotBonuses(SlotType.MARKET, 1)));
+		if (playersUsername.length > 3) {
+			otherSlots.add(new SlotCli(SlotType.MARKET, boardConfiguration.getSlotBonuses(SlotType.MARKET, 2)));
+			otherSlots.add(new SlotCli(SlotType.MARKET, boardConfiguration.getSlotBonuses(SlotType.MARKET, 3)));
+		}
+		otherSlots.add(new SlotCli(SlotType.PRODUCTION, boardConfiguration.getSlotBonuses(SlotType.PRODUCTION, 0)));
+		otherSlots.add(new SlotCli(SlotType.HARVEST, boardConfiguration.getSlotBonuses(SlotType.HARVEST, 0)));
+		if (playersUsername.length > 2) {
+			otherSlots.add(new SlotCli(SlotType.PRODUCTION, boardConfiguration.getSlotBonuses(SlotType.PRODUCTION, 1)));
+			otherSlots.add(new SlotCli(SlotType.HARVEST, boardConfiguration.getSlotBonuses(SlotType.HARVEST, 1)));
+		}
 	}
 
 	public void showMain() {
@@ -63,7 +81,12 @@ public class GameBoardCli {
 	}
 
 	public void showOtherSlots() {
-
+		printTitle("Other slots");
+		otherSlots.stream().forEach(slot -> {
+			slot.print();
+			ConsoleWriter.println("");
+		});
+		GameBoardCliOptions.navigate(Stage.OTHER_SLOTS, this);
 	}
 
 	public void showPersonalBoards() {

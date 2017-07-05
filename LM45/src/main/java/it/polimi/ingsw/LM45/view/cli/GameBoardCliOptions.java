@@ -15,7 +15,8 @@ public class GameBoardCliOptions {
 	public enum Stage {
 		MAIN,
 		TOWERS,
-		SINGLE_TOWER
+		SINGLE_TOWER,
+		OTHER_SLOTS
 	}
 	
 	private static Map<Stage, List<Pair<Consumer<GameBoardCli>, String>>> allOptions;
@@ -37,6 +38,10 @@ public class GameBoardCliOptions {
 		
 		allOptions.put(Stage.SINGLE_TOWER, Arrays.asList(
 				new Pair<Consumer<GameBoardCli>, String>(GameBoardCli::showTowers, "Back"))
+		);
+		
+		allOptions.put(Stage.OTHER_SLOTS, Arrays.asList(
+				new Pair<Consumer<GameBoardCli>, String>(GameBoardCli::showMain, "Back"))
 		);
 	}
 	
