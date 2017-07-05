@@ -1,5 +1,6 @@
 package it.polimi.ingsw.LM45.config;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -9,7 +10,9 @@ import java.util.Map.Entry;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 
-public class BoardConfiguration implements Configuration {
+public class BoardConfiguration implements Configuration, Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private class SlotConfiguration {
 
