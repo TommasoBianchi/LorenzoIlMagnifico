@@ -57,8 +57,7 @@ public class GameBoardCliOptions {
 		}
 		catch (InterruptedException e) {
 			// TODO think about this
-			e.printStackTrace();
-			gameBoard.showMain();
+			System.err.println(e.getMessage());
 		}
 	}
 	
