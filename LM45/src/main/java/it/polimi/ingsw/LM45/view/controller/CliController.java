@@ -23,8 +23,14 @@ public class CliController implements ViewInterface {
 
 	@Override
 	public void showLeaderCardChoiceView() {
-		ConsoleWriter.println("Welcome to Lorenzo il Magnifico !\n", ConsoleColor.RED, ConsoleColor.WHITE);
-		ConsoleWriter.println("-- LeaderCard Choice Phase\n", ConsoleColor.BLUE, ConsoleColor.WHITE);
+		ConsoleWriter.println("#     # ###### #       ####   #####  #     # ######    #######  #####     #       #####  ######  ###### #    # ######  #####     ### #         #     #    #     ####   #    # ### ###### ###  ####   #####\n"+ 
+				              "#  #  # #      #      #    # #     # ##   ## #            #    #     #    #      #     # #     # #      ##   #     ## #     #     #  #         ##   ##   # #   #    #  ##   #  #  #       #  #    # #     #\n"+
+				              "#  #  # #      #      #      #     # ### ### #            #    #     #    #      #     # #     # #      ###  #    ##  #     #     #  #         ### ###  #   #  #       ###  #  #  #       #  #      #     #\n"+
+				              "#  #  # ####   #      #      #     # # ### # ####         #    #     #    #      #     # ######  ####   # ## #   ##   #     #     #  #         # ### # #     # #   ### # ## #  #  ####    #  #      #     #\n"+
+				              "#  #  # #      #      #      #     # #     # #            #    #     #    #      #     # #   #   #      #  ###  ##    #     #     #  #         #     # ####### #    #  #  ###  #  #       #  #      #     #\n"+
+				              "#  #  # #      #      #    # #     # #     # #            #    #     #    #      #     # #    #  #      #   ## ##     #     #     #  #         #     # #     # #    #  #   ##  #  #       #  #    # #     #\n"+
+				              " ## ##  ###### ######  ####   #####  #     # ######       #     #####     ######  #####  #     # ###### #    # ######  #####     ### ######    #     # #     #  ####   #    # ### #      ###  ####   ##### ", ConsoleColor.WHITE);
+		ConsoleWriter.printCommand("\n\n\n-- LeaderCard Choice Phase --");
 	}
 
 	@Override
@@ -35,8 +41,7 @@ public class CliController implements ViewInterface {
 
 	@Override
 	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor) {
-		// TODO Auto-generated method stub
-
+		gameBoard.addFamiliar(slotType, position, familiarColor, playerColor);
 	}
 
 	@Override
@@ -50,37 +55,36 @@ public class CliController implements ViewInterface {
 	}
 
 	@Override
-	public void setFamiliar(String username, FamiliarColor color, int value) {
-		// TODO Auto-generated method stub
-
+	public void setFamiliar(String username, FamiliarColor familiarColor, int value) {
+		gameBoard.setFamiliarValue(username, familiarColor, value);
 	}
 
 	@Override
 	public void notifyError(String message) {
-		// TODO Auto-generated method stub
-
+		ConsoleWriter.println("");
+		ConsoleWriter.printError(message);
 	}
 
 	@Override
 	public void doBonusAction(SlotType slotType, int value) {
-		// TODO Auto-generated method stub
-
+		gameBoard.doBonusAction(slotType, value);
 	}
 
 	@Override
 	public int chooseFrom(String[] alternatives) {
-		ConsoleWriter.println("Choose between: \n", ConsoleColor.CYAN);
+		ConsoleWriter.println("");
+		ConsoleWriter.printChoice("Choose between : ");
 		for (int i = 0; i < alternatives.length; i++) {
-			ConsoleWriter.println((i + 1) + " - " + alternatives[i]);
+			ConsoleWriter.printChoice((i + 1) + " - " + alternatives[i]);
 		}
 		
 		try {
 			int choice = ConsoleReader.readInt();
 			while(choice <= 0 || choice > alternatives.length){
-				ConsoleWriter.println("Invalid choice", ConsoleColor.RED);
+				ConsoleWriter.printError("Invalid choice !");
 				choice = ConsoleReader.readInt();			
 			}
-			ConsoleWriter.println("Valid choice", ConsoleColor.GREEN);
+			ConsoleWriter.printValidInput("Valid choice !");
 			return choice - 1;
 		}
 		catch (InterruptedException e) {
@@ -96,7 +100,7 @@ public class CliController implements ViewInterface {
 
 	@Override
 	public void setResources(Resource[] resources, String username) {
-		// TODO Auto-generated method stub
+		gameBoard.setResources(resources, username);
 
 	}
 
