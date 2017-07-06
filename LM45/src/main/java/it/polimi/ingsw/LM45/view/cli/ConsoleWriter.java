@@ -43,11 +43,31 @@ public class ConsoleWriter {
 	}
 	
 	public static void println(String message, ConsoleColor color){
-		println(message, color, ConsoleColor.NONE);
+		println(message, color, ConsoleColor.BLACK);
 	}
 	
 	public static void println(String message){
 		println(message, ConsoleColor.NONE);
+	}
+	
+	public static void printCommand(String message) {
+		println(message, ConsoleColor.CYAN);
+	}
+	
+	public static void printShowInfo(String message) {
+		println(message, ConsoleColor.YELLOW);
+	}
+	
+	public static void printError(String message) {
+		println(message, ConsoleColor.RED);
+	}
+	
+	public static void printValidInput(String message) {
+		println(message, ConsoleColor.GREEN);
+	}
+	
+	public static void printChoice(String message) {
+		println(message, ConsoleColor.WHITE);
 	}
 
 }
