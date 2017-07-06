@@ -23,6 +23,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class GuiController implements ViewInterface {
@@ -32,6 +33,8 @@ public class GuiController implements ViewInterface {
 	GameBoardController gameBoardController;
 	ClientController clientController;
 	FinalScoreController finalController;
+	
+	private Stage currentStage;
 
 	private int choice = -1;
 	private Object choiceLockToken = new Object();
@@ -48,6 +51,7 @@ public class GuiController implements ViewInterface {
 	@Override
 	public void showLeaderCardChoiceView() {
 		leaderChoiceController = new LeaderCardChoiceController();
+		currentStage = leaderChoiceController.getStage();
 		leaderChoiceController.setGuiController(this);
 	}
 
@@ -56,6 +60,7 @@ public class GuiController implements ViewInterface {
 			BoardConfiguration boardConfiguration) {
 		Platform.runLater(() -> {
 			gameBoardController = new GameBoardController(playersUsername, playerColors, clientController, excommunications);
+			currentStage = gameBoardController.getStage();
 			leaderChoicePhase = false;
 			leaderChoiceController.close();
 		});
@@ -74,6 +79,8 @@ public class GuiController implements ViewInterface {
 					choiceDialog.close();
 
 				choiceDialog = new Dialog<>();
+				if(currentStage != null)
+					choiceDialog.initOwner(currentStage);
 				choiceDialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
 				GridPane root = new GridPane();
 				HBox box = new HBox(alternatives.length);
@@ -88,9 +95,11 @@ public class GuiController implements ViewInterface {
 				}
 				root.add(box, 0, 0);
 				choiceDialog.getDialogPane().setContent(root);
-				choiceDialog.setTitle("Personal Bonus Tiles");
+				choiceDialog.setTitle("Choose between this elements");
 				choiceDialog.initStyle(StageStyle.UNDECORATED);
+				System.err.println("Choice prompted");
 				choiceDialog.showAndWait();
+				System.err.println("Choice done");
 				setChoice(group.getToggles().indexOf(group.getSelectedToggle()));
 			});
 		}
