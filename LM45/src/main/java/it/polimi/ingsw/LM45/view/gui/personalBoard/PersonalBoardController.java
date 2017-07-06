@@ -76,8 +76,12 @@ public class PersonalBoardController {
 
 	private Map<CardType, FlowPane> cardFlowPanes = new EnumMap<>(CardType.class);
 	private Map<ResourceType, Text> resourceTexts = new EnumMap<>(ResourceType.class);
-	private List<LeaderCard> leaders = new ArrayList<LeaderCard>();
 
+	/**
+	 * @param stage stage od the PersonalBoard
+	 * @param username the name of the PersonalBoard's player
+	 * @param clienteController the Client Controller
+	 */
 	public PersonalBoardController(Stage stage, String username, ClientController clienteController) {
 		this.stage = stage;
 		this.clientController = clienteController;
@@ -113,6 +117,10 @@ public class PersonalBoardController {
 		resourceTexts.put(ResourceType.FAITH, faithPointsText);
 	}
 
+	/**
+	 * @param cardView the Image of the Card to add
+	 * @param cardType the CardType of the Card to add
+	 */
 	public void addCard(Image cardView, CardType cardType) {
 		ImageView card = new ImageView(cardView);
 		card.setFitWidth(90);
@@ -138,6 +146,12 @@ public class PersonalBoardController {
 		}
 	}
 
+	/**
+	 * Changes Image's size when player press mouse button over an image
+	 * so it looks like a zoom effect
+	 * 
+	 * @param event when player press mouse button over an image
+	 */
 	public void zoomImage(MouseEvent event) {
 		ImageView image = (ImageView) event.getSource();
 		image.setScaleX(2);
@@ -147,6 +161,11 @@ public class PersonalBoardController {
 		image.setTranslateY(-50);
 	}
 
+	/**
+	 * Reset the Image size when mouse button is released after a zoom effect
+	 * 
+	 * @param event when player releases mouse button after zoomImage's event
+	 */
 	public void resetZoomImage(MouseEvent event) {
 		ImageView image = (ImageView) event.getSource();
 		image.setScaleX(1);
@@ -155,17 +174,29 @@ public class PersonalBoardController {
 		image.setTranslateY(0);
 	}
 
+	/**
+	 * @param resource the resource to modify in the PersonalBoard
+	 */
 	public void setResource(Resource resource) {
 		if (resourceTexts.containsKey(resource.getResourceType())) {
 			resourceTexts.get(resource.getResourceType()).setText(Integer.toString(resource.getAmount()));
 		}
 	}
 
+	/**
+	 * @param color the color of the familiar
+	 * @param value the new value of the familiar
+	 */
 	public void setFamiliarValue(FamiliarColor color, int value) {
 		Label familiarValue = (Label) stage.getScene().lookup("#VALUE" + color.toString());
 		familiarValue.setText(Integer.toString(value));
 	}
 
+	/**
+	 * Sets the images of the Familiars using playerColor to build the Path's String
+	 * 
+	 * @param playerColor the color of the player
+	 */
 	public void setFamiliarsColors(PlayerColor playerColor) {
 		for (FamiliarColor familiarColor : new FamiliarColor[] { FamiliarColor.BLACK, FamiliarColor.ORANGE,
 				FamiliarColor.UNCOLORED, FamiliarColor.WHITE }) {
@@ -174,6 +205,11 @@ public class PersonalBoardController {
 		}
 	}
 
+	/**
+	 * Hides familiar's Image to show that familiar is already used
+	 * 
+	 * @param familiarColor the color of the familiar
+	 */
 	public void familiarUsed(FamiliarColor familiarColor) {
 		ImageView familiarView = (ImageView) stage.getScene().lookup("#FAMILIAR" + familiarColor);
 		familiarView.setOpacity(0);
@@ -181,6 +217,9 @@ public class PersonalBoardController {
 		familiarValue.setOpacity(0);
 	}
 
+	/**
+	 * Shows up again all hidden familiars and their values resetting their opacity
+	 */
 	public void showFamiliars() {
 		for (FamiliarColor familiarColor : new FamiliarColor[] { FamiliarColor.BLACK, FamiliarColor.ORANGE,
 				FamiliarColor.UNCOLORED, FamiliarColor.WHITE }) {
@@ -192,6 +231,12 @@ public class PersonalBoardController {
 		}
 	}
 
+	/**
+	 * Takes an array of leaderCards and puts them in the "HAND" ImageViews
+	 * and enables play and discard buttons
+	 * 
+	 * @param leaderCard an array of leader Cards to set
+	 */
 	public void setLeaderCards(LeaderCard[] leaderCard) {
 		String path = "/Image/Cards/LEADER/";
 		for (int i = 0; i < 4; i++) {
@@ -209,24 +254,36 @@ public class PersonalBoardController {
 		}
 	}
 
+	/**
+	 * @param event when Play button is clicked
+	 */
 	public void playLeader(Event event) {
 		Button button = (Button) event.getSource();
 		String leaderName = button.getId().substring(4);
 		clientController.playLeaderCard(leaderName.replaceAll("_", " "));
 	}
 
+	/**
+	 * @param event when Discard button is clicked
+	 */
 	public void discardLeader(Event event) {
 		Button button = (Button) event.getSource();
 		String leaderName = button.getId().substring(7);
 		clientController.discardLeaderCard(leaderName.replaceAll("_", " "));
 	}
 
+	/**
+	 * @param event when Activate button is clicked
+	 */
 	public void activateLeader(Event event) {
 		Button button = (Button) event.getSource();
 		String leaderName = button.getId().substring(8);
 		clientController.activateLeaderCard(leaderName.replaceAll("_", " "));
 	}
 
+	/**
+	 * @param leader the leader to discard
+	 */
 	public void discardLeaderCard(LeaderCard leader) {
 		if (stage.getScene().lookup("#HAND" + leader.getName().replaceAll(" ", "_")) != null) {
 			eliminateCardFromHand(leader.getName());
@@ -235,6 +292,10 @@ public class PersonalBoardController {
 		}
 	}
 
+	/**
+	 * @param id string that represents part of the id i want to find
+	 * @return the position of the first unused element with that id
+	 */
 	public int findFirstFreeId(String id) {
 		for (int i = 0; i < 4; i++) {
 			if (stage.getScene().lookup("#" + id + i) != null)
@@ -243,6 +304,9 @@ public class PersonalBoardController {
 		return -1;
 	}
 
+	/**
+	 * Discards the first Covered LeaderCard in hand
+	 */
 	private void eliminateFirstCover() {
 		int i = findFirstFreeId("HAND");
 		if (i != -1) {
@@ -253,6 +317,12 @@ public class PersonalBoardController {
 		}
 	}
 
+	/**
+	 * Finds the leader's image, play and discard buttons thanks to leader's name
+	 * and hides and disables them
+	 * 
+	 * @param leaderName the name of the leader to eliminate
+	 */
 	private void eliminateCardFromHand(String leaderName) {
 		ImageView leaderView = (ImageView) stage.getScene().lookup("#HAND" + leaderName.replaceAll(" ", "_"));
 		leaderView.setImage(null);
@@ -268,6 +338,14 @@ public class PersonalBoardController {
 		discard.setOpacity(0);
 	}
 
+	/**
+	 * Creates a leader's image and puts it on the field and if activateActivateButton is true
+	 * means that this is my PersonalBoard so it also enables the Button that let's me
+	 * to activate that leader card
+	 * 
+	 * @param leaderName name of the leader to put in the field
+	 * @param activateActivateButton a boolean : TRUE to activate "Activate" button
+	 */
 	private void putLeaderCardInField(String leaderName, boolean activateActivateButton) {
 		int i = findFirstFreeId("FIELD");
 		if (i != -1) {
@@ -286,6 +364,9 @@ public class PersonalBoardController {
 		}
 	}
 
+	/**
+	 * @param leader leader card to play
+	 */
 	public void playLeaderCard(LeaderCard leader) {
 		if (stage.getScene().lookup("#HAND" + leader.getName().replaceAll(" ", "_")) != null) {
 			putLeaderCardInField(leader.getName(), true);
@@ -296,9 +377,13 @@ public class PersonalBoardController {
 		}
 	}
 
+	/**
+	 * It shows this text next to the activated leader card "Active !"
+	 * 
+	 * @param leader leader card to activate
+	 */
 	public void activateLeaderCard(LeaderCard leader) {
 		if (stage.getScene().lookup("#FIELD" + leader.getName().replaceAll(" ", "_")) != null) {
-			leaders.add(leader);
 			Label activeLabel = (Label) stage.getScene().lookup("#ACTIVELABEL" + leader.getName().replaceAll(" ", "_"));
 			activeLabel.setOpacity(1);
 			Button activate = (Button) stage.getScene().lookup("#ACTIVATE" + leader.getName().replaceAll(" ", "_"));
@@ -308,6 +393,12 @@ public class PersonalBoardController {
 		}
 	}
 	
+	/**
+	 * It means that leader card is not more active so it hides the "Active !" text
+	 * and shows again the Activate Button
+	 * 
+	 * @param leader leader card to enable
+	 */
 	public void enableLeaderCard(LeaderCard leader) {
 		if (stage.getScene().lookup("#FIELD" + leader.getName().replaceAll(" ", "_")) != null) {
 			Label activeLabel = (Label) stage.getScene().lookup("#ACTIVELABEL" + leader.getName().replaceAll(" ", "_"));
@@ -319,6 +410,10 @@ public class PersonalBoardController {
 		}
 	}
 
+	/**
+	 * @param productionBonus bonus resources that player gains when produces
+	 * @param harvestBonus bonus resources that player gains when harvest
+	 */
 	public void setPersonalBonusTile(Resource[] productionBonus, Resource[] harvestBonus) {
 		productionGrid.setOpacity(1);
 		for (int i = 0; i < 2; i++) {
@@ -338,6 +433,9 @@ public class PersonalBoardController {
 		}
 	}
 
+	/**
+	 * @return the stage of this PersonalBoard
+	 */
 	public Stage getStage() {
 		return stage;
 	}
