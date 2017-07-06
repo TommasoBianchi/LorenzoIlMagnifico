@@ -154,7 +154,7 @@ public class CliController implements ViewInterface {
 
 	@Override
 	public void placeExcommunicationToken(PlayerColor playerColor, PeriodType periodType) {
-		// TODO Auto-generated method stub
+		gameBoard.placeExcommunicationToken(playerColor, periodType);
 
 	}
 
