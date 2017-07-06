@@ -56,8 +56,11 @@ public class GameBoardCliOptions {
 			ConsoleReader.readOption(options, true).accept(gameBoard);
 		}
 		catch (InterruptedException e) {
-			// TODO think about this
-			System.err.println(e.getMessage());
+			// We can arrive here for two reasons:
+			// 1. the server sent us a message like "hey dude, it is you turn now" and we decided to abort
+			// 	  whatever menu we were in and to prompt a new decision from the main menu
+			// 2. something TERRIBLY wrong has appened and our thread are burning orribly
+			// Hope the second one never happens
 		}
 	}
 	
