@@ -63,6 +63,7 @@ public class CliController implements ViewInterface {
 	public void notifyError(String message) {
 		ConsoleWriter.println("");
 		ConsoleWriter.printError(message);
+		gameBoard.showMain();
 	}
 
 	@Override

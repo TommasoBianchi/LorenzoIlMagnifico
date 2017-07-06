@@ -34,6 +34,7 @@ public class GameBoardCli {
 	private Map<SlotType, SlotCli[]> otherSlots;
 	private Excommunication[] excommunications;
 	private String currentPlayer;
+	private boolean familiarPlacedThisTurn = false;
 
 	public GameBoardCli(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications,
 			BoardConfiguration boardConfiguration, ClientController clientController) {
@@ -85,7 +86,10 @@ public class GameBoardCli {
 
 	public void showMain() {
 		printTitle("GameBoard");
-		GameBoardCliOptions.navigate(Stage.MAIN, this);
+		if(familiarPlacedThisTurn)
+			GameBoardCliOptions.navigate(Stage.MAIN, this, Arrays.asList(new Pair<Consumer<GameBoardCli>, String>(GameBoardCli::endTurn, "End turn")));
+		else
+			GameBoardCliOptions.navigate(Stage.MAIN, this);
 	}
 
 	public void showTowers() {
@@ -146,6 +150,7 @@ public class GameBoardCli {
 	}
 
 	public void placeFamiliar(SlotCli slot, Consumer<GameBoardCli> backCallback) {
+		ConsoleWriter.println("");
 		ConsoleWriter.printChoice("What familiar do you want to place?");
 		List<Pair<Consumer<GameBoardCli>, String>> options = usersPersonalBoards.get(myUsername).getUsableFamiliars().stream()
 				.map(pair -> new Pair<Consumer<GameBoardCli>, String>(gameBoard -> gameBoard.placeFamiliar(pair._1(), slot),
@@ -157,10 +162,10 @@ public class GameBoardCli {
 
 	public void placeFamiliar(FamiliarColor familiarColor, SlotCli slot) {
 		clientController.placeFamiliar(familiarColor, slot.getSlotType(), slot.getID());
-		showMain();
 	}
 
 	public void myTurn() {
+		familiarPlacedThisTurn = false;
 		currentPlayer = myUsername;
 		showMain();
 	}
@@ -223,6 +228,13 @@ public class GameBoardCli {
 			otherSlots.get(slotType)[position].placeFamiliar(familiarColor, playerColor);
 		}
 		usersPersonalBoards.get(playerColorName.get(playerColor)).setFamiliarUsed(familiarColor);
+		
+		if(playerColorName.get(playerColor).equals(myUsername)){
+			familiarPlacedThisTurn = true;
+			showMain();
+		}
+		else
+			ConsoleWriter.printShowInfo("Player " + playerColor + " has placed the " + familiarColor + " familiar on slot" + slotType + " " + position);
 	}
 
 	public void setServantCost(int cost) {
@@ -240,6 +252,12 @@ public class GameBoardCli {
 	public void placeExcommunicationToken(PlayerColor playerColor, PeriodType periodType) {
 		Excommunication excommunication = excommunications[periodType.ordinal()];
 		playersExcommunications.get(excommunication).add(playerColorName.get(playerColor));
+	}
+	
+	public void endTurn(){
+		familiarPlacedThisTurn = false;
+		clientController.endTurn();
+		showMain();
 	}
 
 	private void printTitle(String title) {

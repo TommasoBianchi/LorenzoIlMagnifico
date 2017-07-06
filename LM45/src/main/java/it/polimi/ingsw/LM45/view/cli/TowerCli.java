@@ -40,11 +40,9 @@ public class TowerCli {
 	}
 
 	public void removeCard(Card card) {
-		System.err.println("Removing card " + card.getName());
 		for (int i = 0; i < slots.length; i++)
 			if (slots[i].getCard() != null && slots[i].getCard().getName().equals(card.getName())) {
 				slots[i].setCard(null);
-				System.err.println("Removed");
 				break;
 			}
 	}
