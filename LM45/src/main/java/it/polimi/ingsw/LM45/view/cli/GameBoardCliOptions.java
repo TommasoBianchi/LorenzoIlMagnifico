@@ -16,7 +16,8 @@ public class GameBoardCliOptions {
 		MAIN,
 		TOWERS,
 		SINGLE_TOWER,
-		OTHER_SLOTS
+		OTHER_SLOTS,
+		EXCOMMUNICATIONS
 	}
 	
 	private static Map<Stage, List<Pair<Consumer<GameBoardCli>, String>>> allOptions;
@@ -27,6 +28,7 @@ public class GameBoardCliOptions {
 		allOptions.put(Stage.MAIN, Arrays.asList(
 				new Pair<Consumer<GameBoardCli>, String>(GameBoardCli::showTowers, "Show towers"),
 				new Pair<Consumer<GameBoardCli>, String>(GameBoardCli::showOtherSlots, "Show other slots"),
+				new Pair<Consumer<GameBoardCli>, String>(GameBoardCli::showExcommunications, "Show excommunications"),
 				new Pair<Consumer<GameBoardCli>, String>(GameBoardCli::showPersonalBoards, "Show personal boards"))
 		);
 		
@@ -41,6 +43,10 @@ public class GameBoardCliOptions {
 		);
 		
 		allOptions.put(Stage.OTHER_SLOTS, Arrays.asList(
+				new Pair<Consumer<GameBoardCli>, String>(GameBoardCli::showMain, "Back"))
+		);
+		
+		allOptions.put(Stage.EXCOMMUNICATIONS, Arrays.asList(
 				new Pair<Consumer<GameBoardCli>, String>(GameBoardCli::showMain, "Back"))
 		);
 	}
