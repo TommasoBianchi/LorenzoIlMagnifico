@@ -7,7 +7,6 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import it.polimi.ingsw.LM45.util.Pair;
-import it.polimi.ingsw.LM45.view.cli.ConsoleWriter.ConsoleColor;
 
 /**
  * This is a synchronized, Thread-safe Singleton to read strings and integers from System.in

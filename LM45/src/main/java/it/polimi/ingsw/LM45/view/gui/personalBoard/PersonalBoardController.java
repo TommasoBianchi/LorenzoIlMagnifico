@@ -1,9 +1,7 @@
 package it.polimi.ingsw.LM45.view.gui.personalBoard;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.EnumMap;
-import java.util.List;
 import java.util.Map;
 
 import it.polimi.ingsw.LM45.model.cards.CardType;
