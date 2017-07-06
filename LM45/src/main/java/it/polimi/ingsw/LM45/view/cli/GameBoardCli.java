@@ -51,7 +51,7 @@ public class GameBoardCli {
 
 		this.excommunications = excommunications.clone();
 
-		for (Excommunication excommunication : excommunications)
+		for (Excommunication excommunication : this.excommunications)
 			this.playersExcommunications.put(excommunication, new ArrayList<>());
 
 		this.towers = new HashMap<>();
@@ -138,7 +138,7 @@ public class GameBoardCli {
 			if (playersExcommunications.get(excommunication).size() > 0) {
 				ConsoleWriter.println("");
 				ConsoleWriter.printShowInfo(
-						"Players that have taken this: " + playersExcommunications.get(excommunication).stream().reduce(String::concat));
+						"Players that have taken this: " + playersExcommunications.get(excommunication).stream().reduce("", String::concat));
 			}
 		}
 		ConsoleWriter.println("--------------------");
