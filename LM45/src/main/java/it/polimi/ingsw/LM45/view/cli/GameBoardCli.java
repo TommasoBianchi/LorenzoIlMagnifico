@@ -9,7 +9,9 @@ import it.polimi.ingsw.LM45.config.BoardConfiguration;
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.CardType;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
+import it.polimi.ingsw.LM45.model.core.FamiliarColor;
 import it.polimi.ingsw.LM45.model.core.PlayerColor;
+import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.network.client.ClientController;
 import it.polimi.ingsw.LM45.view.cli.ConsoleWriter.ConsoleColor;
@@ -37,7 +39,7 @@ public class GameBoardCli {
 		this.playerColorName = new HashMap<>();
 
 		for (int i = 0; i < playersUsername.length; i++) {
-			usersPersonalBoards.put(playersUsername[i], new PersonalBoardCli());
+			usersPersonalBoards.put(playersUsername[i], new PersonalBoardCli(playersUsername[i], playerColors[i], clientController));
 			playerColorName.put(playerColors[i], playersUsername[i]);
 		}
 
@@ -105,14 +107,58 @@ public class GameBoardCli {
 			showMain();
 	}
 
+	/**
+	 * @param card the card that player has picked
+	 * @param username the username of the player who picked the card
+	 */
 	public void pickCard(Card card, String username) {
 		towers.get(card.getCardType()).removeCard(card);
-		// TODO: add card into the correct player's personalBoard
+		usersPersonalBoards.get(username).addCard(card);
 	}
 
+	/**
+	 * @param cards cards to add to the tower
+	 * @param slotType the type of tower : BUILDING, TERRITORY, VENTURE and CHARACTER
+	 */
 	public void addCardsOnTower(Card[] cards, SlotType slotType) {
 		towers.get(slotType).addCards(cards);
 	}
+	
+	/**
+	 * @param resources resources to set
+	 * @param username username of the player to set resources
+	 */
+	public void setResources(Resource[] resources, String username) {
+		usersPersonalBoards.get(username).setResources(resources);
+	}
+	
+	/**
+	 * @param username username of the player
+	 * @param familiarColor color of the familiar
+	 * @param value new value to set to the familiar
+	 */
+	public void setFamiliarValue(String username, FamiliarColor familiarColor, int value) {
+		usersPersonalBoards.get(username).setFamiliarValue(familiarColor, value);
+	}
+	
+	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor) {
+		//TODO addFamiliar if not BONUS color to the correct Slot
+		//TODO set familiar used on personalBoard
+	}
+	
+	public void setServantCost(int cost) {
+		//TODO
+	}
+	
+	public void doAction() {
+		//TODO when select print "Write : familiarColor slotType slotPosition"
+	}
+	
+	public void doBonusAction(SlotType slotType, int value) {
+		//TODO like doAction()
+	}
+	
+	
 
 	private void printTitle(String title) {
 		ConsoleWriter.println("");
