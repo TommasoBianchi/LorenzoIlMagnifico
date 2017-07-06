@@ -6,6 +6,7 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.CardType;
@@ -28,7 +29,7 @@ public class PersonalBoardCli {
 
 	// String is used to save LeaderCard status : HAND, PLAYED or ACTIVE
 	private Map<LeaderCard, String> leaders = new HashMap<>();
-	
+
 	// Boolean is used to save Familiar status : USED = TRUE; while Integer is the Value of the Familiar
 	private Map<FamiliarColor, Pair<Integer, Boolean>> familiars = new EnumMap<>(FamiliarColor.class);
 
@@ -66,15 +67,17 @@ public class PersonalBoardCli {
 	 * Sets all familiars' booleans to False and values to 0
 	 */
 	public void setFamiliarsUnused() {
-		for (FamiliarColor familiarColor : new FamiliarColor[] { FamiliarColor.BLACK, FamiliarColor.ORANGE,
-				FamiliarColor.UNCOLORED, FamiliarColor.WHITE }) {
+		for (FamiliarColor familiarColor : new FamiliarColor[] { FamiliarColor.BLACK, FamiliarColor.ORANGE, FamiliarColor.UNCOLORED,
+				FamiliarColor.WHITE }) {
 			familiars.put(familiarColor, new Pair<Integer, Boolean>(0, false));
 		}
 	}
-	
+
 	/**
-	 * @param familiarColor color of the familiar
-	 * @param value new value of the familiar
+	 * @param familiarColor
+	 *            color of the familiar
+	 * @param value
+	 *            new value of the familiar
 	 */
 	public void setFamiliarValue(FamiliarColor familiarColor, int value) {
 		Boolean status = familiars.get(familiarColor)._2();
@@ -82,14 +85,24 @@ public class PersonalBoardCli {
 	}
 
 	/**
-	 * @param card the Card to add
+	 * @return a list of all the familiars that can be placed with their value
+	 */
+	public List<Pair<FamiliarColor, Integer>> getUsableFamiliars() {
+		return familiars.entrySet().stream().filter(entry -> entry.getValue()._2()).map(entry -> new Pair<>(entry.getKey(), entry.getValue()._1()))
+				.collect(Collectors.toList());
+	}
+
+	/**
+	 * @param card
+	 *            the Card to add
 	 */
 	public void addCard(Card card) {
 		cards.get(card.getCardType()).add(card);
 	}
 
 	/**
-	 * @param resourcesToSet resources to set
+	 * @param resourcesToSet
+	 *            resources to set
 	 */
 	public void setResources(Resource[] resourcesToSet) {
 		Arrays.stream(resourcesToSet).map(resource -> resources.put(resource.getResourceType(), resource.getAmount()));
