@@ -7,6 +7,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import it.polimi.ingsw.LM45.util.Pair;
+import it.polimi.ingsw.LM45.view.cli.ConsoleWriter.ConsoleColor;
 
 /**
  * This is a synchronized, Thread-safe Singleton to read strings and integers from System.in
@@ -67,24 +68,30 @@ public class ConsoleReader implements Runnable {
 				return Integer.parseInt(readLine());
 			}
 			catch (NumberFormatException e) {
-				System.out.println("Input not valid. Please insert a number");
+				ConsoleWriter.printError("Input not valid. Please insert a number !");
 			}
 		}
 	}
 
 	/**
 	 * @param optionsWithDescriptions a list of pairs containing the options and the descriptions to print to the user
+	 * @param isCommand boolean to differentiate commands (printed with WHITE color) and choices (printed with CYAN color)
 	 * @return the chosen option
 	 * @throws InterruptedException if the input is no longer meaningful for this thread because a new one has arrived
 	 */
-	public static <T> T readOption(List<Pair<T, String>> optionsWithDescriptions) throws InterruptedException {
-		for (int i = 0; i < optionsWithDescriptions.size(); i++) {
-			System.out.println((i + 1) + " - " + optionsWithDescriptions.get(i)._2());
-		}
+	public static <T> T readOption(List<Pair<T, String>> optionsWithDescriptions, boolean isCommand) throws InterruptedException {
+		if (isCommand)
+			for (int i = 0; i < optionsWithDescriptions.size(); i++) {
+				ConsoleWriter.printCommand((i + 1) + " - " + optionsWithDescriptions.get(i)._2());
+			}
+		else
+			for (int i = 0; i < optionsWithDescriptions.size(); i++) {
+				ConsoleWriter.printChoice((i + 1) + " - " + optionsWithDescriptions.get(i)._2());
+			}
 
 		int selection = readInt();
 		while (selection <= 0 || selection > optionsWithDescriptions.size()) {
-			System.out.println("Input not valid. Please insert a number between 1 and " + optionsWithDescriptions.size());
+			ConsoleWriter.printError("Input not valid. Please insert a number between 1 and " + optionsWithDescriptions.size() + " !");
 			selection = readInt();
 		}
 
@@ -94,11 +101,12 @@ public class ConsoleReader implements Runnable {
 	/**
 	 * @param options an array containing the options we want to choose from
 	 * @param descriptionsSupplier a function providing a string description given an option
+	 * @param isCommand boolean to differentiate commands (printed with WHITE color) and choices (printed with CYAN color)
 	 * @return the chosen option
 	 * @throws InterruptedException if the input is no longer meaningful for this thread because a new one has arrived
 	 */
-	public static <T> T readOption(T[] options, Function<T, String> descriptionsSupplier) throws InterruptedException {
-		return readOption(Arrays.stream(options).map(option -> new Pair<>(option, descriptionsSupplier.apply(option))).collect(Collectors.toList()));
+	public static <T> T readOption(T[] options, Function<T, String> descriptionsSupplier, boolean isCommand) throws InterruptedException {
+		return readOption(Arrays.stream(options).map(option -> new Pair<>(option, descriptionsSupplier.apply(option))).collect(Collectors.toList()), isCommand);
 	}
 
 	@Override
