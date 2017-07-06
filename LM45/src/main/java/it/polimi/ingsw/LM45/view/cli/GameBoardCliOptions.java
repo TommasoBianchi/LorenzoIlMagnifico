@@ -17,7 +17,9 @@ public class GameBoardCliOptions {
 		TOWERS,
 		SINGLE_TOWER,
 		OTHER_SLOTS,
-		EXCOMMUNICATIONS
+		EXCOMMUNICATIONS,
+		PERSONAL_BOARDS,
+		SINGLE_PERSONAL_BOARD
 	}
 	
 	private static Map<Stage, List<Pair<Consumer<GameBoardCli>, String>>> allOptions;
@@ -48,6 +50,14 @@ public class GameBoardCliOptions {
 		
 		allOptions.put(Stage.EXCOMMUNICATIONS, Arrays.asList(
 				new Pair<Consumer<GameBoardCli>, String>(GameBoardCli::showMain, "Back"))
+		);
+		
+		allOptions.put(Stage.PERSONAL_BOARDS, Arrays.asList(
+				new Pair<Consumer<GameBoardCli>, String>(GameBoardCli::showMain, "Back"))
+		);
+		
+		allOptions.put(Stage.SINGLE_PERSONAL_BOARD, Arrays.asList(
+				new Pair<Consumer<GameBoardCli>, String>(GameBoardCli::showPersonalBoards, "Back"))
 		);
 	}
 	

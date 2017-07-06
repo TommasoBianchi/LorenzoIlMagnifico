@@ -12,8 +12,10 @@ import it.polimi.ingsw.LM45.config.BoardConfiguration;
 import it.polimi.ingsw.LM45.model.cards.Card;
 import it.polimi.ingsw.LM45.model.cards.CardType;
 import it.polimi.ingsw.LM45.model.cards.Excommunication;
+import it.polimi.ingsw.LM45.model.cards.LeaderCard;
 import it.polimi.ingsw.LM45.model.cards.PeriodType;
 import it.polimi.ingsw.LM45.model.core.FamiliarColor;
+import it.polimi.ingsw.LM45.model.core.PersonalBonusTile;
 import it.polimi.ingsw.LM45.model.core.PlayerColor;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.SlotType;
@@ -86,8 +88,9 @@ public class GameBoardCli {
 
 	public void showMain() {
 		printTitle("GameBoard");
-		if(familiarPlacedThisTurn)
-			GameBoardCliOptions.navigate(Stage.MAIN, this, Arrays.asList(new Pair<Consumer<GameBoardCli>, String>(GameBoardCli::endTurn, "End turn")));
+		if (familiarPlacedThisTurn)
+			GameBoardCliOptions.navigate(Stage.MAIN, this,
+					Arrays.asList(new Pair<Consumer<GameBoardCli>, String>(GameBoardCli::endTurn, "End turn")));
 		else
 			GameBoardCliOptions.navigate(Stage.MAIN, this);
 	}
@@ -146,7 +149,28 @@ public class GameBoardCli {
 	}
 
 	public void showPersonalBoards() {
+		printTitle("Personal Boards");
+		GameBoardCliOptions.navigate(Stage.PERSONAL_BOARDS, this,
+				usersPersonalBoards.keySet().stream()
+						.map(username -> new Pair<Consumer<GameBoardCli>, String>(gameBoard -> gameBoard.showPersonalBoard(username),
+								"Show " + username + "'s Personal Board"))
+						.collect(Collectors.toList()));
+	}
 
+	public void showPersonalBoard(String username) {
+		printTitle(username + "'s Personal Board");
+		usersPersonalBoards.get(username).print();
+		List<Pair<Consumer<GameBoardCli>, String>> options = new ArrayList<>();
+		for (CardType cardType : new CardType[] { CardType.TERRITORY, CardType.CHARACTER, CardType.BUILDING, CardType.VENTURE })
+			options.add(new Pair<Consumer<GameBoardCli>, String>(gameBoard -> {
+				usersPersonalBoards.get(username).printCards(cardType);
+				gameBoard.showPersonalBoard(username);
+			}, "Show " + cardType + " cards"));
+		options.add(new Pair<Consumer<GameBoardCli>, String>(gameBoard -> {
+			usersPersonalBoards.get(username).printLeaderCards();
+			gameBoard.showPersonalBoard(username);
+		}, "Show leader cards"));
+		GameBoardCliOptions.navigate(Stage.SINGLE_PERSONAL_BOARD, this, options);
 	}
 
 	public void placeFamiliar(SlotCli slot, Consumer<GameBoardCli> backCallback) {
@@ -228,13 +252,14 @@ public class GameBoardCli {
 			otherSlots.get(slotType)[position].placeFamiliar(familiarColor, playerColor);
 		}
 		usersPersonalBoards.get(playerColorName.get(playerColor)).setFamiliarUsed(familiarColor);
-		
-		if(playerColorName.get(playerColor).equals(myUsername)){
+
+		if (playerColorName.get(playerColor).equals(myUsername)) {
 			familiarPlacedThisTurn = true;
 			showMain();
 		}
 		else
-			ConsoleWriter.printShowInfo("Player " + playerColor + " has placed the " + familiarColor + " familiar on slot" + slotType + " " + position);
+			ConsoleWriter
+					.printShowInfo("Player " + playerColor + " has placed the " + familiarColor + " familiar on slot" + slotType + " " + position);
 	}
 
 	public void setServantCost(int cost) {
@@ -253,8 +278,32 @@ public class GameBoardCli {
 		Excommunication excommunication = excommunications[periodType.ordinal()];
 		playersExcommunications.get(excommunication).add(playerColorName.get(playerColor));
 	}
-	
-	public void endTurn(){
+
+	public void setLeaderCards(LeaderCard[] leaders) {
+		usersPersonalBoards.get(myUsername).setLeaderCards(leaders);
+	}
+
+	public void discardLeaderCard(String username, LeaderCard leader) {
+		usersPersonalBoards.get(username).discardLeaderCard(leader);
+	}
+
+	public void playLeaderCard(String username, LeaderCard leader) {
+		usersPersonalBoards.get(username).playLeaderCard(leader);
+	}
+
+	public void activateLeaderCard(String username, LeaderCard leader) {
+		usersPersonalBoards.get(username).activateLeaderCard(leader);
+	}
+
+	public void enableLeaderCard(String username, LeaderCard leader) {
+		usersPersonalBoards.get(username).enableLeaderCard(leader);
+	}
+
+	public void setPersonalBonusTile(String username, PersonalBonusTile personalBonusTile) {
+		usersPersonalBoards.get(username).setPersonalBonusTile(personalBonusTile);
+	}
+
+	public void endTurn() {
 		familiarPlacedThisTurn = false;
 		clientController.endTurn();
 		showMain();
