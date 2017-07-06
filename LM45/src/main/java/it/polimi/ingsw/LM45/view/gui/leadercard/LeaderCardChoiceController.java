@@ -74,6 +74,10 @@ public class LeaderCardChoiceController {
 			});
 		}
 	}
+	
+	public Stage getStage(){
+		return this.stage;
+	}
 
 	public void setGuiController(GuiController guiController) {
 		this.guiController = guiController;

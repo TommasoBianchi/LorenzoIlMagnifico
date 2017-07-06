@@ -617,7 +617,7 @@ public class ServerController {
 
 	private void churchSupportPhase() {
 		players.forEach((username, player) -> {
-			int faithPointsRequired = PeriodType.I.ordinal() + 3;
+			int faithPointsRequired = 2 + game.getCurrentTurn() / 2; // 2 -> 3, 4 -> 4, 6 -> 5
 			boolean playerCanSupportChurch = player.hasResources(new Resource(ResourceType.FAITH, faithPointsRequired));
 			boolean playerWantsToSupportChurch = true;
 
