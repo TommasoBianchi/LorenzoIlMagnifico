@@ -20,6 +20,7 @@ public class CliController implements ViewInterface {
 	
 	private ClientController clientController;
 	private GameBoardCli gameBoard;
+	private Object gameBoardInitializationToken = new Object();
 
 	@Override
 	public void showLeaderCardChoiceView() {
@@ -36,7 +37,9 @@ public class CliController implements ViewInterface {
 	@Override
 	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors,
 			Excommunication[] excommunications, BoardConfiguration boardConfiguration) {
-		gameBoard = new GameBoardCli(playersUsername, playerColors, excommunications, boardConfiguration, clientController);
+		synchronized (gameBoardInitializationToken) {
+			gameBoard = new GameBoardCli(playersUsername, playerColors, excommunications, boardConfiguration, clientController);			
+		}
 	}
 
 	@Override
@@ -118,38 +121,36 @@ public class CliController implements ViewInterface {
 
 	@Override
 	public void setLeaderCards(LeaderCard[] leaders) {
-		// TODO Auto-generated method stub
-
+		if(gameBoard == null)
+			waitGameBoardInitialization();
+		gameBoard.setLeaderCards(leaders);
 	}
 
 	@Override
 	public void discardLeaderCard(String username, LeaderCard leader) {
-		// TODO Auto-generated method stub
-
+		gameBoard.discardLeaderCard(username, leader);
 	}
 
 	@Override
 	public void playLeaderCard(String username, LeaderCard leader) {
-		// TODO Auto-generated method stub
-
+		gameBoard.playLeaderCard(username, leader);
 	}
 
 	@Override
 	public void activateLeaderCard(String username, LeaderCard leader) {
-		// TODO Auto-generated method stub
-
+		gameBoard.activateLeaderCard(username, leader);
 	}
 
 	@Override
 	public void enableLeaderCard(String username, LeaderCard leader) {
-		// TODO Auto-generated method stub
-
+		gameBoard.enableLeaderCard(username, leader);
 	}
 
 	@Override
 	public void setPersonalBonusTile(String username, PersonalBonusTile personalBonusTile) {
-		// TODO Auto-generated method stub
-
+		if(gameBoard == null)
+			waitGameBoardInitialization();
+		gameBoard.setPersonalBonusTile(username, personalBonusTile);
 	}
 
 	@Override
@@ -162,6 +163,12 @@ public class CliController implements ViewInterface {
 	public void showFinalScore(String[] playersUsername, PlayerColor[] playerColors, int[] scores) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	private void waitGameBoardInitialization(){
+		synchronized (gameBoardInitializationToken) {
+			
+		}
 	}
 
 }
