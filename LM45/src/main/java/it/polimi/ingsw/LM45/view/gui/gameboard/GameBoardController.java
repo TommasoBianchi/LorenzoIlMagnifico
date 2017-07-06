@@ -404,7 +404,7 @@ public class GameBoardController {
 	public void placeExcommunicationToken(PlayerColor playerColor, PeriodType periodType) {
 		GridPane excommunication = (GridPane) stage.getScene().lookup("#EXCOMMUNICATION" + periodType.name());
 		String tokenPath = "/Image/ExcommunicationToken/";
-		ImageView token = new ImageView(new Image(tokenPath + "/" + playerColor + ".png"));
+		ImageView token = new ImageView(new Image(tokenPath + playerColor + ".png"));
 		token.setFitHeight(15);
 		token.setFitWidth(15);
 		Pair<Integer, Integer> pair = playerExcommunicationPosition.get(playerColor);
