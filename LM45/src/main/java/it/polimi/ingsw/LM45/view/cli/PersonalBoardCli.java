@@ -124,27 +124,45 @@ public class PersonalBoardCli {
 		Arrays.stream(resourcesToSet).map(resource -> resources.put(resource.getResourceType(), resource.getAmount()));
 	}
 
+	/**
+	 * @param leaders leaders to set in HAND
+	 */
 	public void setLeaderCards(LeaderCard[] leaders) {
 		this.leaders = Arrays.stream(leaders).collect(Collectors.toMap(leader -> leader, leader -> LeaderCardMode.HAND));
 	}
 
+	/**
+	 * @param leader leader to discard
+	 */
 	public void discardLeaderCard(LeaderCard leader) {
 		leaders.remove(leader);
 		numOfLeadersInHand--;
 	}
 
+	/**
+	 * @param leader leader to play
+	 */
 	public void playLeaderCard(LeaderCard leader) {
 		leaders.put(leader, LeaderCardMode.PLAYED);
 	}
 
+	/**
+	 * @param leader leader to activate
+	 */
 	public void activateLeaderCard(LeaderCard leader) {
 		leaders.put(leader, LeaderCardMode.ACTIVE);
 	}
 
+	/**
+	 * @param leader leader to enable
+	 */
 	public void enableLeaderCard(LeaderCard leader) {
 		leaders.put(leader, LeaderCardMode.PLAYED);
 	}
 
+	/**
+	 * @param personalBonusTile the personalBonusTile of the player
+	 */
 	public void setPersonalBonusTile(PersonalBonusTile personalBonusTile) {
 		this.personalBonusTile = personalBonusTile;
 	}
@@ -161,18 +179,24 @@ public class PersonalBoardCli {
 		ConsoleWriter.println("");
 	}
 
+	/**
+	 * @param cardType the type of cards to print
+	 */
 	public void printCards(CardType cardType) {
 		ConsoleWriter.printShowInfo(cards.get(cardType).stream().map(Card::toString).reduce("", (a, b) -> a + "\n\n" + b));
 		ConsoleWriter.println("");
 	}
 
+	/**
+	 * @param areMine boolean that indicates if this is my personal board
+	 */
 	public void printLeaderCards(Boolean areMine) {
 		if(areMine) {
 			ConsoleWriter.printShowInfo(
 					leaders.entrySet().stream().map(entry -> entry.getValue() + " -- " + entry.getKey()).reduce("", (a, b) -> a + "\n\n" + b));
 			ConsoleWriter.println("");
 		} else {
-			ConsoleWriter.printShowInfo("Leaders in HAND\n\n" + numOfLeadersInHand);
+			ConsoleWriter.printShowInfo("\nHAND -- " + numOfLeadersInHand + " Leaders\n\n");
 			ConsoleWriter.printShowInfo(
 					leaders.entrySet().stream().map(entry -> entry.getValue() == LeaderCardMode.PLAYED? "PLAYED -- " + entry.getKey() :
 						"").reduce("", (a, b) -> a + "\n\n" + b));
