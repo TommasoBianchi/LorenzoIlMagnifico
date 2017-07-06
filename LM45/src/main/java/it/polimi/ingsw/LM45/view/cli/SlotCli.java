@@ -23,21 +23,21 @@ public class SlotCli {
 	}
 
 	public void print() {
-		ConsoleWriter.println(slotType + " slot");
+		ConsoleWriter.printShowInfo(slotType + " slot");
 
 		if (immediateResources.length > 0){
 			ConsoleWriter.println("");
-			ConsoleWriter.println("If you place a familiar on this slot you will receive "
+			ConsoleWriter.printShowInfo("If you place a familiar on this slot you will receive : "
 					+ Arrays.stream(immediateResources).map(Resource::toString).reduce("", (a, b) -> a + " " + b));
 		}
 
 		ConsoleWriter.println("");
 
 		if (familiars.size() > 0)
-			ConsoleWriter.println("Familiars: "
+			ConsoleWriter.printShowInfo("Familiars : "
 					+ familiars.stream().map(pair -> "familiar " + pair._1() + " by player " + pair._2()).reduce("", (a, b) -> a + " " + b));
 		else
-			ConsoleWriter.println("No familiars on this slot");
+			ConsoleWriter.printShowInfo("No familiars on this slot");
 	}
 
 	public void placeFamiliar(FamiliarColor familiarColor, PlayerColor playerColor) {

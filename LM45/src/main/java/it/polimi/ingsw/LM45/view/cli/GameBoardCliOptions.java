@@ -50,7 +50,7 @@ public class GameBoardCliOptions {
 			initialize();
 		
 		try {
-			ConsoleReader.readOption(allOptions.get(currentStage)).accept(gameBoard);
+			ConsoleReader.readOption(allOptions.get(currentStage), true).accept(gameBoard);
 		}
 		catch (InterruptedException e) {
 			// TODO think about this
