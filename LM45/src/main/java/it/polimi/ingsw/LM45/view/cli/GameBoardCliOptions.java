@@ -51,18 +51,29 @@ public class GameBoardCliOptions {
 		);
 	}
 	
-	public static void navigate(Stage currentStage, GameBoardCli gameBoard){
-		if(allOptions == null)
-			initialize();
-		
+	public static void navigate(GameBoardCli gameBoard, List<Pair<Consumer<GameBoardCli>, String>> options){
 		try {
-			ConsoleReader.readOption(allOptions.get(currentStage), true).accept(gameBoard);
+			ConsoleReader.readOption(options, true).accept(gameBoard);
 		}
 		catch (InterruptedException e) {
 			// TODO think about this
 			e.printStackTrace();
 			gameBoard.showMain();
 		}
+	}
+	
+	public static void navigate(Stage currentStage, GameBoardCli gameBoard, List<Pair<Consumer<GameBoardCli>, String>> additionalOptions){
+		if(allOptions == null)
+			initialize();
+
+		List<Pair<Consumer<GameBoardCli>, String>> extendedOptions = new ArrayList<>(allOptions.get(currentStage));
+		extendedOptions.addAll(additionalOptions);
+		
+		navigate(gameBoard, extendedOptions);
+	}
+	
+	public static void navigate(Stage currentStage, GameBoardCli gameBoard){
+		navigate(currentStage, gameBoard, new ArrayList<>());
 	}
 	
 }

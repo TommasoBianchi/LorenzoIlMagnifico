@@ -72,6 +72,14 @@ public class PersonalBoardCli {
 			familiars.put(familiarColor, new Pair<Integer, Boolean>(0, false));
 		}
 	}
+	
+	/**
+	 * @param familiarColor the familiar you want to set as used
+	 */
+	public void setFamiliarUsed(FamiliarColor familiarColor){
+		int value = familiars.get(familiarColor)._1();
+		familiars.put(familiarColor, new Pair<Integer, Boolean>(value, true));
+	}
 
 	/**
 	 * @param familiarColor
@@ -88,7 +96,7 @@ public class PersonalBoardCli {
 	 * @return a list of all the familiars that can be placed with their value
 	 */
 	public List<Pair<FamiliarColor, Integer>> getUsableFamiliars() {
-		return familiars.entrySet().stream().filter(entry -> entry.getValue()._2()).map(entry -> new Pair<>(entry.getKey(), entry.getValue()._1()))
+		return familiars.entrySet().stream().filter(entry -> entry.getValue()._2() == false).map(entry -> new Pair<>(entry.getKey(), entry.getValue()._1()))
 				.collect(Collectors.toList());
 	}
 

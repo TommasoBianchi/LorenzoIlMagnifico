@@ -13,17 +13,19 @@ import it.polimi.ingsw.LM45.util.Pair;
 public class SlotCli {
 
 	private SlotType slotType;
+	private int slotID;
 	private List<Pair<FamiliarColor, PlayerColor>> familiars;
 	private Resource[] immediateResources;
 
-	public SlotCli(SlotType slotType, Resource[] immediateResources) {
+	public SlotCli(SlotType slotType, int slotID, Resource[] immediateResources) {
 		this.slotType = slotType;
+		this.slotID = slotID;
 		this.familiars = new ArrayList<>();
 		this.immediateResources = immediateResources.clone();
 	}
 
 	public void print() {
-		ConsoleWriter.printShowInfo(slotType + " slot");
+		ConsoleWriter.printShowInfo(slotType + " slot " + slotID);
 
 		if (immediateResources.length > 0){
 			ConsoleWriter.println("");
@@ -46,6 +48,18 @@ public class SlotCli {
 
 	public void clearFamiliars() {
 		this.familiars.clear();
+	}
+	
+	public SlotType getSlotType(){
+		return this.slotType;
+	}
+	
+	public int getID(){
+		return this.slotID;
+	}
+	
+	public String getNamedID(){
+		return slotType + " " + slotID;
 	}
 	
 }

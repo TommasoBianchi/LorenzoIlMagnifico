@@ -1,9 +1,12 @@
 package it.polimi.ingsw.LM45.view.cli;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import it.polimi.ingsw.LM45.config.BoardConfiguration;
 import it.polimi.ingsw.LM45.model.cards.Card;
@@ -15,6 +18,7 @@ import it.polimi.ingsw.LM45.model.core.PlayerColor;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.network.client.ClientController;
+import it.polimi.ingsw.LM45.util.Pair;
 import it.polimi.ingsw.LM45.view.cli.ConsoleWriter.ConsoleColor;
 import it.polimi.ingsw.LM45.view.cli.GameBoardCliOptions.Stage;
 
@@ -27,7 +31,7 @@ public class GameBoardCli {
 	private Map<PlayerColor, String> playerColorName;
 
 	private Map<SlotType, TowerCli> towers;
-	private List<SlotCli> otherSlots;
+	private Map<SlotType, SlotCli[]> otherSlots;
 	private Excommunication[] excommunications;
 	private String currentPlayer;
 
@@ -54,21 +58,29 @@ public class GameBoardCli {
 		for (CardType cardType : new CardType[] { CardType.TERRITORY, CardType.CHARACTER, CardType.BUILDING, CardType.VENTURE })
 			towers.put(cardType.toSlotType(), new TowerCli(cardType, boardConfiguration));
 
-		this.otherSlots = new ArrayList<>();
+		this.otherSlots = new HashMap<>();
 
-		otherSlots.add(new SlotCli(SlotType.COUNCIL, boardConfiguration.getSlotBonuses(SlotType.COUNCIL, 0)));
-		otherSlots.add(new SlotCli(SlotType.MARKET, boardConfiguration.getSlotBonuses(SlotType.MARKET, 0)));
-		otherSlots.add(new SlotCli(SlotType.MARKET, boardConfiguration.getSlotBonuses(SlotType.MARKET, 1)));
+		otherSlots.put(SlotType.COUNCIL, new SlotCli[] { new SlotCli(SlotType.COUNCIL, 0, boardConfiguration.getSlotBonuses(SlotType.COUNCIL, 0)) });
+
+		List<SlotCli> marketSlots = new ArrayList<>();
+		marketSlots.add(new SlotCli(SlotType.MARKET, 0, boardConfiguration.getSlotBonuses(SlotType.MARKET, 0)));
+		marketSlots.add(new SlotCli(SlotType.MARKET, 1, boardConfiguration.getSlotBonuses(SlotType.MARKET, 1)));
 		if (playersUsername.length > 3) {
-			otherSlots.add(new SlotCli(SlotType.MARKET, boardConfiguration.getSlotBonuses(SlotType.MARKET, 2)));
-			otherSlots.add(new SlotCli(SlotType.MARKET, boardConfiguration.getSlotBonuses(SlotType.MARKET, 3)));
+			marketSlots.add(new SlotCli(SlotType.MARKET, 2, boardConfiguration.getSlotBonuses(SlotType.MARKET, 2)));
+			marketSlots.add(new SlotCli(SlotType.MARKET, 3, boardConfiguration.getSlotBonuses(SlotType.MARKET, 3)));
 		}
-		otherSlots.add(new SlotCli(SlotType.PRODUCTION, boardConfiguration.getSlotBonuses(SlotType.PRODUCTION, 0)));
-		otherSlots.add(new SlotCli(SlotType.HARVEST, boardConfiguration.getSlotBonuses(SlotType.HARVEST, 0)));
+		otherSlots.put(SlotType.MARKET, marketSlots.stream().toArray(SlotCli[]::new));
+
+		List<SlotCli> harvestSlots = new ArrayList<>();
+		List<SlotCli> productionSlots = new ArrayList<>();
+		harvestSlots.add(new SlotCli(SlotType.HARVEST, 0, boardConfiguration.getSlotBonuses(SlotType.HARVEST, 0)));
+		productionSlots.add(new SlotCli(SlotType.PRODUCTION, 0, boardConfiguration.getSlotBonuses(SlotType.PRODUCTION, 0)));
 		if (playersUsername.length > 2) {
-			otherSlots.add(new SlotCli(SlotType.PRODUCTION, boardConfiguration.getSlotBonuses(SlotType.PRODUCTION, 1)));
-			otherSlots.add(new SlotCli(SlotType.HARVEST, boardConfiguration.getSlotBonuses(SlotType.HARVEST, 1)));
+			harvestSlots.add(new SlotCli(SlotType.HARVEST, 1, boardConfiguration.getSlotBonuses(SlotType.HARVEST, 1)));
+			productionSlots.add(new SlotCli(SlotType.PRODUCTION, 1, boardConfiguration.getSlotBonuses(SlotType.PRODUCTION, 1)));
 		}
+		otherSlots.put(SlotType.HARVEST, harvestSlots.stream().toArray(SlotCli[]::new));
+		otherSlots.put(SlotType.PRODUCTION, productionSlots.stream().toArray(SlotCli[]::new));
 	}
 
 	public void showMain() {
@@ -84,16 +96,34 @@ public class GameBoardCli {
 	public void showTower(CardType cardType) {
 		printTitle(cardType + " tower");
 		towers.get(cardType.toSlotType()).print();
-		GameBoardCliOptions.navigate(Stage.SINGLE_TOWER, this);
+
+		if (currentPlayer.equals(myUsername))
+			GameBoardCliOptions.navigate(Stage.SINGLE_TOWER, this,
+					towers.get(cardType.toSlotType()).getNonEmptySlots().stream()
+							.map(slot -> new Pair<Consumer<GameBoardCli>, String>(
+									gameBoard -> gameBoard.placeFamiliar(slot, gb -> gb.showTower(cardType)),
+									"Place a familiar on slot " + slot.getNamedID()))
+							.collect(Collectors.toList()));
+		else
+			GameBoardCliOptions.navigate(Stage.SINGLE_TOWER, this);
 	}
 
 	public void showOtherSlots() {
 		printTitle("Other slots");
-		otherSlots.stream().forEach(slot -> {
+		otherSlots.values().stream().flatMap(Arrays::stream).forEach(slot -> {
 			slot.print();
 			ConsoleWriter.println("");
 		});
-		GameBoardCliOptions.navigate(Stage.OTHER_SLOTS, this);
+
+		if (currentPlayer.equals(myUsername))
+			GameBoardCliOptions.navigate(Stage.OTHER_SLOTS, this,
+					otherSlots.values().stream().flatMap(Arrays::stream)
+							.map(slot -> new Pair<Consumer<GameBoardCli>, String>(
+									gameBoard -> gameBoard.placeFamiliar(slot, GameBoardCli::showOtherSlots),
+									"Place a familiar on slot " + slot.getNamedID()))
+							.collect(Collectors.toList()));
+		else
+			GameBoardCliOptions.navigate(Stage.OTHER_SLOTS, this);
 	}
 
 	public void showExcommunications() {
@@ -115,6 +145,21 @@ public class GameBoardCli {
 
 	}
 
+	public void placeFamiliar(SlotCli slot, Consumer<GameBoardCli> backCallback) {
+		ConsoleWriter.printChoice("What familiar do you want to place?");
+		List<Pair<Consumer<GameBoardCli>, String>> options = usersPersonalBoards.get(myUsername).getUsableFamiliars().stream()
+				.map(pair -> new Pair<Consumer<GameBoardCli>, String>(gameBoard -> gameBoard.placeFamiliar(pair._1(), slot),
+						"Place familiar " + pair._1() + " (value " + pair._2() + ")"))
+				.collect(Collectors.toList());
+		options.add(new Pair<Consumer<GameBoardCli>, String>(backCallback, "Back"));
+		GameBoardCliOptions.navigate(this, options);
+	}
+
+	public void placeFamiliar(FamiliarColor familiarColor, SlotCli slot) {
+		clientController.placeFamiliar(familiarColor, slot.getSlotType(), slot.getID());
+		showMain();
+	}
+
 	public void myTurn() {
 		currentPlayer = myUsername;
 		showMain();
@@ -134,7 +179,7 @@ public class GameBoardCli {
 	 *            the username of the player who picked the card
 	 */
 	public void pickCard(Card card, String username) {
-		towers.get(card.getCardType()).removeCard(card);
+		towers.get(card.getCardType().toSlotType()).removeCard(card);
 		usersPersonalBoards.get(username).addCard(card);
 	}
 
@@ -171,8 +216,13 @@ public class GameBoardCli {
 	}
 
 	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor) {
-		// TODO addFamiliar if not BONUS color to the correct Slot
-		// TODO set familiar used on personalBoard
+		if (towers.containsKey(slotType)) {
+			towers.get(slotType).addFamiliar(position, familiarColor, playerColor);
+		}
+		else {
+			otherSlots.get(slotType)[position].placeFamiliar(familiarColor, playerColor);
+		}
+		usersPersonalBoards.get(playerColorName.get(playerColor)).setFamiliarUsed(familiarColor);
 	}
 
 	public void setServantCost(int cost) {
@@ -194,6 +244,9 @@ public class GameBoardCli {
 
 	private void printTitle(String title) {
 		ConsoleWriter.println("");
+		ConsoleWriter.println("");
+		ConsoleWriter.println("============================================================");
+		ConsoleWriter.println("============================================================");
 		if (currentPlayer.equals(myUsername))
 			ConsoleWriter.println(title + " (my turn)", ConsoleColor.BLUE, ConsoleColor.WHITE);
 		else
