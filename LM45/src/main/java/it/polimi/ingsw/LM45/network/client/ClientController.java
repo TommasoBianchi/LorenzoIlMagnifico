@@ -52,17 +52,13 @@ public class ClientController {
 	public void notifyPlayerTurn(String player) {
 		if (this.username.equals(player)) {
 			viewInterface.myTurn();
-			System.out.println("It's my turn");
 		}
 		else {
 			viewInterface.playerTurn(player);
-			System.out.println("It's " + player + " turn");
 		}
 	}
 
 	public void throwGameException(GameException gameException) {
-		System.err.println("-- Server sent an exception --");
-		System.err.println(gameException.getMessage());
 		viewInterface.notifyError(gameException.getMessage());
 	}
 
@@ -195,7 +191,6 @@ public class ClientController {
 	}
 
 	public void enableLeaderCard(String username, LeaderCard leader) {
-		System.out.println("Enabling " + leader.getName());
 		viewInterface.enableLeaderCard(username, leader);
 	}
 
