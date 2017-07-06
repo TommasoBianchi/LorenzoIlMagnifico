@@ -36,5 +36,6 @@ public interface ViewInterface {
 	public void setPersonalBonusTile(String username, PersonalBonusTile personalBonusTile);
 	public void placeExcommunicationToken(PlayerColor playerColor, PeriodType periodType);
 	public void showFinalScore(String[] playersUsername, PlayerColor[] playerColors, int[] scores);
+	public void setServantCost(int cost);
 	
 }
