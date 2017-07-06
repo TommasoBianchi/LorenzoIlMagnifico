@@ -21,7 +21,6 @@ import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.network.client.ClientController;
 import it.polimi.ingsw.LM45.util.Pair;
-import it.polimi.ingsw.LM45.view.cli.ConsoleWriter.ConsoleColor;
 import it.polimi.ingsw.LM45.view.cli.GameBoardCliOptions.Stage;
 
 public class GameBoardCli {
@@ -157,6 +156,9 @@ public class GameBoardCli {
 						.collect(Collectors.toList()));
 	}
 
+	/**
+	 * @param username the username of the player's personal board to show
+	 */
 	public void showPersonalBoard(String username) {
 		printTitle(username + "'s Personal Board");
 		usersPersonalBoards.get(username).print();
@@ -167,15 +169,19 @@ public class GameBoardCli {
 				gameBoard.showPersonalBoard(username);
 			}, "Show " + cardType + " cards"));
 		options.add(new Pair<Consumer<GameBoardCli>, String>(gameBoard -> {
-			usersPersonalBoards.get(username).printLeaderCards();
+			usersPersonalBoards.get(username).printLeaderCards(username == myUsername);
 			gameBoard.showPersonalBoard(username);
 		}, "Show leader cards"));
 		GameBoardCliOptions.navigate(Stage.SINGLE_PERSONAL_BOARD, this, options);
 	}
 
+	/**
+	 * @param slot the slot where to place the familiar
+	 * @param backCallback gameboardcli callback
+	 */
 	public void placeFamiliar(SlotCli slot, Consumer<GameBoardCli> backCallback) {
 		ConsoleWriter.println("");
-		ConsoleWriter.printChoice("What familiar do you want to place?");
+		ConsoleWriter.printChoice("What familiar do you want to place ?");
 		List<Pair<Consumer<GameBoardCli>, String>> options = usersPersonalBoards.get(myUsername).getUsableFamiliars().stream()
 				.map(pair -> new Pair<Consumer<GameBoardCli>, String>(gameBoard -> gameBoard.placeFamiliar(pair._1(), slot),
 						"Place familiar " + pair._1() + " (value " + pair._2() + ")"))
@@ -184,6 +190,10 @@ public class GameBoardCli {
 		GameBoardCliOptions.navigate(this, options);
 	}
 
+	/**
+	 * @param familiarColor the color of the familiar to place
+	 * @param slot the slot where to place familiar
+	 */
 	public void placeFamiliar(FamiliarColor familiarColor, SlotCli slot) {
 		clientController.placeFamiliar(familiarColor, slot.getSlotType(), slot.getID());
 	}
@@ -194,6 +204,9 @@ public class GameBoardCli {
 		showMain();
 	}
 
+	/**
+	 * @param username username of the player who is playing now
+	 */
 	public void playerTurn(String username) {
 		boolean firstTurnEver = currentPlayer == null;
 		this.currentPlayer = username;
@@ -244,6 +257,12 @@ public class GameBoardCli {
 		usersPersonalBoards.get(username).setFamiliarValue(familiarColor, value);
 	}
 
+	/**
+	 * @param slotType the type of slot where to add the familiar
+	 * @param position the position of the slot
+	 * @param familiarColor the color of the familiar
+	 * @param playerColor the color oft he player
+	 */
 	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor) {
 		if (towers.containsKey(slotType)) {
 			towers.get(slotType).addFamiliar(position, familiarColor, playerColor);
@@ -259,7 +278,7 @@ public class GameBoardCli {
 		}
 		else
 			ConsoleWriter
-					.printShowInfo("Player " + playerColor + " has placed the " + familiarColor + " familiar on slot" + slotType + " " + position);
+					.printValidInput("Player " + playerColor + " has placed the " + familiarColor + " familiar on slot" + slotType + " " + position);
 	}
 
 	public void setServantCost(int cost) {
@@ -274,31 +293,58 @@ public class GameBoardCli {
 		// TODO like doAction()
 	}
 
+	/**
+	 * @param playerColor the color of the player
+	 * @param periodType the period of the excommunication
+	 */
 	public void placeExcommunicationToken(PlayerColor playerColor, PeriodType periodType) {
 		Excommunication excommunication = excommunications[periodType.ordinal()];
 		playersExcommunications.get(excommunication).add(playerColorName.get(playerColor));
 	}
 
+	/**
+	 * @param leaders leaders to set to my personal board
+	 */
 	public void setLeaderCards(LeaderCard[] leaders) {
 		usersPersonalBoards.get(myUsername).setLeaderCards(leaders);
 	}
 
+	/**
+	 * @param username username of the player
+	 * @param leader the leader to discard
+	 */
 	public void discardLeaderCard(String username, LeaderCard leader) {
 		usersPersonalBoards.get(username).discardLeaderCard(leader);
 	}
 
+	/**
+	 * @param username username of the player
+	 * @param leader the leader to play
+	 */
 	public void playLeaderCard(String username, LeaderCard leader) {
 		usersPersonalBoards.get(username).playLeaderCard(leader);
 	}
 
+	/**
+	 * @param username username of the player
+	 * @param leader the leader to activate
+	 */
 	public void activateLeaderCard(String username, LeaderCard leader) {
 		usersPersonalBoards.get(username).activateLeaderCard(leader);
 	}
 
+	/**
+	 * @param username username of the player
+	 * @param leader the leader to enable
+	 */
 	public void enableLeaderCard(String username, LeaderCard leader) {
 		usersPersonalBoards.get(username).enableLeaderCard(leader);
 	}
 
+	/**
+	 * @param username username of the player
+	 * @param personalBonusTile bonus titles of the player
+	 */
 	public void setPersonalBonusTile(String username, PersonalBonusTile personalBonusTile) {
 		usersPersonalBoards.get(username).setPersonalBonusTile(personalBonusTile);
 	}
@@ -309,15 +355,18 @@ public class GameBoardCli {
 		showMain();
 	}
 
+	/**
+	 * @param title the title to print
+	 */
 	private void printTitle(String title) {
 		ConsoleWriter.println("");
 		ConsoleWriter.println("");
 		ConsoleWriter.println("============================================================");
 		ConsoleWriter.println("============================================================");
 		if (currentPlayer.equals(myUsername))
-			ConsoleWriter.println(title + " (my turn)", ConsoleColor.BLUE, ConsoleColor.WHITE);
+			ConsoleWriter.printCommand(title + " (my turn)");
 		else
-			ConsoleWriter.println(title + " (" + currentPlayer + "'s turn)", ConsoleColor.BLUE, ConsoleColor.WHITE);
+			ConsoleWriter.printCommand(title + " (" + currentPlayer + "'s turn)");
 		ConsoleWriter.println("");
 	}
 }
