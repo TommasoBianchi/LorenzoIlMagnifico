@@ -31,6 +31,7 @@ public class PersonalBoardCli {
 
 	// LeaderCardMode is used to save LeaderCard status : HAND, PLAYED or ACTIVE
 	private Map<LeaderCard, LeaderCardMode> leaders = new HashMap<>();
+	private int numOfLeadersInHand = 4;
 
 	// Boolean is used to save Familiar status : USED = TRUE; while Integer is the Value of the Familiar
 	private Map<FamiliarColor, Pair<Integer, Boolean>> familiars = new EnumMap<>(FamiliarColor.class);
@@ -46,7 +47,7 @@ public class PersonalBoardCli {
 	}
 
 	/**
-	 * Used to initialize cards, resources and familiarUsed Maps
+	 * Used to initialize cards, resources, familiars and leaders Maps
 	 */
 	private void initialize() {
 		setFamiliarsUnused();
@@ -63,10 +64,10 @@ public class PersonalBoardCli {
 		resources.put(ResourceType.VICTORY, 0);
 		resources.put(ResourceType.MILITARY, 0);
 		resources.put(ResourceType.FAITH, 0);
-
-		// leaders.put(LeaderCardMode.HAND, new ArrayList<>());
-		// leaders.put(LeaderCardMode.PLAYED, new ArrayList<>());
-		// leaders.put(LeaderCardMode.ACTIVE, new ArrayList<>());
+	}
+	
+	private enum LeaderCardMode {
+		HAND, ACTIVE, PLAYED
 	}
 
 	/**
@@ -129,6 +130,7 @@ public class PersonalBoardCli {
 
 	public void discardLeaderCard(LeaderCard leader) {
 		leaders.remove(leader);
+		numOfLeadersInHand--;
 	}
 
 	public void playLeaderCard(LeaderCard leader) {
@@ -153,7 +155,7 @@ public class PersonalBoardCli {
 		ConsoleWriter.println("");
 		ConsoleWriter.printShowInfo(personalBonusTile.toString());
 		ConsoleWriter.println("");
-		ConsoleWriter.println("Familiars: " + familiars.entrySet().stream()
+		ConsoleWriter.println("Familiars : " + familiars.entrySet().stream()
 				.map(entry -> entry.getKey() + " (value " + entry.getValue()._1() + (entry.getValue()._2() ? ", used)" : ")"))
 				.reduce("", (a, b) -> a + " " + b));
 		ConsoleWriter.println("");
@@ -164,14 +166,21 @@ public class PersonalBoardCli {
 		ConsoleWriter.println("");
 	}
 
-	public void printLeaderCards() {
-		ConsoleWriter.printShowInfo(
-				leaders.entrySet().stream().map(entry -> entry.getValue() + " -- " + entry.getKey()).reduce("", (a, b) -> a + "\n\n" + b));
-		ConsoleWriter.println("");
-	}
-
-	private enum LeaderCardMode {
-		HAND, ACTIVE, PLAYED
+	public void printLeaderCards(Boolean areMine) {
+		if(areMine) {
+			ConsoleWriter.printShowInfo(
+					leaders.entrySet().stream().map(entry -> entry.getValue() + " -- " + entry.getKey()).reduce("", (a, b) -> a + "\n\n" + b));
+			ConsoleWriter.println("");
+		} else {
+			ConsoleWriter.printShowInfo("Leaders in HAND\n\n" + numOfLeadersInHand);
+			ConsoleWriter.printShowInfo(
+					leaders.entrySet().stream().map(entry -> entry.getValue() == LeaderCardMode.PLAYED? "PLAYED -- " + entry.getKey() :
+						"").reduce("", (a, b) -> a + "\n\n" + b));
+			ConsoleWriter.printShowInfo(
+					leaders.entrySet().stream().map(entry -> entry.getValue() == LeaderCardMode.ACTIVE? "ACTIVE -- " + entry.getKey() :
+						"").reduce("", (a, b) -> a + "\n\n" + b));
+			ConsoleWriter.println("");
+		}
 	}
 
 }
