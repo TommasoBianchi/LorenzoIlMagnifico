@@ -121,7 +121,8 @@ public class PersonalBoardCli {
 	 *            resources to set
 	 */
 	public void setResources(Resource[] resourcesToSet) {
-		Arrays.stream(resourcesToSet).map(resource -> resources.put(resource.getResourceType(), resource.getAmount()));
+		for(Resource resource : resourcesToSet)
+			resources.put(resource.getResourceType(), resource.getAmount());
 	}
 
 	/**
