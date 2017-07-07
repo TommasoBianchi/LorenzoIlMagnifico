@@ -17,6 +17,7 @@ import java.util.TimerTask;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import com.google.gson.JsonIOException;
@@ -678,6 +679,20 @@ public class ServerController {
 
 	private void logInfo(String message) {
 		System.out.println("> Game " + gameID + ": " + message);
+	}
+
+	/**
+	 * Notify only some of the connected client about something
+	 * 
+	 * @param c
+	 *            the function we want to call on every connected player (providing access to only the clientInterface)
+	 * @param filter a function to decide if a client has to be notified or not based on his username
+	 */
+	public void notifyPlayers(CheckedFunction1<ClientInterface, IOException> c, Predicate<String> filter) {
+		notifyPlayers((username, clientInterface) -> {
+			if (filter.test(username))
+				c.apply(clientInterface);
+		});
 	}
 
 	/**

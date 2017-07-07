@@ -95,6 +95,8 @@ public class EffectController implements EffectResolutor {
 
 	public void modifyServantCost(int servantBonusCostModifier) {
 		player.modifyServantCost(servantBonusCostModifier);
+		serverController.notifyPlayers(clientInterface -> clientInterface.setServantCost(servantBonusCostModifier),
+				username -> username.equals(player.getUsername()));
 	}
 
 	public void setHasToSkipFirstRound() {
