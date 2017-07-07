@@ -183,11 +183,37 @@ public class GameBoardCli {
 		ConsoleWriter.println("");
 		ConsoleWriter.printChoice("What familiar do you want to place ?");
 		List<Pair<Consumer<GameBoardCli>, String>> options = usersPersonalBoards.get(myUsername).getUsableFamiliars().stream()
-				.map(pair -> new Pair<Consumer<GameBoardCli>, String>(gameBoard -> gameBoard.placeFamiliar(pair._1(), slot),
-						"Place familiar " + pair._1() + " (value " + pair._2() + ")"))
+				.map(pair -> new Pair<Consumer<GameBoardCli>, String>(gameBoard -> gameBoard
+						.showFamiliarOptions(pair._1(),pair._2(), slot, gb -> gb.placeFamiliar(slot, backCallback)),
+						"Select familiar " + pair._1() + " (value " + pair._2() + ")"))
 				.collect(Collectors.toList());
 		options.add(new Pair<Consumer<GameBoardCli>, String>(backCallback, "Back"));
 		GameBoardCliOptions.navigate(this, options);
+	}
+	
+	/**
+	 * @param familiarColor color of the familiar selected
+	 * @param value value of the familiar selected
+	 * @param slot slot selected
+	 * @param backCallback the CallBack to call again placeFamiliar method
+	 */
+	public void showFamiliarOptions(FamiliarColor familiarColor, int value, SlotCli slot, Consumer<GameBoardCli> backCallback) {
+		ConsoleWriter.println("");
+		ConsoleWriter.printValidInput("Selected familiar " + familiarColor + " (value " + value + ")");
+		List<Pair<Consumer<GameBoardCli>, String>> familiarOptions = new ArrayList<>();
+		familiarOptions.add(new Pair<Consumer<GameBoardCli>, String>(gameBoard -> { gameBoard.increaseFamiliarValue(familiarColor);
+				gameBoard.placeFamiliar(slot, backCallback);}, "Increase Familiar Value"));
+		familiarOptions.add(new Pair<Consumer<GameBoardCli>, String>(gameBoard -> { gameBoard.placeFamiliar(familiarColor, slot);
+				gameBoard.showMain();}, "Do Action !"));
+		familiarOptions.add(new Pair<Consumer<GameBoardCli>, String>(gameBoard -> gameBoard.placeFamiliar(slot, backCallback), "Back"));
+		GameBoardCliOptions.navigate(this, familiarOptions);
+	}
+	
+	/**
+	 * @param familiarColor color of the familiar
+	 */
+	public void increaseFamiliarValue(FamiliarColor familiarColor) {
+		clientController.increaseFamiliarValue(familiarColor);
 	}
 
 	/**
