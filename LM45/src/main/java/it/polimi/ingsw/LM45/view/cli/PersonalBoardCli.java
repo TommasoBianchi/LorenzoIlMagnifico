@@ -81,8 +81,7 @@ public class PersonalBoardCli {
 	}
 
 	/**
-	 * @param familiarColor
-	 *            the familiar you want to set as used
+	 * @param familiarColor the familiar you want to set as used
 	 */
 	public void setFamiliarUsed(FamiliarColor familiarColor) {
 		int value = familiars.get(familiarColor)._1();
@@ -90,10 +89,8 @@ public class PersonalBoardCli {
 	}
 
 	/**
-	 * @param familiarColor
-	 *            color of the familiar
-	 * @param value
-	 *            new value of the familiar
+	 * @param familiarColor color of the familiar
+	 * @param value new value of the familiar
 	 */
 	public void setFamiliarValue(FamiliarColor familiarColor, int value) {
 		Boolean status = familiars.get(familiarColor)._2();
@@ -109,16 +106,14 @@ public class PersonalBoardCli {
 	}
 
 	/**
-	 * @param card
-	 *            the Card to add
+	 * @param card the Card to add
 	 */
 	public void addCard(Card card) {
 		cards.get(card.getCardType()).add(card);
 	}
 
 	/**
-	 * @param resourcesToSet
-	 *            resources to set
+	 * @param resourcesToSet resources to set
 	 */
 	public void setResources(Resource[] resourcesToSet) {
 		for(Resource resource : resourcesToSet)
