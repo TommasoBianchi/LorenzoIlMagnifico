@@ -21,10 +21,6 @@ import it.polimi.ingsw.LM45.util.Pair;
 
 public class PersonalBoardCli {
 
-	private String username;
-	private PlayerColor playerColor;
-	private ClientController clientController;
-
 	private Map<CardType, List<Card>> cards = new EnumMap<>(CardType.class);
 	private Map<ResourceType, Integer> resources = new EnumMap<>(ResourceType.class);
 	private PersonalBonusTile personalBonusTile;
@@ -38,12 +34,7 @@ public class PersonalBoardCli {
 
 	public PersonalBoardCli(String username, PlayerColor playerColor, ClientController clientController) {
 
-		this.username = username;
-		this.playerColor = playerColor;
-		this.clientController = clientController;
-
 		initialize();
-
 	}
 
 	/**
@@ -192,14 +183,19 @@ public class PersonalBoardCli {
 					leaders.entrySet().stream().map(entry -> entry.getValue() + " -- " + entry.getKey()).reduce("", (a, b) -> a + "\n\n" + b));
 			ConsoleWriter.println("");
 		} else {
-			ConsoleWriter.printShowInfo("\nHAND -- " + numOfLeadersInHand + " Leaders\n\n");
-			ConsoleWriter.printShowInfo(
-					leaders.entrySet().stream().map(entry -> entry.getValue() == LeaderCardMode.PLAYED? "PLAYED -- " + entry.getKey() :
-						"").reduce("", (a, b) -> a + "\n\n" + b));
-			ConsoleWriter.printShowInfo(
-					leaders.entrySet().stream().map(entry -> entry.getValue() == LeaderCardMode.ACTIVE? "ACTIVE -- " + entry.getKey() :
-						"").reduce("", (a, b) -> a + "\n\n" + b));
-			ConsoleWriter.println("");
+			ConsoleWriter.printShowInfo("\n\nHAND -- " + numOfLeadersInHand + " Leaders\n\n");
+			if(leaders.containsValue(LeaderCardMode.PLAYED)) {
+				ConsoleWriter.printShowInfo(
+						leaders.entrySet().stream().filter(entry -> entry.getValue() == LeaderCardMode.PLAYED)
+						.map(entry -> entry.getValue() + " -- " + entry.getKey()).reduce("", (a, b) -> a + "\n\n" + b));
+				ConsoleWriter.println("");
+			}
+			if(leaders.containsValue(LeaderCardMode.ACTIVE)) {
+				ConsoleWriter.printShowInfo(
+						leaders.entrySet().stream().filter(entry -> entry.getValue() == LeaderCardMode.ACTIVE)
+						.map(entry -> entry.getValue() + " -- " + entry.getKey()).reduce("", (a, b) -> a + "\n\n" + b));
+				ConsoleWriter.println("");
+			}
 		}
 	}
 
