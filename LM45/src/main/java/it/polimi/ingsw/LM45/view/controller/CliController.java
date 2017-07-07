@@ -171,4 +171,9 @@ public class CliController implements ViewInterface {
 		}
 	}
 
+	@Override
+	public void setServantCost(int cost) {
+		gameBoard.setServantCost(cost);
+	}
+
 }

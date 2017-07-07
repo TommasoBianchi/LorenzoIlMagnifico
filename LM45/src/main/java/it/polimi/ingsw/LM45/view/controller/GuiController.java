@@ -226,4 +226,9 @@ public class GuiController implements ViewInterface {
 		});
 	}
 
+	@Override
+	public void setServantCost(int cost) {
+		Platform.runLater(() -> gameBoardController.setServantCost(cost));		
+	}
+
 }
