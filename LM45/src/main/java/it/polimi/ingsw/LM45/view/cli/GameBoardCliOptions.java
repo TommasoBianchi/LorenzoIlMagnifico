@@ -71,6 +71,9 @@ public class GameBoardCliOptions {
 			// 	  whatever menu we were in and to prompt a new decision from the main menu
 			// 2. something TERRIBLY wrong has appened and our thread are burning orribly
 			// Hope the second one never happens
+			
+			// In any case, we want the actual Thread to be really interrupted so just do it
+			Thread.currentThread().interrupt();
 		}
 	}
 	
