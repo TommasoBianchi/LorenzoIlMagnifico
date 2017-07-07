@@ -37,7 +37,7 @@ public class Excommunication implements Serializable {
 	 * @param effectResolutor interface with all methods that model can use to call the EffectController
 	 */
 	public void resolveEffect(EffectResolutor effectResolutor){
-		if(periodType != PeriodType.III)
+		if(effect.getEffectsArePermanent())
 			effectResolutor.addPermanentEffect(effect);
 		else
 			effect.resolveEffects(effectResolutor);
