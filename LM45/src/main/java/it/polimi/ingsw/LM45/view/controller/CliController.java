@@ -161,7 +161,19 @@ public class CliController implements ViewInterface {
 
 	@Override
 	public void showFinalScore(String[] playersUsername, PlayerColor[] playerColors, int[] scores) {
-		// TODO Auto-generated method stub
+		ConsoleWriter.println("");
+		ConsoleWriter.printCommand("Final Score");
+		for(int i=0; i<playersUsername.length; i++){
+			ConsoleWriter.println("");
+			ConsoleWriter.printShowInfo(i + ". " + playersUsername[i] + " " + scores[i]);
+		}
+		ConsoleWriter.println("####### #    # ######    ###### #    # ##### \n"
+							+ "   #    #    # #         #      ##   # #    #\n"
+							+ "   #    #    # #         #      ###  # #    #\n"
+							+ "   #    ###### ####      ####   # ## # #    #\n"
+							+ "   #    #    # #         #      #  ### #    #\n"
+							+ "   #    #    # #         #      #   ## #    #\n"
+							+ "   #    #    # ######    ###### #    # ##### \n",ConsoleColor.WHITE);
 
 	}
 	
