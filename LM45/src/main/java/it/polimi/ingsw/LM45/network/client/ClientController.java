@@ -148,6 +148,10 @@ public class ClientController {
 	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor) {
 		viewInterface.addFamiliar(slotType, position, familiarColor, playerColor);
 	}
+	
+	public void setServantCost(int cost){
+		viewInterface.setServantCost(cost);
+	}
 
 	public void setLeaderCards(LeaderCard[] leaders) {
 		viewInterface.setLeaderCards(leaders);

@@ -115,6 +115,11 @@ public class RMIServer implements RemoteServerInterface, ClientInterface {
 	}
 
 	@Override
+	public void setServantCost(int cost) throws IOException {
+		remoteClient.setServantCost(cost);
+	}
+
+	@Override
 	public void setLeaderCards(LeaderCard[] leaders) throws IOException {
 		remoteClient.setLeaderCards(leaders);
 	}

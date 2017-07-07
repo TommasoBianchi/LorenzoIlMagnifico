@@ -110,6 +110,11 @@ public class RMIClient implements RemoteClientInterface, ServerInterface {
 	}
 
 	@Override
+	public void setServantCost(int cost) throws IOException {
+		clientController.setServantCost(cost);
+	}
+
+	@Override
 	public void setLeaderCards(LeaderCard[] leaders) {
 		clientController.setLeaderCards(leaders);
 	}

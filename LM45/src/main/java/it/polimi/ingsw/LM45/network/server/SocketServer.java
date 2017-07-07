@@ -274,6 +274,12 @@ public class SocketServer implements ClientInterface, ServerInterface, Runnable 
 	}
 
 	@Override
+	public void setServantCost(int cost) throws IOException {
+		outStream.writeObject(ClientMessages.SET_SERVANT_COST);
+		outStream.writeObject(Integer.valueOf(cost));
+	}
+
+	@Override
 	public void setLeaderCards(LeaderCard[] leaders) throws IOException {
 		outStream.writeObject(ClientMessages.SETUP_LEADERS);
 		outStream.writeObject(leaders);

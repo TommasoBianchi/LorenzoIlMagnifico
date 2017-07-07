@@ -119,6 +119,10 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 				PlayerColor playerColor = (PlayerColor) inStream.readObject();
 				performAsync(() -> addFamiliar(slotType, position, familiarColor, playerColor));
 				break;
+			case SET_SERVANT_COST:
+				Integer cost = (Integer) inStream.readObject();
+				performAsync(() -> setServantCost(cost));
+				break;
 			case SETUP_LEADERS:
 				LeaderCard[] leaders = (LeaderCard[]) inStream.readObject();
 				performAsync(() -> setLeaderCards(leaders));
@@ -281,6 +285,11 @@ public class SocketClient implements ClientInterface, ServerInterface, Runnable 
 	@Override
 	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor) {
 		clientController.addFamiliar(slotType, position, familiarColor, playerColor);
+	}
+
+	@Override
+	public void setServantCost(int cost) throws IOException {
+		clientController.setServantCost(cost);
 	}
 
 	@Override
