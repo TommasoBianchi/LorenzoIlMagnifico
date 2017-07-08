@@ -385,11 +385,17 @@ public class GameBoardCli {
 		ConsoleWriter.printValidInput("Do a Bonus Action : " + slotType + " of Value : " + value);
 		ConsoleWriter.println("");
 		
-		List<SlotCli> slots;
+		List<SlotCli> slots = new ArrayList<>();
 		
 		if(towers.containsKey(slotType)) {
 			towers.get(slotType).print();
 			slots = towers.get(slotType).getNonEmptySlots();
+		} else if(slotType == SlotType.ANY_CARD) {
+			for(SlotType type : new SlotType[]{SlotType.BUILDING, SlotType.CHARACTER, SlotType.TERRITORY,
+					SlotType.VENTURE}) {
+				towers.get(type).print();
+				slots.addAll(towers.get(slotType).getNonEmptySlots());
+			}
 		} else {
 			otherSlots.entrySet().stream().filter(entry -> entry.getKey() == slotType)
 				.forEach(ent -> Arrays.stream(ent.getValue()).forEach(slot -> slot.print()));
