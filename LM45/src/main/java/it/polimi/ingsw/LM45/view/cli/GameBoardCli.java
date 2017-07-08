@@ -367,9 +367,6 @@ public class GameBoardCli {
 			familiarPlacedThisTurn = true;
 			showMain();
 		}
-		else
-			ConsoleWriter
-					.printValidInput("Player " + playerColor + " has placed the " + familiarColor + " familiar on slot" + slotType + " " + position);
 	}
 
 	/**
