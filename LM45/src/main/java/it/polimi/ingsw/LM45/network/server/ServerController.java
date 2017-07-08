@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Queue;
 import java.util.Random;
 import java.util.Set;
@@ -412,8 +413,14 @@ public class ServerController {
 		Map<String, LeaderCard[]> chosenLeaderCards = chooseLeaderCards();
 
 		// Initialize the gameboards client-side
-		String[] playersUsername = players.values().stream().map(Player::getUsername).toArray(String[]::new);
-		PlayerColor[] playerColors = players.values().stream().map(Player::getColor).toArray(PlayerColor[]::new);
+		String[] playersUsername = new String[players.size()];
+		PlayerColor[] playerColors = new PlayerColor[players.size()];
+		int i = 0;
+		for(Player player : players.values()){
+			playersUsername[i] = player.getUsername();
+			playerColors[i] = player.getColor();
+			i++;
+		}
 		notifyPlayers(clientInterface -> clientInterface.initializeGameBoard(playersUsername, playerColors, game.getPlacedExcommunications(),
 				boardConfiguration));
 
