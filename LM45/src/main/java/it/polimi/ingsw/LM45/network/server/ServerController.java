@@ -52,7 +52,13 @@ import it.polimi.ingsw.LM45.util.CheckedFunction2;
 import it.polimi.ingsw.LM45.util.Pair;
 import it.polimi.ingsw.LM45.util.ShuffleHelper;
 
-// This is designed to manage only one game (consider renaming it to GameController)
+/**
+ * @author Tommy
+ *
+ * This is the controller responsible of managing the server's side of each game.
+ * It it instantiated only by the ServerControllerFactory and there is one of such instances for each ongoing game.
+ *
+ */
 public class ServerController {
 
 	private int gameID;
@@ -76,7 +82,18 @@ public class ServerController {
 	private SlotType bonusActionSlotType;
 	private Queue<CheckedFunction2<String, ClientInterface, IOException>> clientNotificationQueue = new LinkedList<>();
 
-	public ServerController(int gameID, int maxNumberOfPlayers, long gameStartTimerDelay, long turnTimerDelay)
+	/**
+	 * Initializes a ServerController, also loading cards, leaderCards, excommunications and the board configuration from the FileManager
+	 * 
+	 * @param gameID the ID of this game (0-based)
+	 * @param maxNumberOfPlayers the maximum number of players allowed to enter this game
+	 * @param gameStartTimerDelay the time to wait between the second player's login and the auto-start of the game
+	 * @param turnTimerDelay the time to give to each player to do its turn
+	 * @throws JsonSyntaxException if there are problems in loading something from the json assets
+	 * @throws JsonIOException if there are problems in loading something from the json assets
+	 * @throws FileNotFoundException if there are problems in loading something from the json assets
+	 */
+	protected ServerController(int gameID, int maxNumberOfPlayers, long gameStartTimerDelay, long turnTimerDelay)
 			throws JsonSyntaxException, JsonIOException, FileNotFoundException {
 		this.gameID = gameID;
 		this.users = new HashMap<>();
@@ -94,6 +111,13 @@ public class ServerController {
 		this.turnTimerDelay = turnTimerDelay;
 	}
 
+	/**
+	 * This method is responsible of logging in new players, reconnecting old ones, starting the gameStartTimer when the second
+	 * player logs in and starting the actual game when the number of connected players reach maxNumberOfPlayers
+	 * 
+	 * @param username the username of the player that is trying to log in
+	 * @param clientInterface the object we can use to send messages to the connecting player
+	 */
 	public void login(String username, ClientInterface clientInterface) {
 		if (players.containsKey(username) && !users.containsKey(username)) {
 			// The player is reconnecting for some reason
@@ -130,6 +154,14 @@ public class ServerController {
 		}
 	}
 
+	/**
+	 * This method is responsible of removing disconnected users (and as such it is called on every IOException)
+	 * and to signal the ServerControllerFactory that if someone tries to log in with the same username we want him
+	 * to reconnect back to this instance of ServerController 
+	 * 
+	 * @param username the username of the user we want to remove from the connected ones
+	 * @see ServerControllerFactory#addDisconnectedUser
+	 */
 	public void removeUser(String username) {
 		logInfo("Disconnecting " + username);
 		users.remove(username);
@@ -147,8 +179,14 @@ public class ServerController {
 		}
 	}
 
-	public void placeFamiliar(String player, FamiliarColor familiarColor, SlotType slotType, Integer slotID) {
-		if (playerCanDoActions(player)) {
+	/**
+	 * @param username the username of the player trying to place a familiar
+	 * @param familiarColor the familiarColor of the familiar
+	 * @param slotType the slotType of the slot on which this player is trying to place the familiar
+	 * @param slotID the ID of the slot on which this player is trying to place the familiar
+	 */
+	public void placeFamiliar(String username, FamiliarColor familiarColor, SlotType slotType, Integer slotID) {
+		if (playerCanDoActions(username)) {
 			try {
 				if (familiarColor != FamiliarColor.BONUS && currentPlayerAlreadyPlacedFamiliar)
 					throw new IllegalActionException("You have already placed a familiar this turn!");
@@ -156,126 +194,158 @@ public class ServerController {
 					throw new IllegalActionException("You cannot place this bonus familiar on a " + slotType + " slot!");
 
 				Slot slot = game.getSlot(slotType, slotID);
-				Familiar familiar = players.get(player).getFamiliarByColor(familiarColor);
-				EffectResolutor effectResolutor = effectResolutors.get(player);
-				ActionModifier actionModifier = players.get(player).getActionModifier(slotType, effectResolutor); // NOTE: this may be incorrect
+				Familiar familiar = players.get(username).getFamiliarByColor(familiarColor);
+				EffectResolutor effectResolutor = effectResolutors.get(username);
+				ActionModifier actionModifier = players.get(username).getActionModifier(slotType, effectResolutor); // NOTE: this may be incorrect
 				if (slot.canAddFamiliar(familiar, actionModifier, effectResolutor)) {
 					slot.addFamiliar(familiar, actionModifier, effectResolutor);
-					notifyPlayers(clientInterface -> clientInterface.addFamiliar(slotType, slotID, familiarColor, players.get(player).getColor()));
-					if (player.equals(currentPlayer.getUsername()))
+					notifyPlayers(clientInterface -> clientInterface.addFamiliar(slotType, slotID, familiarColor, players.get(username).getColor()));
+					if (username.equals(currentPlayer.getUsername()))
 						currentPlayerAlreadyPlacedFamiliar = familiarColor != FamiliarColor.BONUS;
-					logInfo(player + " successfully placed the familiar " + familiarColor + " in slot " + slotType + " " + slotID);
+					logInfo(username + " successfully placed the familiar " + familiarColor + " in slot " + slotType + " " + slotID);
 
 					if (familiarColor == FamiliarColor.BONUS) {
-						players.get(player).removeBonusFamiliar();
+						players.get(username).removeBonusFamiliar();
 						bonusActionSlotType = null;
 					}
 				}
 				else {
-					logInfo(player + " failed to place familiar " + familiarColor + " in slot " + slotID + " of type " + slotType);
+					logInfo(username + " failed to place familiar " + familiarColor + " in slot " + slotID + " of type " + slotType);
 				}
 			}
 			catch (IllegalActionException e) {
-				manageGameExceptions(player, e);
+				manageGameExceptions(username, e);
 			}
 		}
 	}
 
-	public void increaseFamiliarValue(String player, FamiliarColor familiarColor) {
-		if (playerCanDoActions(player)) {
+	/**
+	 * @param username the username of the player trying to increase the value of a familiar
+	 * @param familiarColor the familiarColor of the familiar whose value we try to increase
+	 */
+	public void increaseFamiliarValue(String username, FamiliarColor familiarColor) {
+		if (playerCanDoActions(username)) {
 			try {
-				players.get(player).increaseFamiliarValue(familiarColor);
+				players.get(username).increaseFamiliarValue(familiarColor);
 				notifyPlayers(
-						clientInterface -> clientInterface.setFamiliar(player, familiarColor, players.get(player).getFamiliarValue(familiarColor)));
+						clientInterface -> clientInterface.setFamiliar(username, familiarColor, players.get(username).getFamiliarValue(familiarColor)));
 				notifyPlayers(clientInterface -> clientInterface
-						.setResources(new Resource(ResourceType.SERVANTS, players.get(player).getResourceAmount(ResourceType.SERVANTS)), player));
-				logInfo(player + " increased value of familiar " + familiarColor);
+						.setResources(new Resource(ResourceType.SERVANTS, players.get(username).getResourceAmount(ResourceType.SERVANTS)), username));
+				logInfo(username + " increased value of familiar " + familiarColor);
 			}
 			catch (IllegalActionException e) {
-				manageGameExceptions(player, e);
-				logInfo(player + " faled increasing value of familiar " + familiarColor);
+				manageGameExceptions(username, e);
+				logInfo(username + " faled increasing value of familiar " + familiarColor);
 			}
 		}
 	}
 
-	public void playLeaderCard(String player, String leaderCardName) {
-		if (playerCanDoActions(player) && leaderCards.containsKey(leaderCardName)) {
+	/**
+	 * @param username the username of the player trying to play a leaderCard
+	 * @param leaderCardName the name of the leaderCard
+	 */
+	public void playLeaderCard(String username, String leaderCardName) {
+		if (playerCanDoActions(username) && leaderCards.containsKey(leaderCardName)) {
 			try {
 				LeaderCard leaderCard = leaderCards.get(leaderCardName);
-				players.get(player).playLeaderCard(leaderCard, effectResolutors.get(player));
-				notifyPlayers(clientInterface -> clientInterface.playLeaderCard(player, leaderCard));
-				logInfo(player + " played leader card " + leaderCardName);
+				players.get(username).playLeaderCard(leaderCard, effectResolutors.get(username));
+				notifyPlayers(clientInterface -> clientInterface.playLeaderCard(username, leaderCard));
+				logInfo(username + " played leader card " + leaderCardName);
 
 				// If the leaderCards has been activated (which means it had a permanent effect), than notify
 				// the players about it
 				if (leaderCard.getHasBeenActivated())
-					notifyPlayers(clientInterface -> clientInterface.activateLeaderCard(player, leaderCard));
+					notifyPlayers(clientInterface -> clientInterface.activateLeaderCard(username, leaderCard));
 			}
 			catch (IllegalActionException e) {
-				manageGameExceptions(player, e);
+				manageGameExceptions(username, e);
 			}
 		}
 	}
 
-	public void activateLeaderCard(String player, String leaderCardName) {
-		if (playerCanDoActions(player) && leaderCards.containsKey(leaderCardName)) {
+	/**
+	 * @param username the username of the player trying to activate a leaderCard
+	 * @param leaderCardName the name of the leaderCard
+	 */
+	public void activateLeaderCard(String username, String leaderCardName) {
+		if (playerCanDoActions(username) && leaderCards.containsKey(leaderCardName)) {
 			try {
 				LeaderCard leaderCard = leaderCards.get(leaderCardName);
-				players.get(player).activateLeaderCard(leaderCards.get(leaderCardName), effectResolutors.get(player));
-				notifyPlayers(clientInterface -> clientInterface.activateLeaderCard(player, leaderCard));
-				logInfo(player + " activated leader card " + leaderCardName);
+				players.get(username).activateLeaderCard(leaderCards.get(leaderCardName), effectResolutors.get(username));
+				notifyPlayers(clientInterface -> clientInterface.activateLeaderCard(username, leaderCard));
+				logInfo(username + " activated leader card " + leaderCardName);
 			}
 			catch (IllegalActionException e) {
-				manageGameExceptions(player, e);
+				manageGameExceptions(username, e);
 			}
 		}
 	}
 
-	public void discardLeaderCard(String player, String leaderCardName) {
-		if (playerCanDoActions(player) && leaderCards.containsKey(leaderCardName)) {
+	/**
+	 * @param username the username of the player trying to discard a leaderCard
+	 * @param leaderCardName the name of the leaderCard
+	 */
+	public void discardLeaderCard(String username, String leaderCardName) {
+		if (playerCanDoActions(username) && leaderCards.containsKey(leaderCardName)) {
 			try {
 				LeaderCard leaderCard = leaderCards.get(leaderCardName);
-				players.get(player).discardLeaderCard(leaderCard);
-				notifyPlayers(clientInterface -> clientInterface.discardLeaderCard(player, leaderCard));
-				effectResolutors.get(player).addResources(new Resource(ResourceType.COUNCIL_PRIVILEGES, 1));
-				logInfo(player + " discarded leader card " + leaderCardName);
+				players.get(username).discardLeaderCard(leaderCard);
+				notifyPlayers(clientInterface -> clientInterface.discardLeaderCard(username, leaderCard));
+				effectResolutors.get(username).addResources(new Resource(ResourceType.COUNCIL_PRIVILEGES, 1));
+				logInfo(username + " discarded leader card " + leaderCardName);
 			}
 			catch (IllegalActionException e) {
-				manageGameExceptions(player, e);
+				manageGameExceptions(username, e);
 			}
 		}
 	}
 
-	public void doBonusAction(String player, SlotType slotType, int value, Resource[] discount) {
+	/**
+	 * @param username the username of the player trying to do a bonus action
+	 * @param slotType the slotType of the slot in which the player is allowed to do the bonus action
+	 * @param value the value of the bonus action (like the value of a familiar)
+	 * @param discount the resource discount while doing this bonus action
+	 */
+	public void doBonusAction(String username, SlotType slotType, int value, Resource[] discount) {
 		try {
-			players.get(player).addBonusFamiliar(value, discount);
+			players.get(username).addBonusFamiliar(value, discount);
 			bonusActionSlotType = slotType;
-			users.get(player).doBonusAction(slotType, value);
+			users.get(username).doBonusAction(slotType, value);
 		}
 		catch (IOException e) {
-			manageIOException(player, e);
+			manageIOException(username, e);
 		}
 	}
 
-	public void endPlayerRound(String player) {
-		if (currentPlayer.getUsername().equals(player)) {
-			logInfo(player + " ended his turn");
+	/**
+	 * @param username the username of the player ending his round (or being forced by the turnTimer to end it)
+	 */
+	public void endPlayerRound(String username) {
+		if (currentPlayer.getUsername().equals(username)) {
+			logInfo(username + " ended his turn");
 			turnTimer.cancel();
 
 			// Reset servants bonus on each familiar
-			Arrays.stream(players.get(player).getFamiliars()).forEach(familiar -> {
+			Arrays.stream(players.get(username).getFamiliars()).forEach(familiar -> {
 				familiar.clearServantsBonus();
-				notifyPlayers(clientInterface -> clientInterface.setFamiliar(player, familiar.getFamiliarColor(), familiar.getValue()));
+				notifyPlayers(clientInterface -> clientInterface.setFamiliar(username, familiar.getFamiliarColor(), familiar.getValue()));
 			});
 
 			nextPlayerRound();
 		}
 	}
 
-	public boolean isMyTurn(Player player) {
-		return currentPlayer == player;
+	/**
+	 * @param username the username of the player we want to check
+	 * @return whether or not it is the turn of a given player
+	 */
+	public boolean isMyTurn(Player username) {
+		return currentPlayer == username;
 	}
 
+	/**
+	 * @return an array containing all the leaderCards that have been played so far by any player
+	 */
 	public LeaderCard[] getAllPlayedLeaderCards() {
 		return players.values().stream().flatMap(player -> Arrays.stream(player.getPlayedLeaderCards())).toArray(LeaderCard[]::new);
 	}
@@ -438,13 +508,18 @@ public class ServerController {
 		nextPlayerRound();
 	}
 
-	public int chooseFrom(String player, String[] alternatives) {
+	/**
+	 * @param username the username of the player that has to choose
+	 * @param alternatives the alternatives (already in a string format) this player has to choose from
+	 * @return the index of the chosen alternative
+	 */
+	public int chooseFrom(String username, String[] alternatives) {
 		int index = 0;
 		try {
-			index = users.get(player).chooseFrom(alternatives);
+			index = users.get(username).chooseFrom(alternatives);
 		}
 		catch (IOException e) {
-			manageIOException(player, e);
+			manageIOException(username, e);
 		}
 		return index;
 	}
