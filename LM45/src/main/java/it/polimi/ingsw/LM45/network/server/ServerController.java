@@ -416,11 +416,14 @@ public class ServerController {
 		for (CardType cardType : new CardType[] { CardType.TERRITORY, CardType.BUILDING, CardType.CHARACTER, CardType.VENTURE })
 			notifyPlayers(clientInterface -> clientInterface.addCardsOnTower(game.getCardsOnTower(cardType), cardType.toSlotType()));
 
-		// Notify players about the value of their familiars (which includes the new value of the dices rolled by the game)
-		notifyPlayers((username, clientInterface) -> {
-			Familiar[] familiars = players.get(username).getFamiliars();
-			for (Familiar familiar : familiars)
-				clientInterface.setFamiliar(username, familiar.getFamiliarColor(), familiar.getValue());
+		// Notify players about the value of all players' familiars (which includes the new value of the dices rolled by the game)
+		notifyPlayers(clientInterface -> {
+			for (String username : players.keySet()) {
+				Familiar[] familiars = players.get(username).getFamiliars();
+				for (Familiar familiar : familiars) {
+					clientInterface.setFamiliar(username, familiar.getFamiliarColor(), familiar.getValue());
+				}
+			}
 		});
 
 		// Notify players about leaderCards that can now be activated again
@@ -686,7 +689,8 @@ public class ServerController {
 	 * 
 	 * @param c
 	 *            the function we want to call on every connected player (providing access to only the clientInterface)
-	 * @param filter a function to decide if a client has to be notified or not based on his username
+	 * @param filter
+	 *            a function to decide if a client has to be notified or not based on his username
 	 */
 	public void notifyPlayers(CheckedFunction1<ClientInterface, IOException> c, Predicate<String> filter) {
 		notifyPlayers((username, clientInterface) -> {
