@@ -195,12 +195,12 @@ public class GameBoardCli {
 		ConsoleWriter.println("");
 		ConsoleWriter.printValidInput("Selected action for Leader  -- " + leader.getName());
 		List<Pair<Consumer<GameBoardCli>, String>> leaderOptions = new ArrayList<>();
-		leaderOptions.add(new Pair<Consumer<GameBoardCli>, String>(gameBoard -> gameBoard.discardLeader(leader),
-				"Discard Leader"));
-		leaderOptions.add(new Pair<Consumer<GameBoardCli>, String>(gameBoard -> gameBoard.playLeader(leader),
-				"Play Leader"));
-		leaderOptions.add(new Pair<Consumer<GameBoardCli>, String>(gameBoard -> gameBoard.activateLeader(leader),
-				"Activate Leader"));
+		leaderOptions.add(new Pair<Consumer<GameBoardCli>, String>(gameBoard -> {gameBoard.discardLeader(leader);
+				selectLeaderCallback.accept(this);}, "Discard Leader"));
+		leaderOptions.add(new Pair<Consumer<GameBoardCli>, String>(gameBoard -> {gameBoard.playLeader(leader);
+				selectLeaderCallback.accept(this);}, "Play Leader"));
+		leaderOptions.add(new Pair<Consumer<GameBoardCli>, String>(gameBoard -> {gameBoard.activateLeader(leader);
+				selectLeaderCallback.accept(this);}, "Activate Leader"));
 		leaderOptions.add(new Pair<Consumer<GameBoardCli>, String>(selectLeaderCallback, "Back"));
 		GameBoardCliOptions.navigate(this, leaderOptions);
 	}
@@ -381,7 +381,9 @@ public class GameBoardCli {
 	 * @param value value of the action
 	 */
 	public void doBonusAction(SlotType slotType, int value) {
-		// TODO
+		ConsoleWriter.println("");
+		ConsoleWriter.printValidInput("Do a Bonus Action gets the malus of the excommunication of period ");
+		ConsoleWriter.println("");
 	}
 
 	/**
