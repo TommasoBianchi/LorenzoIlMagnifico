@@ -36,6 +36,7 @@ public class GameBoardCli {
 	private Excommunication[] excommunications;
 	private String currentPlayer;
 	private boolean familiarPlacedThisTurn = false;
+	private int servantCost = 1;
 
 	public GameBoardCli(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications,
 			BoardConfiguration boardConfiguration, ClientController clientController) {
@@ -107,7 +108,7 @@ public class GameBoardCli {
 			GameBoardCliOptions.navigate(Stage.SINGLE_TOWER, this,
 					towers.get(cardType.toSlotType()).getNonEmptySlots().stream()
 							.map(slot -> new Pair<Consumer<GameBoardCli>, String>(
-									gameBoard -> gameBoard.placeFamiliar(slot, gb -> gb.showTower(cardType)),
+									gameBoard -> gameBoard.selectFamiliar(slot, gb -> gb.showTower(cardType)),
 									"Place a familiar on slot " + slot.getNamedID()))
 							.collect(Collectors.toList()));
 		else
@@ -125,7 +126,7 @@ public class GameBoardCli {
 			GameBoardCliOptions.navigate(Stage.OTHER_SLOTS, this,
 					otherSlots.values().stream().flatMap(Arrays::stream)
 							.map(slot -> new Pair<Consumer<GameBoardCli>, String>(
-									gameBoard -> gameBoard.placeFamiliar(slot, GameBoardCli::showOtherSlots),
+									gameBoard -> gameBoard.selectFamiliar(slot, GameBoardCli::showOtherSlots),
 									"Place a familiar on slot " + slot.getNamedID()))
 							.collect(Collectors.toList()));
 		else
@@ -170,21 +171,29 @@ public class GameBoardCli {
 			}, "Show " + cardType + " cards"));
 		options.add(new Pair<Consumer<GameBoardCli>, String>(gameBoard -> {
 			usersPersonalBoards.get(username).printLeaderCards(username == myUsername);
-			gameBoard.showPersonalBoard(username);
+			if(username == myUsername)
+				gameBoard.selectLeader(usersPersonalBoards.get(myUsername).getLeaderCards());
+			else
+				gameBoard.showPersonalBoard(username);
 		}, "Show leader cards"));
 		GameBoardCliOptions.navigate(Stage.SINGLE_PERSONAL_BOARD, this, options);
+	}
+	
+	public void selectLeader(List<LeaderCard> leaders) {
+		ConsoleWriter.println("HOLA");
+		//TODO
 	}
 
 	/**
 	 * @param slot the slot where to place the familiar
-	 * @param backCallback gameboardcli callback
+	 * @param backCallback callback for showTower(cardType)
 	 */
-	public void placeFamiliar(SlotCli slot, Consumer<GameBoardCli> backCallback) {
+	public void selectFamiliar(SlotCli slot, Consumer<GameBoardCli> backCallback) {
 		ConsoleWriter.println("");
 		ConsoleWriter.printChoice("What familiar do you want to place ?");
 		List<Pair<Consumer<GameBoardCli>, String>> options = usersPersonalBoards.get(myUsername).getUsableFamiliars().stream()
 				.map(pair -> new Pair<Consumer<GameBoardCli>, String>(gameBoard -> gameBoard
-						.showFamiliarOptions(pair._1(),pair._2(), slot, gb -> gb.placeFamiliar(slot, backCallback)),
+						.showFamiliarOptions(pair._1(),pair._2(), slot, gb -> gb.selectFamiliar(slot, backCallback)),
 						"Select familiar " + pair._1() + " (value " + pair._2() + ")"))
 				.collect(Collectors.toList());
 		options.add(new Pair<Consumer<GameBoardCli>, String>(backCallback, "Back"));
@@ -202,10 +211,11 @@ public class GameBoardCli {
 		ConsoleWriter.printValidInput("Selected familiar " + familiarColor + " (value " + value + ")");
 		List<Pair<Consumer<GameBoardCli>, String>> familiarOptions = new ArrayList<>();
 		familiarOptions.add(new Pair<Consumer<GameBoardCli>, String>(gameBoard -> { gameBoard.increaseFamiliarValue(familiarColor);
-				gameBoard.placeFamiliar(slot, backCallback);}, "Increase Familiar Value"));
+				gameBoard.selectFamiliar(slot, backCallback);}, "Increase Familiar Value (cost = " + servantCost +
+						(servantCost > 1? " servant" : " servants")));
 		familiarOptions.add(new Pair<Consumer<GameBoardCli>, String>(gameBoard -> { gameBoard.placeFamiliar(familiarColor, slot);
 				gameBoard.showMain();}, "Do Action !"));
-		familiarOptions.add(new Pair<Consumer<GameBoardCli>, String>(gameBoard -> gameBoard.placeFamiliar(slot, backCallback), "Back"));
+		familiarOptions.add(new Pair<Consumer<GameBoardCli>, String>(gameBoard -> gameBoard.selectFamiliar(slot, backCallback), "Back"));
 		GameBoardCliOptions.navigate(this, familiarOptions);
 	}
 	
@@ -307,16 +317,19 @@ public class GameBoardCli {
 					.printValidInput("Player " + playerColor + " has placed the " + familiarColor + " familiar on slot" + slotType + " " + position);
 	}
 
+	/**
+	 * @param cost number of servant to spend to increase familiar's value
+	 */
 	public void setServantCost(int cost) {
-		// TODO
+		servantCost = cost;
 	}
-
-	public void doAction() {
-		// TODO when select print "Write : familiarColor slotType slotPosition"
-	}
-
+	
+	/**
+	 * @param slotType type of the slot
+	 * @param value value of the action
+	 */
 	public void doBonusAction(SlotType slotType, int value) {
-		// TODO like doAction()
+		// TODO
 	}
 
 	/**
