@@ -146,6 +146,21 @@ public class PersonalBoardCli {
 	public void enableLeaderCard(LeaderCard leader) {
 		leaders.put(leader, LeaderCardMode.PLAYED);
 	}
+	
+	/**
+	 * @return the list of LeaderCards
+	 */
+	public List<LeaderCard> getLeaderCards() {
+		return leaders.entrySet().stream().map(entry -> entry.getKey()).collect(Collectors.toList());
+	}
+	
+	/**
+	 * @param leader the leader card
+	 * @return the status of the leader card : HAND, PLAYED or ACTIVE
+	 */
+	public LeaderCardMode getLeaderStatus(LeaderCard leader) {
+		return leaders.get(leader);
+	}
 
 	/**
 	 * @param personalBonusTile the personalBonusTile of the player
