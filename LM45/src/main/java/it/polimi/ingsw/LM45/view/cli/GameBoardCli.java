@@ -230,15 +230,15 @@ public class GameBoardCli {
 	 * @param slot the slot where to place the familiar
 	 * @param backCallback callback for showTower(cardType)
 	 */
-	public void selectFamiliar(SlotCli slot, Consumer<GameBoardCli> backCallback) {
+	public void selectFamiliar(SlotCli slot, Consumer<GameBoardCli> showTowerCallback) {
 		ConsoleWriter.println("");
 		ConsoleWriter.printChoice("What familiar do you want to place ?");
 		List<Pair<Consumer<GameBoardCli>, String>> options = usersPersonalBoards.get(myUsername).getUsableFamiliars().stream()
 				.map(pair -> new Pair<Consumer<GameBoardCli>, String>(gameBoard -> gameBoard
-						.showFamiliarOptions(pair._1(),pair._2(), slot, gb -> gb.selectFamiliar(slot, backCallback)),
+						.showFamiliarOptions(pair._1(),pair._2(), slot, gb -> gb.selectFamiliar(slot, showTowerCallback)),
 						"Select familiar " + pair._1() + " (value " + pair._2() + ")"))
 				.collect(Collectors.toList());
-		options.add(new Pair<Consumer<GameBoardCli>, String>(backCallback, "Back"));
+		options.add(new Pair<Consumer<GameBoardCli>, String>(showTowerCallback, "Back"));
 		GameBoardCliOptions.navigate(this, options);
 	}
 	
@@ -248,16 +248,16 @@ public class GameBoardCli {
 	 * @param slot slot selected
 	 * @param backCallback the CallBack to call again placeFamiliar method
 	 */
-	public void showFamiliarOptions(FamiliarColor familiarColor, int value, SlotCli slot, Consumer<GameBoardCli> backCallback) {
+	public void showFamiliarOptions(FamiliarColor familiarColor, int value, SlotCli slot, Consumer<GameBoardCli> selectFamiliarCallback) {
 		ConsoleWriter.println("");
 		ConsoleWriter.printValidInput("Selected familiar " + familiarColor + " (value " + value + ")");
 		List<Pair<Consumer<GameBoardCli>, String>> familiarOptions = new ArrayList<>();
 		familiarOptions.add(new Pair<Consumer<GameBoardCli>, String>(gameBoard -> { gameBoard.increaseFamiliarValue(familiarColor);
-				gameBoard.selectFamiliar(slot, backCallback);}, "Increase Familiar Value (cost = " + servantCost +
-						(servantCost > 1? " servant" : " servants")));
+				selectFamiliarCallback.accept(this);}, "Increase Familiar Value (cost = " + servantCost +
+						(servantCost > 1? " servant)" : " servants)")));
 		familiarOptions.add(new Pair<Consumer<GameBoardCli>, String>(gameBoard -> { gameBoard.placeFamiliar(familiarColor, slot);
 				gameBoard.showMain();}, "Do Action !"));
-		familiarOptions.add(new Pair<Consumer<GameBoardCli>, String>(gameBoard -> gameBoard.selectFamiliar(slot, backCallback), "Back"));
+		familiarOptions.add(new Pair<Consumer<GameBoardCli>, String>(selectFamiliarCallback, "Back"));
 		GameBoardCliOptions.navigate(this, familiarOptions);
 	}
 	
