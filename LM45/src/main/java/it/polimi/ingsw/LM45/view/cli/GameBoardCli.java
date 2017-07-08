@@ -382,8 +382,40 @@ public class GameBoardCli {
 	 */
 	public void doBonusAction(SlotType slotType, int value) {
 		ConsoleWriter.println("");
-		ConsoleWriter.printValidInput("Do a Bonus Action gets the malus of the excommunication of period ");
+		ConsoleWriter.printValidInput("Do a Bonus Action : " + slotType + " of Value : " + value);
 		ConsoleWriter.println("");
+		
+		List<SlotCli> slots;
+		
+		if(towers.containsKey(slotType)) {
+			towers.get(slotType).print();
+			slots = towers.get(slotType).getNonEmptySlots();
+		} else {
+			otherSlots.entrySet().stream().filter(entry -> entry.getKey() == slotType)
+				.forEach(ent -> Arrays.stream(ent.getValue()).forEach(slot -> slot.print()));
+			slots = Arrays.asList(otherSlots.get(slotType));
+		}
+		
+		List<Pair<Consumer<GameBoardCli>, String>> bonusActionOptions = slots.stream()
+				.map(slot -> new Pair<Consumer<GameBoardCli>, String>(gameBoard -> gameBoard
+						.bonusOptions(slot,value, gb -> gb.doBonusAction(slotType, value)),
+						"Select slot " + slot.getNamedID()))
+				.collect(Collectors.toList());
+		bonusActionOptions.add(new Pair<Consumer<GameBoardCli>, String>(gb -> gb.showMain(), "Back to Main"));
+		GameBoardCliOptions.navigate(this, bonusActionOptions);
+	}
+	
+	public void bonusOptions(SlotCli slot, int value, Consumer<GameBoardCli> doBonusActionCallback) {
+		ConsoleWriter.println("");
+		ConsoleWriter.printValidInput("Selected slot " + slot.getNamedID());
+		ConsoleWriter.printValidInput("Bonus Action Value : " + value);
+		List<Pair<Consumer<GameBoardCli>, String>> bonusFamiliarOptions = new ArrayList<>();
+		bonusFamiliarOptions.add(new Pair<Consumer<GameBoardCli>, String>(gameBoard -> { gameBoard.increaseFamiliarValue(FamiliarColor.BONUS);
+				doBonusActionCallback.accept(this);}, "Increase Bonus Value"));
+		bonusFamiliarOptions.add(new Pair<Consumer<GameBoardCli>, String>(gameBoard -> { gameBoard.placeFamiliar(FamiliarColor.BONUS, slot);
+				gameBoard.showMain();}, "Do Action !"));
+		bonusFamiliarOptions.add(new Pair<Consumer<GameBoardCli>, String>(doBonusActionCallback, "Back"));
+		GameBoardCliOptions.navigate(this, bonusFamiliarOptions);
 	}
 
 	/**
