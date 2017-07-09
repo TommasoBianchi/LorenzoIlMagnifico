@@ -8,6 +8,11 @@ import it.polimi.ingsw.LM45.model.effects.modifiers.ActionModifier;
 import it.polimi.ingsw.LM45.model.effects.modifiers.ResourceAdder;
 import it.polimi.ingsw.LM45.model.effects.modifiers.ResourceModifier;
 
+/**
+ * This is an effect granting a bonus action or some bonuses when performing certain actions
+ * 
+ * @author Tommy
+ */
 public class ActionEffect extends Effect {
 
 	private static final long serialVersionUID = 1L;
@@ -17,6 +22,16 @@ public class ActionEffect extends Effect {
 	private Resource[] discount;
 	private boolean isBonusAction;
 
+	/**
+	 * @param slotType
+	 *            the slotType of the slot on which this effect can be applied
+	 * @param diceNumber
+	 *            the value of the dice in the case of a bonus action or the bonus to the value of the dice in case of a bonus on an action
+	 * @param discount
+	 *            the resource discount granted
+	 * @param isBonusAction
+	 *            true if this effect grants a bonus action, false if it represents a bonus on some other actions
+	 */
 	public ActionEffect(SlotType slotType, int diceNumber, Resource[] discount, boolean isBonusAction) {
 		this.slotType = slotType;
 		this.diceNumber = diceNumber;
@@ -24,6 +39,13 @@ public class ActionEffect extends Effect {
 		this.isBonusAction = isBonusAction;
 	}
 
+	/**
+	 * Instantiate an ActionEffect with no discounts
+	 * 
+	 * @param slotType the slotType of the slot on which this effect can be applied
+	 * @param diceNumber the value of the dice in the case of a bonus action or the bonus to the value of the dice in case of a bonus on an action
+	 * @param isBonusAction true if this effect grants a bonus action, false if it represents a bonus on some other actions
+	 */
 	public ActionEffect(SlotType slotType, int diceNumber, boolean isBonusAction) {
 		this(slotType, diceNumber, new Resource[] {}, isBonusAction);
 	}

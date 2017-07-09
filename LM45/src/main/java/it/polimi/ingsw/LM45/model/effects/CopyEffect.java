@@ -2,6 +2,12 @@ package it.polimi.ingsw.LM45.model.effects;
 
 import java.util.function.Function;
 
+/**
+ * This effect copies another effect and then resolves himself as the copied one
+ * 
+ * @author Tommy
+ *
+ */
 public class CopyEffect extends Effect {
 
 	private static final long serialVersionUID = 1L;

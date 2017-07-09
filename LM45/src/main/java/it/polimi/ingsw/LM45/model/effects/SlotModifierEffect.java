@@ -3,6 +3,12 @@ package it.polimi.ingsw.LM45.model.effects;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.model.effects.modifiers.ActionModifier;
 
+/**
+ * This effect modifies how a player can place familiars on a slot
+ * 
+ * @author Tommy
+ *
+ */
 public class SlotModifierEffect extends Effect {
 
 	private static final long serialVersionUID = 1L;
@@ -12,8 +18,17 @@ public class SlotModifierEffect extends Effect {
 	private boolean canPlaceMultipleFamiliars;
 	private boolean canReceiveResources;
 
-	public SlotModifierEffect(SlotType slotType, boolean canPlaceFamiliars, boolean canPlaceMultipleFamiliars,
-			boolean canReceiveResources) {
+	/**
+	 * @param slotType
+	 *            the slotType of the slots affected by this effect
+	 * @param canPlaceFamiliars
+	 *            true if the player can still place familiars on the affected slot
+	 * @param canPlaceMultipleFamiliars
+	 *            true if the player can place familiars on the affected slot even if there is already one
+	 * @param canReceiveResources
+	 *            true if the player can receive resources when placing familiars on the affected slot from the slot itself
+	 */
+	public SlotModifierEffect(SlotType slotType, boolean canPlaceFamiliars, boolean canPlaceMultipleFamiliars, boolean canReceiveResources) {
 		this.slotType = slotType;
 		this.canPlaceFamiliars = canPlaceFamiliars;
 		this.canPlaceMultipleFamiliars = canPlaceMultipleFamiliars;
@@ -22,8 +37,6 @@ public class SlotModifierEffect extends Effect {
 
 	@Override
 	public void resolveEffect(EffectResolutor effectResolutor) {
-		// NOTE this may need to do nothing
-
 	}
 
 	@Override
@@ -33,12 +46,12 @@ public class SlotModifierEffect extends Effect {
 		else
 			return ActionModifier.EMPTY();
 	}
-	
+
 	@Override
 	public String toString() {
-		if(!canPlaceFamiliars)
+		if (!canPlaceFamiliars)
 			return "Can't place familiars in " + slotType.toString() + " slots";
-		else if(canPlaceMultipleFamiliars)
+		else if (canPlaceMultipleFamiliars)
 			return "Can place familiars in occupied action slots";
 		else
 			return "Can't receive bonus resources from tower slots";

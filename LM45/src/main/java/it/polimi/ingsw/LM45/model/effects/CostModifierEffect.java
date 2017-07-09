@@ -7,6 +7,12 @@ import it.polimi.ingsw.LM45.model.effects.modifiers.ResourceAdder;
 import it.polimi.ingsw.LM45.model.effects.modifiers.ResourceModifier;
 import it.polimi.ingsw.LM45.model.effects.modifiers.ResourceMultiplier;
 
+/**
+ * This effect modifies the cost of cards or the cost of entering an occupied tower
+ * 
+ * @author Tommy
+ *
+ */
 public class CostModifierEffect extends Effect {
 
 	private static final long serialVersionUID = 1L;
@@ -15,10 +21,22 @@ public class CostModifierEffect extends Effect {
 	private boolean disableTowerCost;
 	private boolean isMultiplier;
 
+	/**
+	 * @param disableTowerCost
+	 *            true if this effect disables the cost of entering an occupied tower
+	 */
 	public CostModifierEffect(boolean disableTowerCost) {
 		this.disableTowerCost = disableTowerCost;
 	}
 
+	/**
+	 * Instantiate a CostModifierEffect that modifies the cost of cards
+	 * 
+	 * @param resource
+	 *            the resource to modify the cost
+	 * @param isMultiplier
+	 *            true if the modification is a multiplication, false if it is only an addition/removal of resources
+	 */
 	public CostModifierEffect(Resource resource, boolean isMultiplier) {
 		this(false);
 		this.resource = resource;
