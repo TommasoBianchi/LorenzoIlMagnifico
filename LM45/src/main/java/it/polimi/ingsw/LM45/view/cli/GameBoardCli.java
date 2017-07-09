@@ -571,6 +571,7 @@ public class GameBoardCli {
 
 	public void endTurn() {
 		familiarPlacedThisTurn = false;
+		doBonusActionCallback = null;
 		clientController.endTurn();
 		showMain();
 	}
