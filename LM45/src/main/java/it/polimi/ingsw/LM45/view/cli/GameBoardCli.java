@@ -37,6 +37,7 @@ public class GameBoardCli {
 	private String currentPlayer;
 	private boolean familiarPlacedThisTurn = false;
 	private int servantCost = 1;
+	private Resource[][] churchSupportResources;
 
 	private Consumer<GameBoardCli> setFamiliarCallback = gameBoard -> {
 	};
@@ -48,6 +49,7 @@ public class GameBoardCli {
 		this.usersPersonalBoards = new HashMap<>();
 		this.playersExcommunications = new HashMap<>();
 		this.playerColorName = new HashMap<>();
+		this.churchSupportResources = boardConfiguration.getChurchSupportResources();
 
 		for (int i = 0; i < playersUsername.length; i++) {
 			usersPersonalBoards.put(playersUsername[i],
@@ -154,6 +156,13 @@ public class GameBoardCli {
 			}
 		}
 		ConsoleWriter.println("--------------------");
+		ConsoleWriter.println("");
+		ConsoleWriter.printShowInfo("Church Support Bonuses :");
+		for(int i=0; i<churchSupportResources.length; i++)
+			for(int j=0; j<churchSupportResources[i].length; j++) {
+				ConsoleWriter.printShowInfo(i + " " + churchSupportResources[i][j].toString());
+			}
+		ConsoleWriter.println("\n");
 		GameBoardCliOptions.navigate(Stage.EXCOMMUNICATIONS, this);
 	}
 
