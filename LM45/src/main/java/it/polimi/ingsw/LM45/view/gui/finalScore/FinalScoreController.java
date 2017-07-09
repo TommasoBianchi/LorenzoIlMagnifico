@@ -43,7 +43,7 @@ public class FinalScoreController {
 			stage.setTitle("Lorenzo il Magnifico - Final Score");
 			showScores(playersUsername, playerColors, scores);
 			stage.show();
-		} catch (IOException e) { // TODO sistemare
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

@@ -130,7 +130,7 @@ public class GameBoardController {
 			setFamiliarsColors(playersUsername, playerColors);
 			disableGameBoard();
 			placeExcommunications(excommunications);
-		} catch (IOException e) { // TODO sistemare
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 

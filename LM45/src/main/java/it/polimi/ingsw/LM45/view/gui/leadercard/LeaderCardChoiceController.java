@@ -47,7 +47,7 @@ public class LeaderCardChoiceController {
 			stage.setTitle("Lorenzo il Magnifico");
 			stage.show();
 		}
-		catch (IOException | NullPointerException e) { // TODO sistemare
+		catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
