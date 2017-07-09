@@ -13,15 +13,13 @@ import it.polimi.ingsw.LM45.model.core.Resource;
 
 public class TowerCli {
 
-	private CardType cardType;
 	private TowerSlotCli[] slots;
 
 	public TowerCli(CardType cardType, BoardConfiguration boardConfiguration) {
-		this.cardType = cardType;
 		this.slots = new TowerSlotCli[4];
 
-		for (int i = 0; i < slots.length; i++)
-			slots[i] = new TowerSlotCli(cardType, i, boardConfiguration.getSlotBonuses(cardType.toSlotType(), i));
+		for (int i = 0, j=1; i < slots.length; i++, j=j+2)
+			slots[i] = new TowerSlotCli(cardType, i, j, boardConfiguration.getSlotBonuses(cardType.toSlotType(), i));
 	}
 
 	public void print() {
@@ -63,8 +61,8 @@ public class TowerCli {
 
 		private Card card;
 
-		public TowerSlotCli(CardType cardType, int slotID, Resource[] immediateResources) {
-			super(cardType.toSlotType(), slotID, immediateResources);
+		public TowerSlotCli(CardType cardType, int slotID, int diceValue, Resource[] immediateResources) {
+			super(cardType.toSlotType(), slotID, diceValue, 0, immediateResources);
 			this.card = null;
 		}
 
