@@ -386,21 +386,14 @@ public class GameBoardCli {
 		ConsoleWriter.println("");
 		
 		List<SlotCli> slots = new ArrayList<>();
+
+		for(SlotType towerSlotType : towers.keySet())
+			if(slotType.isCompatible(towerSlotType))
+				slots.addAll(towers.get(towerSlotType).getNonEmptySlots());
 		
-		if(towers.containsKey(slotType)) {
-			towers.get(slotType).print();
-			slots = towers.get(slotType).getNonEmptySlots();
-		} else if(slotType == SlotType.ANY_CARD) {
-			for(SlotType type : new SlotType[]{SlotType.BUILDING, SlotType.CHARACTER, SlotType.TERRITORY,
-					SlotType.VENTURE}) {
-				towers.get(type).print();
-				slots.addAll(towers.get(slotType).getNonEmptySlots());
-			}
-		} else {
-			otherSlots.entrySet().stream().filter(entry -> entry.getKey() == slotType)
-				.forEach(ent -> Arrays.stream(ent.getValue()).forEach(slot -> slot.print()));
-			slots = Arrays.asList(otherSlots.get(slotType));
-		}
+		for(SlotType otherSlotType : otherSlots.keySet())
+			if(slotType.isCompatible(otherSlotType))
+				slots.addAll(Arrays.asList(otherSlots.get(otherSlotType)));
 		
 		List<Pair<Consumer<GameBoardCli>, String>> bonusActionOptions = slots.stream()
 				.map(slot -> new Pair<Consumer<GameBoardCli>, String>(gameBoard -> gameBoard
