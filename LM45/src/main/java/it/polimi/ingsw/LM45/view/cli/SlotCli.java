@@ -10,6 +10,12 @@ import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.util.Pair;
 
+/**
+ * Class to save Slot info for the CLI
+ * 
+ * @author Kostandin
+ *
+ */
 public class SlotCli {
 
 	private SlotType slotType;
@@ -19,6 +25,13 @@ public class SlotCli {
 	private List<Pair<FamiliarColor, PlayerColor>> familiars;
 	private Resource[] immediateResources;
 
+	/**
+	 * @param slotType the type of the slot
+	 * @param slotID the slot position
+	 * @param diceValue the value of the dice to make an action in that slot
+	 * @param diceModifier a dice modifier that changes slot's diceValue
+	 * @param immediateResources an array of resources
+	 */
 	public SlotCli(SlotType slotType, int slotID, int diceValue, int diceModifier, Resource[] immediateResources) {
 		this.slotType = slotType;
 		this.slotID = slotID;
@@ -28,10 +41,18 @@ public class SlotCli {
 		this.diceValue = diceValue;
 	}
 	
+	/**
+	 * @param slotType the type of the slot
+	 * @param slotID the slot position
+	 * @param immediateResources an array of resources
+	 */
 	public SlotCli(SlotType slotType, int slotID, Resource[] immediateResources) {
 		this(slotType,slotID,1,0,immediateResources);
 	}
 
+	/**
+	 * It prints all slot's information
+	 */
 	public void print() {
 		ConsoleWriter.printShowInfo(slotType + " slot " + slotID + " (dice value " + diceValue + ")");
 		if(diceModifier != 0)
@@ -51,22 +72,38 @@ public class SlotCli {
 			ConsoleWriter.printShowInfo("No familiars on this slot");
 	}
 
+	/**
+	 * @param familiarColor the familiar color
+	 * @param playerColor the player color
+	 */
 	public void placeFamiliar(FamiliarColor familiarColor, PlayerColor playerColor) {
 		this.familiars.add(new Pair<FamiliarColor, PlayerColor>(familiarColor, playerColor));
 	}
 
+	/**
+	 * clears all familiars from slot
+	 */
 	public void clearFamiliars() {
 		this.familiars.clear();
 	}
 	
+	/**
+	 * @return the slottype of the slot
+	 */
 	public SlotType getSlotType(){
 		return this.slotType;
 	}
 	
+	/**
+	 * @return the slot's position
+	 */
 	public int getID(){
 		return this.slotID;
 	}
 	
+	/**
+	 * @return a string with slottype and slot's position
+	 */
 	public String getNamedID(){
 		return slotType + " " + slotID;
 	}
