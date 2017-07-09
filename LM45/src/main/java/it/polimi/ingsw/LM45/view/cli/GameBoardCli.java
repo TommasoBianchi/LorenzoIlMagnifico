@@ -371,6 +371,9 @@ public class GameBoardCli {
 	 */
 	public void addCardsOnTower(Card[] cards, SlotType slotType) {
 		towers.get(slotType).addCards(cards);
+		for(PersonalBoardCli personalBoard : usersPersonalBoards.values()) {
+			personalBoard.setFamiliarsUnused();
+		}
 	}
 
 	/**
