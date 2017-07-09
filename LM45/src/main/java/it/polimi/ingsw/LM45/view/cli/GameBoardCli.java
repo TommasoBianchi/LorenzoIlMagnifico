@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -466,13 +467,13 @@ public class GameBoardCli {
 
 		List<SlotCli> slots = new ArrayList<>();
 
-		for (SlotType towerSlotType : towers.keySet())
-			if (slotType.isCompatible(towerSlotType))
-				slots.addAll(towers.get(towerSlotType).getNonEmptySlots());
+		for (Entry<SlotType, TowerCli> entry : towers.entrySet())
+			if (slotType.isCompatible(entry.getKey()))
+				slots.addAll(entry.getValue().getNonEmptySlots());
 
-		for (SlotType otherSlotType : otherSlots.keySet())
-			if (slotType.isCompatible(otherSlotType))
-				slots.addAll(Arrays.asList(otherSlots.get(otherSlotType)));
+		for (Entry<SlotType, SlotCli[]> entry : otherSlots.entrySet())
+			if (slotType.isCompatible(entry.getKey()))
+				slots.addAll(Arrays.asList(entry.getValue()));
 
 		slots.stream().forEach(slot -> {
 			slot.print();

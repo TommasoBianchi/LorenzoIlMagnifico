@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Queue;
 import java.util.Random;
 import java.util.Set;
@@ -504,10 +505,10 @@ public class ServerController {
 
 		// Notify players about the value of all players' familiars (which includes the new value of the dices rolled by the game)
 		notifyPlayers(clientInterface -> {
-			for (String username : players.keySet()) {
-				Familiar[] familiars = players.get(username).getFamiliars();
+			for (Entry<String, Player> entry : players.entrySet()) {
+				Familiar[] familiars = entry.getValue().getFamiliars();
 				for (Familiar familiar : familiars) {
-					clientInterface.setFamiliar(username, familiar.getFamiliarColor(), familiar.getValue());
+					clientInterface.setFamiliar(entry.getKey(), familiar.getFamiliarColor(), familiar.getValue());
 				}
 			}
 		});
