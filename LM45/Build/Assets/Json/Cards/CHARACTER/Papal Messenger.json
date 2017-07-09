@@ -1,0 +1,35 @@
+{
+  "name": "Papal Messenger",
+  "periodType": "II",
+  "cardType": "CHARACTER",
+  "cost": {
+    "costResources": [
+      {
+        "resourceType": "COINS",
+        "amount": 5
+      }
+    ]
+  },
+  "immediateEffect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "FAITH",
+            "amount": 3
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "effect": {
+    "effects": [],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Character"
+}

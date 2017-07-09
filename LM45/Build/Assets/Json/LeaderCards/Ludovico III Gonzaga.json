@@ -1,0 +1,25 @@
+{
+  "name": "Ludovico III Gonzaga",
+  "effect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "COUNCIL_PRIVILEGES",
+            "amount": 1
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "requisites": [
+    {
+      "resourceType": "SERVANTS",
+      "amount": 15
+    }
+  ]
+}

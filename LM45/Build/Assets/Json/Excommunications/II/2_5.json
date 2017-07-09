@@ -1,0 +1,17 @@
+{
+  "name": "2_5",
+  "periodType": "II",
+  "effect": {
+    "effects": [
+      {
+        "slotType": "MARKET",
+        "canPlaceFamiliars": false,
+        "canPlaceMultipleFamiliars": false,
+        "canReceiveResources": false,
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.SlotModifierEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": true
+  }
+}

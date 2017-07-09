@@ -1,0 +1,67 @@
+{
+  "minDiceToProduce": 5,
+  "name": "Sculptors\u0027 Guild",
+  "periodType": "II",
+  "cardType": "BUILDING",
+  "cost": {
+    "costResources": [
+      {
+        "resourceType": "STONE",
+        "amount": 4
+      }
+    ]
+  },
+  "immediateEffect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "VICTORY",
+            "amount": 6
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "effect": {
+    "effects": [
+      {
+        "resourcesToPay": [
+          {
+            "resourceType": "STONE",
+            "amount": 1
+          }
+        ],
+        "resourcesToGain": [
+          {
+            "resourceType": "VICTORY",
+            "amount": 3
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      },
+      {
+        "resourcesToPay": [
+          {
+            "resourceType": "STONE",
+            "amount": 3
+          }
+        ],
+        "resourcesToGain": [
+          {
+            "resourceType": "VICTORY",
+            "amount": 7
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": true,
+    "effectsArePermanent": false
+  },
+  "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Building"
+}

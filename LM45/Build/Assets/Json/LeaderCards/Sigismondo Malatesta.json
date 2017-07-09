@@ -1,0 +1,28 @@
+{
+  "name": "Sigismondo Malatesta",
+  "effect": {
+    "effects": [
+      {
+        "bonus": 3,
+        "bonusIsToAdd": true,
+        "colors": [
+          "UNCOLORED"
+        ],
+        "servantBonusCostModifier": 1,
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.FamiliarEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": true
+  },
+  "requisites": [
+    {
+      "resourceType": "MILITARY",
+      "amount": 7
+    },
+    {
+      "resourceType": "FAITH",
+      "amount": 3
+    }
+  ]
+}

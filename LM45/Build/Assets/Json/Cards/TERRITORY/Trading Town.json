@@ -1,0 +1,46 @@
+{
+  "minDiceToHarvest": 1,
+  "name": "Trading Town",
+  "periodType": "III",
+  "cardType": "TERRITORY",
+  "cost": {
+    "costResources": []
+  },
+  "immediateEffect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "COINS",
+            "amount": 1
+          },
+          {
+            "resourceType": "SERVANTS",
+            "amount": 1
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "effect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "COINS",
+            "amount": 3
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Territory"
+}

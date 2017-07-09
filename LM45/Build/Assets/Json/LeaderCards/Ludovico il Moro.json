@@ -1,0 +1,38 @@
+{
+  "name": "Ludovico il Moro",
+  "effect": {
+    "effects": [
+      {
+        "bonus": 5,
+        "bonusIsToAdd": false,
+        "colors": [
+          "BLACK",
+          "ORANGE",
+          "WHITE"
+        ],
+        "servantBonusCostModifier": 1,
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.FamiliarEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": true
+  },
+  "requisites": [
+    {
+      "resourceType": "CHARACTER",
+      "amount": 2
+    },
+    {
+      "resourceType": "BUILDING",
+      "amount": 2
+    },
+    {
+      "resourceType": "TERRITORY",
+      "amount": 2
+    },
+    {
+      "resourceType": "VENTURE",
+      "amount": 2
+    }
+  ]
+}

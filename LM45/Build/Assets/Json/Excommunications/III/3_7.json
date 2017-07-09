@@ -1,0 +1,66 @@
+{
+  "name": "3_7",
+  "periodType": "III",
+  "effect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourceToMultiply": {
+          "resourceType": "COINS",
+          "amount": 1
+        },
+        "resourcesToGain": [
+          {
+            "resourceType": "VICTORY",
+            "amount": -1
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      },
+      {
+        "resourcesToPay": [],
+        "resourceToMultiply": {
+          "resourceType": "WOOD",
+          "amount": 1
+        },
+        "resourcesToGain": [
+          {
+            "resourceType": "VICTORY",
+            "amount": -1
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      },
+      {
+        "resourcesToPay": [],
+        "resourceToMultiply": {
+          "resourceType": "STONE",
+          "amount": 1
+        },
+        "resourcesToGain": [
+          {
+            "resourceType": "VICTORY",
+            "amount": -1
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      },
+      {
+        "resourcesToPay": [],
+        "resourceToMultiply": {
+          "resourceType": "SERVANTS",
+          "amount": 1
+        },
+        "resourcesToGain": [
+          {
+            "resourceType": "VICTORY",
+            "amount": -1
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  }
+}

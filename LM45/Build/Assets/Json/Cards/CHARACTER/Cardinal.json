@@ -1,0 +1,42 @@
+{
+  "name": "Cardinal",
+  "periodType": "III",
+  "cardType": "CHARACTER",
+  "cost": {
+    "costResources": [
+      {
+        "resourceType": "COINS",
+        "amount": 4
+      }
+    ]
+  },
+  "immediateEffect": {
+    "effects": [
+      {
+        "slotType": "HARVEST",
+        "diceNumber": 4,
+        "discount": [],
+        "isBonusAction": true,
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ActionEffect"
+      },
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "FAITH",
+            "amount": 2
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "effect": {
+    "effects": [],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Character"
+}

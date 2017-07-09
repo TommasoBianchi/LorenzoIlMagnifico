@@ -1,0 +1,32 @@
+{
+  "name": "Scholar",
+  "periodType": "II",
+  "cardType": "CHARACTER",
+  "cost": {
+    "costResources": [
+      {
+        "resourceType": "COINS",
+        "amount": 4
+      }
+    ]
+  },
+  "immediateEffect": {
+    "effects": [],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "effect": {
+    "effects": [
+      {
+        "slotType": "PRODUCTION",
+        "diceNumber": 3,
+        "discount": [],
+        "isBonusAction": false,
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ActionEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": true
+  },
+  "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Character"
+}

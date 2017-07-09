@@ -1,0 +1,32 @@
+{
+  "name": "Farmer",
+  "periodType": "I",
+  "cardType": "CHARACTER",
+  "cost": {
+    "costResources": [
+      {
+        "resourceType": "COINS",
+        "amount": 3
+      }
+    ]
+  },
+  "immediateEffect": {
+    "effects": [],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "effect": {
+    "effects": [
+      {
+        "slotType": "HARVEST",
+        "diceNumber": 2,
+        "discount": [],
+        "isBonusAction": false,
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ActionEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": true
+  },
+  "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Character"
+}

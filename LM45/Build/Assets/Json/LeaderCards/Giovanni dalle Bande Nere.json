@@ -1,0 +1,33 @@
+{
+  "name": "Giovanni dalle Bande Nere",
+  "effect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "COINS",
+            "amount": 1
+          },
+          {
+            "resourceType": "WOOD",
+            "amount": 1
+          },
+          {
+            "resourceType": "STONE",
+            "amount": 1
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "requisites": [
+    {
+      "resourceType": "MILITARY",
+      "amount": 12
+    }
+  ]
+}

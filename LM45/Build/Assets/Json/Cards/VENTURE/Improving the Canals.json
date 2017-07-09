@@ -1,0 +1,50 @@
+{
+  "alternativeCost": {
+    "costResources": []
+  },
+  "name": "Improving the Canals",
+  "periodType": "II",
+  "cardType": "VENTURE",
+  "cost": {
+    "costResources": [
+      {
+        "resourceType": "SERVANTS",
+        "amount": 2
+      },
+      {
+        "resourceType": "COINS",
+        "amount": 3
+      }
+    ]
+  },
+  "immediateEffect": {
+    "effects": [
+      {
+        "slotType": "HARVEST",
+        "diceNumber": 4,
+        "discount": [],
+        "isBonusAction": true,
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ActionEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "effect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "VICTORY",
+            "amount": 5
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Venture"
+}

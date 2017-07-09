@@ -1,0 +1,26 @@
+{
+  "name": "Lucrezia Borgia",
+  "effect": {
+    "effects": [
+      {
+        "bonus": 2,
+        "bonusIsToAdd": true,
+        "colors": [
+          "BLACK",
+          "ORANGE",
+          "WHITE"
+        ],
+        "servantBonusCostModifier": 1,
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.FamiliarEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": true
+  },
+  "requisites": [
+    {
+      "resourceType": "ANY_CARD",
+      "amount": 6
+    }
+  ]
+}

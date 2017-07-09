@@ -1,0 +1,59 @@
+{
+  "minDiceToProduce": 5,
+  "name": "Fortress",
+  "periodType": "III",
+  "cardType": "BUILDING",
+  "cost": {
+    "costResources": [
+      {
+        "resourceType": "COINS",
+        "amount": 2
+      },
+      {
+        "resourceType": "WOOD",
+        "amount": 2
+      },
+      {
+        "resourceType": "STONE",
+        "amount": 4
+      }
+    ]
+  },
+  "immediateEffect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "VICTORY",
+            "amount": 9
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "effect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "VICTORY",
+            "amount": 2
+          },
+          {
+            "resourceType": "COUNCIL_PRIVILEGES",
+            "amount": 1
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Building"
+}

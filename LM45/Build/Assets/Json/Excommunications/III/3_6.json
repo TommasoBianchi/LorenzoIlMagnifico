@@ -1,0 +1,14 @@
+{
+  "name": "3_6",
+  "periodType": "III",
+  "effect": {
+    "effects": [
+      {
+        "cardType": "BUILDING",
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.VictoryPointsFromCardsEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  }
+}

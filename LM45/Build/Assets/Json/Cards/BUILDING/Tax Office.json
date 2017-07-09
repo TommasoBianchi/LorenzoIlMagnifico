@@ -1,0 +1,55 @@
+{
+  "minDiceToProduce": 5,
+  "name": "Tax Office",
+  "periodType": "I",
+  "cardType": "BUILDING",
+  "cost": {
+    "costResources": [
+      {
+        "resourceType": "STONE",
+        "amount": 1
+      },
+      {
+        "resourceType": "WOOD",
+        "amount": 3
+      }
+    ]
+  },
+  "immediateEffect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "VICTORY",
+            "amount": 5
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "effect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourceToMultiply": {
+          "resourceType": "TERRITORY",
+          "amount": 1
+        },
+        "resourcesToGain": [
+          {
+            "resourceType": "COINS",
+            "amount": 1
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Building"
+}

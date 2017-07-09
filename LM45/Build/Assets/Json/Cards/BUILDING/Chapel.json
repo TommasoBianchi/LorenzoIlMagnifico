@@ -1,0 +1,52 @@
+{
+  "minDiceToProduce": 2,
+  "name": "Chapel",
+  "periodType": "I",
+  "cardType": "BUILDING",
+  "cost": {
+    "costResources": [
+      {
+        "resourceType": "WOOD",
+        "amount": 2
+      }
+    ]
+  },
+  "immediateEffect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "FAITH",
+            "amount": 1
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "effect": {
+    "effects": [
+      {
+        "resourcesToPay": [
+          {
+            "resourceType": "COINS",
+            "amount": 1
+          }
+        ],
+        "resourcesToGain": [
+          {
+            "resourceType": "FAITH",
+            "amount": 1
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Building"
+}

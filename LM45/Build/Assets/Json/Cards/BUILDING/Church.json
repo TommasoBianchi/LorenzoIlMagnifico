@@ -1,0 +1,75 @@
+{
+  "minDiceToProduce": 1,
+  "name": "Church",
+  "periodType": "III",
+  "cardType": "BUILDING",
+  "cost": {
+    "costResources": [
+      {
+        "resourceType": "WOOD",
+        "amount": 1
+      },
+      {
+        "resourceType": "STONE",
+        "amount": 4
+      }
+    ]
+  },
+  "immediateEffect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "VICTORY",
+            "amount": 5
+          },
+          {
+            "resourceType": "FAITH",
+            "amount": 1
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "effect": {
+    "effects": [
+      {
+        "resourcesToPay": [
+          {
+            "resourceType": "WOOD",
+            "amount": 1
+          }
+        ],
+        "resourcesToGain": [
+          {
+            "resourceType": "FAITH",
+            "amount": 2
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      },
+      {
+        "resourcesToPay": [
+          {
+            "resourceType": "STONE",
+            "amount": 1
+          }
+        ],
+        "resourcesToGain": [
+          {
+            "resourceType": "FAITH",
+            "amount": 2
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": true,
+    "effectsArePermanent": false
+  },
+  "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Building"
+}

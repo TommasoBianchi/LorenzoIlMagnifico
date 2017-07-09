@@ -1,0 +1,35 @@
+{
+  "minDiceToHarvest": 3,
+  "name": "Village",
+  "periodType": "I",
+  "cardType": "TERRITORY",
+  "cost": {
+    "costResources": []
+  },
+  "immediateEffect": {
+    "effects": [],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "effect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "COINS",
+            "amount": 1
+          },
+          {
+            "resourceType": "SERVANTS",
+            "amount": 1
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Territory"
+}

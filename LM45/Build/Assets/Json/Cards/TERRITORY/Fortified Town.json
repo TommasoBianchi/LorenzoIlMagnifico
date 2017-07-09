@@ -1,0 +1,50 @@
+{
+  "minDiceToHarvest": 2,
+  "name": "Fortified Town",
+  "periodType": "III",
+  "cardType": "TERRITORY",
+  "cost": {
+    "costResources": []
+  },
+  "immediateEffect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "MILITARY",
+            "amount": 2
+          },
+          {
+            "resourceType": "SERVANTS",
+            "amount": 1
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "effect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "MILITARY",
+            "amount": 1
+          },
+          {
+            "resourceType": "SERVANTS",
+            "amount": 2
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Territory"
+}

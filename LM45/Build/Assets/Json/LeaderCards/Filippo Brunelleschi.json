@@ -1,0 +1,20 @@
+{
+  "name": "Filippo Brunelleschi",
+  "effect": {
+    "effects": [
+      {
+        "disableTowerCost": true,
+        "isMultiplier": false,
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.CostModifierEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": true
+  },
+  "requisites": [
+    {
+      "resourceType": "BUILDING",
+      "amount": 5
+    }
+  ]
+}

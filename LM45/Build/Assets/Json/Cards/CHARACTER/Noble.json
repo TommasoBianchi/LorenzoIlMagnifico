@@ -1,0 +1,39 @@
+{
+  "name": "Noble",
+  "periodType": "III",
+  "cardType": "CHARACTER",
+  "cost": {
+    "costResources": [
+      {
+        "resourceType": "COINS",
+        "amount": 6
+      }
+    ]
+  },
+  "immediateEffect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourceToMultiply": {
+          "resourceType": "TERRITORY",
+          "amount": 1
+        },
+        "resourcesToGain": [
+          {
+            "resourceType": "VICTORY",
+            "amount": 2
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "effect": {
+    "effects": [],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Character"
+}

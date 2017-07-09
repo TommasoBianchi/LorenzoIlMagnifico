@@ -1,0 +1,47 @@
+{
+  "name": "Santa Rita",
+  "effect": {
+    "effects": [
+      {
+        "resource": {
+          "resourceType": "COINS",
+          "amount": 2
+        },
+        "isMultiplier": true,
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.GainModifierEffect"
+      },
+      {
+        "resource": {
+          "resourceType": "STONE",
+          "amount": 2
+        },
+        "isMultiplier": true,
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.GainModifierEffect"
+      },
+      {
+        "resource": {
+          "resourceType": "WOOD",
+          "amount": 2
+        },
+        "isMultiplier": true,
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.GainModifierEffect"
+      },
+      {
+        "resource": {
+          "resourceType": "SERVANTS",
+          "amount": 2
+        },
+        "isMultiplier": true,
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.GainModifierEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": true
+  },
+  "requisites": [
+    {
+      "resourceType": "FAITH",
+      "amount": 8
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "minDiceToProduce": 6,
+  "name": "Palace",
+  "periodType": "III",
+  "cardType": "BUILDING",
+  "cost": {
+    "costResources": [
+      {
+        "resourceType": "COINS",
+        "amount": 3
+      },
+      {
+        "resourceType": "WOOD",
+        "amount": 3
+      },
+      {
+        "resourceType": "STONE",
+        "amount": 1
+      }
+    ]
+  },
+  "immediateEffect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "VICTORY",
+            "amount": 9
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "effect": {
+    "effects": [
+      {
+        "resourcesToPay": [
+          {
+            "resourceType": "COINS",
+            "amount": 1
+          }
+        ],
+        "resourcesToGain": [
+          {
+            "resourceType": "SERVANTS",
+            "amount": 2
+          },
+          {
+            "resourceType": "VICTORY",
+            "amount": 4
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Building"
+}

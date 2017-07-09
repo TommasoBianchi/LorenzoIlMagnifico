@@ -1,0 +1,37 @@
+{
+  "name": "Patron",
+  "periodType": "II",
+  "cardType": "CHARACTER",
+  "cost": {
+    "costResources": [
+      {
+        "resourceType": "COINS",
+        "amount": 3
+      }
+    ]
+  },
+  "immediateEffect": {
+    "effects": [
+      {
+        "slotType": "CHARACTER",
+        "diceNumber": 6,
+        "discount": [
+          {
+            "resourceType": "COINS",
+            "amount": 2
+          }
+        ],
+        "isBonusAction": true,
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ActionEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "effect": {
+    "effects": [],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Character"
+}

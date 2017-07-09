@@ -1,0 +1,26 @@
+{
+  "name": "Cesare Borgia",
+  "effect": {
+    "effects": [
+      {
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.NoTerritoryRequisiteEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": true
+  },
+  "requisites": [
+    {
+      "resourceType": "BUILDING",
+      "amount": 3
+    },
+    {
+      "resourceType": "COINS",
+      "amount": 12
+    },
+    {
+      "resourceType": "FAITH",
+      "amount": 2
+    }
+  ]
+}

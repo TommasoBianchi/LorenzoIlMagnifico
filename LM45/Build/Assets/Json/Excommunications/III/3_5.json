@@ -1,0 +1,24 @@
+{
+  "name": "3_5",
+  "periodType": "III",
+  "effect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourceToMultiply": {
+          "resourceType": "MILITARY",
+          "amount": 1
+        },
+        "resourcesToGain": [
+          {
+            "resourceType": "VICTORY",
+            "amount": -1
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  }
+}

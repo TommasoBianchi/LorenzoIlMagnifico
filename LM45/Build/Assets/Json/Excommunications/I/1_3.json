@@ -1,0 +1,18 @@
+{
+  "name": "1_3",
+  "periodType": "I",
+  "effect": {
+    "effects": [
+      {
+        "resource": {
+          "resourceType": "SERVANTS",
+          "amount": -1
+        },
+        "isMultiplier": false,
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.GainModifierEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": true
+  }
+}

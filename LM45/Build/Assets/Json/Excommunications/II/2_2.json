@@ -1,0 +1,17 @@
+{
+  "name": "2_2",
+  "periodType": "II",
+  "effect": {
+    "effects": [
+      {
+        "slotType": "BUILDING",
+        "diceNumber": -4,
+        "discount": [],
+        "isBonusAction": false,
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ActionEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": true
+  }
+}

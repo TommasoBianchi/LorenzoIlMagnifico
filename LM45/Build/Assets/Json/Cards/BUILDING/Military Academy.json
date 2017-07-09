@@ -1,0 +1,64 @@
+{
+  "minDiceToProduce": 3,
+  "name": "Military Academy",
+  "periodType": "III",
+  "cardType": "BUILDING",
+  "cost": {
+    "costResources": [
+      {
+        "resourceType": "SERVANTS",
+        "amount": 1
+      },
+      {
+        "resourceType": "WOOD",
+        "amount": 2
+      },
+      {
+        "resourceType": "STONE",
+        "amount": 2
+      }
+    ]
+  },
+  "immediateEffect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "VICTORY",
+            "amount": 7
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "effect": {
+    "effects": [
+      {
+        "resourcesToPay": [
+          {
+            "resourceType": "SERVANTS",
+            "amount": 1
+          }
+        ],
+        "resourcesToGain": [
+          {
+            "resourceType": "MILITARY",
+            "amount": 3
+          },
+          {
+            "resourceType": "VICTORY",
+            "amount": 1
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Building"
+}

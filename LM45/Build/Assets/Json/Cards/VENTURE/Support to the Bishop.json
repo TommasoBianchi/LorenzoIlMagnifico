@@ -1,0 +1,69 @@
+{
+  "alternativeCost": {
+    "costResources": [
+      {
+        "resourceType": "WOOD",
+        "amount": 1
+      },
+      {
+        "resourceType": "STONE",
+        "amount": 1
+      },
+      {
+        "resourceType": "COINS",
+        "amount": 2
+      }
+    ]
+  },
+  "name": "Support to the Bishop",
+  "periodType": "I",
+  "cardType": "VENTURE",
+  "cost": {
+    "prerequisites": [
+      {
+        "resourceType": "MILITARY",
+        "amount": 4
+      }
+    ],
+    "costResources": [
+      {
+        "resourceType": "MILITARY",
+        "amount": 2
+      }
+    ],
+    "SUBCLASS": "it.polimi.ingsw.LM45.model.cards.CostWithPrerequisites"
+  },
+  "immediateEffect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "FAITH",
+            "amount": 3
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "effect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "VICTORY",
+            "amount": 1
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Venture"
+}

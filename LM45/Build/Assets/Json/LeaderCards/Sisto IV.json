@@ -1,0 +1,34 @@
+{
+  "name": "Sisto IV",
+  "effect": {
+    "effects": [
+      {
+        "resource": {
+          "resourceType": "VICTORY",
+          "amount": 5
+        },
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ChurchSupportBonusEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": true
+  },
+  "requisites": [
+    {
+      "resourceType": "STONE",
+      "amount": 6
+    },
+    {
+      "resourceType": "WOOD",
+      "amount": 6
+    },
+    {
+      "resourceType": "COINS",
+      "amount": 6
+    },
+    {
+      "resourceType": "SERVANTS",
+      "amount": 6
+    }
+  ]
+}

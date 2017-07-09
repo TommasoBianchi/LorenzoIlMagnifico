@@ -1,0 +1,22 @@
+{
+  "name": "Ludovico Ariosto",
+  "effect": {
+    "effects": [
+      {
+        "slotType": "ANY",
+        "canPlaceFamiliars": true,
+        "canPlaceMultipleFamiliars": true,
+        "canReceiveResources": true,
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.SlotModifierEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": true
+  },
+  "requisites": [
+    {
+      "resourceType": "CHARACTER",
+      "amount": 5
+    }
+  ]
+}

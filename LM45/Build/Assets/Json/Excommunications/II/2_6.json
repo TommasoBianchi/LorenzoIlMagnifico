@@ -1,0 +1,17 @@
+{
+  "name": "2_6",
+  "periodType": "II",
+  "effect": {
+    "effects": [
+      {
+        "bonus": 0,
+        "bonusIsToAdd": false,
+        "colors": [],
+        "servantBonusCostModifier": 2,
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.FamiliarEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  }
+}

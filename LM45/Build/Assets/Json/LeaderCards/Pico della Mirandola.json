@@ -1,0 +1,28 @@
+{
+  "name": "Pico della Mirandola",
+  "effect": {
+    "effects": [
+      {
+        "resource": {
+          "resourceType": "COINS",
+          "amount": -3
+        },
+        "disableTowerCost": false,
+        "isMultiplier": false,
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.CostModifierEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": true
+  },
+  "requisites": [
+    {
+      "resourceType": "VENTURE",
+      "amount": 4
+    },
+    {
+      "resourceType": "BUILDING",
+      "amount": 2
+    }
+  ]
+}

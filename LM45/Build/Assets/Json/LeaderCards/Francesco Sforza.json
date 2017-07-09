@@ -1,0 +1,22 @@
+{
+  "name": "Francesco Sforza",
+  "effect": {
+    "effects": [
+      {
+        "slotType": "HARVEST",
+        "diceNumber": 1,
+        "discount": [],
+        "isBonusAction": true,
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ActionEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "requisites": [
+    {
+      "resourceType": "VENTURE",
+      "amount": 5
+    }
+  ]
+}

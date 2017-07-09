@@ -1,0 +1,49 @@
+{
+  "name": "Stonemason",
+  "periodType": "I",
+  "cardType": "CHARACTER",
+  "cost": {
+    "costResources": [
+      {
+        "resourceType": "COINS",
+        "amount": 4
+      }
+    ]
+  },
+  "immediateEffect": {
+    "effects": [],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "effect": {
+    "effects": [
+      {
+        "slotType": "BUILDING",
+        "diceNumber": 2,
+        "discount": [
+          {
+            "resourceType": "WOOD",
+            "amount": 1
+          }
+        ],
+        "isBonusAction": false,
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ActionEffect"
+      },
+      {
+        "slotType": "BUILDING",
+        "diceNumber": 2,
+        "discount": [
+          {
+            "resourceType": "STONE",
+            "amount": 1
+          }
+        ],
+        "isBonusAction": false,
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ActionEffect"
+      }
+    ],
+    "effectsAreAlternative": true,
+    "effectsArePermanent": true
+  },
+  "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Character"
+}

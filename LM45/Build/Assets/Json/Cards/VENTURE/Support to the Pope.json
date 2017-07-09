@@ -1,0 +1,69 @@
+{
+  "alternativeCost": {
+    "costResources": [
+      {
+        "resourceType": "WOOD",
+        "amount": 3
+      },
+      {
+        "resourceType": "STONE",
+        "amount": 3
+      },
+      {
+        "resourceType": "COINS",
+        "amount": 4
+      }
+    ]
+  },
+  "name": "Support to the Pope",
+  "periodType": "III",
+  "cardType": "VENTURE",
+  "cost": {
+    "prerequisites": [
+      {
+        "resourceType": "MILITARY",
+        "amount": 10
+      }
+    ],
+    "costResources": [
+      {
+        "resourceType": "MILITARY",
+        "amount": 5
+      }
+    ],
+    "SUBCLASS": "it.polimi.ingsw.LM45.model.cards.CostWithPrerequisites"
+  },
+  "immediateEffect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "FAITH",
+            "amount": 2
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "effect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "VICTORY",
+            "amount": 10
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Venture"
+}

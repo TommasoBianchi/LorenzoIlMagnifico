@@ -1,0 +1,50 @@
+{
+  "minDiceToHarvest": 4,
+  "name": "Mining Town",
+  "periodType": "II",
+  "cardType": "TERRITORY",
+  "cost": {
+    "costResources": []
+  },
+  "immediateEffect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "SERVANTS",
+            "amount": 2
+          },
+          {
+            "resourceType": "STONE",
+            "amount": 1
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "effect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "SERVANTS",
+            "amount": 1
+          },
+          {
+            "resourceType": "STONE",
+            "amount": 2
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Territory"
+}

@@ -1,0 +1,37 @@
+{
+  "name": "Dame",
+  "periodType": "I",
+  "cardType": "CHARACTER",
+  "cost": {
+    "costResources": [
+      {
+        "resourceType": "COINS",
+        "amount": 4
+      }
+    ]
+  },
+  "immediateEffect": {
+    "effects": [],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "effect": {
+    "effects": [
+      {
+        "slotType": "CHARACTER",
+        "diceNumber": 2,
+        "discount": [
+          {
+            "resourceType": "COINS",
+            "amount": 1
+          }
+        ],
+        "isBonusAction": false,
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ActionEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": true
+  },
+  "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Character"
+}

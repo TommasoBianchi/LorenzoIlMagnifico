@@ -1,0 +1,60 @@
+{
+  "alternativeCost": {
+    "costResources": []
+  },
+  "name": "Crusade",
+  "periodType": "II",
+  "cardType": "VENTURE",
+  "cost": {
+    "prerequisites": [
+      {
+        "resourceType": "MILITARY",
+        "amount": 8
+      }
+    ],
+    "costResources": [
+      {
+        "resourceType": "MILITARY",
+        "amount": 4
+      }
+    ],
+    "SUBCLASS": "it.polimi.ingsw.LM45.model.cards.CostWithPrerequisites"
+  },
+  "immediateEffect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "FAITH",
+            "amount": 1
+          },
+          {
+            "resourceType": "COINS",
+            "amount": 5
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "effect": {
+    "effects": [
+      {
+        "resourcesToPay": [],
+        "resourcesToGain": [
+          {
+            "resourceType": "VICTORY",
+            "amount": 5
+          }
+        ],
+        "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.effects.ResourceEffect"
+      }
+    ],
+    "effectsAreAlternative": false,
+    "effectsArePermanent": false
+  },
+  "CONCRETE_CLASS": "it.polimi.ingsw.LM45.model.cards.Venture"
+}
