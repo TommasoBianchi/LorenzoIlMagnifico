@@ -1,5 +1,6 @@
 package it.polimi.ingsw.LM45.view;
 
+import it.polimi.ingsw.LM45.controller.ClientLauncher;
 import it.polimi.ingsw.LM45.view.cli.CliController;
 import it.polimi.ingsw.LM45.view.gui.GuiController;
 
@@ -26,6 +27,13 @@ public class ViewInterfaceFactory {
 			return new GuiController();
 
 		case CLI:
+			Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {				
+				@Override
+				public void run() {
+					System.out.println("CLI shutdown detected");
+					ClientLauncher.stop(ViewType.CLI);
+				}
+			}));
 			return new CliController();
 
 		default:

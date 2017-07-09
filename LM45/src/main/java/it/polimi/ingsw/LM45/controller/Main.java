@@ -2,6 +2,7 @@ package it.polimi.ingsw.LM45.controller;
 
 import java.io.IOException;
 
+import it.polimi.ingsw.LM45.view.ViewType;
 import it.polimi.ingsw.LM45.view.lobby.LobbyController;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -22,7 +23,7 @@ public class Main extends Application {
 	}
 
 	public void stop() {
-		ClientLauncher.stop();
+		ClientLauncher.stop(ViewType.GUI);
 	}
 
 	public Stage getPrimaryStage() {

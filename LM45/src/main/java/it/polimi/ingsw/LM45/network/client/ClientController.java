@@ -17,6 +17,7 @@ import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.network.server.ServerInterface;
 import it.polimi.ingsw.LM45.view.ViewInterface;
+import it.polimi.ingsw.LM45.view.ViewType;
 
 public class ClientController {
 
@@ -203,7 +204,8 @@ public class ClientController {
 			// If we fail again, then just stop the client
 			e1.initCause(e);
 			e1.printStackTrace();
-			ClientLauncher.stop();
+			ClientLauncher.stop(ViewType.GUI);
+			ClientLauncher.stop(ViewType.CLI);
 		}
 	}
 
