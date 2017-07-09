@@ -38,7 +38,6 @@ public class LeaderCardChoiceController {
 			stage.setScene(scene);
 			stage.setResizable(false);
 			stage.getIcons().add(new Image("/Image/Cards/LEADER/LeaderCard Cover.jpg"));
-			stage.initStyle(StageStyle.UNDECORATED);
 			stage.setTitle("Lorenzo il Magnifico");
 			stage.show();
 		}
