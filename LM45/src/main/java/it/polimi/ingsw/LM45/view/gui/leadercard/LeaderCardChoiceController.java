@@ -17,6 +17,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
+/**
+ * The controller of "LeaderCardChoiceView.fxml" where there are displayed
+ * the leaderCards to choose before the real game starts
+ * 
+ * @author Kostandin
+ *
+ */
 public class LeaderCardChoiceController {
 
 	@FXML
@@ -45,6 +52,9 @@ public class LeaderCardChoiceController {
 		}
 	}
 
+	/**
+	 * @param leadersName an array of leaders to choose from
+	 */
 	public void chooseLeader(String[] leadersName) {
 		String path = "/Image/Cards/LEADER/";
 
@@ -77,6 +87,9 @@ public class LeaderCardChoiceController {
 		return this.stage;
 	}
 
+	/**
+	 * @param guiController the main controller of the GUI
+	 */
 	public void setGuiController(GuiController guiController) {
 		this.guiController = guiController;
 	}

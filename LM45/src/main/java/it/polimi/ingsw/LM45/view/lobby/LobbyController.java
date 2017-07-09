@@ -16,6 +16,17 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+/**
+ * The controller of "LobbyView.fxml" where there is displayed
+ * the game Lobby and where players have to insert their usernames,
+ * the server Port, the server IP and have to choose between cli and gui interface
+ * and between socket and RMI
+ * 
+ * It gets all these informations and starts the game based on them
+ * 
+ * @author Kostandin
+ *
+ */
 public class LobbyController {
 
 	@FXML
@@ -38,6 +49,10 @@ public class LobbyController {
 
 	private Stage stage;
 
+	/**
+	 * @param stage the stage where to put the scene
+	 * @throws IOException exception on loading fxml file
+	 */
 	public LobbyController(Stage stage) throws IOException {
 		this.stage = stage;
 		

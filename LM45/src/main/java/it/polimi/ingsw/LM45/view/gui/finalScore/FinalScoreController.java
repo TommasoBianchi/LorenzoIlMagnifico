@@ -11,10 +11,22 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+ * The controller of "FinalScoreView.fxml" where there is displayed the final rankinng
+ * with players positions, colors, usernames and scores
+ * 
+ * @author Kostandin
+ *
+ */
 public class FinalScoreController {
 	
 	private Stage stage;
 	
+	/**
+	 * @param playersUsername an array of players usernames
+	 * @param playerColors an array of players colors
+	 * @param scores an array of players scores
+	 */
 	public FinalScoreController(String[] playersUsername, PlayerColor[] playerColors, int[] scores){
 		
 		stage = new Stage();
@@ -37,9 +49,9 @@ public class FinalScoreController {
 	}
 	
 	/**
-	 * @param playersUsername array of player's usernames
-	 * @param playerColors array of player's colors
-	 * @param scores array of player's scores
+	 * @param playersUsername an array of players usernames
+	 * @param playerColors an array of players colors
+	 * @param scores an array of players scores
 	 */
 	private void showScores(String[] playersUsername, PlayerColor[] playerColors, int[] scores) {
 		for(int i=0; i<playersUsername.length; i++)

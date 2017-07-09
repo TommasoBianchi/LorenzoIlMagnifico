@@ -28,6 +28,17 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * The controller of "PersonalBoardScene.fxml" where there is displayed
+ * the player personalBoard
+ * 
+ * It handles all actions that concerns the personal board like
+ * all leaders actions (Discard, Play and Activate) or like pickCard
+ * and other familiars actions
+ * 
+ * @author Kostandin
+ *
+ */
 public class PersonalBoardController {
 
 	@FXML
@@ -76,7 +87,7 @@ public class PersonalBoardController {
 	private Map<ResourceType, Text> resourceTexts = new EnumMap<>(ResourceType.class);
 
 	/**
-	 * @param stage stage od the PersonalBoard
+	 * @param stage stage where to set the PersonalBoard scene
 	 * @param username the name of the PersonalBoard's player
 	 * @param clienteController the Client Controller
 	 */
@@ -409,8 +420,8 @@ public class PersonalBoardController {
 	}
 
 	/**
-	 * @param productionBonus bonus resources that player gains when produces
-	 * @param harvestBonus bonus resources that player gains when harvest
+	 * @param productionBonus an array of (bonus) resources that player gains when produces
+	 * @param harvestBonus an array of (bonus) resources that player gains when harvest
 	 */
 	public void setPersonalBonusTile(Resource[] productionBonus, Resource[] harvestBonus) {
 		productionGrid.setOpacity(1);

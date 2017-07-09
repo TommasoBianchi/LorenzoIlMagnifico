@@ -36,6 +36,13 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+/**
+ * The Controller of "GameBoardView.fxml" that is the main scene of the game.
+ * It handles all methods called from the GuiController during the game
+ * 
+ * @author Kostandin
+ *
+ */
 public class GameBoardController {
 
 	@FXML
@@ -80,6 +87,12 @@ public class GameBoardController {
 	private FamiliarColor selectedFamiliarColor = null;
 	private boolean familiarSelected = false;
 
+	/**
+	 * @param playersUsername an array of players usernames
+	 * @param playerColors an array of players colors
+	 * @param clientController the client controller
+	 * @param excommunications an array of excommunications
+	 */
 	public GameBoardController(String[] playersUsername, PlayerColor[] playerColors, ClientController clientController,
 			Excommunication[] excommunications) {
 
@@ -123,6 +136,10 @@ public class GameBoardController {
 
 	}
 
+	/**
+	 * @param playersUsername an array of players usernames
+	 * @param playerColors an array of players colors
+	 */
 	private void setFamiliarsColors(String[] playersUsername, PlayerColor[] playerColors) {
 		for (int i = 0; i < playersUsername.length; i++) {
 			if (playersUsername[i].equals(myUsername)) {
@@ -137,6 +154,9 @@ public class GameBoardController {
 		}
 	}
 
+	/**
+	 * @param numPlayers number of players that are playing
+	 */
 	private void coverSlots(int numPlayers) {
 		coveredSlotsIDs = new HashSet<>();
 
@@ -162,6 +182,9 @@ public class GameBoardController {
 		}
 	}
 
+	/**
+	 * @param usernames an array of players usernames
+	 */
 	private void setUsernames(String[] usernames) {
 		for (int i = 0; i < usernames.length; i++) {
 			Label userText = (Label) stage.getScene().lookup("#USERNAME" + i);
@@ -176,10 +199,18 @@ public class GameBoardController {
 		}
 	}
 
+	/**
+	 * @param cost number of servants to spend to increase familiar's value
+	 */
 	public void setServantCost(int cost) {
 		servantCost.setText(Integer.toString(cost));
 	}
 
+	/**
+	 * @param username the username of the player
+	 * @param color the color of the familiar
+	 * @param value the value of the familiar
+	 */
 	public void setFamiliarValue(String username, FamiliarColor color, int value) {
 		if (username.equals(myUsername)) {
 			Label familiarValue = (Label) stage.getScene().lookup("#VALUE" + color.toString());
@@ -188,6 +219,10 @@ public class GameBoardController {
 		usersPersonalBoards.get(username).setFamiliarValue(color, value);
 	}
 
+	/**
+	 * @param resources an array of resources
+	 * @param username the username of the player
+	 */
 	public void setResources(Resource[] resources, String username) {
 		if (username.equals(myUsername))
 			for (Resource resource : resources)
@@ -196,11 +231,17 @@ public class GameBoardController {
 			usersPersonalBoards.get(username).setResource(resource);
 	}
 
+	/**
+	 * @param resource the resource to set
+	 */
 	private void setResourceGameboard(Resource resource) {
 		Label value = (Label) stage.getScene().lookup("#" + resource.getResourceType());
 		value.setText(Integer.toString(resource.getAmount()));
 	}
 
+	/**
+	 * @param event when player press mouse button over a slot
+	 */
 	public void doAction(MouseEvent event) {
 		if (!familiarSelected)
 			writeInDialogBox("Familiar not selected yet !");
@@ -213,6 +254,10 @@ public class GameBoardController {
 		}
 	}
 
+	/**
+	 * @param slotType the slot type of the bonus action
+	 * @param value the value of the bonus action
+	 */
 	public void doBonusAction(SlotType slotType, int value) {
 		writeInDialogBox("Do Bonus Action: " + slotType + " of value " + value);
 		selectedFamiliarColor = FamiliarColor.BONUS;
@@ -224,6 +269,10 @@ public class GameBoardController {
 		bonusValue.setText(Integer.toString(value));
 	}
 
+	/**
+	 * @param card the card to pick
+	 * @param username the username of the player
+	 */
 	public void pickCard(Card card, String username) {
 		String position = cardPosition.get(card.getName());
 		ImageView cardView = (ImageView) stage.getScene().lookup(position);
@@ -233,6 +282,12 @@ public class GameBoardController {
 		cardView.setDisable(true);
 	}
 
+	/**
+	 * @param slotType the type of the slot where to add the familiar
+	 * @param position the position of the slot where to add the familiar
+	 * @param familiarColor the familiar color
+	 * @param playerColor the player color
+	 */
 	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor) {
 		if (familiarColor == FamiliarColor.BONUS) {
 			bonusActionPane.setDisable(true);
@@ -256,6 +311,9 @@ public class GameBoardController {
 		}
 	}
 
+	/**
+	 * @param event when player press mouse button over a familiar
+	 */
 	public void familiarSelected(MouseEvent event) {
 		ImageView image = (ImageView) event.getSource();
 		selectedFamiliarColor = FamiliarColor.valueOf(image.getId().substring(8));
@@ -263,6 +321,9 @@ public class GameBoardController {
 		writeInDialogBox(selectedFamiliarColor + " familiar selected !");
 	}
 
+	/**
+	 * @param familiarColor the familiar color
+	 */
 	private void familiarUsed(FamiliarColor familiarColor) {
 		ImageView familiarView = (ImageView) stage.getScene().lookup("#FAMILIAR" + familiarColor);
 		familiarView.setOpacity(0);
@@ -274,6 +335,9 @@ public class GameBoardController {
 		servantView.setDisable(true);
 	}
 
+	/**
+	 * @param event when player press mouse button over an image
+	 */
 	public void zoomImage(MouseEvent event) {
 		ImageView image = (ImageView) event.getSource();
 		image.setScaleX(2);
@@ -282,6 +346,9 @@ public class GameBoardController {
 		image.toFront();
 	}
 
+	/**
+	 * @param event when player releases mouse button after zoomImage's event
+	 */
 	public void resetZoomImage(MouseEvent event) {
 		ImageView image = (ImageView) event.getSource();
 		image.setScaleX(1);
@@ -289,6 +356,9 @@ public class GameBoardController {
 		image.setTranslateY(0);
 	}
 
+	/**
+	 * @param event when player press mouse button over a "PersonalBoard" Button
+	 */
 	public void showPersonalBoard(MouseEvent event) {
 		Button button = (Button) event.getSource();
 		usersPersonalBoards.get(button.getId()).getStage().show();
@@ -314,11 +384,19 @@ public class GameBoardController {
 		setSlotsDisabled(false);
 	}
 
+	/**
+	 * @param event when player press mouse button over the cross icons
+	 * near the familiars values
+	 */
 	public void spendServant(MouseEvent event) {
 		ImageView addIcon = (ImageView) event.getSource();
 		clientController.increaseFamiliarValue(FamiliarColor.valueOf(addIcon.getId()));
 	}
 
+	/**
+	 * @param cards an array of cards to add
+	 * @param slotType the type of slot where to add the cards
+	 */
 	public void addCardsOnTower(Card[] cards, SlotType slotType) {
 		// Add new towers cards of the new Period
 		for (int i = 0; i < 4; i++) {
@@ -353,6 +431,9 @@ public class GameBoardController {
 			personalController.showFamiliars();
 	}
 
+	/**
+	 * @param message the message to write in the dialogBox
+	 */
 	public void writeInDialogBox(String message) {
 		if (dialogBox.getText().equals(""))
 			dialogBox.appendText("> " + message);
@@ -362,6 +443,9 @@ public class GameBoardController {
 		dialogBox.setScrollTop(Double.MAX_VALUE);
 	}
 
+	/**
+	 * @param enabled a boolean that if it's TRUE it disable the slots
+	 */
 	private void setSlotsDisabled(boolean enabled) {
 		for (Node slot : getSlots()) {
 			slot.setDisable(enabled);
@@ -390,6 +474,9 @@ public class GameBoardController {
 		return slots;
 	}
 
+	/**
+	 * @param excommunications an array of excommunications
+	 */
 	private void placeExcommunications(Excommunication[] excommunications) {
 		String path = "/Image/Excommunication/";
 		for (Excommunication excom : excommunications) {
@@ -399,6 +486,10 @@ public class GameBoardController {
 		}
 	}
 
+	/**
+	 * @param playerColor the player color
+	 * @param periodType the period of the excommunication
+	 */
 	public void placeExcommunicationToken(PlayerColor playerColor, PeriodType periodType) {
 		GridPane excommunication = (GridPane) stage.getScene().lookup("#EXCOMMUNICATION" + periodType.name());
 		String tokenPath = "/Image/ExcommunicationToken/";
@@ -409,26 +500,49 @@ public class GameBoardController {
 		excommunication.add(token, pair._1(), pair._2());
 	}
 
+	/**
+	 * @param leaders an array of leader cards to set
+	 */
 	public void setLeaderCards(LeaderCard[] leaders) {
 		usersPersonalBoards.get(myUsername).setLeaderCards(leaders);
 	}
 
+	/**
+	 * @param username the username of the player
+	 * @param leader the leader to discard
+	 */
 	public void discardLeaderCard(String username, LeaderCard leader) {
 		usersPersonalBoards.get(username).discardLeaderCard(leader);
 	}
 
+	/**
+	 * @param username the username of the player
+	 * @param leader the leader to play
+	 */
 	public void playLeaderCard(String username, LeaderCard leader) {
 		usersPersonalBoards.get(username).playLeaderCard(leader);
 	}
 
+	/**
+	 * @param username the username of the player
+	 * @param leader the leader to activate
+	 */
 	public void activateLeaderCard(String username, LeaderCard leader) {
 		usersPersonalBoards.get(username).activateLeaderCard(leader);
 	}
 	
+	/**
+	 * @param username the username of the player
+	 * @param leader the leader to enable
+	 */
 	public void enableLeaderCard(String username, LeaderCard leader) {
 		usersPersonalBoards.get(username).enableLeaderCard(leader);
 	}
 
+	/**
+	 * @param username the username of the player
+	 * @param personalBonusTile the personal bonus tile
+	 */
 	public void setPersonalBonusTile(String username, PersonalBonusTile personalBonusTile) {
 		Resource[] productionBonus = personalBonusTile.getProductionBonuses();
 		Resource[] harvestBonus = personalBonusTile.getHarvestBonuses();

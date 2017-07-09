@@ -27,13 +27,19 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+/**
+ * The Main Controller which implements ViewInterface and handles all the Gui methods
+ * called from ClientController
+ * 
+ * @author Kostandin
+ *
+ */
 public class GuiController implements ViewInterface {
 
-	// TODO da mettere tutti private quando finiscono i test
-	LeaderCardChoiceController leaderChoiceController;
-	GameBoardController gameBoardController;
-	ClientController clientController;
-	FinalScoreController finalController;
+	private LeaderCardChoiceController leaderChoiceController;
+	private GameBoardController gameBoardController;
+	private ClientController clientController;
+	private FinalScoreController finalController;
 	
 	private Stage currentStage;
 
@@ -42,6 +48,9 @@ public class GuiController implements ViewInterface {
 	private Dialog<ButtonType> choiceDialog;
 	private boolean leaderChoicePhase = true;
 
+	/**
+	 * @param value the value of the choice
+	 */
 	public void setChoice(int value) {
 		synchronized (choiceLockToken) {
 			choice = value;

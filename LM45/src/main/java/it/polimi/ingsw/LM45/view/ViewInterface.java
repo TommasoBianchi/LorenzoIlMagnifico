@@ -12,14 +12,21 @@ import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.network.client.ClientController;
 
+/**
+ * Interface with all the methods used by a view controller : GuiController
+ * or CliController
+ * 
+ * @author Kostandin
+ *
+ */
 public interface ViewInterface {
 
 	public void showLeaderCardChoiceView();
 	
 	/**
-	 * @param playersUsername array of player's usernames
-	 * @param playerColors array of player's colors
-	 * @param excommunications array of excommunications
+	 * @param playersUsername an array of players usernames
+	 * @param playerColors an array of players colors
+	 * @param excommunications an array of excommunications
 	 * @param boardConfiguration the board configuration
 	 */
 	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications,
@@ -40,7 +47,7 @@ public interface ViewInterface {
 	public void pickCard(Card card, String username);
 	
 	/**
-	 * @param cards array of cards
+	 * @param cards an array of cards
 	 * @param slotType the type of slot
 	 */
 	public void addCardsOnTower(Card[] cards, SlotType slotType);
@@ -64,7 +71,7 @@ public interface ViewInterface {
 	public void doBonusAction(SlotType slotType, int value);
 	
 	/**
-	 * @param alternatives array of alternatives to choose
+	 * @param alternatives an array of alternatives to choose from
 	 * @return the index of the choosen alternative
 	 */
 	public int chooseFrom(String[] alternatives);
@@ -75,7 +82,7 @@ public interface ViewInterface {
 	public void setClientController(ClientController clientController);
 	
 	/**
-	 * @param resources array of resources
+	 * @param resources an array of resources
 	 * @param username the username of the player
 	 */
 	public void setResources(Resource[] resources, String username);
@@ -88,7 +95,7 @@ public interface ViewInterface {
 	public void playerTurn(String username);
 	
 	/**
-	 * @param leaders array of leaders
+	 * @param leaders an array of leaders
 	 */
 	public void setLeaderCards(LeaderCard[] leaders);
 	
@@ -129,9 +136,9 @@ public interface ViewInterface {
 	public void placeExcommunicationToken(PlayerColor playerColor, PeriodType periodType);
 	
 	/**
-	 * @param playersUsername array of player's usernames
-	 * @param playerColors array of player's colors
-	 * @param scores array of player's scores
+	 * @param playersUsername an array of players usernames
+	 * @param playerColors an array of players colors
+	 * @param scores an array of players scores
 	 */
 	public void showFinalScore(String[] playersUsername, PlayerColor[] playerColors, int[] scores);
 	
