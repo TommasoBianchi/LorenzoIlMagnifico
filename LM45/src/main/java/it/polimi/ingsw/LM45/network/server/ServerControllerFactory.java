@@ -2,7 +2,9 @@ package it.polimi.ingsw.LM45.network.server;
 
 import java.io.FileNotFoundException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
@@ -16,8 +18,10 @@ public class ServerControllerFactory {
 	private static long gameStartTimerDelay;
 	private static long turnTimerDelay;
 	private static Map<String, ServerController> disconnectedUsersDictionary;
+	private static Set<ServerController> runningServerControllerInstances;
 
 	private ServerControllerFactory() {
+		runningServerControllerInstances = new HashSet<>();
 	}
 
 	public static void initialize(int maxInstanceCount, long gameStartTimerDelay, long turnTimerDelay) {
@@ -30,7 +34,11 @@ public class ServerControllerFactory {
 
 	public static ServerController getServerControllerInstance(String username) {
 		if (disconnectedUsersDictionary.containsKey(username)) {
-			return disconnectedUsersDictionary.remove(username);
+			ServerController serverController = disconnectedUsersDictionary.remove(username);
+			if(runningServerControllerInstances.contains(serverController))
+				return serverController;
+			else
+				disconnectedUsersDictionary.remove(username);
 		}
 
 		if (currentServerController == null || instanceCount >= maxInstanceCount) {
@@ -45,14 +53,21 @@ public class ServerControllerFactory {
 	public static void addDisconnectedUser(String username, ServerController serverController) {
 		disconnectedUsersDictionary.put(username, serverController);
 	}
+	
+	public static void removeRunningServerController(ServerController serverController){
+		runningServerControllerInstances.remove(serverController);
+	}
 
 	public static void shutdown() {
-		// TODO: implement
+		for(ServerController serverController : runningServerControllerInstances)
+			serverController.shutdown();
 	}
 
 	private static ServerController createServerControllerInstance() {
 		try {
-			return new ServerController(++currentGameID, maxInstanceCount, gameStartTimerDelay, turnTimerDelay);
+			ServerController serverController = new ServerController(++currentGameID, maxInstanceCount, gameStartTimerDelay, turnTimerDelay);
+			runningServerControllerInstances.add(serverController);
+			return serverController;
 		}
 		catch (JsonSyntaxException | JsonIOException | FileNotFoundException e) {
 			System.err.println("ServerSocketFactory unable to instantiate a ServerController -- returning null (probably something will break)");

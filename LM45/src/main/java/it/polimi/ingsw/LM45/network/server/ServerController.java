@@ -167,9 +167,9 @@ public class ServerController {
 		users.remove(username);
 		ServerControllerFactory.addDisconnectedUser(username, this);
 
-		// NOTE: what happens when all the players disconnect?
-		// We may want to stop and cancel this game?
-		// Maybe we prefer to stop it waiting for a player to log in again?
+		// When all the players disconnect stop and cancel this game
+		if(users.size() == 0)
+			shutdown();
 
 		// If only one player is remaining stop the gameStartTimer (if present and only before the game starts)
 		if (game == null && users.size() == 1 && gameStartTimer != null) {
@@ -177,6 +177,15 @@ public class ServerController {
 			gameStartTimer.cancel();
 			gameStartTimer = null;
 		}
+	}
+	
+	public void shutdown(){
+		users.clear();
+		if(gameStartTimer != null)
+			gameStartTimer.cancel();
+		if(turnTimer != null)
+			turnTimer.cancel();
+		ServerControllerFactory.removeRunningServerController(this);
 	}
 
 	/**
@@ -196,7 +205,7 @@ public class ServerController {
 				Slot slot = game.getSlot(slotType, slotID);
 				Familiar familiar = players.get(username).getFamiliarByColor(familiarColor);
 				EffectResolutor effectResolutor = effectResolutors.get(username);
-				ActionModifier actionModifier = players.get(username).getActionModifier(slotType, effectResolutor); // NOTE: this may be incorrect
+				ActionModifier actionModifier = players.get(username).getActionModifier(slotType, effectResolutor);
 				if (slot.canAddFamiliar(familiar, actionModifier, effectResolutor)) {
 					slot.addFamiliar(familiar, actionModifier, effectResolutor);
 					notifyPlayers(clientInterface -> clientInterface.addFamiliar(slotType, slotID, familiarColor, players.get(username).getColor()));
@@ -378,7 +387,6 @@ public class ServerController {
 			turnTimer.schedule(new TimerTask() {
 				@Override
 				public void run() {
-					// TODO: reset every pending choice, bonus familiar, ...
 					endPlayerRound(currentPlayer.getUsername());
 				}
 			}, turnTimerDelay);
@@ -482,6 +490,9 @@ public class ServerController {
 		PlayerColor[] playerColors = Arrays.stream(victoryOrderedPlayers).map(Player::getColor).toArray(PlayerColor[]::new);
 		int[] scores = Arrays.stream(victoryOrderedPlayers).mapToInt(player -> player.getResourceAmount(ResourceType.VICTORY)).toArray();
 		notifyPlayers(clientInterface -> clientInterface.showFinalScore(playersUsername, playerColors, scores));
+		
+		// Close this instance of ServerController
+		shutdown();
 	}
 
 	private void nextGameTurn() {
