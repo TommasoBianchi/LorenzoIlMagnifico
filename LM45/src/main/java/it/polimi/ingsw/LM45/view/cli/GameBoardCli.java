@@ -41,6 +41,7 @@ public class GameBoardCli {
 
 	private Consumer<GameBoardCli> setFamiliarCallback = gameBoard -> {
 	};
+	private Consumer<GameBoardCli> doBonusActionCallback = null;
 
 	public GameBoardCli(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications,
 			BoardConfiguration boardConfiguration, ClientController clientController) {
@@ -52,8 +53,7 @@ public class GameBoardCli {
 		this.churchSupportResources = boardConfiguration.getChurchSupportResources();
 
 		for (int i = 0; i < playersUsername.length; i++) {
-			usersPersonalBoards.put(playersUsername[i],
-					new PersonalBoardCli(playersUsername[i], playerColors[i], clientController));
+			usersPersonalBoards.put(playersUsername[i], new PersonalBoardCli(playersUsername[i], playerColors[i], clientController));
 			playerColorName.put(playerColors[i], playersUsername[i]);
 		}
 
@@ -64,14 +64,12 @@ public class GameBoardCli {
 
 		this.towers = new HashMap<>();
 
-		for (CardType cardType : new CardType[] { CardType.TERRITORY, CardType.CHARACTER, CardType.BUILDING,
-				CardType.VENTURE })
+		for (CardType cardType : new CardType[] { CardType.TERRITORY, CardType.CHARACTER, CardType.BUILDING, CardType.VENTURE })
 			towers.put(cardType.toSlotType(), new TowerCli(cardType, boardConfiguration));
 
 		this.otherSlots = new HashMap<>();
 
-		otherSlots.put(SlotType.COUNCIL, new SlotCli[] {
-				new SlotCli(SlotType.COUNCIL, 0, boardConfiguration.getSlotBonuses(SlotType.COUNCIL, 0)) });
+		otherSlots.put(SlotType.COUNCIL, new SlotCli[] { new SlotCli(SlotType.COUNCIL, 0, boardConfiguration.getSlotBonuses(SlotType.COUNCIL, 0)) });
 
 		List<SlotCli> marketSlots = new ArrayList<>();
 		marketSlots.add(new SlotCli(SlotType.MARKET, 0, boardConfiguration.getSlotBonuses(SlotType.MARKET, 0)));
@@ -85,13 +83,10 @@ public class GameBoardCli {
 		List<SlotCli> harvestSlots = new ArrayList<>();
 		List<SlotCli> productionSlots = new ArrayList<>();
 		harvestSlots.add(new SlotCli(SlotType.HARVEST, 0, boardConfiguration.getSlotBonuses(SlotType.HARVEST, 0)));
-		productionSlots
-				.add(new SlotCli(SlotType.PRODUCTION, 0, boardConfiguration.getSlotBonuses(SlotType.PRODUCTION, 0)));
+		productionSlots.add(new SlotCli(SlotType.PRODUCTION, 0, boardConfiguration.getSlotBonuses(SlotType.PRODUCTION, 0)));
 		if (playersUsername.length > 2) {
-			harvestSlots.add(
-					new SlotCli(SlotType.HARVEST, 1, 1, -3, boardConfiguration.getSlotBonuses(SlotType.HARVEST, 1)));
-			productionSlots.add(new SlotCli(SlotType.PRODUCTION, 1, 1, -3,
-					boardConfiguration.getSlotBonuses(SlotType.PRODUCTION, 1)));
+			harvestSlots.add(new SlotCli(SlotType.HARVEST, 1, 1, -3, boardConfiguration.getSlotBonuses(SlotType.HARVEST, 1)));
+			productionSlots.add(new SlotCli(SlotType.PRODUCTION, 1, 1, -3, boardConfiguration.getSlotBonuses(SlotType.PRODUCTION, 1)));
 		}
 		otherSlots.put(SlotType.HARVEST, harvestSlots.stream().toArray(SlotCli[]::new));
 		otherSlots.put(SlotType.PRODUCTION, productionSlots.stream().toArray(SlotCli[]::new));
@@ -99,11 +94,16 @@ public class GameBoardCli {
 
 	public void showMain() {
 		printTitle("GameBoard");
+
+		List<Pair<Consumer<GameBoardCli>, String>> additionalOptions = new ArrayList<>();
+		
+		if(doBonusActionCallback != null)
+			additionalOptions.add(new Pair<Consumer<GameBoardCli>, String>(doBonusActionCallback, "Do bonus action"));
+
 		if (familiarPlacedThisTurn)
-			GameBoardCliOptions.navigate(Stage.MAIN, this,
-					Arrays.asList(new Pair<Consumer<GameBoardCli>, String>(GameBoardCli::endTurn, "End turn")));
-		else
-			GameBoardCliOptions.navigate(Stage.MAIN, this);
+			additionalOptions.add(new Pair<Consumer<GameBoardCli>, String>(GameBoardCli::endTurn, "End turn"));
+
+		GameBoardCliOptions.navigate(Stage.MAIN, this, additionalOptions);
 	}
 
 	public void showTowers() {
@@ -151,15 +151,15 @@ public class GameBoardCli {
 			ConsoleWriter.printShowInfo(excommunication.toString());
 			if (playersExcommunications.get(excommunication).size() > 0) {
 				ConsoleWriter.println("");
-				ConsoleWriter.printShowInfo("Players that have taken this: "
-						+ playersExcommunications.get(excommunication).stream().reduce("", String::concat));
+				ConsoleWriter.printShowInfo(
+						"Players that have taken this: " + playersExcommunications.get(excommunication).stream().reduce("", String::concat));
 			}
 		}
 		ConsoleWriter.println("--------------------");
 		ConsoleWriter.println("");
 		ConsoleWriter.printShowInfo("Church Support Bonuses :");
-		for(int i=0; i<churchSupportResources.length; i++)
-			for(int j=0; j<churchSupportResources[i].length; j++) {
+		for (int i = 0; i < churchSupportResources.length; i++)
+			for (int j = 0; j < churchSupportResources[i].length; j++) {
 				ConsoleWriter.printShowInfo(i + " " + churchSupportResources[i][j].toString());
 			}
 		ConsoleWriter.println("\n");
@@ -168,10 +168,11 @@ public class GameBoardCli {
 
 	public void showPersonalBoards() {
 		printTitle("Personal Boards");
-		GameBoardCliOptions.navigate(Stage.PERSONAL_BOARDS, this, usersPersonalBoards.keySet().stream()
-				.map(username -> new Pair<Consumer<GameBoardCli>, String>(
-						gameBoard -> gameBoard.showPersonalBoard(username), "Show " + username + "'s Personal Board"))
-				.collect(Collectors.toList()));
+		GameBoardCliOptions.navigate(Stage.PERSONAL_BOARDS, this,
+				usersPersonalBoards.keySet().stream()
+						.map(username -> new Pair<Consumer<GameBoardCli>, String>(gameBoard -> gameBoard.showPersonalBoard(username),
+								"Show " + username + "'s Personal Board"))
+						.collect(Collectors.toList()));
 	}
 
 	/**
@@ -182,8 +183,7 @@ public class GameBoardCli {
 		printTitle(username + "'s Personal Board");
 		usersPersonalBoards.get(username).print();
 		List<Pair<Consumer<GameBoardCli>, String>> options = new ArrayList<>();
-		for (CardType cardType : new CardType[] { CardType.TERRITORY, CardType.CHARACTER, CardType.BUILDING,
-				CardType.VENTURE })
+		for (CardType cardType : new CardType[] { CardType.TERRITORY, CardType.CHARACTER, CardType.BUILDING, CardType.VENTURE })
 			options.add(new Pair<Consumer<GameBoardCli>, String>(gameBoard -> {
 				usersPersonalBoards.get(username).printCards(cardType);
 				gameBoard.showPersonalBoard(username);
@@ -191,8 +191,7 @@ public class GameBoardCli {
 		options.add(new Pair<Consumer<GameBoardCli>, String>(gameBoard -> {
 			usersPersonalBoards.get(username).printLeaderCards(username == myUsername);
 			if (username == myUsername)
-				gameBoard.selectLeader(usersPersonalBoards.get(myUsername).getLeaderCards(),
-						gb -> gb.showPersonalBoard(username));
+				gameBoard.selectLeader(usersPersonalBoards.get(myUsername).getLeaderCards(), gb -> gb.showPersonalBoard(username));
 			else
 				gameBoard.showPersonalBoard(username);
 		}, "Show leader cards"));
@@ -202,11 +201,9 @@ public class GameBoardCli {
 	public void selectLeader(List<LeaderCard> leaders, Consumer<GameBoardCli> showPersonalBoardCallback) {
 		ConsoleWriter.println("");
 		ConsoleWriter.printChoice("Select a leader if you want to discard, play or activate it");
-		List<Pair<Consumer<GameBoardCli>, String>> options = usersPersonalBoards.get(myUsername).getLeaderCards()
-				.stream()
+		List<Pair<Consumer<GameBoardCli>, String>> options = usersPersonalBoards.get(myUsername).getLeaderCards().stream()
 				.map(leader -> new Pair<Consumer<GameBoardCli>, String>(
-						gameBoard -> gameBoard.showLeaderOptions(leader,
-								gb -> gb.selectLeader(leaders, showPersonalBoardCallback)),
+						gameBoard -> gameBoard.showLeaderOptions(leader, gb -> gb.selectLeader(leaders, showPersonalBoardCallback)),
 						"Select Leader -- " + leader.getName()))
 				.collect(Collectors.toList());
 		options.add(new Pair<Consumer<GameBoardCli>, String>(showPersonalBoardCallback, "Back"));
@@ -217,12 +214,9 @@ public class GameBoardCli {
 		ConsoleWriter.println("");
 		ConsoleWriter.printValidInput("Selected action for Leader  -- " + leader.getName());
 		List<Pair<Consumer<GameBoardCli>, String>> leaderOptions = new ArrayList<>();
-		leaderOptions.add(new Pair<Consumer<GameBoardCli>, String>(gameBoard -> gameBoard.discardLeader(leader),
-				"Discard Leader"));
-		leaderOptions.add(
-				new Pair<Consumer<GameBoardCli>, String>(gameBoard -> gameBoard.playLeader(leader), "Play Leader"));
-		leaderOptions.add(new Pair<Consumer<GameBoardCli>, String>(gameBoard -> gameBoard.activateLeader(leader),
-				"Activate Leader"));
+		leaderOptions.add(new Pair<Consumer<GameBoardCli>, String>(gameBoard -> gameBoard.discardLeader(leader), "Discard Leader"));
+		leaderOptions.add(new Pair<Consumer<GameBoardCli>, String>(gameBoard -> gameBoard.playLeader(leader), "Play Leader"));
+		leaderOptions.add(new Pair<Consumer<GameBoardCli>, String>(gameBoard -> gameBoard.activateLeader(leader), "Activate Leader"));
 		leaderOptions.add(new Pair<Consumer<GameBoardCli>, String>(selectLeaderCallback, "Back"));
 		GameBoardCliOptions.navigate(this, leaderOptions);
 	}
@@ -273,11 +267,9 @@ public class GameBoardCli {
 	public void selectFamiliar(SlotCli slot, Consumer<GameBoardCli> showTowerCallback) {
 		ConsoleWriter.println("");
 		ConsoleWriter.printChoice("What familiar do you want to place ?");
-		List<Pair<Consumer<GameBoardCli>, String>> options = usersPersonalBoards.get(myUsername).getUsableFamiliars()
-				.stream()
+		List<Pair<Consumer<GameBoardCli>, String>> options = usersPersonalBoards.get(myUsername).getUsableFamiliars().stream()
 				.map(pair -> new Pair<Consumer<GameBoardCli>, String>(
-						gameBoard -> gameBoard.showFamiliarOptions(pair._1(), pair._2(), slot,
-								gb -> gb.selectFamiliar(slot, showTowerCallback)),
+						gameBoard -> gameBoard.showFamiliarOptions(pair._1(), pair._2(), slot, gb -> gb.selectFamiliar(slot, showTowerCallback)),
 						"Select familiar " + pair._1() + " (value " + pair._2() + ")"))
 				.collect(Collectors.toList());
 		options.add(new Pair<Consumer<GameBoardCli>, String>(showTowerCallback, "Back"));
@@ -294,18 +286,15 @@ public class GameBoardCli {
 	 * @param backCallback
 	 *            the CallBack to call again placeFamiliar method
 	 */
-	public void showFamiliarOptions(FamiliarColor familiarColor, int value, SlotCli slot,
-			Consumer<GameBoardCli> selectFamiliarCallback) {
+	public void showFamiliarOptions(FamiliarColor familiarColor, int value, SlotCli slot, Consumer<GameBoardCli> selectFamiliarCallback) {
 		ConsoleWriter.println("");
 		ConsoleWriter.printValidInput("Selected familiar " + familiarColor + " (value " + value + ")");
 		List<Pair<Consumer<GameBoardCli>, String>> familiarOptions = new ArrayList<>();
 		familiarOptions.add(new Pair<Consumer<GameBoardCli>, String>(gameBoard -> {
-			gameBoard.setSetFamiliarCallBack(
-					gb -> gb.showFamiliarOptions(familiarColor, value + 1, slot, selectFamiliarCallback));
+			gameBoard.setSetFamiliarCallBack(gb -> gb.showFamiliarOptions(familiarColor, value + 1, slot, selectFamiliarCallback));
 			gameBoard.increaseFamiliarValue(familiarColor);
 		}, "Increase Familiar Value (cost = " + servantCost + (servantCost > 1 ? " servant)" : " servants)")));
-		familiarOptions.add(new Pair<Consumer<GameBoardCli>, String>(gameBoard ->
-			gameBoard.placeFamiliar(familiarColor, slot), "Do Action !"));
+		familiarOptions.add(new Pair<Consumer<GameBoardCli>, String>(gameBoard -> gameBoard.placeFamiliar(familiarColor, slot), "Do Action !"));
 		familiarOptions.add(new Pair<Consumer<GameBoardCli>, String>(selectFamiliarCallback, "Back"));
 		GameBoardCliOptions.navigate(this, familiarOptions);
 	}
@@ -398,7 +387,8 @@ public class GameBoardCli {
 			Consumer<GameBoardCli> callback = setFamiliarCallback;
 			clearFamiliarCallback();
 			callback.accept(this);
-		} else {
+		}
+		else {
 			usersPersonalBoards.get(username).setFamiliarValue(familiarColor, value);
 			Consumer<GameBoardCli> callback = setFamiliarCallback;
 			clearFamiliarCallback();
@@ -418,18 +408,20 @@ public class GameBoardCli {
 	 */
 	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor) {
 		ConsoleWriter.println("");
-		ConsoleWriter.printValidInput(playerColorName.get(playerColor) + " added familiar " + familiarColor
-				+ " on slot " + slotType + position);
+		ConsoleWriter.printValidInput(playerColorName.get(playerColor) + " added familiar " + familiarColor + " on slot " + slotType + position);
 		ConsoleWriter.println("");
 		if (towers.containsKey(slotType)) {
 			towers.get(slotType).addFamiliar(position, familiarColor, playerColor);
-		} else {
+		}
+		else {
 			otherSlots.get(slotType)[position].placeFamiliar(familiarColor, playerColor);
 		}
 		usersPersonalBoards.get(playerColorName.get(playerColor)).setFamiliarUsed(familiarColor);
 
 		if (playerColorName.get(playerColor).equals(myUsername)) {
 			familiarPlacedThisTurn = true;
+			if(familiarColor == FamiliarColor.BONUS)
+				doBonusActionCallback = null;
 			showMain();
 		}
 	}
@@ -449,6 +441,16 @@ public class GameBoardCli {
 	 *            value of the action
 	 */
 	public void doBonusAction(SlotType slotType, int value) {
+		doBonusActionCallback = gameBoard -> gameBoard.showDoBonusAction(slotType, value);
+	}
+
+	/**
+	 * @param slotType
+	 *            type of the slot
+	 * @param value
+	 *            value of the action
+	 */
+	public void showDoBonusAction(SlotType slotType, int value) {
 		ConsoleWriter.println("");
 		ConsoleWriter.printValidInput("Do a Bonus Action : " + slotType + " of Value : " + value);
 		ConsoleWriter.println("");
@@ -486,8 +488,8 @@ public class GameBoardCli {
 			setSetFamiliarCallBack(gb -> gb.bonusOptions(slot, value + 1, doBonusActionCallback));
 			gameBoard.increaseFamiliarValue(FamiliarColor.BONUS);
 		}, "Increase Bonus Value"));
-		bonusFamiliarOptions.add(new Pair<Consumer<GameBoardCli>, String>(gameBoard -> 
-			gameBoard.placeFamiliar(FamiliarColor.BONUS, slot), "Do Action !"));
+		bonusFamiliarOptions
+				.add(new Pair<Consumer<GameBoardCli>, String>(gameBoard -> gameBoard.placeFamiliar(FamiliarColor.BONUS, slot), "Do Action !"));
 		bonusFamiliarOptions.add(new Pair<Consumer<GameBoardCli>, String>(doBonusActionCallback, "Back"));
 		GameBoardCliOptions.navigate(this, bonusFamiliarOptions);
 	}
@@ -500,8 +502,7 @@ public class GameBoardCli {
 	 */
 	public void placeExcommunicationToken(PlayerColor playerColor, PeriodType periodType) {
 		ConsoleWriter.println("");
-		ConsoleWriter.printValidInput(
-				playerColorName.get(playerColor) + " gets the malus of the excommunication of period " + periodType);
+		ConsoleWriter.printValidInput(playerColorName.get(playerColor) + " gets the malus of the excommunication of period " + periodType);
 		ConsoleWriter.println("");
 		Excommunication excommunication = excommunications[periodType.ordinal()];
 		playersExcommunications.get(excommunication).add(playerColorName.get(playerColor));
@@ -523,8 +524,7 @@ public class GameBoardCli {
 	 */
 	public void discardLeaderCard(String username, LeaderCard leader) {
 		usersPersonalBoards.get(username).discardLeaderCard(leader);
-		this.selectLeader(usersPersonalBoards.get(username).getLeaderCards(),
-				gameBoard -> gameBoard.showPersonalBoard(username));
+		this.selectLeader(usersPersonalBoards.get(username).getLeaderCards(), gameBoard -> gameBoard.showPersonalBoard(username));
 	}
 
 	/**
@@ -535,8 +535,7 @@ public class GameBoardCli {
 	 */
 	public void playLeaderCard(String username, LeaderCard leader) {
 		usersPersonalBoards.get(username).playLeaderCard(leader);
-		this.selectLeader(usersPersonalBoards.get(username).getLeaderCards(),
-				gameBoard -> gameBoard.showPersonalBoard(username));
+		this.selectLeader(usersPersonalBoards.get(username).getLeaderCards(), gameBoard -> gameBoard.showPersonalBoard(username));
 	}
 
 	/**
@@ -547,8 +546,7 @@ public class GameBoardCli {
 	 */
 	public void activateLeaderCard(String username, LeaderCard leader) {
 		usersPersonalBoards.get(username).activateLeaderCard(leader);
-		this.selectLeader(usersPersonalBoards.get(username).getLeaderCards(),
-				gameBoard -> gameBoard.showPersonalBoard(username));
+		this.selectLeader(usersPersonalBoards.get(username).getLeaderCards(), gameBoard -> gameBoard.showPersonalBoard(username));
 	}
 
 	/**
