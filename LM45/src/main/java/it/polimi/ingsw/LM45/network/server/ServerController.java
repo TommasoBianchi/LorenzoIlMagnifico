@@ -53,11 +53,10 @@ import it.polimi.ingsw.LM45.util.Pair;
 import it.polimi.ingsw.LM45.util.ShuffleHelper;
 
 /**
- * @author Tommy
- *
  * This is the controller responsible of managing the server's side of each game.
  * It it instantiated only by the ServerControllerFactory and there is one of such instances for each ongoing game.
- *
+ * 
+ * @author Tommy
  */
 public class ServerController {
 
