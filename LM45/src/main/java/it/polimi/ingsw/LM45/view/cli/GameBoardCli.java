@@ -2,6 +2,7 @@ package it.polimi.ingsw.LM45.view.cli;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,7 +51,7 @@ public class GameBoardCli {
 		this.clientController = clientController;
 		this.usersPersonalBoards = new HashMap<>();
 		this.playersExcommunications = new HashMap<>();
-		this.playerColorName = new HashMap<>();
+		this.playerColorName = new EnumMap<>(PlayerColor.class);
 		this.churchSupportResources = boardConfiguration.getChurchSupportResources();
 
 		for (int i = 0; i < playersUsername.length; i++) {
@@ -63,12 +64,12 @@ public class GameBoardCli {
 		for (Excommunication excommunication : this.excommunications)
 			this.playersExcommunications.put(excommunication, new ArrayList<>());
 
-		this.towers = new HashMap<>();
+		this.towers = new EnumMap<>(SlotType.class);
 
 		for (CardType cardType : new CardType[] { CardType.TERRITORY, CardType.CHARACTER, CardType.BUILDING, CardType.VENTURE })
 			towers.put(cardType.toSlotType(), new TowerCli(cardType, boardConfiguration));
 
-		this.otherSlots = new HashMap<>();
+		this.otherSlots = new EnumMap<>(SlotType.class);
 
 		otherSlots.put(SlotType.COUNCIL, new SlotCli[] { new SlotCli(SlotType.COUNCIL, 0, boardConfiguration.getSlotBonuses(SlotType.COUNCIL, 0)) });
 
@@ -150,7 +151,7 @@ public class GameBoardCli {
 		for (Excommunication excommunication : excommunications) {
 			ConsoleWriter.println("--------------------");
 			ConsoleWriter.printShowInfo(excommunication.toString());
-			if (playersExcommunications.get(excommunication).size() > 0) {
+			if (!playersExcommunications.get(excommunication).isEmpty()) {
 				ConsoleWriter.println("");
 				ConsoleWriter.printShowInfo(
 						"Players that have taken this: " + playersExcommunications.get(excommunication).stream().reduce("", String::concat));

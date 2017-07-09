@@ -79,9 +79,7 @@ public class GameBoardController {
 	private Set<String> coveredSlotsIDs;
 	// Pair<Integer,Integer> refers to the position of the token player inside the excommunication Grid
 	private Map<PlayerColor, Pair<Integer, Integer>> playerExcommunicationPosition = new EnumMap<>(PlayerColor.class);
-	// Map<PlayerColor, String PlayerName>
-	private Map<PlayerColor, String> playerColorName = new HashMap<>();
-	// Map<String cardName, String towerslotID>
+	private Map<PlayerColor, String> playerColorName = new EnumMap<>(PlayerColor.class);
 	private Map<String, String> cardPosition = new HashMap<>();
 
 	private FamiliarColor selectedFamiliarColor = null;

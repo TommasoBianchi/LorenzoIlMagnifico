@@ -126,9 +126,7 @@ public class ClientController {
 	}
 
 	public int chooseFrom(String[] alternatives) {
-		int chosenNumber = viewInterface.chooseFrom(alternatives);
-
-		return chosenNumber;
+		return viewInterface.chooseFrom(alternatives);
 	}
 
 	public void pickCard(Card card, String username) {
@@ -142,8 +140,8 @@ public class ClientController {
 	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor) {
 		viewInterface.addFamiliar(slotType, position, familiarColor, playerColor);
 	}
-	
-	public void setServantCost(int cost){
+
+	public void setServantCost(int cost) {
 		viewInterface.setServantCost(cost);
 	}
 

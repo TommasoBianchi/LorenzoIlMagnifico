@@ -165,9 +165,8 @@ public class PersonalBoard {
 	 * @return an actionModifier describing all the modifiers from permanentEffects of cards on this personalBoard that have to be applied on this action
 	 */
 	public ActionModifier getActionModifier(SlotType slotType, EffectResolutor effectResolutor) {
-		ActionModifier actionModifier = permanentEffects.stream().map(cardEffect -> cardEffect.getActionModifier(slotType, effectResolutor))
+		return permanentEffects.stream().map(cardEffect -> cardEffect.getActionModifier(slotType, effectResolutor))
 				.reduce(ActionModifier.EMPTY(), (a, b) -> a.merge(b));
-		return actionModifier;
 	}
 
 	/**

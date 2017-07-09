@@ -44,7 +44,7 @@ public class SlotCli {
 
 		ConsoleWriter.println("");
 
-		if (familiars.size() > 0)
+		if (!familiars.isEmpty())
 			ConsoleWriter.printShowInfo("Familiars : "
 					+ familiars.stream().map(pair -> "familiar " + pair._1() + " by player " + pair._2()).reduce("", (a, b) -> a + " " + b));
 		else

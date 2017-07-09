@@ -135,7 +135,7 @@ public class Slot {
 			}
 		}
 
-		return (familiars.size() > 0 && !multipleFamiliars) || (!multipleFamiliarsOfSamePlayer && hasFamiliarInNeighbouringSlots);
+		return (!familiars.isEmpty() && !multipleFamiliars) || (!multipleFamiliarsOfSamePlayer && hasFamiliarInNeighbouringSlots);
 	}
 
 	private boolean isFamiliarValueOK(Familiar familiar, ActionModifier actionModifier) {
