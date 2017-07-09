@@ -1,4 +1,4 @@
-package it.polimi.ingsw.LM45.view.controller;
+package it.polimi.ingsw.LM45.view.gui;
 
 import java.util.Arrays;
 
@@ -13,6 +13,7 @@ import it.polimi.ingsw.LM45.model.core.PlayerColor;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.network.client.ClientController;
+import it.polimi.ingsw.LM45.view.ViewInterface;
 import it.polimi.ingsw.LM45.view.gui.finalScore.FinalScoreController;
 import it.polimi.ingsw.LM45.view.gui.gameboard.GameBoardController;
 import it.polimi.ingsw.LM45.view.gui.leadercard.LeaderCardChoiceController;

@@ -1,4 +1,7 @@
-package it.polimi.ingsw.LM45.view.controller;
+package it.polimi.ingsw.LM45.view;
+
+import it.polimi.ingsw.LM45.view.cli.CliController;
+import it.polimi.ingsw.LM45.view.gui.GuiController;
 
 public class ViewInterfaceFactory {
 

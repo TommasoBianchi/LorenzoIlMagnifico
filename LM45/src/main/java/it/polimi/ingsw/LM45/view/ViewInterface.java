@@ -1,4 +1,4 @@
-package it.polimi.ingsw.LM45.view.controller;
+package it.polimi.ingsw.LM45.view;
 
 import it.polimi.ingsw.LM45.config.BoardConfiguration;
 import it.polimi.ingsw.LM45.model.cards.Card;

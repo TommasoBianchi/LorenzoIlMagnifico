@@ -1,8 +1,7 @@
-	package it.polimi.ingsw.LM45.view.controller;
+	package it.polimi.ingsw.LM45.controller;
 
 import java.io.IOException;
 
-import it.polimi.ingsw.LM45.controller.ClientLauncher;
 import it.polimi.ingsw.LM45.view.lobby.LobbyController;
 import javafx.application.Application;
 import javafx.stage.Stage;

@@ -1,4 +1,4 @@
-package it.polimi.ingsw.LM45.view.controller;
+package it.polimi.ingsw.LM45.view.cli;
 
 import it.polimi.ingsw.LM45.config.BoardConfiguration;
 import it.polimi.ingsw.LM45.model.cards.Card;
@@ -11,10 +11,8 @@ import it.polimi.ingsw.LM45.model.core.PlayerColor;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.network.client.ClientController;
-import it.polimi.ingsw.LM45.view.cli.ConsoleReader;
-import it.polimi.ingsw.LM45.view.cli.ConsoleWriter;
+import it.polimi.ingsw.LM45.view.ViewInterface;
 import it.polimi.ingsw.LM45.view.cli.ConsoleWriter.ConsoleColor;
-import it.polimi.ingsw.LM45.view.cli.GameBoardCli;
 
 public class CliController implements ViewInterface {
 	

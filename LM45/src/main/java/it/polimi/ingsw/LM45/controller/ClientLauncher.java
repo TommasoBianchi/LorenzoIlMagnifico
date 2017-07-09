@@ -5,9 +5,9 @@ import java.io.IOException;
 import it.polimi.ingsw.LM45.network.client.ClientController;
 import it.polimi.ingsw.LM45.network.client.ConnectionType;
 import it.polimi.ingsw.LM45.network.client.ServerInterfaceFactory;
-import it.polimi.ingsw.LM45.view.controller.ViewInterface;
-import it.polimi.ingsw.LM45.view.controller.ViewInterfaceFactory;
-import it.polimi.ingsw.LM45.view.controller.ViewType;
+import it.polimi.ingsw.LM45.view.ViewInterface;
+import it.polimi.ingsw.LM45.view.ViewInterfaceFactory;
+import it.polimi.ingsw.LM45.view.ViewType;
 
 public class ClientLauncher {
 	

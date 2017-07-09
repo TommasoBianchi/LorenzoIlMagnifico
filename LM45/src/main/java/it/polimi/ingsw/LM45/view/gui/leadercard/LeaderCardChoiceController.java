@@ -3,7 +3,7 @@ package it.polimi.ingsw.LM45.view.gui.leadercard;
 import java.io.IOException;
 import java.util.Arrays;
 
-import it.polimi.ingsw.LM45.view.controller.GuiController;
+import it.polimi.ingsw.LM45.view.gui.GuiController;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

@@ -16,7 +16,7 @@ import it.polimi.ingsw.LM45.model.core.PlayerColor;
 import it.polimi.ingsw.LM45.model.core.Resource;
 import it.polimi.ingsw.LM45.model.core.SlotType;
 import it.polimi.ingsw.LM45.network.server.ServerInterface;
-import it.polimi.ingsw.LM45.view.controller.ViewInterface;
+import it.polimi.ingsw.LM45.view.ViewInterface;
 
 public class ClientController {
 
