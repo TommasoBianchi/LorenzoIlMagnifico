@@ -21,7 +21,6 @@ public class ServerControllerFactory {
 	private static Set<ServerController> runningServerControllerInstances;
 
 	private ServerControllerFactory() {
-		runningServerControllerInstances = new HashSet<>();
 	}
 
 	public static void initialize(int maxInstanceCount, long gameStartTimerDelay, long turnTimerDelay) {
@@ -30,6 +29,7 @@ public class ServerControllerFactory {
 		ServerControllerFactory.gameStartTimerDelay = gameStartTimerDelay;
 		ServerControllerFactory.turnTimerDelay = turnTimerDelay;
 		disconnectedUsersDictionary = new HashMap<>();
+		runningServerControllerInstances  = new HashSet<>();
 	}
 
 	public static ServerController getServerControllerInstance(String username) {
