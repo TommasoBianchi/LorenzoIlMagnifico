@@ -416,7 +416,9 @@ public class GameBoardCli {
 		else {
 			otherSlots.get(slotType)[position].placeFamiliar(familiarColor, playerColor);
 		}
-		usersPersonalBoards.get(playerColorName.get(playerColor)).setFamiliarUsed(familiarColor);
+		
+		if(familiarColor != FamiliarColor.BONUS)
+			usersPersonalBoards.get(playerColorName.get(playerColor)).setFamiliarUsed(familiarColor);
 
 		if (playerColorName.get(playerColor).equals(myUsername)) {
 			familiarPlacedThisTurn = true;
