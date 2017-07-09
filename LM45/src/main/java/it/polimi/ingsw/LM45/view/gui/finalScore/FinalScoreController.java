@@ -36,11 +36,22 @@ public class FinalScoreController {
 		}
 	}
 	
+	/**
+	 * @param playersUsername array of player's usernames
+	 * @param playerColors array of player's colors
+	 * @param scores array of player's scores
+	 */
 	private void showScores(String[] playersUsername, PlayerColor[] playerColors, int[] scores) {
 		for(int i=0; i<playersUsername.length; i++)
 			showPlayerScore(i, playersUsername[i], playerColors[i], scores[i]);
 	}
 	
+	/**
+	 * @param position ranking of the player
+	 * @param name the name of the player
+	 * @param color the color of the player
+	 * @param score the final score of the player
+	 */
 	private void showPlayerScore(int position, String name, PlayerColor color, int score) {
 		Label positionLabel = (Label) stage.getScene().lookup("#POSITION" + position);
 		positionLabel.setOpacity(1);
