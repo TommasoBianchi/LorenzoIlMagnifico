@@ -6,6 +6,8 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import it.polimi.ingsw.LM45.config.BoardConfiguration;
 import it.polimi.ingsw.LM45.exceptions.GameException;
@@ -26,9 +28,11 @@ public class RMIClient implements RemoteClientInterface, ServerInterface {
 
 	private ClientController clientController;
 	private RemoteServerInterface remoteServer;
+	private ExecutorService executorService; // This is needed to ensure void RMI methods returns as soon as possible
 
 	public RMIClient(String host, ClientController clientController) throws RemoteException, NotBoundException {
 		this.clientController = clientController;
+		this.executorService = Executors.newCachedThreadPool();
 
 		Registry registry = LocateRegistry.getRegistry(host);
 		remoteServer = ((RMIRemoteFactory) registry.lookup("RMIFactory"))
@@ -76,17 +80,17 @@ public class RMIClient implements RemoteClientInterface, ServerInterface {
 
 	@Override
 	public void setUsername(String username) throws IOException {
-		clientController.setUsername(username);
+		executorService.submit(() -> clientController.setUsername(username));
 	}
 
 	@Override
 	public void notifyPlayerTurn(String player) throws IOException {
-		clientController.notifyPlayerTurn(player);
+		executorService.submit(() -> clientController.notifyPlayerTurn(player));
 	}
 
 	@Override
 	public void throwGameException(GameException gameException) throws IOException {
-		clientController.throwGameException(gameException);
+		executorService.submit(() -> clientController.throwGameException(gameException));
 	}
 
 	@Override
@@ -96,83 +100,83 @@ public class RMIClient implements RemoteClientInterface, ServerInterface {
 
 	@Override
 	public void pickCard(Card card, String username) {
-		clientController.pickCard(card, username);
+		executorService.submit(() -> clientController.pickCard(card, username));
 	}
 
 	@Override
 	public void addCardsOnTower(Card[] cards, SlotType slotType) {
-		clientController.addCardsOnTower(cards, slotType);
+		executorService.submit(() -> clientController.addCardsOnTower(cards, slotType));
 	}
 
 	@Override
 	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor) {
-		clientController.addFamiliar(slotType, position, familiarColor, playerColor);
+		executorService.submit(() -> clientController.addFamiliar(slotType, position, familiarColor, playerColor));
 	}
 
 	@Override
 	public void setServantCost(int cost) throws IOException {
-		clientController.setServantCost(cost);
+		executorService.submit(() -> clientController.setServantCost(cost));
 	}
 
 	@Override
 	public void setLeaderCards(LeaderCard[] leaders) {
-		clientController.setLeaderCards(leaders);
+		executorService.submit(() -> clientController.setLeaderCards(leaders));
 	}
 
 	@Override
 	public void setFamiliar(String username, FamiliarColor color, int value) {
-		clientController.setFamiliar(username, color, value);
+		executorService.submit(() -> clientController.setFamiliar(username, color, value));
 	}
 
 	@Override
 	public void doBonusAction(SlotType slotType, int value) {
-		clientController.doBonusAction(slotType, value);
+		executorService.submit(() -> clientController.doBonusAction(slotType, value));
 	}
 
 	@Override
 	public void setResources(Resource[] resources, String username) {
-		clientController.setResources(resources, username);
+		executorService.submit(() -> clientController.setResources(resources, username));
 	}
 
 	@Override
 	public void setPersonalBonusTile(String username, PersonalBonusTile personalBonusTile) throws IOException {
-		clientController.setPersonalBonusTile(username, personalBonusTile);
+		executorService.submit(() -> clientController.setPersonalBonusTile(username, personalBonusTile));
 	}
 
 	@Override
 	public void initializeGameBoard(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications,
 			BoardConfiguration boardConfiguration) throws IOException {
-		clientController.initializeGameBoard(playersUsername, playerColors, excommunications, boardConfiguration);
+		executorService.submit(() -> clientController.initializeGameBoard(playersUsername, playerColors, excommunications, boardConfiguration));
 	}
 
 	@Override
 	public void placeExcommunicationToken(PlayerColor playerColor, PeriodType periodType) throws IOException {
-		clientController.placeExcommunicationToken(playerColor, periodType);
+		executorService.submit(() -> clientController.placeExcommunicationToken(playerColor, periodType));
 	}
 
 	@Override
 	public void playLeaderCard(String username, LeaderCard leader) throws IOException {
-		clientController.playLeaderCard(username, leader);
+		executorService.submit(() -> clientController.playLeaderCard(username, leader));
 	}
 
 	@Override
 	public void activateLeaderCard(String username, LeaderCard leader) throws IOException {
-		clientController.activateLeaderCard(username, leader);
+		executorService.submit(() -> clientController.activateLeaderCard(username, leader));
 	}
 
 	@Override
 	public void discardLeaderCard(String username, LeaderCard leader) throws IOException {
-		clientController.discardLeaderCard(username, leader);
+		executorService.submit(() -> clientController.discardLeaderCard(username, leader));
 	}
 
 	@Override
 	public void enableLeaderCard(String username, LeaderCard leader) throws IOException {
-		clientController.enableLeaderCard(username, leader);
+		executorService.submit(() -> clientController.enableLeaderCard(username, leader));
 	}
 
 	@Override
 	public void showFinalScore(String[] playersUsername, PlayerColor[] playerColors, int[] scores) throws IOException {
-		clientController.showFinalScore(playersUsername, playerColors, scores);
+		executorService.submit(() -> clientController.showFinalScore(playersUsername, playerColors, scores));
 	}
 
 }
