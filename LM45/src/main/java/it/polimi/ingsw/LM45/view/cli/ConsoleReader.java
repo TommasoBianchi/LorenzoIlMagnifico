@@ -123,11 +123,24 @@ public class ConsoleReader implements Runnable {
 		}
 	}
 	
+	/**
+	 * @author Tommy
+	 *
+	 * This is a thread-safe queue of maximum length 1, which forces the requester to wait for an element to be put inside
+	 * if none is present but also overwrites the stored element if a new one has to be put before anyone calls take(). 
+	 *
+	 * @param <T> the type of the elements stored in the queue
+	 */
 	private class SynchronousUpdatingQueue<T> {
 
 		private T element;
 		private Object elementLock = new Object();
 
+		/**
+		 * 
+		 * @return the first element available in this queue (i.e. the only one); if none is present, wait for a put()
+		 * @throws InterruptedException if interrupted while waiting for a put() call
+		 */
 		public T take() throws InterruptedException {
 			synchronized (elementLock) {
 				while (element == null)
@@ -138,6 +151,12 @@ public class ConsoleReader implements Runnable {
 			}
 		}
 
+		/**
+		 * Puts an element in the queue and notifies all threads waiting on take() of it.
+		 * If an element is already present, overwrites it.
+		 * 
+		 * @param element the element to put in the queue
+		 */
 		public void put(T element) {
 			synchronized (elementLock) {
 				this.element = element;
