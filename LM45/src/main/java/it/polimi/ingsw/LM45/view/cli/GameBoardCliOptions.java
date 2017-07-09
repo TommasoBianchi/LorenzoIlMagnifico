@@ -10,6 +10,12 @@ import java.util.function.Consumer;
 import it.polimi.ingsw.LM45.model.cards.CardType;
 import it.polimi.ingsw.LM45.util.Pair;
 
+/**
+ * A class that helps to associated a particular input to a particular function
+ * 
+ * @author Kostandin
+ *
+ */
 public class GameBoardCliOptions {
 
 	public enum Stage {
@@ -24,6 +30,9 @@ public class GameBoardCliOptions {
 	
 	private static Map<Stage, List<Pair<Consumer<GameBoardCli>, String>>> allOptions;
 	
+	/**
+	 * Initialize the principal stages with their options
+	 */
 	private static void initialize(){
 		allOptions = new EnumMap<>(Stage.class);
 
@@ -61,6 +70,10 @@ public class GameBoardCliOptions {
 		);
 	}
 	
+	/**
+	 * @param gameBoard the gameBoardCli
+	 * @param options a list of pairs that associate to a particular string a particular function
+	 */
 	public static void navigate(GameBoardCli gameBoard, List<Pair<Consumer<GameBoardCli>, String>> options){
 		try {
 			ConsoleReader.readOption(options, true).accept(gameBoard);
@@ -77,6 +90,11 @@ public class GameBoardCliOptions {
 		}
 	}
 	
+	/**
+	 * @param currentStage the Stage to use
+	 * @param gameBoard the gameBoardCli
+	 * @param additionalOptions a list of pairs that associate to a particular string a particular function
+	 */
 	public static void navigate(Stage currentStage, GameBoardCli gameBoard, List<Pair<Consumer<GameBoardCli>, String>> additionalOptions){
 		if(allOptions == null)
 			initialize();
@@ -87,6 +105,10 @@ public class GameBoardCliOptions {
 		navigate(gameBoard, extendedOptions);
 	}
 	
+	/**
+	 * @param currentStage the Stage to use
+	 * @param gameBoard the gameBoardCli
+	 */
 	public static void navigate(Stage currentStage, GameBoardCli gameBoard){
 		navigate(currentStage, gameBoard, new ArrayList<>());
 	}
