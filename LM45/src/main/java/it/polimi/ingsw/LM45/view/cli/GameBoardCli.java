@@ -79,8 +79,8 @@ public class GameBoardCli {
 		harvestSlots.add(new SlotCli(SlotType.HARVEST, 0, boardConfiguration.getSlotBonuses(SlotType.HARVEST, 0)));
 		productionSlots.add(new SlotCli(SlotType.PRODUCTION, 0, boardConfiguration.getSlotBonuses(SlotType.PRODUCTION, 0)));
 		if (playersUsername.length > 2) {
-			harvestSlots.add(new SlotCli(SlotType.HARVEST, 1, boardConfiguration.getSlotBonuses(SlotType.HARVEST, 1)));
-			productionSlots.add(new SlotCli(SlotType.PRODUCTION, 1, boardConfiguration.getSlotBonuses(SlotType.PRODUCTION, 1)));
+			harvestSlots.add(new SlotCli(SlotType.HARVEST, 1, 1, -3, boardConfiguration.getSlotBonuses(SlotType.HARVEST, 1)));
+			productionSlots.add(new SlotCli(SlotType.PRODUCTION, 1, 1, -3, boardConfiguration.getSlotBonuses(SlotType.PRODUCTION, 1)));
 		}
 		otherSlots.put(SlotType.HARVEST, harvestSlots.stream().toArray(SlotCli[]::new));
 		otherSlots.put(SlotType.PRODUCTION, productionSlots.stream().toArray(SlotCli[]::new));

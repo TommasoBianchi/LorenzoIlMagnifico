@@ -14,18 +14,29 @@ public class SlotCli {
 
 	private SlotType slotType;
 	private int slotID;
+	private int diceValue;
+	private int diceModifier;
 	private List<Pair<FamiliarColor, PlayerColor>> familiars;
 	private Resource[] immediateResources;
 
-	public SlotCli(SlotType slotType, int slotID, Resource[] immediateResources) {
+	public SlotCli(SlotType slotType, int slotID, int diceValue, int diceModifier, Resource[] immediateResources) {
 		this.slotType = slotType;
 		this.slotID = slotID;
 		this.familiars = new ArrayList<>();
 		this.immediateResources = immediateResources.clone();
+		this.diceModifier = diceModifier;
+		this.diceValue = diceValue;
+	}
+	
+	public SlotCli(SlotType slotType, int slotID, Resource[] immediateResources) {
+		this(slotType,slotID,1,0,immediateResources);
 	}
 
 	public void print() {
-		ConsoleWriter.printShowInfo(slotType + " slot " + slotID);
+		ConsoleWriter.printShowInfo(slotType + " slot " + slotID + " (dice value " + diceValue + ")");
+		if(diceModifier != 0)
+			ConsoleWriter.printShowInfo("");
+			ConsoleWriter.printShowInfo("dice modifier -- " + diceModifier);
 
 		if (immediateResources.length > 0){
 			ConsoleWriter.println("");
