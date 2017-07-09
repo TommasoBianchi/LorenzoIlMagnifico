@@ -105,7 +105,6 @@ public class PersonalBoardController {
 			stage.getIcons().add(new Image("/Image/Cards/LEADER/LeaderCard Cover.jpg"));
 			stage.setTitle(username + " - Personal Board");
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
