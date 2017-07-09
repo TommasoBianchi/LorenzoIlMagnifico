@@ -25,6 +25,13 @@ import it.polimi.ingsw.LM45.network.client.ClientController;
 import it.polimi.ingsw.LM45.util.Pair;
 import it.polimi.ingsw.LM45.view.cli.GameBoardCliOptions.Stage;
 
+/**
+ * It handles the most part of methods called from and to the clientController.
+ * It handles all actions, leaders, familiars, personalBoards, etc...
+ * 
+ * @author Kostandin
+ *
+ */
 public class GameBoardCli {
 
 	private String myUsername;
@@ -45,6 +52,13 @@ public class GameBoardCli {
 	};
 	private Consumer<GameBoardCli> doBonusActionCallback = null;
 
+	/**
+	 * @param playersUsername an array of players usernames
+	 * @param playerColors an array of players colors
+	 * @param excommunications an array of excommunications
+	 * @param boardConfiguration the BoardConfiguration
+	 * @param clientController the client Controller
+	 */
 	public GameBoardCli(String[] playersUsername, PlayerColor[] playerColors, Excommunication[] excommunications,
 			BoardConfiguration boardConfiguration, ClientController clientController) {
 		this.myUsername = clientController.getUsername();
@@ -94,6 +108,9 @@ public class GameBoardCli {
 		otherSlots.put(SlotType.PRODUCTION, productionSlots.stream().toArray(SlotCli[]::new));
 	}
 
+	/**
+	 * Shoes the main options that player can choose
+	 */
 	public void showMain() {
 		printTitle("GameBoard");
 
@@ -108,11 +125,21 @@ public class GameBoardCli {
 		GameBoardCliOptions.navigate(Stage.MAIN, this, additionalOptions);
 	}
 
+	/**
+	 * Shows a list of towers and player has to select which one
+	 * he wants to see
+	 */
 	public void showTowers() {
 		printTitle("Towers");
 		GameBoardCliOptions.navigate(Stage.TOWERS, this);
 	}
 
+	/**
+	 * Shows all slots of the tower that has that particular cardType
+	 * and player has to select in which one to place a familiar
+	 * 
+	 * @param cardType the CardType of the tower
+	 */
 	public void showTower(CardType cardType) {
 		printTitle(cardType + " tower");
 		towers.get(cardType.toSlotType()).print();
@@ -128,6 +155,11 @@ public class GameBoardCli {
 			GameBoardCliOptions.navigate(Stage.SINGLE_TOWER, this);
 	}
 
+	/**
+	 * Show a list of all slots that are not TowerSlot :
+	 * market, production, harvest and council
+	 * and player has to select in which one to place a familiar
+	 */
 	public void showOtherSlots() {
 		printTitle("Other slots");
 		otherSlots.values().stream().flatMap(Arrays::stream).forEach(slot -> {
@@ -146,6 +178,10 @@ public class GameBoardCli {
 			GameBoardCliOptions.navigate(Stage.OTHER_SLOTS, this);
 	}
 
+	/**
+	 * Shows all the Excommunication and the player who has that malus.
+	 * Shows also church support victory points
+	 */
 	public void showExcommunications() {
 		printTitle("Excommunications");
 		for (Excommunication excommunication : excommunications) {
@@ -168,6 +204,10 @@ public class GameBoardCli {
 		GameBoardCliOptions.navigate(Stage.EXCOMMUNICATIONS, this);
 	}
 
+	/**
+	 * Shows the list of PersonalBoard and player has to select
+	 * which one he wants to see
+	 */
 	public void showPersonalBoards() {
 		printTitle("Personal Boards");
 		GameBoardCliOptions.navigate(Stage.PERSONAL_BOARDS, this,
@@ -233,7 +273,7 @@ public class GameBoardCli {
 
 	/**
 	 * @param leader
-	 *            leader to discard
+	 *            the leader to discard
 	 */
 	public void discardLeader(LeaderCard leader) {
 		clientController.discardLeaderCard(leader.getName());
@@ -241,7 +281,7 @@ public class GameBoardCli {
 
 	/**
 	 * @param leader
-	 *            leader to play
+	 *            the leader to play
 	 */
 	public void playLeader(LeaderCard leader) {
 		clientController.playLeaderCard(leader.getName());
@@ -249,7 +289,7 @@ public class GameBoardCli {
 
 	/**
 	 * @param leader
-	 *            leader to activate
+	 *            the leader to activate
 	 */
 	public void activateLeader(LeaderCard leader) {
 		clientController.activateLeaderCard(leader.getName());
@@ -263,6 +303,9 @@ public class GameBoardCli {
 		this.setFamiliarCallback = callback;
 	}
 
+	/**
+	 * A Method to set to setFamiliarCallback an empty function
+	 */
 	public void clearFamiliarCallback() {
 		setFamiliarCallback = gameBoard -> {};
 	}
@@ -287,11 +330,11 @@ public class GameBoardCli {
 
 	/**
 	 * @param familiarColor
-	 *            color of the familiar selected
+	 *            the color of the familiar selected
 	 * @param value
-	 *            value of the familiar selected
+	 *            the value of the familiar selected
 	 * @param slot
-	 *            slot selected
+	 *            the slot selected
 	 * @param backCallback
 	 *            the CallBack to call again placeFamiliar method
 	 */
@@ -310,7 +353,7 @@ public class GameBoardCli {
 
 	/**
 	 * @param familiarColor
-	 *            color of the familiar
+	 *            the color of the familiar
 	 */
 	public void increaseFamiliarValue(FamiliarColor familiarColor) {
 		clientController.increaseFamiliarValue(familiarColor);
@@ -326,6 +369,9 @@ public class GameBoardCli {
 		clientController.placeFamiliar(familiarColor, slot.getSlotType(), slot.getID());
 	}
 
+	/**
+	 * notifies the player that is it's turn and changes currentPlayer = myUsername
+	 */
 	public void myTurn() {
 		ConsoleWriter.println("");
 		ConsoleWriter.printValidInput("It's your Turn !");
@@ -365,7 +411,7 @@ public class GameBoardCli {
 
 	/**
 	 * @param cards
-	 *            cards to add to the tower
+	 *            an array of cards to add to the tower
 	 * @param slotType
 	 *            the type of tower : BUILDING, TERRITORY, VENTURE and CHARACTER
 	 */
@@ -378,9 +424,9 @@ public class GameBoardCli {
 
 	/**
 	 * @param resources
-	 *            resources to set
+	 *            an array of resources to set
 	 * @param username
-	 *            username of the player to set resources
+	 *            the username of the player to set resources
 	 */
 	public void setResources(Resource[] resources, String username) {
 		usersPersonalBoards.get(username).setResources(resources);
@@ -388,11 +434,11 @@ public class GameBoardCli {
 
 	/**
 	 * @param username
-	 *            username of the player
+	 *            the username of the player
 	 * @param familiarColor
-	 *            color of the familiar
+	 *            the color of the familiar
 	 * @param value
-	 *            new value to set to the familiar
+	 *            the new value to set to the familiar
 	 */
 	public void setFamiliarValue(String username, FamiliarColor familiarColor, int value) {
 		if (familiarColor == FamiliarColor.BONUS) {
@@ -416,7 +462,7 @@ public class GameBoardCli {
 	 * @param familiarColor
 	 *            the color of the familiar
 	 * @param playerColor
-	 *            the color oft he player
+	 *            the color of the player
 	 */
 	public void addFamiliar(SlotType slotType, int position, FamiliarColor familiarColor, PlayerColor playerColor) {
 		ConsoleWriter.println("");
@@ -495,7 +541,7 @@ public class GameBoardCli {
 
 	/**
 	 * @param slot slot selected for bonus action
-	 * @param value	valueof the bonus action
+	 * @param value	value of the bonus action
 	 * @param doBonusActionCallback callback for doBonusAction
 	 */
 	public void bonusOptions(SlotCli slot, int value, Consumer<GameBoardCli> doBonusActionCallback) {
@@ -529,7 +575,7 @@ public class GameBoardCli {
 
 	/**
 	 * @param leaders
-	 *            leaders to set to my personal board
+	 *            an array of leaders to set to my personal board
 	 */
 	public void setLeaderCards(LeaderCard[] leaders) {
 		usersPersonalBoards.get(myUsername).setLeaderCards(leaders);
@@ -582,12 +628,17 @@ public class GameBoardCli {
 	 * @param username
 	 *            username of the player
 	 * @param personalBonusTile
-	 *            bonus titles of the player
+	 *            personalBonusTile of the player
 	 */
 	public void setPersonalBonusTile(String username, PersonalBonusTile personalBonusTile) {
 		usersPersonalBoards.get(username).setPersonalBonusTile(personalBonusTile);
 	}
 
+	/**
+	 * Called when player choose "End Turn".
+	 * it resets familiarPlacedThisTurn to false, puts doBonusActionCallback = null,
+	 * calls endTurn() method to clientontroller and at the end calls showMain()
+	 */
 	public void endTurn() {
 		familiarPlacedThisTurn = false;
 		doBonusActionCallback = null;
