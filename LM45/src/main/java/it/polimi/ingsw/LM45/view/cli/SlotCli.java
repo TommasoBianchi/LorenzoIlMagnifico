@@ -35,9 +35,7 @@ public class SlotCli {
 	public void print() {
 		ConsoleWriter.printShowInfo(slotType + " slot " + slotID + " (dice value " + diceValue + ")");
 		if(diceModifier != 0)
-			ConsoleWriter.printShowInfo("");
 			ConsoleWriter.printShowInfo("dice modifier -- " + diceModifier);
-
 		if (immediateResources.length > 0){
 			ConsoleWriter.println("");
 			ConsoleWriter.printShowInfo("If you place a familiar on this slot you will receive : "
