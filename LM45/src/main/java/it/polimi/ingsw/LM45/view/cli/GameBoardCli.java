@@ -198,6 +198,10 @@ public class GameBoardCli {
 		GameBoardCliOptions.navigate(Stage.SINGLE_PERSONAL_BOARD, this, options);
 	}
 
+	/**
+	 * @param leaders the list of leaders
+	 * @param showPersonalBoardCallback callback for showPersonalBoard
+	 */
 	public void selectLeader(List<LeaderCard> leaders, Consumer<GameBoardCli> showPersonalBoardCallback) {
 		ConsoleWriter.println("");
 		ConsoleWriter.printChoice("Select a leader if you want to discard, play or activate it");
@@ -210,6 +214,10 @@ public class GameBoardCli {
 		GameBoardCliOptions.navigate(this, options);
 	}
 
+	/**
+	 * @param leader the leader selected
+	 * @param selectLeaderCallback callback for selectLeader
+	 */
 	public void showLeaderOptions(LeaderCard leader, Consumer<GameBoardCli> selectLeaderCallback) {
 		ConsoleWriter.println("");
 		ConsoleWriter.printValidInput("Selected action for Leader  -- " + leader.getName());
@@ -254,8 +262,7 @@ public class GameBoardCli {
 	}
 
 	public void clearFamiliarCallback() {
-		setFamiliarCallback = gameBoard -> {
-		};
+		setFamiliarCallback = gameBoard -> {};
 	}
 
 	/**
@@ -481,6 +488,11 @@ public class GameBoardCli {
 		GameBoardCliOptions.navigate(this, bonusActionOptions);
 	}
 
+	/**
+	 * @param slot slot selected for bonus action
+	 * @param value	valueof the bonus action
+	 * @param doBonusActionCallback callback for doBonusAction
+	 */
 	public void bonusOptions(SlotCli slot, int value, Consumer<GameBoardCli> doBonusActionCallback) {
 		ConsoleWriter.println("");
 		ConsoleWriter.printValidInput("Selected slot " + slot.getNamedID());
