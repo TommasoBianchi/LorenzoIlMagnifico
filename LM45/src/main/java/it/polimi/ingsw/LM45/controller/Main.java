@@ -1,4 +1,4 @@
-	package it.polimi.ingsw.LM45.controller;
+package it.polimi.ingsw.LM45.controller;
 
 import java.io.IOException;
 
@@ -7,29 +7,24 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-	
-	private static final boolean FAST_TESTING = false;
 
 	private Stage primaryStage;
 
 	public void start(Stage stage) {
 		this.primaryStage = stage;
-		
+
 		try {
-			if(FAST_TESTING)
-				ClientLauncher.launch("Tommy", "127.0.0.1", 7000, false, false);
-			else
-				new LobbyController(primaryStage);			
+			new LobbyController(primaryStage);
 		}
 		catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public void stop(){
+
+	public void stop() {
 		ClientLauncher.stop();
 	}
-	
+
 	public Stage getPrimaryStage() {
 		return primaryStage;
 	}

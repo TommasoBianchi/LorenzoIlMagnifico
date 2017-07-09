@@ -751,7 +751,6 @@ public class ServerController {
 				// Do not support Church
 
 				Excommunication excommunication = game.getPlacedExcommunications()[game.getCurrentTurn() / 2 - 1]; // 2 -> 0, 4 -> 1, 6 -> 2
-				// NOTE: not sure if this is going to work
 				excommunication.resolveEffect(effectResolutors.get(username));
 				notifyPlayers(clientInterface -> clientInterface.placeExcommunicationToken(player.getColor(), excommunication.getPeriodType()));
 

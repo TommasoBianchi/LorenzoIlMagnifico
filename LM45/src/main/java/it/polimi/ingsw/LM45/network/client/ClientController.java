@@ -126,12 +126,6 @@ public class ClientController {
 	}
 
 	public int chooseFrom(String[] alternatives) {
-		// TEST
-		boolean fastTest = true;
-		if (fastTest)
-			return 0;
-		// TEST
-
 		int chosenNumber = viewInterface.chooseFrom(alternatives);
 
 		return chosenNumber;
