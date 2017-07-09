@@ -33,6 +33,7 @@ public class GainModifierEffect extends Effect {
 
 	@Override
 	public void resolveEffect(EffectResolutor effectResolutor) {
+		// This does not need to do nothing because this effect will alway be a permanent one
 	}
 
 	@Override
