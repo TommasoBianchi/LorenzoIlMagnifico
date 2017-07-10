@@ -390,8 +390,9 @@ public class GameBoardCli {
 		ConsoleWriter.printValidInput("It's " + username + " Turn !");
 		ConsoleWriter.println("");
 		boolean firstTurnEver = currentPlayer == null;
+		boolean wasMyTurn = myUsername.equals(currentPlayer);
 		this.currentPlayer = username;
-		if (firstTurnEver)
+		if (firstTurnEver || wasMyTurn)
 			showMain();
 	}
 
@@ -637,13 +638,12 @@ public class GameBoardCli {
 	/**
 	 * Called when player choose "End Turn".
 	 * it resets familiarPlacedThisTurn to false, puts doBonusActionCallback = null,
-	 * calls endTurn() method to clientontroller and at the end calls showMain()
+	 * calls endTurn() method to clientController
 	 */
 	public void endTurn() {
 		familiarPlacedThisTurn = false;
 		doBonusActionCallback = null;
 		clientController.endTurn();
-		showMain();
 	}
 
 	/**
