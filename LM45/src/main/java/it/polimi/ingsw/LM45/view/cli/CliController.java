@@ -35,6 +35,7 @@ public class CliController implements ViewInterface {
 			Excommunication[] excommunications, BoardConfiguration boardConfiguration) {
 		synchronized (gameBoardInitializationToken) {
 			gameBoard = new GameBoardCli(playersUsername, playerColors, excommunications, boardConfiguration, clientController);			
+			gameBoardInitializationToken.notifyAll();
 		}
 	}
 
@@ -50,11 +51,15 @@ public class CliController implements ViewInterface {
 
 	@Override
 	public void addCardsOnTower(Card[] cards, SlotType slotType) {
+		if(gameBoard == null)
+			waitGameBoardInitialization();
 		gameBoard.addCardsOnTower(cards, slotType);
 	}
 
 	@Override
 	public void setFamiliar(String username, FamiliarColor familiarColor, int value) {
+		if(gameBoard == null)
+			waitGameBoardInitialization();
 		gameBoard.setFamiliarValue(username, familiarColor, value);
 	}
 
@@ -102,18 +107,24 @@ public class CliController implements ViewInterface {
 
 	@Override
 	public void setResources(Resource[] resources, String username) {
+		if(gameBoard == null)
+			waitGameBoardInitialization();
 		gameBoard.setResources(resources, username);
 
 	}
 
 	@Override
 	public void myTurn() {
+		if(gameBoard == null)
+			waitGameBoardInitialization();
 		gameBoard.myTurn();
 
 	}
 
 	@Override
 	public void playerTurn(String username) {
+		if(gameBoard == null)
+			waitGameBoardInitialization();
 		gameBoard.playerTurn(username);
 	}
 
@@ -177,7 +188,14 @@ public class CliController implements ViewInterface {
 	
 	private void waitGameBoardInitialization(){
 		synchronized (gameBoardInitializationToken) {
-			
+			try {
+				while(gameBoard == null)
+					gameBoardInitializationToken.wait();
+			}
+			catch (InterruptedException e) {
+				Thread.currentThread().interrupt();
+				e.printStackTrace();
+			}
 		}
 	}
 
