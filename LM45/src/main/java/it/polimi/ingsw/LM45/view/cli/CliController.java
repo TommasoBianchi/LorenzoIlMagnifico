@@ -74,8 +74,10 @@ public class CliController implements ViewInterface {
 	public int chooseFrom(String[] alternatives) {
 		ConsoleWriter.println("");
 		ConsoleWriter.printChoice("Choose between : ");
+		ConsoleWriter.println("");
 		for (int i = 0; i < alternatives.length; i++) {
 			ConsoleWriter.printChoice((i + 1) + " - " + alternatives[i]);
+			ConsoleWriter.printChoice("---------------");
 		}
 		
 		try {
